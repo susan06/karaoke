@@ -1,6 +1,6 @@
 <?php
 
-use Vanguard\Role;
+use App\Role;
 use Illuminate\Database\Seeder;
 
 class RolesSeeder extends Seeder
@@ -13,16 +13,23 @@ class RolesSeeder extends Seeder
     public function run()
     {
         Role::create([
-            'name' => 'Admin',
+            'name' => 'admin',
             'display_name' => 'Admin',
             'description' => 'System administrator.',
             'removable' => false
         ]);
 
         Role::create([
-            'name' => 'User',
+            'name' => 'user',
             'display_name' => 'User',
             'description' => 'Default system user.',
+            'removable' => false
+        ]);
+
+        Role::create([
+            'name' => 'dj',
+            'display_name' => 'DJ',
+            'description' => 'Default system DJ.',
             'removable' => false
         ]);
     }

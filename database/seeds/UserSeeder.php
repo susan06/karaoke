@@ -1,8 +1,8 @@
 <?php
 
-use Vanguard\Role;
-use Vanguard\Support\Enum\UserStatus;
-use Vanguard\User;
+use App\Role;
+use App\Support\Enum\UserStatus;
+use App\User;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
@@ -15,18 +15,17 @@ class UserSeeder extends Seeder
     public function run()
     {
         $user = User::create([
-            'first_name' => 'Vanguard',
-            'email' => 'admin@example.com',
+            'first_name' => 'admin_name',
+            'email' => 'admin@admin.com',
             'username' => 'admin',
-            'password' => 'admin123',
+            'password' => 'admin',
             'avatar' => null,
-            'country_id' => null,
             'status' => UserStatus::ACTIVE
         ]);
 
-        $admin = Role::where('name', 'Admin')->first();
+        $admin = Role::where('name', 'admin')->first();
 
         $user->attachRole($admin);
-        $user->socialNetworks()->create([]);
+
     }
 }
