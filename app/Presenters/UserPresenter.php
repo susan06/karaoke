@@ -29,29 +29,6 @@ class UserPresenter extends Presenter
             : url("upload/users/{$this->entity->avatar}");
     }
 
-    public function birthday()
-    {
-        return $this->entity->birthday
-            ? $this->entity->birthday->toDateString()
-            : '-';
-    }
-
-    public function fullAddress()
-    {
-        $address = '';
-        $user = $this->entity;
-
-        if ($user->address) {
-            $address .= $user->address;
-        }
-
-        if ($user->country_id) {
-            $address .= $user->address ? ", {$user->country->name}" : $user->country->name;
-        }
-
-        return $address ?: '-';
-    }
-
     public function lastLogin()
     {
         return $this->entity->last_login

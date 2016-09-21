@@ -1,13 +1,7 @@
 <?php
 
-/**
- * This file is part of a Telma Web
- *
- * @licence Reserved to Telma
- *
- */
 
-namespace Telma\Repositories\Contracts;
+namespace App\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
 

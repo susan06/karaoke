@@ -5,8 +5,9 @@ namespace App\Repositories\Activity;
 use App\Services\Logging\UserActivity\Activity;
 use Carbon\Carbon;
 use DB;
+use App\Repositories\Repository;
 
-class EloquentActivity implements ActivityRepository
+class EloquentActivity extends Repository implements ActivityRepository
 {
     /**
      * {@inheritdoc}

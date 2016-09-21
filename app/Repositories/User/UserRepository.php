@@ -4,9 +4,11 @@ namespace App\Repositories\User;
 
 use App\User;
 use \Laravel\Socialite\Contracts\User as SocialUser;
+use App\Repositories\RepositoryInterface;
 
-interface UserRepository
+interface UserRepository extends RepositoryInterface
 {
+
     /**
      * Paginate registered users.
      *
@@ -15,15 +17,7 @@ interface UserRepository
      * @param null $status
      * @return mixed
      */
-    public function paginate($perPage, $search = null, $status = null);
-
-    /**
-     * Find user by its id.
-     *
-     * @param $id
-     * @return null|User
-     */
-    public function find($id);
+    public function index($perPage, $search = null, $status = null);
 
     /**
      * Find user by email.
@@ -41,31 +35,6 @@ interface UserRepository
      * @return mixed
      */
     public function findBySocialId($provider, $providerId);
-
-    /**
-     * Create new user.
-     *
-     * @param array $data
-     * @return mixed
-     */
-    public function create(array $data);
-
-    /**
-     * Update user specified by it's id.
-     *
-     * @param $id
-     * @param array $data
-     * @return mixed
-     */
-    public function update($id, array $data);
-
-    /**
-     * Delete user with provided id.
-     *
-     * @param $id
-     * @return mixed
-     */
-    public function delete($id);
 
     /**
      * Associate account details returned from social network

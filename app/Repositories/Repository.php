@@ -1,8 +1,7 @@
 <?php
 
-namespace Telma\Repositories\Eloquent;
+namespace App\Repositories;
 
-use Telma\Repositories\Contracts\RepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -31,22 +30,6 @@ abstract class Repository implements RepositoryInterface
     public function __construct($modelClass)
     {
         $this->model = $modelClass;
-    }
-
-
-    /**
-     * Create
-     *
-     * Creates a new model.
-     *
-     * @param array $attributes
-     *
-     * @return Model
-     *
-     */
-    public function create(array $attributes)
-    {
-        return $this->model->create($attributes);
     }
 
 
@@ -117,22 +100,6 @@ abstract class Repository implements RepositoryInterface
     }
 
     /**
-     * Update
-     *
-     * Update the model find by id with de given data.
-     *
-     * @param $id
-     * @param array $newData
-     */
-    public function update($id, array $newData)
-    {
-        $model = $this->find($id);
-        $model->update($newData);
-
-        return $model;
-    }
-
-    /**
      * Paginate
      *
      * return the result paginated for the take value and with the attributes.
@@ -143,7 +110,7 @@ abstract class Repository implements RepositoryInterface
      * @return mixed
      *
      */
-    public function paginate($take = 10, array $attributes = ['*'])
+    public function paginate($perPage, $search = null, $status = null);
     {
         return $this->model->paginate($take, $attributes);
     }
@@ -161,20 +128,6 @@ abstract class Repository implements RepositoryInterface
     public function with(array $relationships)
     {
         return $this->model->with($relationships);
-    }
-
-    /**
-     * Destroy
-     *
-     * Delete the model find by the given id.
-     *
-     * @param $id
-     */
-    public function destroy($id)
-    {
-        $this->model->destroy($id);
-
-        return;
     }
 
     /**

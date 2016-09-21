@@ -2,25 +2,11 @@
 
 namespace App\Repositories\Role;
 
+use App\Repositories\RepositoryInterface;
 use App\Role;
 
-interface RoleRepository
+interface RoleRepository extends RepositoryInterface
 {
-    /**
-     * Get all system roles.
-     *
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
-    public function all();
-
-    /**
-     * Lists all system roles into $key => $column value pairs.
-     *
-     * @param string $column
-     * @param string $key
-     * @return mixed
-     */
-    public function lists($column = 'name', $key = 'id');
 
     /**
      * Get all system roles with number of users for each role.
@@ -28,14 +14,6 @@ interface RoleRepository
      * @return mixed
      */
     public function getAllWithUsersCount();
-
-    /**
-     * Find system role by id.
-     *
-     * @param $id Role Id
-     * @return Role|null
-     */
-    public function find($id);
 
     /**
      * Find role by name:
@@ -70,12 +48,4 @@ interface RoleRepository
      */
     public function delete($id);
 
-    /**
-     * Update the permissions for given role.
-     *
-     * @param $roleId
-     * @param array $permissions
-     * @return mixed
-     */
-    public function updatePermissions($roleId, array $permissions);
 }

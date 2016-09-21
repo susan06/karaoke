@@ -8,18 +8,11 @@ use App\Events\Role\Updated;
 use App\Role;
 use App\Support\Authorization\CacheFlusherTrait;
 use DB;
+use App\Repositories\Repository;
 
-class EloquentRole implements RoleRepository
+class EloquentRole extends Repository implements RoleRepository
 {
     use CacheFlusherTrait;
-
-    /**
-     * {@inheritdoc}
-     */
-    public function all()
-    {
-        return Role::all();
-    }
 
     /**
      * {@inheritdoc}
@@ -32,14 +25,6 @@ class EloquentRole implements RoleRepository
             ->select('roles.*', DB::raw("count({$prefix}role_user.user_id) as users_count"))
             ->groupBy('roles.id')
             ->get();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function find($id)
-    {
-        return Role::find($id);
     }
 
     /**
@@ -90,14 +75,6 @@ class EloquentRole implements RoleRepository
         $role->perms()->sync($permissions);
 
         $this->flushRolePermissionsCache($role);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function lists($column = 'name', $key = 'id')
-    {
-        return Role::lists($column, $key);
     }
 
     /**

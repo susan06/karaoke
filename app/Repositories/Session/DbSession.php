@@ -4,8 +4,9 @@ namespace App\Repositories\Session;
 
 use App\Repositories\User\UserRepository;
 use DB;
+use App\Repositories\RepositoryInterface;
 
-class DbSession implements SessionRepository
+class DbSession extends Repository implements SessionRepository
 {
     /**
      * @var UserRepository

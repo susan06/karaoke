@@ -4,8 +4,9 @@ namespace App\Repositories\Activity;
 
 use Carbon\Carbon;
 use Illuminate\Contracts\Pagination\Paginator;
+use App\Repositories\RepositoryInterface;
 
-interface ActivityRepository
+interface ActivityRepository extends RepositoryInterface
 {
     /**
      * Log user activity.

@@ -10,8 +10,9 @@ use Carbon\Carbon;
 use DB;
 use Illuminate\Database\SQLiteConnection;
 use Laravel\Socialite\Contracts\User as SocialUser;
+use App\Repositories\Repository;
 
-class EloquentUser implements UserRepository
+class EloquentUser extends Repository implements UserRepository
 {
     /**
      * @var UserAvatarManager
@@ -26,14 +27,6 @@ class EloquentUser implements UserRepository
     {
         $this->avatarManager = $avatarManager;
         $this->roles = $roles;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function find($id)
-    {
-        return User::find($id);
     }
 
     /**
@@ -81,7 +74,7 @@ class EloquentUser implements UserRepository
     /**
      * {@inheritdoc}
      */
-    public function paginate($perPage, $search = null, $status = null)
+    public function index($perPage, $search = null, $status = null)
     {
         $query = User::query();
 

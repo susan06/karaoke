@@ -14,9 +14,9 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
+        \App\Http\Middleware\VerifyInstallation::class,
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
     ];
-
     /**
      * The application's route middleware groups.
      *
@@ -30,7 +30,6 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
         ],
-
         'api' => [
             'throttle:60,1',
         ],
@@ -39,15 +38,16 @@ class Kernel extends HttpKernel
     /**
      * The application's route middleware.
      *
-     * These middleware may be assigned to groups or used individually.
-     *
      * @var array
      */
     protected $routeMiddleware = [
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'can' => \Illuminate\Foundation\Http\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
-        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'registration' => \App\Http\Middleware\Registration::class,
+        'social.login' => \App\Http\Middleware\SocialLogin::class,
+        'role' => \Zizaco\Entrust\Middleware\EntrustRole::class,
+        'ability' => \Zizaco\Entrust\Middleware\EntrustAbility::class,
+        'session.database' => \App\Http\Middleware\DatabaseSession::class
     ];
 }
