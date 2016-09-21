@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\User\Registered;
+use App\Listeners\RoleEventsSubscriber;
+use App\Listeners\UserEventsSubscriber;
+use App\Listeners\UserWasRegisteredListener;
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -13,9 +17,17 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\SomeEvent' => [
-            'App\Listeners\EventListener',
-        ],
+        Registered::class => [UserWasRegisteredListener::class]
+    ];
+
+    /**
+     * The subscriber classes to register.
+     *
+     * @var array
+     */
+    protected $subscribe = [
+        UserEventsSubscriber::class,
+        RoleEventsSubscriber::class,
     ];
 
     /**

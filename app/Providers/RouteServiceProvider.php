@@ -2,13 +2,17 @@
 
 namespace App\Providers;
 
+use App\Repositories\Role\RoleRepository;
+use App\Repositories\User\UserRepository;
+use App\Role;
 use Illuminate\Routing\Router;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class RouteServiceProvider extends ServiceProvider
 {
     /**
-     * This namespace is applied to your controller routes.
+     * This namespace is applied to the controller routes in your routes file.
      *
      * In addition, it is set as the URL generator's root namespace.
      *
@@ -24,9 +28,10 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot(Router $router)
     {
-        //
-
         parent::boot($router);
+
+        $this->bindUser($router);
+        $this->bindRole($router);
     }
 
     /**
@@ -38,8 +43,6 @@ class RouteServiceProvider extends ServiceProvider
     public function map(Router $router)
     {
         $this->mapWebRoutes($router);
-
-        //
     }
 
     /**
@@ -56,6 +59,30 @@ class RouteServiceProvider extends ServiceProvider
             'namespace' => $this->namespace, 'middleware' => 'web',
         ], function ($router) {
             require app_path('Http/routes.php');
+        });
+    }
+
+    /**
+     * @param Router $router
+     */
+    private function bindUser(Router $router)
+    {
+        $this->bindUsingRepository($router, 'user', UserRepository::class);
+    }
+
+    private function bindRole(Router $router)
+    {
+        $this->bindUsingRepository($router, 'role', RoleRepository::class);
+    }
+
+    private function bindUsingRepository($router, $entity, $repositoryClass, $method = 'find')
+    {
+        $router->bind($entity, function ($id) use($repositoryClass, $method) {
+            if ($object = app($repositoryClass)->$method($id)) {
+                return $object;
+            }
+
+            throw new NotFoundHttpException;
         });
     }
 }

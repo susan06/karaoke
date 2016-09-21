@@ -2,6 +2,15 @@
 
 namespace App\Providers;
 
+use Carbon\Carbon;
+use App\Repositories\Activity\ActivityRepository;
+use App\Repositories\Activity\EloquentActivity;
+use App\Repositories\Role\EloquentRole;
+use App\Repositories\Role\RoleRepository;
+use App\Repositories\Session\DbSession;
+use App\Repositories\Session\SessionRepository;
+use App\Repositories\User\EloquentUser;
+use App\Repositories\User\UserRepository;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +22,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Carbon::setLocale(config('app.locale'));
     }
 
     /**
@@ -23,6 +32,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(UserRepository::class, EloquentUser::class);
+        $this->app->singleton(ActivityRepository::class, EloquentActivity::class);
+        $this->app->singleton(RoleRepository::class, EloquentRole::class);
+        $this->app->singleton(SessionRepository::class, DbSession::class);
+
+        if ($this->app->environment('local')) {
+            $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
+            $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
+        }
     }
 }
