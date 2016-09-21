@@ -6,7 +6,12 @@
     "type": "project",
     "require": {
         "php": ">=5.5.9",
-        "laravel/framework": "5.2.*"
+        "laravel/framework": "5.2.*",
+        "proengsoft/laravel-jsvalidation": "~1.1",
+        "laravelcollective/html": "^5.1",
+        "zizaco/entrust": "^1.5",
+        "uxweb/sweet-alert": "~1.1",
+        "laravel/socialite": "^2.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
