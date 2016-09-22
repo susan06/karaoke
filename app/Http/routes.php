@@ -12,38 +12,35 @@ Route::get('logout', [
     'uses' => 'Auth\AuthController@getLogout'
 ]);
 
-// Allow registration routes only if registration is enabled.
-if (settings('reg_enabled')) {
-    Route::get('register', 'Auth\AuthController@getRegister');
-    Route::post('register', 'Auth\AuthController@postRegister');
-    Route::get('register/confirmation/{token}', [
-        'as' => 'register.confirm-email',
-        'uses' => 'Auth\AuthController@confirmEmail'
-    ]);
-}
 
-// Register password reset routes only if it is enabled inside website settings.
-if (settings('forgot_password')) {
-    Route::get('password/remind', 'Auth\PasswordController@forgotPassword');
-    Route::post('password/remind', 'Auth\PasswordController@sendPasswordReminder');
-    Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
-    Route::post('password/reset', 'Auth\PasswordController@postReset');
-}
+Route::get('register', 'Auth\AuthController@getRegister');
+Route::post('register', 'Auth\AuthController@postRegister');
+Route::get('register/confirmation/{token}', [
+    'as' => 'register.confirm-email',
+    'uses' => 'Auth\AuthController@confirmEmail'
+]);
+
+
+Route::get('password/remind', 'Auth\PasswordController@forgotPassword');
+Route::post('password/remind', 'Auth\PasswordController@sendPasswordReminder');
+Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
+Route::post('password/reset', 'Auth\PasswordController@postReset');
+
 
 /**
  * Two-Factor Authentication
  */
-if (settings('2fa.enabled')) {
-    Route::get('auth/two-factor-authentication', [
-        'as' => 'auth.token',
-        'uses' => 'Auth\AuthController@getToken'
-    ]);
 
-    Route::post('auth/two-factor-authentication', [
-        'as' => 'auth.token.validate',
-        'uses' => 'Auth\AuthController@postToken'
-    ]);
-}
+Route::get('auth/two-factor-authentication', [
+    'as' => 'auth.token',
+    'uses' => 'Auth\AuthController@getToken'
+]);
+
+Route::post('auth/two-factor-authentication', [
+    'as' => 'auth.token.validate',
+    'uses' => 'Auth\AuthController@postToken'
+]);
+
 
 /**
  * Social Login

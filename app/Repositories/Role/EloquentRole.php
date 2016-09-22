@@ -15,6 +15,17 @@ class EloquentRole extends Repository implements RoleRepository
     use CacheFlusherTrait;
 
     /**
+     * EloquentRole constructor.
+     *
+     * @param Role $role
+     *
+     */
+    public function __construct(Role $role)
+    {
+        parent::__construct($role);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getAllWithUsersCount()

@@ -8,7 +8,6 @@ use App\Repositories\RepositoryInterface;
 
 interface UserRepository extends RepositoryInterface
 {
-
     /**
      * Paginate registered users.
      *

@@ -110,7 +110,7 @@ abstract class Repository implements RepositoryInterface
      * @return mixed
      *
      */
-    public function paginate($perPage, $search = null, $status = null);
+    public function paginate($take = 10, array $attributes = ['*'])
     {
         return $this->model->paginate($take, $attributes);
     }

@@ -9,6 +9,17 @@ use App\Repositories\Repository;
 
 class EloquentActivity extends Repository implements ActivityRepository
 {
+     /**
+     * EloquentRole constructor.
+     *
+     * @param Activity $activity
+     *
+     */
+    public function __construct(Activity $activity)
+    {
+        parent::__construct($activity);
+    }
+
     /**
      * {@inheritdoc}
      */

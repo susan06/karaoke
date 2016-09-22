@@ -23,10 +23,11 @@ class EloquentUser extends Repository implements UserRepository
      */
     private $roles;
 
-    public function __construct(UserAvatarManager $avatarManager, RoleRepository $roles)
+    public function __construct(UserAvatarManager $avatarManager, RoleRepository $roles, User $user)
     {
         $this->avatarManager = $avatarManager;
         $this->roles = $roles;
+        parent::__construct($user);
     }
 
     /**

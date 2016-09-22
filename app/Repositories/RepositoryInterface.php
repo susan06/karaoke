@@ -14,17 +14,6 @@ use Illuminate\Database\Eloquent\Model;
  */
 interface RepositoryInterface
 {
-    /**
-     * Create
-     *
-     * Creates a new model.
-     *
-     * @param array $attributes
-     *
-     * @return Model
-     *
-     */
-    public function create(array $attributes);
 
     /**
      * First or create.
@@ -78,16 +67,6 @@ interface RepositoryInterface
     public function where($needle, $hayStack, $option = '=');
 
     /**
-     * Update
-     *
-     * Update the model find by id with de given data.
-     *
-     * @param $id
-     * @param array $newData
-     */
-    public function update($id, array $newData);
-
-    /**
      * Paginate
      *
      * return the result paginated for the take value and with the attributes.
@@ -111,15 +90,6 @@ interface RepositoryInterface
      *
      */
     public function with(array $relationships);
-    
-    /**
-     * Destroy
-     *
-     * Delete the user find by the given id.
-     *
-     * @param $id
-     */
-    public function destroy($id);
 
     /**
      * Active
