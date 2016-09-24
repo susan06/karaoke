@@ -14,23 +14,55 @@
     <meta name="msapplication-TileColor" content="#FFFFFF" />
     <meta name="msapplication-TileImage" content="" />
 
-    {{-- For production, it is recommended to combine following styles into one. --}}
-    {!! HTML::style('assets/bootstrap/css/bootstrap.min.css') !!}
-    {!! HTML::style('assets/bootstrap/fonts/font-awesome.min.css') !!}
-    {!! HTML::style('assets/css/sweetalert.min.css') !!}
-    {!! HTML::style('assets/css/bootstrap-social.css') !!}
+    <!-- Bootstrap CSS -->    
+    {!! HTML::style("assets/css/bootstrap.min.css") !!}
+     <!-- bootstrap theme -->
+    {!! HTML::style("assets/css/bootstrap-theme.css") !!}
+
+     <!--external css-->
+    <!-- font icon -->
+    {!! HTML::style("assets/css/elegant-icons-style.css") !!}
+    {!! HTML::style("assets/css/font-awesome.css") !!}
+    <!-- Custom styles -->
+    {!! HTML::style("assets/css/style.css") !!}
+    {!! HTML::style("assets/css/style-responsive.css") !!}
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
 
     @yield('styles')
 </head>
 <body>
 
-    @yield('content')
+ <!-- container section start -->
+  <section id="container">
+      <!--header start-->
 
-    {{-- For production, it is recommended to combine following scripts into one. --}}
+    @include('partials.header')
+
+    @include('partials.menu')
+
+    <!--main content start-->
+      <section id="main-content">
+          <section class="wrapper">
+                @yield('content')
+          </section>
+      </section>
+    <!--main content end-->                
+
+  </section>
+  <!-- container section end -->
 
     {!! HTML::script('assets/js/jquery-2.1.4.min.js') !!}
+
     {!! HTML::script('assets/bootstrap/js/bootstrap.min.js') !!}
+
     {!! HTML::script('assets/plugins/js-cookie/js.cookie.js') !!}
+
     <script type="text/javascript">
         $.ajaxSetup({
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
@@ -42,6 +74,11 @@
     {!! HTML::script('assets/js/sweetalert.min.js') !!}
 
     {!! HTML::script('assets/js/delete.handler.js') !!}
+
+    <!-- nice scroll -->
+    {!! HTML::script('assets/js/jquery.scrollTo.min.js') !!}
+    {!! HTML::script('assets/js/jquery.nicescroll.js') !!}
+    {!! HTML::script('assets/js/scripts.js') !!}
 
     @include('sweet::alert')
 

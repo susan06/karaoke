@@ -64,49 +64,8 @@ class SocialAuthController extends Controller
         $user = $this->users->findBySocialId($provider, $socialUser->getId());
 
         if (! $user) {
-            if (! settings('reg_enabled')) {
-                return redirect('login')->withErrors(trans('app.only_users_with_account_can_login'));
-            }
-
-            // Only allow missing email from Twitter provider
-            if (! $socialUser->getEmail()) {
-                return strtolower($provider) == 'twitter'
-                    ? $this->handleMissingEmail($socialUser)
-                    : redirect('login')->withErrors(trans('app.you_have_to_provide_email'));
-            }
-
             $user = $this->createOrAssociateAccountForUser($socialUser, $provider);
         }
-
-        return $this->loginAndRedirect($user);
-    }
-
-    /**
-     * Display form where users authenticated for the first time via
-     * Twitter can provide their emails address.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function getTwitterEmail()
-    {
-        $account = $this->getSocialAccountFromSession();
-
-        return view('auth.social.twitter-email', compact('account'));
-    }
-
-    /**
-     * Save provided email address and log the user in.
-     *
-     * @param SaveEmailRequest $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function postTwitterEmail(SaveEmailRequest $request)
-    {
-        $account = $this->getSocialAccountFromSession();
-
-        $account->email = $request->get('email');
-
-        $user = $this->createOrAssociateAccountForUser($account, 'twitter');
 
         return $this->loginAndRedirect($user);
     }
@@ -152,7 +111,7 @@ class SocialAuthController extends Controller
 
             $this->users->updateSocialNetworks($user->id, []);
 
-            $role = $this->roles->findByName('User');
+            $role = $this->roles->findByName('user');
             $this->users->setRole($user->id, $role->id);
         }
 
@@ -201,11 +160,6 @@ class SocialAuthController extends Controller
      */
     private function loginAndRedirect($user)
     {
-        if (settings('2fa.enabled') && Authy::isEnabled($user)) {
-            session()->put('auth.2fa.id', $user->id);
-            return redirect()->route('auth.token');
-        }
-
         Auth::login($user);
 
         return redirect()->intended('/');

@@ -17,9 +17,9 @@ return [
     'action' => 'Acción',
 
     // Activity Log Section
-    'activity_log' => 'Registro de Actividades',
+    'activity_log' => 'Historial',
     'activity_log_sm' => 'activity log',
-    'activity_log_all_users' => 'registro de actividades para todos los usuarios',
+    'activity_log_all_users' => 'Historial de los usuarios',
     'search_for_action' => 'Búsqueda de acción...',
     'latest_activity' => 'Actividad más reciente',
     'view_all' => 'Ver Todo',
@@ -471,5 +471,23 @@ return [
         'October' => 'Octubre',
         'November' => 'Noviembre',
         'December' => 'Diciembre',
-    ]
+    ],
+
+    // reservations
+
+    'reservations' => 'Reservaciones',
+
+    // songs
+
+    'songs' => 'Canciones',
+    'popular_songs' => 'Top de canciones',
+    'requested_songs' => 'Canciones solitadas', 
+
+    //clients
+
+    'clients' => 'Clientes',
+
+    //background
+
+    'background' => 'background',
 ];

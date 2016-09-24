@@ -2551,6 +2551,7 @@ ul.ft-link li a i {
     -webkit-border-radius: 50%;
     border: 2px solid #688a7e;
     display: inline-block;
+    max-width: 30px;
 }
 .profile-ava img.simple{
     border-radius: 50%;
@@ -4944,4 +4945,14 @@ span.customSelect.changed {
 }
 .blue {
     color: #39579B;
+}
+a.white {
+    color: #FFFFFF !important;
+}
+a.white:hover {
+    color: #39579B !important;
+    font-weight: bold;
+}
+.list-group-item img.img-circle {
+    height: 30px;
 }

@@ -9,7 +9,7 @@
 	{!! Form::open(['class' => 'login-form', 'id' => 'login-form']) !!}     
         <div class="login-wrap">
             <p class="login-img"><i class="social_facebook_circle blue"></i></p>
-             <button class="btn btn-primary btn-lg btn-block" type="submit">Sign in with facebook</button>
+            <a href="{{ url('auth/facebook/login') }}" class="btn btn-primary btn-lg btn-block white">Sign in with facebook</a>
         </div>
 	{!! Form::close() !!}	
 </div>

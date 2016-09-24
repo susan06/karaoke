@@ -5,10 +5,15 @@
  */
 
 Route::get('login', 'Auth\AuthController@getLoginFacebook');
-Route::post('login', 'Auth\AuthController@getLoginFacebook');
 
-Route::get('panel', 'Auth\AuthController@getLogin');
-Route::post('panel', 'Auth\AuthController@getLogin');
+Route::get('/panel', [
+    'as' => 'get.panel',
+    'uses' => 'Auth\AuthController@getLogin'
+]);
+Route::post('/panel', [
+    'as' => 'post.panel',
+    'uses' => 'Auth\AuthController@postLogin'
+]);
 
 Route::get('logout', [
     'as' => 'auth.logout',
@@ -46,7 +51,7 @@ Route::post('auth/two-factor-authentication', [
 
 
 /**
- * Social Login
+ * Social Facebook Login
  */
 Route::get('auth/{provider}/login', [
     'as' => 'social.login',
@@ -55,9 +60,6 @@ Route::get('auth/{provider}/login', [
 ]);
 
 Route::get('auth/{provider}/callback', 'Auth\SocialAuthController@handleProviderCallback');
-
-Route::get('auth/twitter/email', 'Auth\SocialAuthController@getTwitterEmail');
-Route::post('auth/twitter/email', 'Auth\SocialAuthController@postTwitterEmail');
 
 /**
  * Other

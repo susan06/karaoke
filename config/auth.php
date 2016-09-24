@@ -2,6 +2,10 @@
 
 return [
 
+    'social' => [
+        'providers' => ['facebook']
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Authentication Defaults
@@ -103,5 +107,13 @@ return [
             'expire' => 60,
         ],
     ],
+
+    'throttle_enabled' => true, 
+
+    'throttle_attempts' => 3, 
+
+    'throttle_lockout_time' => 2,
+
+    'reg_email_confirmation' => 1,
 
 ];
