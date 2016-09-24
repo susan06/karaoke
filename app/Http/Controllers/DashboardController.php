@@ -76,13 +76,7 @@ class DashboardController extends Controller
      */
     private function defaultDashboard()
     {
-        $activities = $this->activities->userActivityForPeriod(
-            Auth::user()->id,
-            Carbon::now()->subWeeks(2),
-            Carbon::now()
-        )->toArray();
-
-        return view('dashboard.default', compact('activities'));
+        return view('dashboard.default');
     }
 
 

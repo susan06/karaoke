@@ -3,13 +3,13 @@
           <div id="sidebar"  class="nav-collapse ">
               <!-- sidebar menu start-->
               <ul class="sidebar-menu">                
+                  @if (Auth::user()->hasRole('admin'))
                   <li class="">
-                      <a class="" href="index.html">
+                      <a class="" href="{{route('dashobard')}}">
                           <i class="icon_house_alt"></i>
                           <span>Dashboard</span>
                       </a>
                   </li>
-                  @if (Auth::user()->hasRole('admin'))
 				          <li class="sub-menu">
                       <a href="#" class="">
                           <i class="fa fa-user"></i>
@@ -56,7 +56,40 @@
                           <li><a class="" href="#">@lang('app.background')</a></li>
                       </ul>
                   </li>
-                  @endif        
+                  @endif  
+                  @if (Auth::user()->hasRole('user'))
+                  <li class="sub-menu">
+                      <a href="#" class="">
+                          <i class="fa-play-circle"></i>
+                          <span>@lang('app.ask_song')</span>
+                      </a>
+                  </li>
+                  <li class="sub-menu">
+                      <a href="#" class="">
+                          <i class="fa fa-bars"></i>
+                          <span>@lang('app.my_list')</span>
+                      </a>
+                  </li>
+                  <li class="sub-menu">
+                      <a href="#" class="">
+                          <i class="fa fa-play-circle"></i>
+                          <span>@lang('app.most_requested')</span>
+                      </a>
+                  </li>
+                   <li class="sub-menu">
+                      <a href="#" class="">
+                          <i class="fa fa-search"></i>
+                          <span>@lang('app.advanced_search')</span>
+                      </a>
+                  </li>
+                  <li class="sub-menu">
+                      <a href="#" class="">
+                          <i class="fa fa-check-circle"></i>
+                          <span>@lang('app.reservation_table')</span>
+                      </a>
+                  </li>
+
+                  @endif      
               </ul>
               <!-- sidebar menu end-->
           </div>
