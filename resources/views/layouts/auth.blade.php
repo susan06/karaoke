@@ -6,14 +6,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>@yield('page-title') | app</title>
+    <title>Karaoke | @yield('page-title')</title>
 
-    {!! HTML::style("assets/bootstrap/css/bootstrap.min.css") !!}
-    {!! HTML::style("assets/css/bootstrap-social.css") !!}
+    <!-- Bootstrap CSS -->    
+    {!! HTML::style("assets/css/bootstrap.min.css") !!}
+     <!-- bootstrap theme -->
+    {!! HTML::style("assets/css/bootstrap-theme.css") !!}
+
+     <!--external css-->
+    <!-- font icon -->
+    {!! HTML::style("assets/css/elegant-icons-style.css") !!}
+    {!! HTML::style("assets/css/font-awesome.css") !!}
+    <!-- Custom styles -->
+    {!! HTML::style("assets/css/style.css") !!}
+    {!! HTML::style("assets/css/style-responsive.css") !!}
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
 
     @yield('header-scripts')
 </head>
-<body class="auth">
+<body @yield('class-bg')>
 
     <div class="container">
 
@@ -22,7 +38,7 @@
         <footer id="footer">
             <div class="container">
                 <div class="row">
-                    <div class="col-xs-12">
+                    <div class="copyrights">
                         <p>@lang('app.copyright') © - App {{ date('Y') }}</p>
                     </div>
                 </div>

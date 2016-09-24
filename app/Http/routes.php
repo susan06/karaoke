@@ -4,8 +4,11 @@
  * Authentication
  */
 
-Route::get('login', 'Auth\AuthController@getLogin');
-Route::post('login', 'Auth\AuthController@postLogin');
+Route::get('login', 'Auth\AuthController@getLoginFacebook');
+Route::post('login', 'Auth\AuthController@getLoginFacebook');
+
+Route::get('panel', 'Auth\AuthController@getLogin');
+Route::post('panel', 'Auth\AuthController@getLogin');
 
 Route::get('logout', [
     'as' => 'auth.logout',

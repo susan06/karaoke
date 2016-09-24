@@ -14,7 +14,7 @@ class Role extends Model
      *
      * @var string
      */
-    protected $table = Config('entrust.roles_table');
+    protected $table = 'roles';
 
     protected $casts = [
         'removable' => 'boolean'

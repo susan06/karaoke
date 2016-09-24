@@ -431,4 +431,68 @@ class AuthController extends Controller
         $this->users->update($user->id, ['confirmation_token' => $token]);
         $mailer->sendConfirmationEmail($user, $token);
     }
+
+    /**************************** User Client **********************************/
+
+    /**
+     * Show the application login form user client.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getLoginFacebook()
+    {
+        return view('auth.login_facebook');
+    }
+
+    /**
+     * Handle a login request to the application.
+     *
+     * @param LoginRequest $request
+     * @return \Illuminate\Http\Response
+     */
+    public function postLoginFacebook(Request $request)
+    {
+        // In case that request throttling is enabled, we have to check if user can perform this request.
+        // We'll key this by the username and the IP address of the client making these requests into this application.
+        $throttles = settings('throttle_enabled');
+
+        //Redirect URL that can be passed as hidden field.
+        $to = $request->has('to') ? "?to=" . $request->get('to') : '';
+
+        if ($throttles && $this->hasTooManyLoginAttempts($request)) {
+            return $this->sendLockoutResponse($request);
+        }
+
+        $credentials = $this->getCredentials($request);
+
+        if (! Auth::validate($credentials)) {
+
+            // If the login attempt was unsuccessful we will increment the number of attempts
+            // to login and redirect the user back to the login form. Of course, when this
+            // user surpasses their maximum number of attempts they will get locked out.
+            if ($throttles) {
+                $this->incrementLoginAttempts($request);
+            }
+
+            return redirect()->to('login' . $to)
+                ->withErrors(trans('auth.failed'));
+        }
+
+        $user = Auth::getProvider()->retrieveByCredentials($credentials);
+
+        if ($user->isUnconfirmed()) {
+            return redirect()->to('login' . $to)
+                ->withErrors(trans('app.please_confirm_your_email_first'));
+        }
+
+        if ($user->isBanned()) {
+            return redirect()->to('login' . $to)
+                ->withErrors(trans('app.your_account_is_banned'));
+        }
+
+        Auth::login($user, settings('remember_me') && $request->get('remember'));
+
+        return $this->handleUserWasAuthenticated($request, $throttles, $user);
+    }
+
 }
