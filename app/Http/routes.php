@@ -104,21 +104,6 @@ Route::put('profile/login-details/update', [
     'uses' => 'ProfileController@updateLoginDetails'
 ]);
 
-Route::put('profile/social-networks/update', [
-    'as' => 'profile.update.social-networks',
-    'uses' => 'ProfileController@updateSocialNetworks'
-]);
-
-Route::post('profile/two-factor/enable', [
-    'as' => 'profile.two-factor.enable',
-    'uses' => 'ProfileController@enableTwoFactorAuth'
-]);
-
-Route::post('profile/two-factor/disable', [
-    'as' => 'profile.two-factor.disable',
-    'uses' => 'ProfileController@disableTwoFactorAuth'
-]);
-
 Route::get('profile/sessions', [
     'as' => 'profile.sessions',
     'uses' => 'ProfileController@sessions'

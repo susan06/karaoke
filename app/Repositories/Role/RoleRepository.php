@@ -7,6 +7,14 @@ use App\Role;
 
 interface RoleRepository extends RepositoryInterface
 {
+    /**
+     * Lists all system roles into $key => $column value pairs.
+     *
+     * @param string $column
+     * @param string $key
+     * @return mixed
+     */
+    public function lists($column = 'name', $key = 'id');
 
     /**
      * Get all system roles with number of users for each role.

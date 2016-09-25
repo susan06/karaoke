@@ -53,20 +53,19 @@ class ProfileController extends Controller
      * Display user's profile page.
      *
      * @param RoleRepository $rolesRepo
-     * @param CountryRepository $countryRepository
+     * @param ActivityRepository $activities
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(RoleRepository $rolesRepo)
+    public function index(RoleRepository $rolesRepo, ActivityRepository $activities)
     {
         $user = $this->theUser;
         $edit = true;
         $roles = $rolesRepo->lists();
-        $socials = $user->socialNetworks;
-        $socialLogins = $this->users->getUserSocialLogins($this->theUser->id);
         $statuses = UserStatus::lists();
+        $userActivities = $activities->getLatestActivitiesForUser($this->theUser->id, 10);
 
         return view('user/profile',
-            compact('user', 'edit', 'roles', 'socialLogins', 'socials', 'statuses'));
+            compact('user', 'edit', 'roles','statuses', 'userActivities'));
     }
 
     /**
@@ -131,20 +130,6 @@ class ProfileController extends Controller
     }
 
     /**
-     * Update user's social networks.
-     *
-     * @param Request $request
-     * @return mixed
-     */
-    public function updateSocialNetworks(Request $request)
-    {
-        $this->users->updateSocialNetworks($this->theUser->id, $request->get('socials'));
-
-        return redirect()->route('profile')
-            ->withSuccess(trans('app.socials_updated'));
-    }
-
-    /**
      * Update user's login details.
      *
      * @param UpdateProfileLoginDetailsRequest $request
@@ -165,53 +150,6 @@ class ProfileController extends Controller
 
         return redirect()->route('profile')
             ->withSuccess(trans('app.login_updated'));
-    }
-
-    /**
-     * Enable 2FA for currently logged user.
-     *
-     * @param EnableTwoFactorRequest $request
-     * @return $this
-     */
-    public function enableTwoFactorAuth(EnableTwoFactorRequest $request)
-    {
-        if (Authy::isEnabled($this->theUser)) {
-            return redirect()->route('user.edit', $this->theUser->id)
-                ->withErrors(trans('app.2fa_already_enabled'));
-        }
-
-        $this->theUser->setAuthPhoneInformation($request->country_code, $request->phone_number);
-
-        Authy::register($this->theUser);
-
-        $this->theUser->save();
-
-        event(new TwoFactorEnabled);
-
-        return redirect()->route('profile')
-            ->withSuccess(trans('app.2fa_enabled'));
-    }
-
-    /**
-     * Disable 2FA for currently logged user.
-     *
-     * @return $this
-     */
-    public function disableTwoFactorAuth()
-    {
-        if (! Authy::isEnabled($this->theUser)) {
-            return redirect()->route('profile')
-                ->withErrors(trans('app.2fa_not_enabled_for_this_user'));
-        }
-
-        Authy::delete($this->theUser);
-
-        $this->theUser->save();
-
-        event(new TwoFactorDisabled);
-
-        return redirect()->route('profile')
-            ->withSuccess(trans('app.2fa_disabled'));
     }
 
     /**

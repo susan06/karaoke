@@ -28,6 +28,14 @@ class EloquentRole extends Repository implements RoleRepository
     /**
      * {@inheritdoc}
      */
+    public function lists($column = 'name', $key = 'id')
+    {
+        return Role::lists($column, $key);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getAllWithUsersCount()
     {
         $prefix = DB::getTablePrefix();
