@@ -14,6 +14,17 @@
     </div>
 
   <!-- page start-->
-  Page content goes here
+    <div class="row">
+        <div class="col-lg-12">
+            <section class="panel">
+                <header class="panel-heading">
+                   Form Elements
+                </header>
+                <div class="panel-body">
+        
+                </div>
+            </section>
+        </div>
+    </div>
   <!-- page end-->
 @stop

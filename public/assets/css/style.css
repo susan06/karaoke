@@ -4956,3 +4956,9 @@ a.white:hover {
 .list-group-item img.img-circle {
     height: 30px;
 }
+.pagination>li {
+display: inline;
+padding:0px !important;
+margin:0px !important;
+border:none !important;
+}

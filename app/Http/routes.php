@@ -255,3 +255,28 @@ Route::get('activity/user/{user}/log', [
     'as' => 'activity.user',
     'uses' => 'ActivityController@userActivity'
 ]);
+
+/**
+ * Songs
+ */
+
+Route::get('songs/search', [
+    'as' => 'song.search',
+    'uses' => 'SongsController@search'
+]);
+
+Route::get('songs/search/advanced', [
+    'as' => 'song.search.advanced',
+    'uses' => 'SongsController@searchAdvanced'
+]);
+
+Route::get('my_songs', [
+    'as' => 'song.my_list',
+    'uses' => 'SongsController@myList'
+]);
+
+Route::get('songs/ranking', [
+    'as' => 'song.ranking',
+    'uses' => 'SongsController@ranking'
+]);
+

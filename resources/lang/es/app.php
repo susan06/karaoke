@@ -476,12 +476,17 @@ return [
     // reservations
 
     'reservations' => 'Reservaciones',
+    'reservation_table' => 'Reservar mesa',
 
     // songs
 
     'songs' => 'Canciones',
     'popular_songs' => 'Top de canciones',
     'requested_songs' => 'Canciones solitadas', 
+    'advanced_search' => 'Buscador avanzado',
+    'most_requested' => 'Más pedidas',
+    'my_list' => 'Mi lista',
+    'ask_song' => 'Pedir canción',
 
     //clients
 
