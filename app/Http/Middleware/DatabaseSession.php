@@ -16,12 +16,6 @@ class DatabaseSession
      */
     public function handle($request, Closure $next)
     {
-        // If we are not using database session driver,
-        // just display 404 page
-        if (config('session.driver') != 'database') {
-            throw new NotFoundHttpException;
-        }
-
         return $next($request);
     }
 }

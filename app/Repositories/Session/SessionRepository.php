@@ -2,9 +2,7 @@
 
 namespace App\Repositories\Session;
 
-use App\Repositories\RepositoryInterface;
-
-interface SessionRepository extends Repository
+interface SessionRepository 
 {
     /**
      * Get all active sessions for specified user.

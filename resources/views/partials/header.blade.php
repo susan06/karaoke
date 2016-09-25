@@ -27,6 +27,14 @@
                             <li class="eborder-top">
                                 <a href="{{ route('profile') }}"><i class="icon_profile"></i> @lang('app.my_profile')</a>
                             </li>
+                            @if (! Auth::user()->hasRole('user'))
+                             <li>
+                                <a href="{{ route('profile.sessions') }}">
+                                    <i class="fa fa-list"></i>
+                                    @lang('app.active_sessions')
+                                </a>
+                            </li>
+                            @endif
                             <li>
                                 <a href="{{ route('auth.logout') }}"><i class="icon_key_alt"></i> @lang('app.logout')</a>
                             </li>

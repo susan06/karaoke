@@ -11,7 +11,6 @@ use App\Http\Requests\User\UpdateProfileDetailsRequest;
 use App\Http\Requests\User\UpdateProfileLoginDetailsRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Repositories\Activity\ActivityRepository;
-use App\Repositories\Country\CountryRepository;
 use App\Repositories\Role\RoleRepository;
 use App\Repositories\Session\SessionRepository;
 use App\Repositories\User\UserRepository;
@@ -57,18 +56,17 @@ class ProfileController extends Controller
      * @param CountryRepository $countryRepository
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(RoleRepository $rolesRepo, CountryRepository $countryRepository)
+    public function index(RoleRepository $rolesRepo)
     {
         $user = $this->theUser;
         $edit = true;
         $roles = $rolesRepo->lists();
         $socials = $user->socialNetworks;
-        $countries = $countryRepository->lists()->toArray();
         $socialLogins = $this->users->getUserSocialLogins($this->theUser->id);
         $statuses = UserStatus::lists();
 
         return view('user/profile',
-            compact('user', 'edit', 'roles', 'countries', 'socialLogins', 'socials', 'statuses'));
+            compact('user', 'edit', 'roles', 'socialLogins', 'socials', 'statuses'));
     }
 
     /**
