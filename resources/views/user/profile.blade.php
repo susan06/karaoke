@@ -28,9 +28,9 @@
                   <h6>{{$user->roles->first()->display_name}}</h6>
                 </div>
                 <div class="row col-lg-4 col-sm-4 follow-info">
-                    <p><i class="fa fa-envelope"></i> {{$user->email}}</p>
+                    <p><i class="icon_mail_alt"></i> {{$user->email}}</p>
                     <p><i class="icon_calendar"></i> {{$user->birthday}}</p>
-                    <p><i class="fa fa-phone"></i> {{$user->phone}}</p>
+                    <p><i class="icon_phone"></i> {{$user->phone}}</p>
                     <p><i class="icon_pin_alt"></i> {{$user->address}}</p>
                 </div>
               </div>

@@ -12,25 +12,25 @@
                   </li>
 				          <li class="{{ Request::is('user*') ? 'active' : ''  }}">
                       <a href="#" class="">
-                          <i class="fa fa-user"></i>
+                          <i class="icon_contacts_alt"></i>
                           <span>@lang('app.users')</span>
                       </a>
                   </li>        
                   <li class="{{ Request::is('client*') ? 'active' : ''  }}">
                       <a href="#" class="">
-                          <i class="fa fa-users"></i>
+                          <i class="icon_genius"></i>
                           <span>@lang('app.clients')</span>
                       </a>
                   </li> 
                   <li class="{{ Request::is('activity*') ? 'active' : ''  }}">
                       <a href="#" class="">
-                          <i class="fa fa-bars"></i>
+                          <i class="icon_ul"></i>
                           <span>@lang('app.activity_log')</span>
                       </a>
                   </li>
                   <li class="sub-menu">
                       <a href="javascript:;" class="">
-                          <i class="fa fa-play-circle"></i>
+                          <i class="icon_headphones"></i>
                           <span>@lang('app.songs')</span>
                           <span class="menu-arrow arrow_carrot-right"></span>
                       </a>
@@ -41,13 +41,13 @@
                   </li>
                   <li class="">
                       <a href="#" class="">
-                          <i class="fa fa-check-circle"></i>
+                          <i class="icon_refresh"></i>
                           <span>@lang('app.reservations')</span>
                       </a>
                   </li>
                    <li class="sub-menu {{ Request::is('settings*') ? 'active' : ''  }}">
                       <a href="javascript:;" class="">
-                          <i class="fa fa-cogs"></i>
+                          <i class="icon_cog"></i>
                           <span>@lang('app.settings')</span>
                           <span class="menu-arrow arrow_carrot-right"></span>
                       </a>
@@ -60,13 +60,13 @@
                   @if (false) <!--Auth::user()->hasRole('user')-->
                   <li class="">
                       <a href="{{route('song.search')}}" class="">
-                          <i class="fa fa-play-circle"></i>
+                          <i class="icon_genius"></i>
                           <span>@lang('app.ask_song')</span>
                       </a>
                   </li>
                   <li class="">
                       <a href="{{route('song.my_list')}}" class="">
-                          <i class="fa fa-bars"></i>
+                          <i class="icon_ul"></i>
                           <span>@lang('app.my_list')</span>
                       </a>
                   </li>
@@ -74,12 +74,6 @@
                       <a href="{{route('song.ranking')}}" class="">
                           <i class="fa fa-play-circle"></i>
                           <span>@lang('app.most_requested')</span>
-                      </a>
-                  </li>
-                   <li class="">
-                      <a href="{{route('song.search.advanced')}}" class="">
-                          <i class="fa fa-search"></i>
-                          <span>@lang('app.advanced_search')</span>
                       </a>
                   </li>
                   <li class="">
