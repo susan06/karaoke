@@ -108,7 +108,7 @@ class SocialAuthController extends Controller
             $this->users->updateSocialNetworks($user->id, []);
 
             $role = $this->roles->findByName('user');
-            $this->users->setRole($user->id, $role->id);
+            $user->attachRole($$role);
         }
 
         // Associate social account with user account inside our application
