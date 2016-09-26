@@ -19,6 +19,8 @@
     {!! HTML::style("assets/css/font-awesome.css") !!}
     <!-- Custom styles -->
     {!! HTML::style("assets/css/style.css") !!}
+    <!-- alert style -->
+    {!! HTML::style("assets/css/sweetalert.min.css") !!}
     {!! HTML::style("assets/css/style-responsive.css") !!}
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->

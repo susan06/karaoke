@@ -22,6 +22,7 @@
     <!--external css-->
     <!-- font icon -->
     {!! HTML::style("assets/css/elegant-icons-style.css") !!}
+    {!! HTML::style("assets/css/font-awesome.css") !!}
     <!-- alert style -->
     {!! HTML::style("assets/css/sweetalert.min.css") !!}
     <!-- Custom styles -->

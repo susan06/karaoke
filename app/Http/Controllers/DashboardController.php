@@ -43,11 +43,11 @@ class DashboardController extends Controller
         }
 
         if (Auth::user()->hasRole('user')) {
-            return redirect()->route('song.search'));
+            return redirect()->route('song.search');
         }
 
         if (Auth::user()->hasRole('admin')) {
-            return redirect()->route('song.search'));
+            return redirect()->route('song.search');
         }
 
         return $this->defaultDashboard();
