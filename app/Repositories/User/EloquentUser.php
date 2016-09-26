@@ -241,7 +241,9 @@ class EloquentUser extends Repository implements UserRepository
     {
         $roleId = is_array($roleId) ?: [$roleId];
 
-        return $this->find($userId)->roles()->sync($roleId);
+        return User::find($userId)->roles()->sync($roleId);
+
+
     }
 
     /**
