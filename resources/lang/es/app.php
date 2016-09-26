@@ -192,8 +192,10 @@ return [
     'permission_details' => 'Detalles de Permisos',
     'permission_details_sm' => 'detalles de permisos',
     'edit' => 'Editar',
+    'update' => 'Actualizar',
     'create' => 'Crear',
     'name' => 'Nombre',
+    'name_site' => 'Nombre del Sitio',
     'permission_name' => 'Nombre de Permiso',
     'display_name' => 'Mostrar Nombre',
     'description' => 'Descripción',
@@ -477,6 +479,7 @@ return [
 
     'reservations' => 'Reservaciones',
     'reservation_table' => 'Reservar mesa',
+    'email_request_reservations' => 'Email (Reservaciones)',
 
     // songs
 
@@ -487,6 +490,7 @@ return [
     'most_requested' => 'Más pedidas',
     'my_list' => 'Mi lista',
     'ask_song' => 'Pedir canción',
+    'email_request_song' => 'Email (Canciones)',
 
     //clients
 

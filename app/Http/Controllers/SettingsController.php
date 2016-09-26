@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Request;
+use Illuminate\Http\Request;
+use Settings;
 
 /**
  * Class SettingsController
- * @package Vanguard\Http\Controllers
+ * @package App\Http\Controllers
  */
 class SettingsController extends Controller
 {
@@ -46,7 +47,6 @@ class SettingsController extends Controller
 
         Settings::save();
 
-        event(new SettingsUpdated);
     }
 
 

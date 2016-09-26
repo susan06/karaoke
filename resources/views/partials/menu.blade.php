@@ -4,25 +4,25 @@
                <!--sidebar menu start-->
               <ul class="sidebar-menu">                
                   @if (true) <!--Auth::user()->hasRole('admin')-->
-                  <li class="">
+                  <li class="{{ Request::is('/') ? 'active' : ''  }}">
                       <a class="" href="{{route('dashboard')}}">
                           <i class="icon_house_alt"></i>
                           <span>Dashboard</span>
                       </a>
                   </li>
-				          <li class="">
+				          <li class="{{ Request::is('user*') ? 'active' : ''  }}">
                       <a href="#" class="">
                           <i class="fa fa-user"></i>
                           <span>@lang('app.users')</span>
                       </a>
                   </li>        
-                  <li class="">
+                  <li class="{{ Request::is('client*') ? 'active' : ''  }}">
                       <a href="#" class="">
                           <i class="fa fa-users"></i>
                           <span>@lang('app.clients')</span>
                       </a>
                   </li> 
-                  <li class="sub-menu">
+                  <li class="{{ Request::is('activity*') ? 'active' : ''  }}">
                       <a href="#" class="">
                           <i class="fa fa-bars"></i>
                           <span>@lang('app.activity_log')</span>
@@ -45,15 +45,15 @@
                           <span>@lang('app.reservations')</span>
                       </a>
                   </li>
-                   <li class="sub-menu">
+                   <li class="sub-menu {{ Request::is('settings*') ? 'active' : ''  }}">
                       <a href="javascript:;" class="">
                           <i class="fa fa-cogs"></i>
                           <span>@lang('app.settings')</span>
                           <span class="menu-arrow arrow_carrot-right"></span>
                       </a>
                       <ul class="sub">
-                          <li><a class="" href="#">@lang('app.general')</a></li>
-                          <li><a class="" href="#">@lang('app.background')</a></li>
+                          <li><a class="" href="{{route('settings.general')}}">@lang('app.general')</a></li>
+                          <li><a class="" href="{{route('settings.background')}}">@lang('app.background')</a></li>
                       </ul>
                   </li>
                   @endif  

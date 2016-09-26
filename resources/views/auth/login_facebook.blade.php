@@ -2,7 +2,17 @@
 
 @section('page-title', trans('app.login'))
 
-@section('class-bg', 'class="login-img-body"')
+@section('styles')
+<style type="text/css">
+.login-img-body{
+background: url('{{asset('upload/login/'.Settings::get("background-login"))}}') no-repeat center center fixed;
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+}
+</style>
+@endsection
 
 @section('content')
 

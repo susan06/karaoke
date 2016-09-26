@@ -16,12 +16,6 @@ class Registration
      */
     public function handle($request, Closure $next)
     {
-        // If registration is not enabled, we will
-        // simply display 404 page instead of registration page
-        if (! settings('reg_enabled')) {
-            throw new NotFoundHttpException;
-        }
-
         return $next($request);
     }
 }

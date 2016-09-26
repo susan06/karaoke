@@ -216,19 +216,27 @@ Route::get('activity/user/{user}/log', [
     'uses' => 'ActivityController@userActivity'
 ]);
 
+
 /**
  * Settings
  */
+Route::group([
+     'prefix' => 'settings',
+ ], function () {
+    
+    Route::get('/general',
+        'SettingsController@general')
+        ->name('settings.general');
 
-Route::get('settings', [
-    'as' => 'settings.general',
-    'uses' => 'SettingsController@general'
-]);
+    Route::get('/background',
+        'SettingsController@background')
+        ->name('settings.background');
 
-Route::post('settings/general', [
-    'as' => 'settings.general.update',
-    'uses' => 'SettingsController@update'
-]);
+    Route::post('/update',
+        'SettingsController@update')
+        ->name('settings.update');
+        
+});
 
 
 /**

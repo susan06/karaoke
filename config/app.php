@@ -238,7 +238,7 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'Entrust' => Zizaco\Entrust\EntrustFacade::class,
         'Authy' => App\Services\Auth\TwoFactor\Facade::class,
-        'Setting' => anlutro\LaravelSettings\Facade::class,
+        'Settings' => anlutro\LaravelSettings\Facade::class,
 
     ],
 

@@ -2,14 +2,24 @@
 
 @section('page-title', trans('app.login'))
 
-@section('class-bg', 'class="login-img2-body"')
+@section('styles')
+<style type="text/css">
+.login-img-body{
+background: url('{{asset('upload/login/'.Settings::get("background-admin"))}}') no-repeat center center fixed;
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+}
+</style>
+@endsection
 
 @section('content')
 
 	{!! Form::open(['url' => 'panel', 'class' => 'login-form', 'id' => 'login-form']) !!}  
         <input type="hidden" value="{{ Input::get('to') }}" name="to">   
         <div class="login-wrap">
-            <p class="login-img"><i class="icon_lock_alt"></i></p>
+            <p class="login-img"><i class="icon_lock_alt blue"></i></p>
             <div class="input-group">
               <span class="input-group-addon"><i class="icon_profile"></i></span>
               <input type="text" name="username" id="username" class="form-control" placeholder="@lang('app.email_or_username')" autofocus>

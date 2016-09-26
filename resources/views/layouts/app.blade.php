@@ -8,7 +8,7 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('page-title') | App</title>
+    <title>{{Settings::get('app_name')}} | @yield('page-title')</title>
 
     <meta name="application-name" content="app"/>
     <meta name="msapplication-TileColor" content="#FFFFFF" />
@@ -19,10 +19,11 @@
      <!-- bootstrap theme -->
     {!! HTML::style("assets/css/bootstrap-theme.css") !!}
 
-     <!--external css-->
+    <!--external css-->
     <!-- font icon -->
     {!! HTML::style("assets/css/elegant-icons-style.css") !!}
-    {!! HTML::style("assets/css/font-awesome.css") !!}
+    <!-- alert style -->
+    {!! HTML::style("assets/css/sweetalert.min.css") !!}
     <!-- Custom styles -->
     {!! HTML::style("assets/css/style.css") !!}
     {!! HTML::style("assets/css/style-responsive.css") !!}
@@ -69,7 +70,7 @@
         });
     </script>
 
-    {!! HTML::script('assets/vendor/jsvalidation/js/jsvalidation.min.js') !!}
+    {!! HTML::script('vendor/jsvalidation/js/jsvalidation.min.js') !!}
 
     {!! HTML::script('assets/js/sweetalert.min.js') !!}
 

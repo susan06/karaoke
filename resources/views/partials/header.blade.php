@@ -5,7 +5,7 @@
             </div>
 
             <!--logo start-->
-            <a href="{{route('dashboard')}}" class="logo">Bar<span class="lite">Karaoke</span></a>
+            <a href="{{route('dashboard')}}" class="logo">{{Settings::get('app_name')}}</a>
             <!--logo end-->
 
 

@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Karaoke | @yield('page-title')</title>
+    <title>{{Settings::get('app_name')}} | @yield('page-title')</title>
 
     <!-- Bootstrap CSS -->    
     {!! HTML::style("assets/css/bootstrap.min.css") !!}
@@ -26,10 +26,11 @@
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
     <![endif]-->
+    @yield('styles')
 
     @yield('header-scripts')
 </head>
-<body @yield('class-bg')>
+<body class="login-img-body">
 
     <div class="container">
 
