@@ -38,8 +38,16 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->hasRole('admin')) {
+        if (Auth::user()->hasRole('superAdmin')) {
             return $this->adminDashboard();
+        }
+
+        if (Auth::user()->hasRole('user')) {
+            return redirect()->route('song.search'));
+        }
+
+        if (Auth::user()->hasRole('admin')) {
+            return redirect()->route('song.search'));
         }
 
         return $this->defaultDashboard();

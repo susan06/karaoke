@@ -3,7 +3,7 @@
           <div id="sidebar"  class="nav-collapse ">
                <!--sidebar menu start-->
               <ul class="sidebar-menu">                
-                  @if (true) <!--Auth::user()->hasRole('admin')-->
+                @if (Auth::user()->hasRole('superAdmin'))  
                   <li class="{{ Request::is('/') ? 'active' : ''  }}">
                       <a class="" href="{{route('dashboard')}}">
                           <i class="icon_house_alt"></i>
@@ -15,19 +15,32 @@
                           <i class="icon_contacts_alt"></i>
                           <span>@lang('app.users')</span>
                       </a>
-                  </li>        
-                  <li class="{{ Request::is('client*') ? 'active' : ''  }}">
-                      <a href="#" class="">
-                          <i class="icon_genius"></i>
-                          <span>@lang('app.clients')</span>
-                      </a>
                   </li> 
                   <li class="{{ Request::is('activity*') ? 'active' : ''  }}">
                       <a href="#" class="">
                           <i class="icon_ul"></i>
                           <span>@lang('app.activity_log')</span>
                       </a>
+                  </li> 
+                  <li class="sub-menu {{ Request::is('settings*') ? 'active' : ''  }}">
+                      <a href="javascript:;" class="">
+                          <i class="icon_cog"></i>
+                          <span>@lang('app.settings')</span>
+                          <span class="menu-arrow arrow_carrot-right"></span>
+                      </a>
+                      <ul class="sub">
+                          <li><a class="" href="{{route('settings.general')}}">@lang('app.general')</a></li>
+                          <li><a class="" href="{{route('settings.background')}}">@lang('app.background')</a></li>
+                      </ul>
                   </li>
+                @endif   
+                @if (Auth::user()->hasRole('admin'))   
+                  <li class="{{ Request::is('client*') ? 'active' : ''  }}">
+                      <a href="#" class="">
+                          <i class="icon_genius"></i>
+                          <span>@lang('app.clients')</span>
+                      </a>
+                  </li> 
                   <li class="sub-menu">
                       <a href="javascript:;" class="">
                           <i class="icon_headphones"></i>
@@ -45,22 +58,11 @@
                           <span>@lang('app.reservations')</span>
                       </a>
                   </li>
-                   <li class="sub-menu {{ Request::is('settings*') ? 'active' : ''  }}">
-                      <a href="javascript:;" class="">
-                          <i class="icon_cog"></i>
-                          <span>@lang('app.settings')</span>
-                          <span class="menu-arrow arrow_carrot-right"></span>
-                      </a>
-                      <ul class="sub">
-                          <li><a class="" href="{{route('settings.general')}}">@lang('app.general')</a></li>
-                          <li><a class="" href="{{route('settings.background')}}">@lang('app.background')</a></li>
-                      </ul>
-                  </li>
                   @endif  
-                  @if (false) <!--Auth::user()->hasRole('user')-->
+                  @if (Auth::user()->hasRole('user'))
                   <li class="">
                       <a href="{{route('song.search')}}" class="">
-                          <i class="icon_genius"></i>
+                          <i class="icon_headphones"></i>
                           <span>@lang('app.ask_song')</span>
                       </a>
                   </li>
@@ -72,13 +74,13 @@
                   </li>
                   <li class="">
                       <a href="{{route('song.ranking')}}" class="">
-                          <i class="fa fa-play-circle"></i>
+                          <i class="icon_star"></i>
                           <span>@lang('app.most_requested')</span>
                       </a>
                   </li>
                   <li class="">
                       <a href="#" class="">
-                          <i class="fa fa-check-circle"></i>
+                          <i class="icon_refresh"></i>
                           <span>@lang('app.reservation_table')</span>
                       </a>
                   </li>

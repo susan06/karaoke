@@ -18,7 +18,20 @@ class UserSeeder extends Seeder
             'first_name' => 'admin_name',
             'email' => 'admin@admin.com',
             'username' => 'admin',
-            'password' => 'admin',
+            'password' => 'secret',
+            'avatar' => null,
+            'status' => UserStatus::ACTIVE
+        ]);
+
+        $superadmin = Role::where('name', 'superAdmin')->first();
+
+        $user->attachRole($superadmin);
+
+        $user = User::create([
+            'first_name' => 'admin_name',
+            'email' => 'admin@admin.com',
+            'username' => 'admin',
+            'password' => 'secret',
             'avatar' => null,
             'status' => UserStatus::ACTIVE
         ]);
@@ -27,7 +40,7 @@ class UserSeeder extends Seeder
 
         $user->attachRole($admin);
 
-        $user_1 = User::create([
+        $user = User::create([
             'first_name' => 'dj_name',
             'email' => 'dj@dj.com',
             'username' => 'dj',
@@ -38,7 +51,7 @@ class UserSeeder extends Seeder
 
         $dj = Role::where('name', 'dj')->first();
 
-        $user_1->attachRole($dj);
+        $user->attachRole($dj);
 
     }
 }
