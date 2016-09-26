@@ -34,22 +34,6 @@ Route::post('password/remind', 'Auth\PasswordController@sendPasswordReminder');
 Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
 Route::post('password/reset', 'Auth\PasswordController@postReset');
 
-
-/**
- * Two-Factor Authentication
- */
-
-Route::get('auth/two-factor-authentication', [
-    'as' => 'auth.token',
-    'uses' => 'Auth\AuthController@getToken'
-]);
-
-Route::post('auth/two-factor-authentication', [
-    'as' => 'auth.token.validate',
-    'uses' => 'Auth\AuthController@postToken'
-]);
-
-
 /**
  * Social Facebook Login
  */
@@ -182,15 +166,6 @@ Route::delete('user/{user}/sessions/{session}/invalidate', [
     'uses' => 'UsersController@invalidateSession'
 ]);
 
-Route::post('user/{user}/two-factor/enable', [
-    'as' => 'user.two-factor.enable',
-    'uses' => 'UsersController@enableTwoFactorAuth'
-]);
-
-Route::post('user/{user}/two-factor/disable', [
-    'as' => 'user.two-factor.disable',
-    'uses' => 'UsersController@disableTwoFactorAuth'
-]);
 
 /**
  * Roles & Permissions
@@ -240,6 +215,21 @@ Route::get('activity/user/{user}/log', [
     'as' => 'activity.user',
     'uses' => 'ActivityController@userActivity'
 ]);
+
+/**
+ * Settings
+ */
+
+Route::get('settings', [
+    'as' => 'settings.general',
+    'uses' => 'SettingsController@general'
+]);
+
+Route::post('settings/general', [
+    'as' => 'settings.general.update',
+    'uses' => 'SettingsController@update'
+]);
+
 
 /**
  * Songs

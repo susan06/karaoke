@@ -69,7 +69,7 @@
         });
     </script>
 
-    {!! HTML::script('assets/js/jsvalidation/jsvalidation.js') !!}
+    {!! HTML::script('assets/vendor/jsvalidation/js/jsvalidation.min.js') !!}
 
     {!! HTML::script('assets/js/sweetalert.min.js') !!}
 

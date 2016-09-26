@@ -167,8 +167,9 @@ return [
          */
 
         Proengsoft\JsValidation\JsValidationServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class,
+        anlutro\LaravelSettings\ServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
-        App\Providers\HtmlServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class,
         UxWeb\SweetAlert\SweetAlertServiceProvider::class,
@@ -237,6 +238,7 @@ return [
         'Image' => Intervention\Image\Facades\Image::class,
         'Entrust' => Zizaco\Entrust\EntrustFacade::class,
         'Authy' => App\Services\Auth\TwoFactor\Facade::class,
+        'Setting' => anlutro\LaravelSettings\Facade::class,
 
     ],
 
