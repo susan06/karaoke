@@ -94,7 +94,10 @@
 
         $('#datatable').dataTable({
             "bPaginate": false,
-            "bInfo":false
+            "bInfo":false,
+            "oLanguage": {
+            "sSearch":         "Buscar:"
+            }
         });
 
     });
