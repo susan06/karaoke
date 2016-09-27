@@ -29,6 +29,7 @@
     {!! HTML::style("assets/css/style.css") !!}
     {!! HTML::style("assets/css/style-responsive.css") !!}
 
+    <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/3/dataTables.bootstrap.css">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
@@ -59,7 +60,7 @@
   </section>
   <!-- container section end -->
 
-    {!! HTML::script('assets/js/jquery-2.1.4.min.js') !!}
+    <script language="JavaScript" src="https://code.jquery.com/jquery-1.11.1.min.js" type="text/javascript"></script>
 
     {!! HTML::script('assets/bootstrap/js/bootstrap.min.js') !!}
 
@@ -83,6 +84,21 @@
     {!! HTML::script('assets/js/scripts.js') !!}
 
     @include('sweet::alert')
+
+    <script language="JavaScript" src="https://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js" type="text/javascript"></script>
+
+    <script language="JavaScript" src="https://cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/3/dataTables.bootstrap.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+    $(document).ready(function(e){
+
+        $('#datatable').dataTable({
+            "bPaginate": false,
+            "bInfo":false
+        });
+
+    });
+    </script>
 
     @yield('scripts')
 </body>

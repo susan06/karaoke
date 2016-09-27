@@ -55,6 +55,12 @@
                         </tr>                             
                         </tbody>
                    </table>
+                    <ul class="pagination">
+                    <li class="disabled"><span>&laquo;</span></li> 
+                    <li class="active"><span>1</span></li><li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li> 
+                    <li><a href="#" rel="next">&raquo;</a></li>
+                    </ul>
                 </div>
             </section>
 
@@ -64,18 +70,9 @@
 @stop
 
 @section('scripts')
-<link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/3/dataTables.bootstrap.css">
-<script language="JavaScript" src="https://code.jquery.com/jquery-1.11.1.min.js" type="text/javascript"></script>
-<script language="JavaScript" src="https://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js" type="text/javascript"></script>
-<script language="JavaScript" src="https://cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/3/dataTables.bootstrap.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 $(document).ready(function(e){
-
-    $('#datatable').dataTable({
-        "bPaginate": true,
-        "bInfo":true
-    });
 
     $('.search-panel .dropdown-menu').find('a').click(function(e) {
     e.preventDefault();
