@@ -25,5 +25,5 @@ class UserSocialNetworks extends Model
 
     public $timestamps = false;
 
-    protected $fillable = ['facebook', 'twitter', 'google_plus', 'dribbble', 'linked_in', 'skype'];
+    protected $fillable = ['facebook'];
 }

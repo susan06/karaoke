@@ -89,6 +89,10 @@ class User extends Model implements AuthenticatableContract,
         return $this->status == UserStatus::BANNED;
     }
 
+    public function socialNetworks()
+    {
+        return $this->hasOne(UserSocialNetworks::class, 'user_id');
+    }
 
     public function activities()
     {
