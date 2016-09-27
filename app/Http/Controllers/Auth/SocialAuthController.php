@@ -44,6 +44,10 @@ class SocialAuthController extends Controller
      */
     public function redirectToProvider($provider)
     {
+        if (strtolower($provider) == 'facebook') {
+            return Socialite::driver('facebook')->with(['auth_type' => 'rerequest'])->redirect();
+        }
+        
         return Socialite::driver($provider)->redirect();
     }
 
