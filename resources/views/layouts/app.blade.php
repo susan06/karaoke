@@ -95,8 +95,9 @@
         $('#datatable').dataTable({
             "bPaginate": false,
             "bInfo":false,
+            "ordering":  false,
             "oLanguage": {
-            "sSearch":         "Buscar:"
+            "sSearch": "Buscar:"
             }
         });
 
