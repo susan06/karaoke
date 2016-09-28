@@ -67,6 +67,10 @@ class SocialAuthController extends Controller
             $user = $this->createOrAssociateAccountForUser($socialUser, $provider);
         }
 
+        if($user->phone || $user->email) {
+            return redirect()->route('profile')->withProfile(true);
+        }
+
         return $this->loginAndRedirect($user);
     }
 
@@ -94,8 +98,6 @@ class SocialAuthController extends Controller
     {
         $user = $this->users->findByEmail($socialUser->getEmail());
 
-        dd($socialUser);
-        
         if (! $user) {
 
             // User with email retrieved from social auth provider does not
@@ -112,7 +114,7 @@ class SocialAuthController extends Controller
                 'avatar' => $socialUser->getAvatar()
             ]);
 
-            $this->users->updateSocialNetworks($user->id, []);
+            $this->users->updateSocialNetworks($user->id, ['facebook' => 'https://www.facebook.com/'.$socialUser->getId()]);
 
             $role = $this->roles->findByName('user');
             $user->attachRole($role);
