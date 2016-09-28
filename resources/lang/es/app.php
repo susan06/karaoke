@@ -1,8 +1,10 @@
 <?php
 
 return [
+    'search' => 'Busqueda',
     'home' => 'Inicio',
     'my_profile' => 'Mi Perfil',
+    'profile_info' => 'Información de perfil',
     'active_sessions' => 'Sesiones Activas',
     'copyright' => 'Copyright',
     'users' => 'Usuarios',
@@ -15,6 +17,7 @@ return [
     'auth_and_registration' => 'Autenticación',
     'notifications' => 'Notificaciones',
     'action' => 'Acción',
+    'profile_fail' => 'Lo sentimos por los inconvenientes, pero debido a permisos de tu cuenta de Facebook, algunos datos no fueron proporcionados, por favor actualizar los campos señalados',
 
     // Activity Log Section
     'activity_log' => 'Historial',
@@ -491,6 +494,7 @@ return [
     'my_list' => 'Mi lista',
     'ask_song' => 'Pedir canción',
     'email_request_song' => 'Email (Canciones)',
+    'search_song_artist' => 'Buscar por artista o canción',
 
     //clients
 

@@ -7,38 +7,22 @@
     <div class="row">
         <div class="col-lg-12">
             <h3 class="page-header"><i class="fa fa-play-circle"></i> @lang('app.ask_song')</h3>
-            <ol class="breadcrumb">
-                <li><i class="fa fa-home"></i><a href="{{route('dashboard')}}">Home</a></li>
-                <li><i class="fa fa-play-circle"></i><a href="{{route('song.search')}}">Canciones</a></li>
-                <li><i class="fa fa-search"></i>Búsqueda</li>
-            </ol>
         </div>
     </div>
 
   <!-- page start-->
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-12 col-sm-12 col-xs-12">
 
             <section class="panel">
                <header class="panel-heading">
-                   Búsqueda
+                   @lang('app.search')
                 </header>
                 <div class="panel-body">
                       <div class="row">    
-                        <div class="col-xs-8 col-xs-offset-2">
-                        <div class="input-group">
-                                <div class="input-group-btn search-panel">
-                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                      <span id="search_concept">Filtrar por</span> <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu" role="menu">
-                                      <li><a href="#contains">Artista o Canción</a></li>
-                                      <li><a href="#contains">Artista</a></li>
-                                      <li><a href="#its_equal">Canción</a></li>
-                                    </ul>
-                                </div>
-                                <input type="hidden" name="search_param" value="all" id="search_param">         
-                                <input type="text" class="form-control" name="x" placeholder="Búsqueda...">
+                        <div class="col-lg-12 col-sm-12 col-xs-12">
+                        <div class="input-group">         
+                                <input type="text" class="form-control" name="q" id="search" placeholder="@lang('app.search_song_artist')">
                                 <span class="input-group-btn">
                                     <button class="btn btn-default" type="button"><span class="fa fa-search"></span></button>
                                 </span>
@@ -133,14 +117,20 @@
 <script type="text/javascript">
 $(document).ready(function(e){
 
-    $('.search-panel .dropdown-menu').find('a').click(function(e) {
-    e.preventDefault();
-    var param = $(this).attr("href").replace("#","");
-    var concept = $(this).text();
-    $('.search-panel span#search_concept').text(concept);
-    $('.input-group #search_param').val(param);
-  });
+    $.ajaxSetup({
+        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+    });
 
+    $('#search').autoComplete({
+        minChars: 2,
+        source: function(term, response){
+            term = term.toLowerCase();
+            $.getJSON('{{route("song.search.ajax")}}', 
+                { q: term }, 
+                function(data){ response(data);
+            });
+        }
+    });
 });
 </script>
 

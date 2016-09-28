@@ -5,9 +5,25 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Repositories\Song\SongRepository;
 
 class SongsController extends Controller
 {
+    /**
+     * @var SongRepository
+     */
+    private $songs;
+
+    /**
+     * SongsController constructor.
+     * @param SongRepository $songs
+     */
+    public function __construct(SongRepository $songs)
+    {
+        $this->middleware('auth');
+        $this->songs = $songs;
+    }
+
      /**
      * Search simple songs
      *
@@ -19,15 +35,19 @@ class SongsController extends Controller
     }
 
     /**
-     * User´s List songs
+     * Search simple songs autocomplete
      *
      * @return \Illuminate\View\View
      */
-    public function searchAdvanced()
+    public function searchAjax(Request $request)
     {
-        return view('songs.search_advanced');
-    }
+        $term = $request->q;
 
+        $songs = $this->songs->autocomplete($term);
+
+        return response()->json($songs); 
+
+    }
 
     /**
      * User´s List songs

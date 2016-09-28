@@ -248,9 +248,9 @@ Route::get('songs/search', [
     'uses' => 'SongsController@search'
 ]);
 
-Route::get('songs/search/advanced', [
-    'as' => 'song.search.advanced',
-    'uses' => 'SongsController@searchAdvanced'
+Route::get('songs/ajax/search', [
+    'as' => 'song.search.ajax',
+    'uses' => 'SongsController@searchAjax'
 ]);
 
 Route::get('my_songs', [

@@ -12,6 +12,8 @@ use App\Repositories\Session\SessionRepository;
 use App\Repositories\User\EloquentUser;
 use App\Repositories\User\UserRepository;
 use Illuminate\Support\ServiceProvider;
+use App\Repositories\Song\EloquentSong;
+use App\Repositories\Song\SongRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -36,6 +38,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(ActivityRepository::class, EloquentActivity::class);
         $this->app->singleton(RoleRepository::class, EloquentRole::class);
         $this->app->singleton(SessionRepository::class, DbSession::class);
+        $this->app->singleton(SongRepository::class, EloquentSong::class);
 
         if ($this->app->environment('local')) {
             $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);

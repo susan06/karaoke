@@ -53,3 +53,10 @@ $factory->define(Activity::class, function (Faker\Generator $faker, array $attrs
     ];
 });
 
+$factory->define(App\Song::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->sentence,
+        'artist' => $faker->sentence
+    ];
+});
+

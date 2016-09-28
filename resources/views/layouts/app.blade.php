@@ -29,7 +29,6 @@
     {!! HTML::style("assets/css/style.css") !!}
     {!! HTML::style("assets/css/style-responsive.css") !!}
 
-    <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/3/dataTables.bootstrap.css">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
@@ -76,7 +75,7 @@
 
     {!! HTML::script('assets/js/sweetalert.min.js') !!}
 
-    {!! HTML::script('assets/js/delete.handler.js') !!}
+    {!! HTML::script('assets/js/jquery.auto-complete.min.js') !!}
 
     <!-- nice scroll -->
     {!! HTML::script('assets/js/jquery.scrollTo.min.js') !!}
@@ -84,25 +83,6 @@
     {!! HTML::script('assets/js/scripts.js') !!}
 
     @include('sweet::alert')
-
-    <script language="JavaScript" src="https://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js" type="text/javascript"></script>
-
-    <script language="JavaScript" src="https://cdn.datatables.net/plug-ins/3cfcc339e89/integration/bootstrap/3/dataTables.bootstrap.js" type="text/javascript"></script>
-
-    <script type="text/javascript">
-    $(document).ready(function(e){
-
-        $('#datatable').dataTable({
-            "bPaginate": false,
-            "bInfo":false,
-            "ordering":  false,
-            "oLanguage": {
-            "sSearch": "Buscar:"
-            }
-        });
-
-    });
-    </script>
 
     @yield('scripts')
 </body>
