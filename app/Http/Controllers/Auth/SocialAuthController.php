@@ -67,10 +67,6 @@ class SocialAuthController extends Controller
             $user = $this->createOrAssociateAccountForUser($socialUser, $provider);
         }
 
-        if($user->phone || $user->email) {
-            return redirect()->route('profile')->withProfile(true);
-        }
-
         return $this->loginAndRedirect($user);
     }
 
@@ -174,6 +170,10 @@ class SocialAuthController extends Controller
     private function loginAndRedirect($user)
     {
         Auth::login($user);
+
+        if($user->phone || $user->email) {
+            return redirect()->route('profile')->withProfile(true);
+        }
 
         return redirect()->route('dashboard');
     }
