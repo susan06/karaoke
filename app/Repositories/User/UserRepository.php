@@ -8,6 +8,7 @@ use App\Repositories\RepositoryInterface;
 
 interface UserRepository extends RepositoryInterface
 {
+    
     /**
      * Paginate registered users.
      *
@@ -135,4 +136,12 @@ interface UserRepository extends RepositoryInterface
      * @return mixed
      */
     public function findByConfirmationToken($token);
+
+    /**
+     * Delete user with avatar
+     *
+     * @param $token
+     * @return mixed
+     */
+    public function deleteWithAvatar($id);
 }

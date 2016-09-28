@@ -16,6 +16,18 @@ interface RepositoryInterface
 {
 
     /**
+     * Create
+     *
+     * Creates a new model.
+     *
+     * @param array $attributes
+     *
+     * @return Model
+     *
+     */
+    public function create(array $attributes);
+
+    /**
      * First or create.
      *
      * First and returns the first record if
@@ -51,6 +63,16 @@ interface RepositoryInterface
      *
      */
     public function find($id);
+
+    /**
+     * Update
+     *
+     * Update the model find by id with de given data.
+     *
+     * @param $id
+     * @param array $newData
+     */
+    public function update($id, array $newData);
 
     /**
      * Where
@@ -99,5 +121,14 @@ interface RepositoryInterface
      * @param $id
      */
     public function active($id);
+
+    /**
+     * Destroy
+     *
+     * Delete the user find by the given id.
+     *
+     * @param $id
+     */
+    public function destroy($id);
 
 }

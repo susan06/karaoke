@@ -94,6 +94,8 @@ class SocialAuthController extends Controller
     {
         $user = $this->users->findByEmail($socialUser->getEmail());
 
+        dd($socialUser);
+        
         if (! $user) {
 
             // User with email retrieved from social auth provider does not
@@ -105,6 +107,7 @@ class SocialAuthController extends Controller
                 'password' => str_random(10),
                 'first_name' => $firstName,
                 'last_name' => $lastName,
+                'phone' => null,
                 'status' => UserStatus::ACTIVE,
                 'avatar' => $socialUser->getAvatar()
             ]);
@@ -113,6 +116,14 @@ class SocialAuthController extends Controller
 
             $role = $this->roles->findByName('user');
             $user->attachRole($role);
+        } else {
+            $this->users->update($user->id, [
+                'email' => $socialUser->getEmail(),
+                'first_name' => $firstName,
+                'last_name' => $lastName,
+                'phone' => null,
+                'avatar' => $socialUser->getAvatar()
+            ]);
         }
 
         // Associate social account with user account inside our application

@@ -32,7 +32,21 @@ abstract class Repository implements RepositoryInterface
         $this->model = $modelClass;
     }
 
-
+    /**
+     * Create
+     *
+     * Creates a new model.
+     *
+     * @param array $attributes
+     *
+     * @return Model
+     *
+     */
+    public function create(array $attributes)
+    {
+        return $this->model->create($attributes);
+    }
+    
     /**
      * First or create.
      *
@@ -81,6 +95,21 @@ abstract class Repository implements RepositoryInterface
         return $this->model->find($id);
     }
 
+    /**
+     * Update
+     *
+     * Update the model find by id with de given data.
+     *
+     * @param $id
+     * @param array $newData
+     */
+    public function update($id, array $newData)
+    {
+        $model = $this->find($id);
+        $model->update($newData);
+
+        return $model;
+    }
 
     /**
      * Where
@@ -141,6 +170,20 @@ abstract class Repository implements RepositoryInterface
     {
         $model = $this->model->withTrashed()->find($id);
         $model->restore();
+
+        return $model;
+    }
+
+    /**
+     * Destroy
+     *
+     * Delete the model find by the given id.
+     *
+     * @param $id
+     */
+    public function destroy($id)
+    {
+        $this->model->destroy($id);
 
         return;
     }

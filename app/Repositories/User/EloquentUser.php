@@ -53,14 +53,6 @@ class EloquentUser extends Repository implements UserRepository
     /**
      * {@inheritdoc}
      */
-    public function create(array $data)
-    {
-        return User::create($data);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function associateSocialAccountForUser($userId, $provider, SocialUser $user)
     {
         return DB::table('social_logins')->insert([
@@ -104,14 +96,6 @@ class EloquentUser extends Repository implements UserRepository
     /**
      * {@inheritdoc}
      */
-    public function update($id, array $data)
-    {
-        return $this->find($id)->update($data);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function updateSocialNetworks($userId, array $data)
     {
         return $this->find($userId)->socialNetworks()->updateOrCreate([], $data);
@@ -120,7 +104,7 @@ class EloquentUser extends Repository implements UserRepository
     /**
      * {@inheritdoc}
      */
-    public function delete($id)
+    public function deleteWithAvatar($id)
     {
         $user = $this->find($id);
 
