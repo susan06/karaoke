@@ -31,7 +31,7 @@
                     <p><i class="icon_mail_alt"></i> {{$user->email}}</p>
                     @if ($socialNetworks)
                       @if ($socialNetworks->facebook)
-                      <a href="{{ $socialNetworks->facebook }}" class="white">
+                      <a href="{{ $socialNetworks->facebook }}" target="_blank" class="white">
                           <i class="fa fa-facebook"></i> Facebook
                       </a>
                       @endif
