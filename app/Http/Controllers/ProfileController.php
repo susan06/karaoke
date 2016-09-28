@@ -63,6 +63,7 @@ class ProfileController extends Controller
         $roles = $rolesRepo->lists();
         $statuses = UserStatus::lists();
         $userActivities = $activities->getLatestActivitiesForUser($this->theUser->id, 10);
+        $socialNetworks = $this->users->find($this->theUser->id)->socialNetworks;
 
         return view('user/profile',
             compact('user', 'edit', 'roles','statuses', 'userActivities'));

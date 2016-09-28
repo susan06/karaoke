@@ -29,9 +29,13 @@
                 </div>
                 <div class="row col-lg-4 col-sm-4 follow-info">
                     <p><i class="icon_mail_alt"></i> {{$user->email}}</p>
+                    @if ($socialNetworks && $socialNetworks->facebook)
+                    <a href="{{ $socialNetworks->facebook }}">
+                        <i class="icon_facebook"></i> Facebook
+                    </a>
+                    @endif
                     <p><i class="icon_calendar"></i> {{$user->birthday}}</p>
                     <p><i class="icon_phone"></i> {{$user->phone}}</p>
-                    <p><i class="icon_pin_alt"></i> {{$user->address}}</p>
                 </div>
               </div>
         </div>
