@@ -59,14 +59,10 @@ class ProfileController extends Controller
     public function index(RoleRepository $rolesRepo, ActivityRepository $activities)
     {
         $user = $this->theUser;
-        $edit = true;
-        $roles = $rolesRepo->lists();
-        $statuses = UserStatus::lists();
-        $userActivities = $activities->getLatestActivitiesForUser($this->theUser->id, 10);
         $socialNetworks = $this->users->find($this->theUser->id)->socialNetworks;
 
         return view('user/profile',
-            compact('user', 'edit', 'roles','statuses', 'userActivities'));
+            compact('user', 'socialNetworks'));
     }
 
     /**

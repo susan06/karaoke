@@ -58,8 +58,8 @@
                           <span>@lang('app.reservations')</span>
                       </a>
                   </li>
-                  @endif  
-                  @if (Auth::user()->hasRole('user'))
+                @endif  
+                @if (Auth::user()->hasRole('user'))
                   <li class="">
                       <a href="{{route('song.search')}}" class="">
                           <i class="icon_headphones"></i>
@@ -84,7 +84,7 @@
                           <span>@lang('app.reservation_table')</span>
                       </a>
                   </li>
-                  @endif      
+                @endif      
               </ul>
               <!-- sidebar menu end-->
           </div>

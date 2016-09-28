@@ -29,10 +29,12 @@
                 </div>
                 <div class="row col-lg-4 col-sm-4 follow-info">
                     <p><i class="icon_mail_alt"></i> {{$user->email}}</p>
-                    @if ($socialNetworks && $socialNetworks->facebook)
-                    <a href="{{ $socialNetworks->facebook }}">
-                        <i class="icon_facebook"></i> Facebook
-                    </a>
+                    @if ($socialNetworks)
+                      @if ($socialNetworks->facebook)
+                      <a href="{{ $socialNetworks->facebook }}">
+                          <i class="icon_facebook"></i> Facebook
+                      </a>
+                      @endif
                     @endif
                     <p><i class="icon_calendar"></i> {{$user->birthday}}</p>
                     <p><i class="icon_phone"></i> {{$user->phone}}</p>
@@ -48,12 +50,6 @@
               <header class="panel-heading tab-bg-info">
                   <ul class="nav nav-tabs">
                       <li class="active">
-                          <a data-toggle="tab" href="#recent-activity">
-                              <i class="icon-home"></i>
-                             @lang('app.latest_activity')
-                          </a>
-                      </li>
-                      <li class="">
                           <a data-toggle="tab" href="#edit-profile">
                               <i class="icon-envelope"></i>
                               @lang('app.edit_user_details')
@@ -63,37 +59,12 @@
               </header>
               <div class="panel-body">
                   <div class="tab-content">
-                      <div id="recent-activity" class="tab-pane active">
-                          <div class="profile-activity">   
-                              @foreach($userActivities as $activity)                            
-                              <div class="act-time">                                      
-                                  <div class="activity-body act-in">
-                                      <span class="arrow"></span>
-                                      <div class="text">
-                                          <p class="attribution">{{ $activity->created_at }}</p>
-                                          <p>{{ $activity->description }}</p>
-                                      </div>
-                                  </div>
-                              </div>
-                              @endforeach
-                          </div>
-                      </div>
                       <!-- edit-profile -->
-                      <div id="edit-profile" class="tab-pane">
+                      <div id="edit-profile" class="tab-pane active">
                         <section class="panel">                                          
                               <div class="panel-body bio-graph-info">
                                   <h1> Información de perfil</h1>
                                   {!! Form::open(['route' => ['user.update.details', $user->id], 'method' => 'PUT', 'id' => 'details-form', 'class' => 'form-horizontal']) !!}    
-
-                                        @if(Auth::user()->hasRole('admin'))
-                                        <div class="form-group">
-                                            <label class="col-lg-2 control-label">@lang('app.role')</label>
-                                            <div class="col-lg-2">
-                                            {!! Form::select('role', $roles, $user->roles->first()->id,
-                                                ['class' => 'form-control', 'id' => 'role']) !!}
-                                            </div>
-                                        </div>
-                                        @endif
                                       <div class="form-group">
                                           <label class="col-lg-2 control-label">@lang('app.first_name')</label>
                                           <div class="col-lg-6">
