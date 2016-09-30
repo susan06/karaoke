@@ -24,4 +24,12 @@ interface SongRepository extends RepositoryInterface
      * @return model
      */
     public function autocomplete($term = null);
+
+    /**
+     * Search autocomplete by artist.
+     *
+     * @param null $term
+     * @return model
+     */
+    public function autocompleteArtist($term = null);
 }

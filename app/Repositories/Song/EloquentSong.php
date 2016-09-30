@@ -59,7 +59,7 @@ class EloquentSong extends Repository implements SongRepository
 
         $query = DB::table('songs')
         ->distinct()
-        ->select('title', 'artist', 'id')
+        ->select('title', 'artist')
         ->where('title', 'LIKE', '%'.$term.'%')
         ->orWhere('artist', 'LIKE', '%'.$term.'%')
         ->take(10)
@@ -67,6 +67,29 @@ class EloquentSong extends Repository implements SongRepository
         
         foreach ($query as $data) {
         $return_array[] = $data->artist.' - '.$data->title;
+        }
+
+        return $return_array;
+    }
+
+    /**
+     * Search autocomplete by client.
+     *
+     * @param null $term
+     * @return model
+     */
+    public function autocompleteArtist($term = null)
+    {
+
+        $query = DB::table('songs')
+        ->distinct()
+        ->select('artist')
+        ->orWhere('artist', 'LIKE', '%'.$term.'%')
+        ->take(10)
+        ->get();
+        
+        foreach ($query as $data) {
+        $return_array[] = $data->artist;
         }
 
         return $return_array;

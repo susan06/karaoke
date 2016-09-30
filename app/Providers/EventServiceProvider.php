@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Events\User\Registered;
 use App\Listeners\RoleEventsSubscriber;
 use App\Listeners\UserEventsSubscriber;
+use App\Listeners\SongEventsSubscriber;
 use App\Listeners\UserWasRegisteredListener;
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -28,6 +29,7 @@ class EventServiceProvider extends ServiceProvider
     protected $subscribe = [
         UserEventsSubscriber::class,
         RoleEventsSubscriber::class,
+        SongEventsSubscriber::class,
     ];
 
     /**

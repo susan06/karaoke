@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Events\Song\Created;
 use App\Repositories\Song\SongRepository;
+use App\Http\Requests\song\CreateSongRequest;
 
 class SongsController extends Controller
 {
@@ -55,7 +57,22 @@ class SongsController extends Controller
      */
     public function create()
     {
-        return view('songs.search');
+        return view('songs.create');
+    }
+
+    /**
+     *create song
+     *
+     * @param CreateUserRequest $request
+     */
+    public function store(CreateSongRequest $request)
+    {
+        $song = $this->songs->create($request->all());
+
+        event(new Created($song));
+
+        return redirect()->route('song.index')
+            ->withSuccess(trans('app.song_created'));
     }
 
     /**
@@ -76,11 +93,22 @@ class SongsController extends Controller
     public function searchAjax(Request $request)
     {
         $term = $request->q;
-
         $songs = $this->songs->autocomplete($term);
 
         return response()->json($songs); 
+    }
 
+    /**
+     * Search simple artist autocomplete
+     *
+     * @return \Illuminate\View\View
+     */
+    public function searchArtistAjax(Request $request)
+    {
+        $term = $request->artist;
+        $artist = $this->songs->autocompleteArtist($term);
+
+        return response()->json($artist); 
     }
 
     /**

@@ -2,6 +2,7 @@
 
 return [
     'search' => 'Busqueda',
+    'add' => 'Agregar',
     'find'  => 'Buscar',
     'trash_search' => 'Remover Búsqueda',
     'home' => 'Inicio',
@@ -505,6 +506,8 @@ return [
     'email_request_song' => 'Email (Canciones)',
     'search_song_artist' => 'Buscar por artista o canción',
     'apply_for' => 'Solicitar',
+    'song_created' => 'Canción registrada con éxito',
+    'title' => 'Título',
 
     //clients
 

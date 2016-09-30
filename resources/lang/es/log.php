@@ -24,8 +24,5 @@ return [
     'requested_password_reset' => 'Correo electrónico de restablecimiento de contraseña solicitada.',
     'reseted_password' => 'Restablecer contraseña utilizando la opción "Olvidé mi contraseña"',
 
-    'enabled_2fa' => 'Enabled Two-Factor Authentication.',
-    'disabled_2fa' => 'Disabled Two-Factor Authentication.',
-    'enabled_2fa_for' => 'Enabled Two-Factor Authentication for user :name.',
-    'disabled_2fa_for' => 'Disabled Two-Factor Authentication for user :name.',
+    'created_song' => 'Registro de la canción: :name',
 ];
