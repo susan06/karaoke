@@ -19,43 +19,45 @@
                    {{ $user->present()->name }}
                 </header>
                 <div class="panel-body">
-                   <table class="table">
-                        <thead>
-                        <tr>
-                            <th>@lang('app.ip_address')</th>
-                            <th>@lang('app.user_agent')</th>
-                            <th>@lang('app.last_activity')</th>
-                            <th class="text-center">@lang('app.actions')</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                            @if (count($sessions))
-                                @foreach ($sessions as $session)
+                    <div class="table-responsive">
+                       <table class="table">
+                            <thead>
+                            <tr>
+                                <th>@lang('app.ip_address')</th>
+                                <th>@lang('app.user_agent')</th>
+                                <th>@lang('app.last_activity')</th>
+                                <th class="text-center">@lang('app.actions')</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                @if (count($sessions))
+                                    @foreach ($sessions as $session)
+                                        <tr>
+                                            <td>{{ $session->ip_address }}</td>
+                                            <td>{{ $session->user_agent }}</td>
+                                            <td>{{ \Carbon\Carbon::createFromTimestamp($session->last_activity)->format('Y-m-d H:i:s') }}</td>
+                                            <td class="text-center">
+                                                <a href="{{ isset($profile) ? route('profile.sessions.invalidate', $session->id) : route('user.sessions.invalidate', [$user->id, $session->id]) }}"
+                                                    class="btn btn-danger" title="@lang('app.invalidate_session')"
+                                                    data-toggle="tooltip"
+                                                    data-placement="top"
+                                                    data-method="DELETE"
+                                                    data-confirm-title="@lang('app.please_confirm')"
+                                                    data-confirm-text="@lang('app.are_you_sure_invalidate_session')"
+                                                    data-confirm-delete="@lang('app.yes_proceed')">
+                                                    <i class="icon_close_alt2"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                @else
                                     <tr>
-                                        <td>{{ $session->ip_address }}</td>
-                                        <td>{{ $session->user_agent }}</td>
-                                        <td>{{ \Carbon\Carbon::createFromTimestamp($session->last_activity)->format('Y-m-d H:i:s') }}</td>
-                                        <td class="text-center">
-                                            <a href="{{ isset($profile) ? route('profile.sessions.invalidate', $session->id) : route('user.sessions.invalidate', [$user->id, $session->id]) }}"
-                                                class="btn btn-danger" title="@lang('app.invalidate_session')"
-                                                data-toggle="tooltip"
-                                                data-placement="top"
-                                                data-method="DELETE"
-                                                data-confirm-title="@lang('app.please_confirm')"
-                                                data-confirm-text="@lang('app.are_you_sure_invalidate_session')"
-                                                data-confirm-delete="@lang('app.yes_proceed')">
-                                                <i class="fa fa-times"></i>
-                                            </a>
-                                        </td>
+                                        <td colspan="6"><em>@lang('app.no_records_found')</em></td>
                                     </tr>
-                                @endforeach
-                            @else
-                                <tr>
-                                    <td colspan="6"><em>@lang('app.no_records_found')</em></td>
-                                </tr>
-                            @endif                                                     
-                        </tbody>
-                   </table>
+                                @endif                                                     
+                            </tbody>
+                       </table>
+                    </div>
                 </div>
             </section>
 

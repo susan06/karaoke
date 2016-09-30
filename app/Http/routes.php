@@ -151,11 +151,6 @@ Route::post('user/{user}/update/avatar/external', [
     'uses' => 'UsersController@updateAvatarExternal'
 ]);
 
-Route::post('user/{user}/update/social-networks', [
-    'as' => 'user.update.socials',
-    'uses' => 'UsersController@updateSocialNetworks'
-]);
-
 Route::get('user/{user}/sessions', [
     'as' => 'user.sessions',
     'uses' => 'UsersController@sessions'

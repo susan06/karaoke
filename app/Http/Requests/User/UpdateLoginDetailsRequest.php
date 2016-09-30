@@ -1,9 +1,9 @@
 <?php
 
-namespace Vanguard\Http\Requests\User;
+namespace App\Http\Requests\User;
 
-use Vanguard\Http\Requests\Request;
-use Vanguard\User;
+use App\Http\Requests\Request;
+use App\User;
 
 class UpdateLoginDetailsRequest extends Request
 {
@@ -17,7 +17,6 @@ class UpdateLoginDetailsRequest extends Request
         $user = $this->getUserForUpdate();
 
         return [
-            'email' => 'required|email|unique:users,email,' . $user->id,
             'username' => 'unique:users,username,' . $user->id,
             'password' => 'min:6|confirmed'
         ];

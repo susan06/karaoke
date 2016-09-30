@@ -1,9 +1,9 @@
 <?php
 
-namespace Vanguard\Http\Requests\User;
+namespace App\Http\Requests\User;
 
-use Vanguard\Http\Requests\Request;
-use Vanguard\User;
+use App\Http\Requests\Request;
+use App\User;
 
 class UpdateProfileDetailsRequest extends Request
 {
@@ -14,8 +14,11 @@ class UpdateProfileDetailsRequest extends Request
      */
     public function rules()
     {
+       $user = \Auth::user();
+
         return [
             'birthday' => 'date',
+            'email' => 'required|email|unique:users,email,' . $user->id
         ];
     }
 }

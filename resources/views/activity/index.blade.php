@@ -20,18 +20,18 @@
                 </header>
                 <div class="panel-body">
 
-                    <form method="GET" action="" accept-charset="UTF-8" id="users-form">
+                    <form method="GET" action="" accept-charset="UTF-8">
                       <div class="form-group">
                           <div class="col-lg-10 col-sm-8 col-xs-12">
                               <div class="row">
                                   <div class="col-lg-6 col-sm-6 col-xs-12 margin_search">
                                       <input type="text" class="form-control" name="search" value="{{ Input::get('search') }}" placeholder="@lang('app.search')">
                                   </div>
-                                  <div>
+                                  <div class="btns-search">
                                       <button type="submit" class="btn btn-primary">@lang('app.find')</button>
                                        @if (Input::has('search') && Input::get('search') != '')
                                         <a href="{{ route('activity.index') }}" class="btn btn-danger">
-                                            @lang('app.trash_search')
+                                            <i class="icon_close_alt2"></i>
                                         </a>
                                        @endif
                                   </div>

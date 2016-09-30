@@ -40,10 +40,16 @@
                   <ul class="nav nav-tabs">
                       <li class="active">
                           <a data-toggle="tab" href="#edit-profile">
-                              <i class="icon-envelope"></i>
                               @lang('app.edit_user_details')
                           </a>
                       </li>
+                      @if (! Auth::user()->hasRole('user'))  
+                      <li class="">
+                          <a data-toggle="tab" href="#authentication">
+                              @lang('app.authentication')
+                          </a>
+                      </li>
+                      @endif
                   </ul>
               </header>
               <div class="panel-body">
@@ -67,8 +73,7 @@
                                       <div class="form-group">
                                           <label class="col-lg-2 col-xm-2 control-label">@lang('app.first_name')</label>
                                           <div class="col-lg-6 col-xm-6">
-                                              <input type="text" class="form-control" id="first_name"
-                           name="first_name" placeholder="@lang('app.first_name')" value="{{$user->first_name}}">
+                                              <input type="text" class="form-control" id="first_name" name="first_name" placeholder="@lang('app.first_name')" value="{{$user->first_name}}">
                                           </div>
                                       </div>
                                       <div class="form-group">
@@ -86,13 +91,47 @@
                                       <div class="form-group">
                                           <label class="col-lg-2 col-xm-2 control-label">@lang('app.date_of_birth')</label>
                                           <div class="col-lg-2 col-xm-2">
-                                             <input type='text' name="birthday" id='birthday' value="{{$user->birthday}}" class="form-control" />
+                                             <input type='text' name="birthday" id="birthday" value="{{$user->birthday}}" class="form-control" />
                                           </div>
                                       </div>
                                       <div class="form-group @if(Session::get('profile')) has-error @endif">
                                           <label class="col-lg-2 col-xm-2 control-label">@lang('app.phone')</label>
                                           <div class="col-lg-2 col-xm-2">
-                                              <input type="text" class="form-control" id="phone"          name="phone" placeholder="@lang('app.phone')" value="{{ $user->phone }}">
+                                              <input type="text" class="form-control" id="phone" name="phone" placeholder="@lang('app.phone')" value="{{ $user->phone }}">
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <div class="col-lg-offset-2 col-lg-10 col-xm-10">
+                                              <button type="submit" class="btn btn-success">@lang('app.update')</button>
+                                          </div>
+                                      </div>
+                                   {!! Form::close() !!}
+                              </div>
+                          </section>
+                      </div>
+                       <!-- authentication -->
+                      <div id="authentication" class="tab-pane">
+                        <section class="panel">                                          
+                              <div class="panel-body bio-graph-info">
+                                  <h1>@lang('app.authentication')</h1>
+
+                                    {!! Form::open(['route' => ['user.update.login-details', $user->id], 'method' => 'PUT', 'id' => 'login-details-form', 'class' => 'form-horizontal']) !!} 
+                                      <div class="form-group">
+                                          <label class="col-lg-2 col-xm-2 control-label">@lang('app.username')</label>
+                                          <div class="col-lg-6 col-xm-6">
+                                              <input type="text" class="form-control" id="username" placeholder="@lang('app.username')"  name="username" value="{{ $user->username }}">
+                                          </div>
+                                      </div>
+                                      <div class="form-group">
+                                          <label class="col-lg-2 col-xm-2 control-label">@lang('app.new_password')</label>
+                                          <div class="col-lg-6 col-xm-6">
+                                             <input type="password" class="form-control" id="password" name="password" placeholder="@lang('app.leave_blank_if_you_dont_want_to_change')">
+                                          </div>
+                                      </div>
+                                        <div class="form-group">
+                                          <label class="col-lg-2 col-xm-2 control-label">@lang('app.confirm_password')</label>
+                                          <div class="col-lg-6 col-xm-6">
+                                               <input type="password" class="form-control" id="password_confirmation"   name="password_confirmation" placeholder="@lang('app.leave_blank_if_you_dont_want_to_change')">
                                           </div>
                                       </div>
                                       <div class="form-group">
@@ -111,4 +150,12 @@
     </div>
 
     <!-- page end-->
+@stop
+
+@section('scripts')
+
+    {!! HTML::script('assets/js/moment.min.js') !!}
+    {!! JsValidator::formRequest('App\Http\Requests\User\UpdateProfileDetailsRequest', '#details-form') !!}
+    {!! JsValidator::formRequest('App\Http\Requests\User\UpdateProfileLoginDetailsRequest', '#login-details-form') !!}
+
 @stop

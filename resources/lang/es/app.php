@@ -303,7 +303,7 @@ return [
     'users' => 'Usuarios',
     'create_user' => 'Crear Usuario',
     'edit_user' => 'Editar Usuario',
-    'edit_user_details' => 'editar detalles de usuario',
+    'edit_user_details' => 'Perfil',
     'details' => 'Detalles',
     'social_networks' => 'Redes Sociales',
     'list_of_registered_users' => 'Lista de usuarios registrados',

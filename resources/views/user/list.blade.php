@@ -19,6 +19,31 @@
                    @lang('app.list_of_registered_users')
                 </header>
                 <div class="panel-body">
+
+                    <form method="GET" action="" accept-charset="UTF-8" id="users-form">
+                      <div class="form-group">
+                          <div class="col-lg-10 col-sm-12 col-xs-12">
+                              <div class="row">
+                                  <div class="col-lg-4 col-sm-4 col-xs-5 margin_search">
+                                      {!! Form::select('status', $statuses, Input::get('status'), ['id' => 'status', 'class' => 'form-control']) !!}
+                                  </div>
+                                  <div class="col-lg-6 col-sm-6 col-xs-7 margin_search">
+                                      <input type="text" class="form-control" name="search" value="{{ Input::get('search') }}" placeholder="@lang('app.search_for_users')">
+                                  </div>
+                                  <div class="btns-search">
+                                      <button type="submit" class="btn btn-primary">@lang('app.find')</button>
+                                       @if (Input::has('search') && Input::get('search') != '')
+                                        <a href="{{ route('user.list') }}" class="btn btn-danger">
+                                           <i class="icon_close_alt2"></i>
+                                        </a>
+                                       @endif
+                                  </div>
+                              </div>
+
+                          </div>
+                      </div>
+                    </form>
+
                     <div class="table-responsive">
                        <table class="table">
                             <thead>
@@ -61,7 +86,7 @@
                                                     data-confirm-title="@lang('app.please_confirm')"
                                                     data-confirm-text="@lang('app.are_you_sure_delete_user')"
                                                     data-confirm-delete="@lang('app.yes_delete_him')">
-                                                <i class="fa fa-trash-o"></i>
+                                                <i class="icon_close_alt2"></i>
                                             </a>
                                         </td>
                                     </tr>
