@@ -82,7 +82,7 @@ class SongsController extends Controller
      */
     public function import()
     {
-        return view('songs.search');
+        return view('songs.import_csv');
     }
 
     /**

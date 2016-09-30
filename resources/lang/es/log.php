@@ -25,4 +25,5 @@ return [
     'reseted_password' => 'Restablecer contraseña utilizando la opción "Olvidé mi contraseña"',
 
     'created_song' => 'Registro de la canción: :name',
+    'import_song' => 'Importación de canciones',
 ];
