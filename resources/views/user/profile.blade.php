@@ -109,6 +109,7 @@
                               </div>
                           </section>
                       </div>
+                      @if (! Auth::user()->hasRole('user'))  
                        <!-- authentication -->
                       <div id="authentication" class="tab-pane">
                         <section class="panel">                                          
@@ -143,6 +144,7 @@
                               </div>
                           </section>
                       </div>
+                      @endif
                   </div>
               </div>
           </section>

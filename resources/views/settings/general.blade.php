@@ -6,12 +6,7 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa-list"></i> @lang('app.settings')</h3>
-            <ol class="breadcrumb">
-                <li><i class="fa fa-home"></i><a href="{{route('dashboard')}}">Home</a></li>
-                <li><i class="fa fa-cogs"></i><a href="{{route('profile.sessions')}}">  @lang('app.settings')</a></li>
-                <li><i class="fa fa-bars"></i> @lang('app.general')</li>
-            </ol>
+            <h3 class="page-header"><i class="icon_cog"></i> @lang('app.settings')</h3>
         </div>
     </div>
 
@@ -55,4 +50,43 @@
         </div>
     </div>
   <!-- page end-->
+@stop
+
+{!! HTML::script('assets/js/jquery.js') !!}
+{!! HTML::script('assets/js/jquery.validate.min.js') !!}
+
+@section('scripts')
+<script type="text/javascript">
+$(document).ready(function () {
+ 
+        $("#settings-form").validate({
+            rules: {
+                app_name: {
+                    required: true
+                },
+                email_song: {
+                    required: true,
+                    email: true
+                },
+                email_reservations: {
+                    required: true,
+                    email: true
+                }
+            },
+            messages: {                
+                app_name: {
+                    required: "Campo obligatorio",
+                },
+                email_song:{
+                  required: "Campo obligatorio",
+                  email: "Introduzca un email valido"
+                },
+                email_reservations:{
+                  required: "Campo obligatorio",
+                  email: "Introduzca un email valido"
+                }  
+            }
+        });
+})
+</script>
 @stop

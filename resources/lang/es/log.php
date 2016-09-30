@@ -15,11 +15,12 @@ return [
     'created_account' => 'Creación una cuenta.',
     'updated_avatar' => 'Actualización del avatar de su perfil.',
     'updated_profile' => 'Actualización de los datos de su perfil.',
+    'updated_profile_login' => 'Actualización de los datos de autenticación de su perfil.',
     'deleted_user' => 'Eliminación del usuario :name.',
     'banned_user' => 'Usuario restringido :name.',
     'updated_profile_details_for' => 'Actualización de los datos de perfil de :name.',
     'created_account_for' => 'Creación de cuenta para :name.',
-    'updated_settings' => 'Actualización de la información de configuración.',
+    'updated_settings' => 'Actualización de la información de Ajustes.',
     'requested_password_reset' => 'Correo electrónico de restablecimiento de contraseña solicitada.',
     'reseted_password' => 'Restablecer contraseña utilizando la opción "Olvidé mi contraseña"',
 

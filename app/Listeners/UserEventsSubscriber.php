@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Activity;
+use App\Events\Settings\Updated as SettingsUpdated;
 use App\Events\User\Banned;
 use App\Events\User\ChangedAvatar;
 use App\Events\User\Created;
@@ -14,6 +15,7 @@ use App\Events\User\RequestedPasswordResetEmail;
 use App\Events\User\ResetedPasswordViaEmail;
 use App\Events\User\UpdatedByAdmin;
 use App\Events\User\UpdatedProfileDetails;
+use App\Events\User\UpdatedProfileLogin;
 use App\Services\Logging\UserActivity\Logger;
 
 class UserEventsSubscriber
@@ -52,6 +54,11 @@ class UserEventsSubscriber
     public function onProfileDetailsUpdate(UpdatedProfileDetails $event)
     {
         $this->logger->log(trans('log.updated_profile'));
+    }
+
+    public function onProfileLoginUpdate(UpdatedProfileLogin $event)
+    {
+        $this->logger->log(trans('log.updated_profile_login'));
     }
 
     public function onDelete(Deleted $event)
@@ -126,6 +133,7 @@ class UserEventsSubscriber
         $events->listen(Created::class, "{$class}@onCreate");
         $events->listen(ChangedAvatar::class, "{$class}@onAvatarChange");
         $events->listen(UpdatedProfileDetails::class, "{$class}@onProfileDetailsUpdate");
+        $events->listen(UpdatedProfileLogin::class, "{$class}@onProfileLoginUpdate");
         $events->listen(UpdatedByAdmin::class, "{$class}@onUpdateByAdmin");
         $events->listen(Deleted::class, "{$class}@onDelete");
         $events->listen(Banned::class, "{$class}@onBan");

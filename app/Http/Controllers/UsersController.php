@@ -6,14 +6,13 @@ use App\Events\User\Banned;
 use App\Events\User\Deleted;
 use App\Events\User\UpdatedByAdmin;
 use App\Events\User\UpdatedProfileDetails;
+use App\Events\User\UpdatedProfileLogin;
 use App\Http\Requests\User\CreateUserRequest;
-use App\Http\Requests\User\EnableTwoFactorRequest;
 use App\Http\Requests\User\UpdateProfileDetailsRequest;
 use App\Http\Requests\User\UpdateDetailsRequest;
 use App\Http\Requests\User\UpdateLoginDetailsRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Repositories\Activity\ActivityRepository;
-use App\Repositories\Country\CountryRepository;
 use App\Repositories\Role\RoleRepository;
 use App\Repositories\Session\SessionRepository;
 use App\Repositories\User\UserRepository;
@@ -241,23 +240,6 @@ class UsersController extends Controller
     }
 
     /**
-     * Update user's social networks.
-     *
-     * @param User $user
-     * @param Request $request
-     * @return mixed
-     */
-    public function updateSocialNetworks(User $user, Request $request)
-    {
-        $this->users->updateSocialNetworks($user->id, $request->get('socials'));
-
-        event(new UpdatedByAdmin($user));
-
-        return redirect()->route('user.edit', $user->id)
-            ->withSuccess(trans('app.socials_updated'));
-    }
-
-    /**
      * Update user's login details.
      *
      * @param User $user
@@ -275,10 +257,9 @@ class UsersController extends Controller
 
         $this->users->update($user->id, $data);
 
-        event(new UpdatedByAdmin($user));
+        event(new UpdatedProfileLogin($user));
 
-        return redirect()->route('user.edit', $user->id)
-            ->withSuccess(trans('app.login_updated'));
+        return redirect()->back()->withSuccess(trans('app.login_updated'));
     }
 
     /**

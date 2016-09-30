@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\Settings\Updated;
 use Illuminate\Http\Request;
 use Settings;
 
@@ -19,6 +20,16 @@ class SettingsController extends Controller
     public function general()
     {
         return view('settings.general');
+    }
+
+    /**
+     * Display general settings background.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function background()
+    {
+        return view('settings.background');
     }
 
     /**
@@ -46,6 +57,8 @@ class SettingsController extends Controller
         }
 
         Settings::save();
+
+        event(new Updated);
 
     }
 

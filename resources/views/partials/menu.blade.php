@@ -30,7 +30,7 @@
                       </a>
                       <ul class="sub">
                           <li><a class="" href="{{route('settings.general')}}">@lang('app.general')</a></li>
-                          <li><a class="" href="#">@lang('app.background')</a></li>
+                          <li><a class="" href="{{route('settings.background')}}">@lang('app.background')</a></li>
                       </ul>
                   </li>
                 @endif   
