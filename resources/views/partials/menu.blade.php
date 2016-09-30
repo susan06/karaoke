@@ -11,13 +11,13 @@
                       </a>
                   </li>
 				          <li class="{{ Request::is('user*') ? 'active' : ''  }}">
-                      <a href="#" class="">
+                      <a href="{{ route('user.list') }}" class="">
                           <i class="icon_contacts_alt"></i>
                           <span>@lang('app.users')</span>
                       </a>
                   </li> 
                   <li class="{{ Request::is('activity*') ? 'active' : ''  }}">
-                      <a href="#" class="">
+                      <a href="{{ route('activity.index') }}" class="">
                           <i class="icon_ul"></i>
                           <span>@lang('app.activity_log')</span>
                       </a>

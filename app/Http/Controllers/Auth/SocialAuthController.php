@@ -171,7 +171,7 @@ class SocialAuthController extends Controller
     {
         Auth::login($user);
 
-        if($user->phone || $user->email) {
+        if($user->email) {
             return redirect()->route('profile')->withProfile(true);
         }
 

@@ -129,6 +129,6 @@ interface RepositoryInterface
      *
      * @param $id
      */
-    public function destroy($id);
+    public function delete($id);
 
 }

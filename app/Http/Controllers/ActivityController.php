@@ -23,7 +23,8 @@ class ActivityController extends Controller
      */
     public function __construct(ActivityRepository $activities)
     {
-        $this->middleware('permission:users.activity');
+        $this->middleware('auth');
+        $this->middleware('role:superAdmin');
         $this->activities = $activities;
     }
 
@@ -35,7 +36,7 @@ class ActivityController extends Controller
      */
     public function index(Request $request)
     {
-        $perPage = 20;
+        $perPage = 10;
         $adminView = true;
 
         $activities = $this->activities->paginateActivities($perPage, $request->get('search'));
@@ -52,7 +53,7 @@ class ActivityController extends Controller
      */
     public function userActivity(User $user, Request $request)
     {
-        $perPage = 20;
+        $perPage = 10;
         $adminView = true;
 
         $activities = $this->activities->paginateActivitiesForUser(

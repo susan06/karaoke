@@ -7,10 +7,6 @@
     <div class="row">
         <div class="col-lg-12">
             <h3 class="page-header"><i class="fa fa fa-bars"></i> Dashboard</h3>
-            <ol class="breadcrumb">
-              <li><i class="fa fa-home"></i><a href="{{route('dashboard')}}">Home</a></li>
-              <li><i class="fa fa-laptop"></i>Dashboard</li>                
-            </ol>
         </div>
     </div>
 
@@ -18,8 +14,8 @@
       <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
         <div class="info-box blue-bg">
           <i class="fa fa-user"></i>
-          <div class="count">{{ $stats['new'] }}</div>
-          <div class="title">@lang('app.new_users_this_month')</div>           
+          <div class="count">{{ $stats['total_clients'] }}</div>
+          <div class="title">@lang('app.total_clients')</div>           
         </div><!--/.info-box-->     
       </div><!--/.col-->
       
@@ -50,7 +46,7 @@
     </div><!--/.row-->
 
    <div class="row">
-      <div class="col-lg-8 col-md-12">              
+      <div class="col-lg-7 col-md-7 col-xs-12">              
         <div class="panel panel-default">
           <div class="panel-heading">
             <h2><i class="fa fa-map-marker red"></i><strong>@lang('app.registration_history')</strong></h2> 
@@ -60,13 +56,14 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4">
+      <div class="col-lg-5 col-md-5 col-xs-12">
         <div class="panel panel-default">
             <div class="panel-heading">@lang('app.latest_registrations')</div>
             <div class="panel-body">
                 @if (count($latestRegistrations))
                     <div class="list-group">
                         @foreach ($latestRegistrations as $user)
+                        
                             <a href="{{ route('user.show', $user->id) }}" class="list-group-item">
                                 <img class="img-circle" src="{{ $user->present()->avatar }}">
                                 &nbsp; <strong>{{ $user->present()->nameOrEmail }}</strong>
@@ -74,6 +71,7 @@
                                     <em>{{ $user->created_at->diffForHumans() }}</em>
                                 </span>
                             </a>
+                        
                         @endforeach
                     </div>
                     <a href="{{ route('user.list') }}" class="btn btn-default btn-block">@lang('app.view_all_users')</a>

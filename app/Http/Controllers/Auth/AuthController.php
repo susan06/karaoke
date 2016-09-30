@@ -21,6 +21,7 @@ use App\Http\Controllers\Controller;
 use Lang;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Validator;
+use Session;
 
 class AuthController extends Controller
 {
@@ -48,6 +49,8 @@ class AuthController extends Controller
      */
     public function getLogin()
     {
+        session()->put('login', 'panel');
+
         $socialProviders = config('auth.social.providers');
 
         return view('auth.login', compact('socialProviders'));
@@ -443,6 +446,8 @@ class AuthController extends Controller
      */
     public function getLoginFacebook()
     {
+        session()->put('login', 'user');
+
         return view('auth.login_facebook');
     }
 

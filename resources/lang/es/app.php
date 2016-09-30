@@ -2,6 +2,8 @@
 
 return [
     'search' => 'Busqueda',
+    'find'  => 'Buscar',
+    'trash_search' => 'Remover Búsqueda',
     'home' => 'Inicio',
     'my_profile' => 'Mi Perfil',
     'profile_info' => 'Información de perfil',
@@ -17,6 +19,7 @@ return [
     'auth_and_registration' => 'Autenticación',
     'notifications' => 'Notificaciones',
     'action' => 'Acción',
+    'actions' => 'Acciones',
     'profile_fail' => 'Lo sentimos por los inconvenientes, pero debido a permisos de tu cuenta de Facebook, algunos datos no fueron proporcionados, por favor actualizar los campos señalados',
 
     // Activity Log Section
@@ -104,9 +107,10 @@ return [
     // Dashboard
     'welcome' => 'Bienvenido',
     'dashboard' => 'Tablero',
-    'new_users_this_month' => 'Usuarios Nuevos del Mes',
+    'new_users_this_month' => 'Usuarios y Clientes Nuevos del Mes',
     'view_all_users' => 'Ver Todos los Usuarios',
     'total_users' => 'Usuarios en Total',
+    'total_clients' => 'Clientes en Total',
     'view_details' => 'Ver Detalles',
     'banned_users' => 'Usuarios Desactivados',
     'unconfirmed_users' => 'Usuarios no Confirmados',
@@ -208,7 +212,7 @@ return [
     'add_permission' => 'Agregar Permiso',
     'edit_permission' => 'Editar Permiso',
     'delete_permission' => 'Eliminar Permiso',
-    'please_confirm' => 'Please Confirm',
+    'please_confirm' => 'Confirmar por favor',
     'are_you_sure_delete_permission' => 'Seguro que desea eliminar este permiso?',
     'yes_delete_it' => '¡Si, eliminar!',
     'no_records_found' => 'No se encontrarón registros.',

@@ -15,7 +15,8 @@
         "laracasts/presenter": "^0.2.1",
         "intervention/image": "^2.3",
         "anlutro/l4-settings": "^0.4.9",
-        "guzzlehttp/guzzle": "^6.2"
+        "guzzlehttp/guzzle": "^6.2",
+        "maatwebsite/excel": "~2.1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

@@ -12,18 +12,19 @@ return [
 
     'logged_in' => 'Conectado.',
     'logged_out' => 'Desconectado.',
-    'created_account' => 'Created an account.',
+    'created_account' => 'Creación una cuenta.',
     'updated_avatar' => 'Actualización de avatar de perfil.',
-    'updated_profile' => 'Actualizar los datos de perfil.',
-    'deleted_user' => 'Deleted user :name.',
-    'banned_user' => 'Banned user :name.',
-    'updated_profile_details_for' => 'Actualizar los datos de perfil para :name.',
-    'created_account_for' => 'Created an account for user :name.',
-    'updated_settings' => 'Updated website settings.',
+    'updated_profile' => 'Actualización los datos de perfil.',
+    'deleted_user' => 'Eliminación del usuario :name.',
+    'banned_user' => 'Usuario restringido :name.',
+    'updated_profile_details_for' => 'Actualización de los datos de perfil de :name.',
+    'created_account_for' => 'Creación de cuenta para :name.',
+    'updated_settings' => 'Actualización de la información de configuración.',
+    'requested_password_reset' => 'Correo electrónico de restablecimiento de contraseña solicitada.',
+    'reseted_password' => 'Restablecer contraseña utilizando la opción "Olvidé mi contraseña"',
+
     'enabled_2fa' => 'Enabled Two-Factor Authentication.',
     'disabled_2fa' => 'Disabled Two-Factor Authentication.',
     'enabled_2fa_for' => 'Enabled Two-Factor Authentication for user :name.',
     'disabled_2fa_for' => 'Disabled Two-Factor Authentication for user :name.',
-    'requested_password_reset' => 'Requested password reset email.',
-    'reseted_password' => 'Reseted password using "Forgot Password" option.'
 ];

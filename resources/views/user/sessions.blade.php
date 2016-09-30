@@ -1,34 +1,32 @@
 @extends('layouts.app')
 
-@section('page-title', $user->present()->nameOrEmail . ' - ' . trans('app.active_sessions'))
+@section('page-title', trans('app.active_sessions'))
 
 @section('content')
 
     <div class="row">
-        <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa-list"></i> @lang('app.active_sessions')</h3>
-            <ol class="breadcrumb">
-                <li><i class="fa fa-home"></i><a href="{{route('dashboard')}}">Home</a></li>
-                <li><i class="fa fa-check-circle"></i><a href="{{route('profile.sessions')}}">  @lang('app.active_sessions')</a></li>
-                <li><a href="{{ route('user.show', $user->id) }}"><i class="fa fa-user"></i> {{ $user->present()->name }}</a></li>
-            </ol>
+        <div class="col-lg-12 col-sm-12 col-xs-12">
+            <h3 class="page-header"><i class="fa fa-user"></i> @lang('app.active_sessions')</h3>
         </div>
     </div>
 
- <!-- page start-->
+  <!-- page start-->
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-12 col-sm-12 col-xs-12">
+
             <section class="panel">
                 <header class="panel-heading">
-                   @lang('app.active_sessions_sm')
+                   {{ $user->present()->name }}
                 </header>
                 <div class="panel-body">
-                     <table class="table">
+                   <table class="table">
                         <thead>
+                        <tr>
                             <th>@lang('app.ip_address')</th>
                             <th>@lang('app.user_agent')</th>
                             <th>@lang('app.last_activity')</th>
-                            <th class="text-center">@lang('app.action')</th>
+                            <th class="text-center">@lang('app.actions')</th>
+                        </tr>
                         </thead>
                         <tbody>
                             @if (count($sessions))
@@ -39,7 +37,7 @@
                                         <td>{{ \Carbon\Carbon::createFromTimestamp($session->last_activity)->format('Y-m-d H:i:s') }}</td>
                                         <td class="text-center">
                                             <a href="{{ isset($profile) ? route('profile.sessions.invalidate', $session->id) : route('user.sessions.invalidate', [$user->id, $session->id]) }}"
-                                                class="btn btn-danger btn-circle" title="@lang('app.invalidate_session')"
+                                                class="btn btn-danger" title="@lang('app.invalidate_session')"
                                                 data-toggle="tooltip"
                                                 data-placement="top"
                                                 data-method="DELETE"
@@ -55,13 +53,14 @@
                                 <tr>
                                     <td colspan="6"><em>@lang('app.no_records_found')</em></td>
                                 </tr>
-                            @endif
+                            @endif                                                     
                         </tbody>
-                    </table>
+                   </table>
                 </div>
             </section>
+
         </div>
     </div>
   <!-- page end-->
-
 @stop
+

@@ -63,6 +63,13 @@ interface UserRepository extends RepositoryInterface
     public function count();
 
     /**
+     * Number of clients in database.
+     *
+     * @return mixed
+     */
+    public function countClients();
+
+    /**
      * Number of users registered during current month.
      *
      * @return mixed

@@ -6,7 +6,7 @@ Website: http://geekslabs.com/
 */
 
 /* Import fonts */
-@import url(http://fonts.googleapis.com/css?family=Lato:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic);
+@import url(font-style.css);
 @import url(line-icons.css);
 @import url(jquery.auto-complete.css);
 
@@ -2521,8 +2521,6 @@ ul.ft-link li a i {
     text-align: left;
     padding-top: 20px;
 	padding-bottom: 10px;
-
-	
 }
 .profile-widget h4 {
     margin: 5px;
@@ -4963,5 +4961,19 @@ display: inline;
 padding:0px !important;
 margin:0px !important;
 border:none !important;
+}
+.follow-avatar {
+    height: 100px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border: 5px solid rgba(0,0,0,0.1);
+    display: inline-block; 
+
+}
+.panel-profile {
+    text-align: center;
+}
+.margin_search {
+    margin-bottom: 10px;
 }
 

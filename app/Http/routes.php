@@ -136,7 +136,7 @@ Route::put('user/{user}/update/login-details', [
     'uses' => 'UsersController@updateLoginDetails'
 ]);
 
-Route::delete('user/{user}/delete', [
+Route::post('user/delete', [
     'as' => 'user.delete',
     'uses' => 'UsersController@delete'
 ]);

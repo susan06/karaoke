@@ -69,7 +69,11 @@ class EloquentUser extends Repository implements UserRepository
      */
     public function index($perPage, $search = null, $status = null)
     {
-        $query = User::query();
+        $query = User::whereHas(
+                'roles', function($q){
+                    $q->where('name','!=', 'user');
+                }
+            );
 
         if ($status) {
             $query->where('status', $status);
@@ -118,7 +122,15 @@ class EloquentUser extends Repository implements UserRepository
      */
     public function count()
     {
-        return User::count();
+        return Role::with('users')->where('name', '!=', 'user')->count();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function countClients()
+    {
+        return Role::with('users')->where('name', '=', 'user')->count();
     }
 
     /**
@@ -135,7 +147,11 @@ class EloquentUser extends Repository implements UserRepository
      */
     public function countByStatus($status)
     {
-        return User::where('status', $status)->count();
+        return User::whereHas(
+                'roles', function($q){
+                    $q->where('name','!=', 'user');
+                }
+            )->where('status', $status)->count();
     }
 
     /**
@@ -143,7 +159,11 @@ class EloquentUser extends Repository implements UserRepository
      */
     public function latest($count = 20)
     {
-        return User::orderBy('created_at', 'DESC')
+        return User::whereHas(
+                'roles', function($q){
+                    $q->where('name','!=', 'user');
+                }
+            )->orderBy('created_at', 'DESC')
             ->limit($count)
             ->get();
     }
@@ -157,7 +177,7 @@ class EloquentUser extends Repository implements UserRepository
 
         $result = User::select([
             DB::raw("{$perMonthQuery} as month"),
-            DB::raw('count(id) as count')
+            DB::raw('count(id) as count'),
         ])
             ->whereBetween('created_at', [$from, $to])
             ->groupBy('month')

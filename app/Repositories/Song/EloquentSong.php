@@ -27,14 +27,14 @@ class EloquentSong extends Repository implements SongRepository
 
         $query = DB::table('songs')
         ->distinct()
-        ->select('name', 'artist', 'id')
-        ->where('name', 'LIKE', '%'.$term.'%')
+        ->select('title', 'artist', 'id')
+        ->where('title', 'LIKE', '%'.$term.'%')
         ->orWhere('artist', 'LIKE', '%'.$term.'%')
         ->take(10)
         ->get();
         
         foreach ($query as $data) {
-        $return_array[] = $data->name.' - '.$data->artist;
+        $return_array[] = $data->artist.' - '.$data->title;
         }
 
         return $return_array;

@@ -80,9 +80,13 @@
     <!-- nice scroll -->
     {!! HTML::script('assets/js/jquery.scrollTo.min.js') !!}
     {!! HTML::script('assets/js/jquery.nicescroll.js') !!}
-    {!! HTML::script('assets/js/scripts.js') !!}
-
+    
     @include('sweet::alert')
+
+    <!--confirm delete--> 
+    {!! HTML::script('assets/js/delete.handler.js') !!}
+    
+    {!! HTML::script('assets/js/scripts.js') !!}
 
     @yield('scripts')
 </body>

@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Session;
 use Illuminate\Contracts\Auth\Guard;
 
 class Authenticate
@@ -35,10 +36,16 @@ class Authenticate
     public function handle($request, Closure $next)
     {
         if ($this->auth->guest()) {
+
             if ($request->ajax()) {
                 return response('Unauthorized.', 401);
             } else {
-                return redirect()->guest('login');
+                if(session()->get('login') == 'user') {
+                    return redirect()->guest('login');
+                }else{
+                    return redirect()->guest('panel');
+                }
+                
             }
         }
 

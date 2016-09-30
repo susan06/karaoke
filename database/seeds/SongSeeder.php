@@ -13,52 +13,52 @@ class SongSeeder extends Seeder
     public function run()
     {
         Song::create([
-            'name' => 'Imaginándote',
+            'title' => 'Imaginándote',
             'artist' => 'Reykon y Daddy Yankee​',
         ]);
 
         Song::create([
-            'name' => 'Como yo te quiero',
+            'title' => 'Como yo te quiero',
             'artist' => 'El Potro Alvarez y Yandel​',
         ]);
 
         Song::create([
-            'name' => 'Me voy enamorando',
+            'title' => 'Me voy enamorando',
             'artist' => 'Chino y Nacho',
         ]);
 
         Song::create([
-            'name' => 'Báilalo',
+            'title' => 'Báilalo',
             'artist' => 'Tomas The Latin Boy',
         ]);
 
         Song::create([
-            'name' => 'Baja',
+            'title' => 'Baja',
             'artist' => 'Guaco',
         ]);
 
         Song::create([
-            'name' => 'Vive la vida',
+            'title' => 'Vive la vida',
             'artist' => 'Sixto Rein con Chino y Nacho',
         ]);
 
         Song::create([
-            'name' => 'Me marcharé',
+            'title' => 'Me marcharé',
             'artist' => 'Los Cadillacs con Wisin',
         ]);
 
         Song::create([
-            'name' => 'Única',
+            'title' => 'Única',
             'artist' => 'Víctor Drija​',
         ]);
 
         Song::create([
-            'name' => 'Siento bonito',
+            'title' => 'Siento bonito',
             'artist' => 'Juan Miguel',
         ]);
 
         Song::create([
-            'name' => 'Déjate llevar',
+            'title' => 'Déjate llevar',
             'artist' => 'Jonathan Moly',
         ]);
     }

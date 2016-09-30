@@ -6,7 +6,7 @@
 
     <div class="row">
     <!-- profile-widget -->
-    <div class="col-lg-12">
+    <div class="col-lg-12 col-sm-12 col-xs-12">
         <div class="profile-widget profile-widget-info">
               <div class="panel-body">
                 <div class="col-lg-2 col-sm-2 col-xm-2">

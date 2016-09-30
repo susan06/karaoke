@@ -2,10 +2,12 @@ function initializeJS() {
 
     //tool tips
     jQuery('.tooltips').tooltip();
+    $('[data-toggle="tooltip"]').tooltip();
 
     //popovers
     jQuery('.popovers').popover();
-
+    $('[data-toggle="popover"]').popover();
+    
     //custom scrollbar
         //for html
     jQuery("html").niceScroll({styler:"fb",cursorcolor:"#007AFF", cursorwidth: '6', cursorborderradius: '10px', background: '#F7F7F7', cursorborder: '', zindex: '1000'});
@@ -85,6 +87,42 @@ function initializeJS() {
             }, 2000)
         })
     }
+
+    //delete register
+    $('.btn-delete').click(function() {
+        var $this = $(this);
+        var row = $this.closest('tr');
+        swal({   
+            title: $this.data('confirm-title'),   
+            text: $this.data('confirm-text'),   
+            type: "warning",   
+            showCancelButton: true,   
+            confirmButtonColor: "#DD6B55",   
+            confirmButtonText: $this.data('confirm-delete'),   
+            closeOnConfirm: false }, 
+            function(isConfirm){   
+                if (isConfirm) {  
+                    $.ajax({
+                        type: 'POST',
+                        url: $this.data('href'),
+                        dataType: 'json',
+                        data: { 'id': $this.data('id') },
+                        success: function (request) {                         
+                            if(request.success) {  
+                                row.remove();
+                                swal("Eliminado!", "Su registro ha sido eliminado.", "success");
+                            } else {
+                                swal("Error", request.message, "error");
+                                row.addClass('danger');
+                            }
+                        },
+                        error: function () {
+                            row.addClass('danger');
+                        }
+                    });     
+            } 
+        });
+    });
 
 }
 

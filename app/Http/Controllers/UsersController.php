@@ -43,8 +43,8 @@ class UsersController extends Controller
     public function __construct(UserRepository $users)
     {
         $this->middleware('auth');
+        $this->middleware('role:superAdmin');
         $this->middleware('session.database', ['only' => ['sessions', 'invalidateSession']]);
-        $this->middleware('permission:users.manage');
         $this->users = $users;
     }
 
@@ -55,7 +55,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $perPage = 20;
+        $perPage = 10;
 
         $users = $this->users->index($perPage, Input::get('search'), Input::get('status'));
         $statuses = ['' => trans('app.all')] + UserStatus::lists();
@@ -264,19 +264,22 @@ class UsersController extends Controller
      * @param User $user
      * @return $this
      */
-    public function delete(User $user)
+    public function delete(Request $request)
     {
+        $user = $this->users->find($request->id);
         if ($user->id == Auth::id()) {
-            return redirect()->route('user.list')
-                ->withErrors(trans('app.you_cannot_delete_yourself'));
+            return response()->json([
+                'success'=> false, 
+                'message' => trans('app.you_cannot_delete_yourself')
+            ]);
         }
 
-        $this->users->delete($user->id);
+        $destroy = $this->users->delete($user->id);
 
         event(new Deleted($user));
 
-        return redirect()->route('user.list')
-            ->withSuccess(trans('app.user_deleted'));
+        return response()->json(['success'=> true]);
+
     }
 
     /**
@@ -338,10 +341,9 @@ class UsersController extends Controller
      */
     public function sessions(User $user, SessionRepository $sessionRepository)
     {
-        $adminView = true;
         $sessions = $sessionRepository->getUserSessions($user->id);
 
-        return view('user.sessions', compact('sessions', 'user', 'adminView'));
+        return view('user.sessions', compact('sessions', 'user'));
     }
 
     /**
