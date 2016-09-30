@@ -10,11 +10,11 @@ function initializeJS() {
     
     //custom scrollbar
         //for html
-    jQuery("html").niceScroll({styler:"fb",cursorcolor:"#007AFF", cursorwidth: '6', cursorborderradius: '10px', background: '#F7F7F7', cursorborder: '', zindex: '1000'});
+    //jQuery("html").niceScroll({styler:"fb",cursorcolor:"#007AFF", cursorwidth: '6', cursorborderradius: '10px', background: '#F7F7F7', cursorborder: '', zindex: '1000'});
         //for sidebar
-    jQuery("#sidebar").niceScroll({styler:"fb",cursorcolor:"#007AFF", cursorwidth: '3', cursorborderradius: '10px', background: '#F7F7F7', cursorborder: ''});
+    //jQuery("#sidebar").niceScroll({styler:"fb",cursorcolor:"#007AFF", cursorwidth: '3', cursorborderradius: '10px', background: '#F7F7F7', cursorborder: ''});
         // for scroll panel
-    jQuery(".scroll-panel").niceScroll({styler:"fb",cursorcolor:"#007AFF", cursorwidth: '3', cursorborderradius: '10px', background: '#F7F7F7', cursorborder: ''});
+    //jQuery(".scroll-panel").niceScroll({styler:"fb",cursorcolor:"#007AFF", cursorwidth: '3', cursorborderradius: '10px', background: '#F7F7F7', cursorborder: ''});
     
     //sidebar dropdown menu
     jQuery('#sidebar .sub-menu > a').click(function () {
@@ -35,24 +35,6 @@ function initializeJS() {
             jQuery("#sidebar").scrollTo("-="+Math.abs(diff),500);
         else
             jQuery("#sidebar").scrollTo("+="+Math.abs(diff),500);
-    });
-
-    // sidebar menu toggle
-    jQuery(function() {
-        function responsiveView() {
-            var wSize = jQuery(window).width();
-            if (wSize <= 768) {
-                jQuery('#container').addClass('sidebar-close');
-                jQuery('#sidebar > ul').hide();
-            }
-
-            if (wSize > 768) {
-                jQuery('#container').removeClass('sidebar-close');
-                jQuery('#sidebar > ul').show();
-            }
-        }
-        jQuery(window).on('load', responsiveView);
-        jQuery(window).on('resize', responsiveView);
     });
 
     jQuery('.toggle-nav').click(function () {

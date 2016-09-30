@@ -27,16 +27,20 @@
                                   <div class="col-lg-4 col-sm-4 col-xs-5 margin_search">
                                       {!! Form::select('status', $statuses, Input::get('status'), ['id' => 'status', 'class' => 'form-control']) !!}
                                   </div>
+
                                   <div class="col-lg-6 col-sm-6 col-xs-7 margin_search">
-                                      <input type="text" class="form-control" name="search" value="{{ Input::get('search') }}" placeholder="@lang('app.search_for_users')">
-                                  </div>
-                                  <div class="btns-search">
-                                      <button type="submit" class="btn btn-primary">@lang('app.find')</button>
-                                       @if (Input::has('search') && Input::get('search') != '')
-                                        <a href="{{ route('user.list') }}" class="btn btn-danger">
-                                           <i class="icon_close_alt2"></i>
-                                        </a>
-                                       @endif
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name="search" value="{{ Input::get('search') }}" placeholder="@lang('app.search_for_users')">
+                                        
+                                        <span class="input-group-btn">
+                                            <button type="submit" class="btn btn-primary"><span class="fa fa-search"></span></button>
+                                             @if (Input::has('search') && Input::get('search') != '')
+                                              <a href="{{ route('user.list') }}" class="btn btn-danger">
+                                                 <i class="icon_close_alt2"></i>
+                                              </a>
+                                             @endif
+                                        </span>
+                                    </div>
                                   </div>
                               </div>
 

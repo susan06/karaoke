@@ -22,6 +22,18 @@
                           <span>@lang('app.activity_log')</span>
                       </a>
                   </li> 
+                  <li class="sub-menu {{ Request::is('songs*') ? 'active' : ''  }}">
+                      <a href="javascript:void(0);" class="">
+                          <i class="icon_headphones"></i>
+                          <span>@lang('app.songs')</span>
+                          <span class="menu-arrow arrow_carrot-right"></span>
+                      </a>
+                      <ul class="sub">
+                          <li><a class="" href="{{route('song.index')}}">@lang('app.all_songs')</a></li>
+                          <li><a class="" href="{{route('song.create')}}">@lang('app.create_song')</a></li>
+                          <li><a class="" href="{{route('song.import')}}">@lang('app.import_songs')</a></li>
+                      </ul>
+                  </li>
                   <li class="sub-menu {{ Request::is('settings*') ? 'active' : ''  }}">
                       <a href="javascript:;" class="">
                           <i class="icon_cog"></i>

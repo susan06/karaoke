@@ -491,6 +491,11 @@ return [
     // songs
 
     'songs' => 'Canciones',
+    'song' => 'Canción',
+    'artist' => 'Artista',
+    'all_songs' => 'Lista de canciones',
+    'create_song' => 'Agregar canción',
+    'import_songs' => 'Importar canciones',
     'popular_songs' => 'Top de canciones',
     'requested_songs' => 'Canciones solitadas', 
     'advanced_search' => 'Buscador avanzado',
@@ -499,6 +504,7 @@ return [
     'ask_song' => 'Pedir canción',
     'email_request_song' => 'Email (Canciones)',
     'search_song_artist' => 'Buscar por artista o canción',
+    'apply_for' => 'Solicitar',
 
     //clients
 

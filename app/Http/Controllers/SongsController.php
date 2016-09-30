@@ -24,12 +24,46 @@ class SongsController extends Controller
         $this->songs = $songs;
     }
 
+
+    /**
+     * List all songs
+     *
+     * @return \Illuminate\View\View
+     */
+    public function index(Request $request)
+    {
+        $perPage = 10;
+        $songs = $this->songs->index($perPage, $request->q);
+
+        return view('songs.index', compact('songs'));
+    }
+
      /**
      * Search simple songs
      *
      * @return \Illuminate\View\View
      */
     public function search()
+    {
+        return view('songs.search');
+    }
+
+    /**
+     *create song
+     *
+     * @return \Illuminate\View\View
+     */
+    public function create()
+    {
+        return view('songs.search');
+    }
+
+    /**
+     * import song
+     *
+     * @return \Illuminate\View\View
+     */
+    public function import()
     {
         return view('songs.search');
     }

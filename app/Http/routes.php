@@ -242,24 +242,41 @@ Route::group([
 /**
  * Songs
  */
+Route::group([
+     'prefix' => 'songs',
+ ], function () {
 
-Route::get('songs/search', [
-    'as' => 'song.search',
-    'uses' => 'SongsController@search'
-]);
+    Route::get('/all',
+        'SongsController@index')
+        ->name('song.index');
 
-Route::get('songs/ajax/search', [
-    'as' => 'song.search.ajax',
-    'uses' => 'SongsController@searchAjax'
-]);
+    Route::get('/create',
+        'SongsController@create')
+        ->name('song.create');
 
-Route::get('my_songs', [
-    'as' => 'song.my_list',
-    'uses' => 'SongsController@myList'
-]);
+    Route::get('/',
+        'SongsController@')
+        ->name('song.');
 
-Route::get('songs/ranking', [
-    'as' => 'song.ranking',
-    'uses' => 'SongsController@ranking'
-]);
+    Route::get('/import',
+        'SongsController@import')
+        ->name('song.import');
+
+    Route::get('/search',
+        'SongsController@search')
+        ->name('song.search');
+
+    Route::get('/ajax/search',
+        'SongsController@searchAjax')
+        ->name('song.search.ajax');
+
+    Route::get('/my_list',
+        'SongsController@myList')
+        ->name('song.my_list');
+
+    Route::get('/ranking',
+        'SongsController@ranking')
+        ->name('song.ranking');
+
+});
 

@@ -20,11 +20,11 @@
                 </header>
                 <div class="panel-body">
                       <div class="row">    
-                        <div class="col-lg-12 col-sm-12 col-xs-12">
+                        <div class="col-lg-7 col-sm-8 col-xs-12">
                         <div class="input-group">         
                                 <input type="text" class="form-control" name="q" id="search" placeholder="@lang('app.search_song_artist')">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button"><span class="fa fa-search"></span></button>
+                                    <button class="btn btn-success" type="button"><span class="fa fa-search"></span></button>
                                 </span>
                             </div>
                         </div>

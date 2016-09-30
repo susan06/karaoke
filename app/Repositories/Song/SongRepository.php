@@ -7,6 +7,16 @@ use App\Repositories\RepositoryInterface;
 interface SongRepository extends RepositoryInterface
 {
     
+     /**
+     * Paginate registered songs.
+     *
+     * @param $perPage
+     * @param null $search
+     * @param null $status
+     * @return mixed
+     */
+    public function index($perPage, $search = null);
+
     /**
      * Search autocomplete.
      *

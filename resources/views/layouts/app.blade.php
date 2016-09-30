@@ -59,7 +59,27 @@
   </section>
   <!-- container section end -->
 
-    <script language="JavaScript" src="https://code.jquery.com/jquery-1.11.1.min.js" type="text/javascript"></script>
+    {!! HTML::script('assets/js/jquery-1.11.1.min.js') !!}
+
+    <script type="text/javascript">
+        // sidebar menu toggle
+        jQuery(function() {
+            function responsiveView() {
+                var wSize = jQuery(window).width();
+                if (wSize <= 768) {
+                    jQuery('#container').addClass('sidebar-close');
+                    jQuery('#sidebar > ul').hide();
+                }
+
+                if (wSize > 768) {
+                    jQuery('#container').removeClass('sidebar-close');
+                    jQuery('#sidebar > ul').show();
+                }
+            }
+            jQuery(window).on('load', responsiveView);
+            jQuery(window).on('resize', responsiveView);
+        });
+    </script>
 
     {!! HTML::script('assets/js/jquery-ui-1.10.4.min.js') !!}
 
@@ -79,9 +99,9 @@
 
     {!! HTML::script('assets/js/jquery.auto-complete.min.js') !!}
 
-    <!-- nice scroll -->
+    <!-- nice scroll 
     {!! HTML::script('assets/js/jquery.scrollTo.min.js') !!}
-    {!! HTML::script('assets/js/jquery.nicescroll.js') !!}
+    {!! HTML::script('assets/js/jquery.nicescroll.js') !!}-->
 
     <!--Forms--> 
     {!! HTML::script('assets/js/jquery.maskedinput.min.js') !!}
