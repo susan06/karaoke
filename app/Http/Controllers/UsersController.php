@@ -4,9 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Events\User\Banned;
 use App\Events\User\Deleted;
-use App\Events\User\TwoFactorDisabledByAdmin;
-use App\Events\User\TwoFactorEnabledByAdmin;
 use App\Events\User\UpdatedByAdmin;
+use App\Events\User\UpdatedProfileDetails;
 use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\User\EnableTwoFactorRequest;
 use App\Http\Requests\User\UpdateProfileDetailsRequest;
@@ -153,6 +152,8 @@ class UsersController extends Controller
     public function updateDetails(User $user, UpdateProfileDetailsRequest $request)
     {
         $this->users->update($user->id, $request->all());
+
+        event(new UpdatedProfileDetails($user));
 
         // If user status was updated to "Banned",
         // fire the appropriate event.

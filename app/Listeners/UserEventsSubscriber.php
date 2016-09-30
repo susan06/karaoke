@@ -12,10 +12,6 @@ use App\Events\User\LoggedOut;
 use App\Events\User\Registered;
 use App\Events\User\RequestedPasswordResetEmail;
 use App\Events\User\ResetedPasswordViaEmail;
-use App\Events\User\TwoFactorDisabled;
-use App\Events\User\TwoFactorDisabledByAdmin;
-use App\Events\User\TwoFactorEnabled;
-use App\Events\User\TwoFactorEnabledByAdmin;
 use App\Events\User\UpdatedByAdmin;
 use App\Events\User\UpdatedProfileDetails;
 use App\Services\Logging\UserActivity\Logger;
@@ -103,36 +99,6 @@ class UserEventsSubscriber
         $this->logger->log(trans('log.updated_settings'));
     }
 
-    public function onTwoFactorEnable(TwoFactorEnabled $event)
-    {
-        $this->logger->log(trans('log.enabled_2fa'));
-    }
-
-    public function onTwoFactorDisable(TwoFactorDisabled $event)
-    {
-        $this->logger->log(trans('log.disabled_2fa'));
-    }
-
-    public function onTwoFactorEnableByAdmin(TwoFactorEnabledByAdmin $event)
-    {
-        $message = trans(
-            'log.enabled_2fa_for',
-            ['name' => $event->getUser()->present()->nameOrEmail]
-        );
-
-        $this->logger->log($message);
-    }
-
-    public function onTwoFactorDisableByAdmin(TwoFactorDisabledByAdmin $event)
-    {
-        $message = trans(
-            'log.disabled_2fa_for',
-            ['name' => $event->getUser()->present()->nameOrEmail]
-        );
-
-        $this->logger->log($message);
-    }
-
     public function onPasswordResetEmailRequest(RequestedPasswordResetEmail $event)
     {
         $this->logger->setUser($event->getUser());
@@ -164,10 +130,6 @@ class UserEventsSubscriber
         $events->listen(Deleted::class, "{$class}@onDelete");
         $events->listen(Banned::class, "{$class}@onBan");
         $events->listen(SettingsUpdated::class, "{$class}@onSettingsUpdate");
-        $events->listen(TwoFactorEnabled::class, "{$class}@onTwoFactorEnable");
-        $events->listen(TwoFactorDisabled::class, "{$class}@onTwoFactorDisable");
-        $events->listen(TwoFactorEnabledByAdmin::class, "{$class}@onTwoFactorEnableByAdmin");
-        $events->listen(TwoFactorDisabledByAdmin::class, "{$class}@onTwoFactorDisableByAdmin");
         $events->listen(RequestedPasswordResetEmail::class, "{$class}@onPasswordResetEmailRequest");
         $events->listen(ResetedPasswordViaEmail::class, "{$class}@onPasswordReset");
     }
