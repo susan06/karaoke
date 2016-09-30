@@ -61,6 +61,8 @@
 
     <script language="JavaScript" src="https://code.jquery.com/jquery-1.11.1.min.js" type="text/javascript"></script>
 
+    {!! HTML::script('assets/js/jquery-ui-1.10.4.min.js') !!}
+
     {!! HTML::script('assets/bootstrap/js/bootstrap.min.js') !!}
 
     {!! HTML::script('assets/plugins/js-cookie/js.cookie.js') !!}
@@ -80,6 +82,12 @@
     <!-- nice scroll -->
     {!! HTML::script('assets/js/jquery.scrollTo.min.js') !!}
     {!! HTML::script('assets/js/jquery.nicescroll.js') !!}
+
+    <!--Forms--> 
+    {!! HTML::script('assets/js/jquery.maskedinput.min.js') !!}
+
+    <!--Moments--> 
+    {!! HTML::script('assets/js/moment.min.js') !!}
     
     @include('sweet::alert')
 

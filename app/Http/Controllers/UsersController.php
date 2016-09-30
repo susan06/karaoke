@@ -9,6 +9,7 @@ use App\Events\User\TwoFactorEnabledByAdmin;
 use App\Events\User\UpdatedByAdmin;
 use App\Http\Requests\User\CreateUserRequest;
 use App\Http\Requests\User\EnableTwoFactorRequest;
+use App\Http\Requests\User\UpdateProfileDetailsRequest;
 use App\Http\Requests\User\UpdateDetailsRequest;
 use App\Http\Requests\User\UpdateLoginDetailsRequest;
 use App\Http\Requests\User\UpdateUserRequest;
@@ -149,7 +150,28 @@ class UsersController extends Controller
      * @param UpdateDetailsRequest $request
      * @return mixed
      */
-    public function updateDetails(User $user, UpdateDetailsRequest $request)
+    public function updateDetails(User $user, UpdateProfileDetailsRequest $request)
+    {
+        $this->users->update($user->id, $request->all());
+
+        // If user status was updated to "Banned",
+        // fire the appropriate event.
+        if ($this->userIsBanned($user, $request)) {
+            event(new Banned($user));
+        }
+
+        return redirect()->back()
+            ->withSuccess(trans('app.user_updated'));
+    }
+
+    /**
+     * Updates user by superadmin o admin.
+     *
+     * @param User $user
+     * @param UpdateDetailsRequest $request
+     * @return mixed
+     */
+    public function updateDetailsByAdmin(User $user, UpdateDetailsRequest $request)
     {
         $this->users->update($user->id, $request->all());
         $this->users->setRole($user->id, $request->get('role'));

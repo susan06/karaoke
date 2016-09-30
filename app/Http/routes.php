@@ -131,6 +131,11 @@ Route::put('user/{user}/update/details', [
     'uses' => 'UsersController@updateDetails'
 ]);
 
+Route::put('user/{user}/update/details/by/admin', [
+    'as' => 'user.admin.update.details',
+    'uses' => 'UsersController@updateDetailsByAdmin'
+]);
+
 Route::put('user/{user}/update/login-details', [
     'as' => 'user.update.login-details',
     'uses' => 'UsersController@updateLoginDetails'

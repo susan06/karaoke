@@ -9,14 +9,14 @@
     <div class="col-lg-12 col-sm-12 col-xs-12">
         <div class="profile-widget profile-widget-info">
               <div class="panel-body">
-                <div class="col-lg-2 col-sm-2 col-xm-2">
+                <div class="col-lg-2 col-sm-4 col-xm-4">
                   <h4>{{$user->first_name.' '.$user->last_name }}</h4>               
                   <div class="follow-ava">
                       <img src="{{$user->present()->avatar}}" alt="avatar">
                   </div>
                   <h6>{{$user->roles->first()->display_name}}</h6>
                 </div>
-                <div class="row col-lg-10 col-sm-10 col-xm-10 follow-info">
+                <div class="row col-lg-10 col-sm-8 col-xm-8 follow-info">
                     <p><i class="icon_mail_alt"></i> {{$user->email}}</p>
                     @if ($socialNetworks)
                       @if ($socialNetworks->facebook)
@@ -152,10 +152,28 @@
     <!-- page end-->
 @stop
 
+@section('styles')
+    {!! HTML::style('assets/css/bootstrap-datetimepicker.min.css') !!}
+@stop
+
 @section('scripts')
 
-    {!! HTML::script('assets/js/moment.min.js') !!}
-    {!! JsValidator::formRequest('App\Http\Requests\User\UpdateProfileDetailsRequest', '#details-form') !!}
-    {!! JsValidator::formRequest('App\Http\Requests\User\UpdateProfileLoginDetailsRequest', '#login-details-form') !!}
+{!! JsValidator::formRequest('App\Http\Requests\User\UpdateProfileDetailsRequest', '#details-form') !!}
+{!! JsValidator::formRequest('App\Http\Requests\User\UpdateProfileLoginDetailsRequest', '#login-details-form') !!}
+{!! HTML::script('assets/js/bootstrap-datetimepicker.min.js') !!}
 
+<script type="text/javascript">
+  if ($('#phone').length) {
+      $("#phone").mask('(999) 999-9999', {
+          placeholder: 'X'
+      });
+  }
+
+  if ($('#birthday').length) {
+      $('#birthday').datetimepicker({
+          viewMode: 'years',
+          format: 'DD-MM-YYYY'
+      });
+  }
+</script>
 @stop
