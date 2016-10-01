@@ -55,7 +55,7 @@ return [
 
         'song' => [
             'driver' => 'local',
-            'root' => public_path('upload/song'),
+            'root' => public_path().'/upload/song',
         ],
 
         'login' => [

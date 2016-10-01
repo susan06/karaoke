@@ -98,10 +98,11 @@ class SongsController extends Controller
     {
         $file = $request->file('csv_import');
         $file_name = 'list_song.csv';
-        $path = storage_path('app/song');
+        $path = public_path().'/upload/song/';
         if($file){
             if ($file->isValid()) {
-                Storage::disk('song')->put($file_name, $file);
+                Storage::disk('song')->put($file_name, \File::get($file));
+                Storage::disk('song')->put('file.txt', 'Contents');
                 $contents = Storage::disk('song')->get($file_name);
                 /*
                 Excel::filter('chunk')->load($contents)->chunk(250, function($results)
