@@ -25,7 +25,7 @@
                             <div class="input-group">         
                                 <input type="text" class="form-control margin_search" name="q" value="{{ Input::get('q') }}" id="search" placeholder="@lang('app.search_song_artist')">
                                 <span class="input-group-btn">
-                                    <button class="btn btn-success" type="submit"><span class="fa fa-search"></span></button>
+                                    <button class="btn btn-primary" type="submit"><span class="fa fa-search"></span></button>
                                     @if (Input::has('q') && Input::get('q') != '')
                                         <a href="{{ route('song.index') }}" class="btn btn-danger">
                                            <i class="icon_close_alt2"></i>

@@ -47,9 +47,9 @@
                   </li>
                 @endif   
                 @if (Auth::user()->hasRole('admin'))   
-                  <li class="{{ Request::is('client*') ? 'active' : ''  }}">
-                      <a href="#" class="">
-                          <i class="icon_genius"></i>
+                  <li class="{{ Request::is('clients*') ? 'active' : ''  }}">
+                      <a href="{{route('user.client.index')}}" class="">
+                          <i class="fa fa-user"></i>
                           <span>@lang('app.clients')</span>
                       </a>
                   </li> 

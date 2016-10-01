@@ -267,4 +267,44 @@ class EloquentUser extends Repository implements UserRepository
             ->where('role_id', $fromRoleId)
             ->update(['role_id' => $toRoleId]);
     }
+
+    /* ------------------------------CLients ------------------------------------*/
+
+    /**
+     * Paginate registered clients.
+     *
+     * @param $perPage
+     * @param null $search
+     * @param null $status
+     * @return mixed
+     */
+    public function clientIndex($perPage, $search = null, $status = null)
+    {
+        $query = User::whereHas(
+                'roles', function($q){
+                    $q->where('name','=', 'user');
+                }
+            );
+
+        if ($status) {
+            $query->where('status', $status);
+        }
+
+        if ($search) {
+            $query->where(function ($q) use($search) {
+                $q->where('username', "like", "%{$search}%");
+                $q->orWhere('email', 'like', "%{$search}%");
+                $q->orWhere('first_name', 'like', "%{$search}%");
+                $q->orWhere('last_name', 'like', "%{$search}%");
+            });
+        }
+
+        $result = $query->paginate($perPage);
+
+        if ($search) {
+            $result->appends(['search' => $search]);
+        }
+
+        return $result;
+    }
 }

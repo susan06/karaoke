@@ -47,7 +47,7 @@ class DashboardController extends Controller
         }
 
         if (Auth::user()->hasRole('admin')) {
-            return redirect()->route('song.search');
+            return redirect()->route('user.client.index');
         }
 
         return $this->defaultDashboard();

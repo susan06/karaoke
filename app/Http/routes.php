@@ -166,6 +166,33 @@ Route::delete('user/{user}/sessions/{session}/invalidate', [
     'uses' => 'UsersController@invalidateSession'
 ]);
 
+/**
+ * User Client Management
+ */
+Route::get('clients', [
+    'as' => 'user.client.index',
+    'uses' => 'ClientsController@index'
+]);
+
+Route::get('client/{user}/show', [
+    'as' => 'user.client.show',
+    'uses' => 'ClientsController@view'
+]);
+
+Route::get('activity/client/{user}/log', [
+    'as' => 'activity.user.client',
+    'uses' => 'ClientsController@activity'
+]);
+
+Route::get('client/{user}/sessions', [
+    'as' => 'user.client.sessions',
+    'uses' => 'ClientsController@sessions'
+]);
+
+Route::delete('client/{user}/sessions/{session}/invalidate', [
+    'as' => 'user.client.sessions.invalidate',
+    'uses' => 'ClientsController@invalidateSession'
+]);
 
 /**
  * Roles & Permissions

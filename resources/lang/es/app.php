@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'search' => 'Busqueda',
+    'search' => 'Búsqueda',
     'add' => 'Agregar',
     'find'  => 'Buscar',
     'trash_search' => 'Remover Búsqueda',
@@ -308,7 +308,7 @@ return [
     'details' => 'Detalles',
     'social_networks' => 'Redes Sociales',
     'list_of_registered_users' => 'Lista de usuarios registrados',
-    'search_for_users' => 'Busqueda de usuarios...',
+    'search_for_users' => 'Búsqueda de usuarios...',
     'full_name' => 'Nombre Completo',
     'registration_date' => 'Fecha de Registro',
     'status' => 'Estado',
@@ -516,6 +516,9 @@ return [
     //clients
 
     'clients' => 'Clientes',
+    'search_for_clients' => 'Búsqueda de clientes...',
+    'list_of_registered_clients' => 'Lista de clientes registrados',
+    'activity_log_by' => 'Historial de ',
 
     //background
 

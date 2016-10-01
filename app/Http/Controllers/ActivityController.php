@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 class ActivityController extends Controller
 {
     /**
-     * @var EloquentActivity
+     * @var ActivityRepository
      */
     private $activities;
 

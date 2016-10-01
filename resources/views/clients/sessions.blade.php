@@ -37,7 +37,7 @@
                                             <td>{{ $session->user_agent }}</td>
                                             <td>{{ \Carbon\Carbon::createFromTimestamp($session->last_activity)->format('Y-m-d H:i:s') }}</td>
                                             <td class="text-center">
-                                                <a href="{{ route('user.sessions.invalidate', [$user->id, $session->id]) }}"
+                                                <a href="{{ route('user.client.sessions.invalidate', [$user->id, $session->id]) }}"
                                                     class="btn btn-danger" title="@lang('app.invalidate_session')"
                                                     data-toggle="tooltip"
                                                     data-placement="top"

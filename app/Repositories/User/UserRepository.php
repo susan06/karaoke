@@ -151,4 +151,16 @@ interface UserRepository extends RepositoryInterface
      * @return mixed
      */
     public function deleteWithAvatar($id);
+
+    /* ------------------------------CLients ------------------------------------*/
+
+    /**
+     * Paginate registered clients.
+     *
+     * @param $perPage
+     * @param null $search
+     * @param null $status
+     * @return mixed
+     */
+    public function clientIndex($perPage, $search = null, $status = null);
 }
