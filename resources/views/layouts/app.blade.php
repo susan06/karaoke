@@ -61,6 +61,8 @@
 
     {!! HTML::script('assets/js/jquery-1.11.1.min.js') !!}
 
+    {!! HTML::script('assets/js/jquery.js') !!}
+
     <script type="text/javascript">
         // sidebar menu toggle
         jQuery(function() {
@@ -80,8 +82,6 @@
             jQuery(window).on('resize', responsiveView);
         });
     </script>
-
-    {!! HTML::script('assets/js/jquery-ui-1.10.4.min.js') !!}
 
     {!! HTML::script('assets/bootstrap/js/bootstrap.min.js') !!}
 

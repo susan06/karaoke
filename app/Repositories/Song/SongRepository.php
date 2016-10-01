@@ -6,7 +6,16 @@ use App\Repositories\RepositoryInterface;
 
 interface SongRepository extends RepositoryInterface
 {
-    
+    /**
+     *
+     * Can add song by superadmin.
+     *
+     * @param array $attributes
+     * @return mixed
+     *
+     */
+    public function canAdd(array $attributes);
+
      /**
      * Paginate registered songs.
      *
@@ -32,4 +41,15 @@ interface SongRepository extends RepositoryInterface
      * @return model
      */
     public function autocompleteArtist($term = null);
+
+    /**
+     *
+     * add song by import csv.
+     *
+     * @param array $attributes
+     * @return mixed
+     *
+     */
+    public function import(array $attributes);
+
 }

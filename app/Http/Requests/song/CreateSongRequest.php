@@ -15,7 +15,7 @@ class CreateSongRequest extends Request
     {
         return [
             'artist' => 'required',
-            'title' => 'required|unique:songs,title'
+            'title' => 'required'
         ];
     }
 }

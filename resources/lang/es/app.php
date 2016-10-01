@@ -510,6 +510,8 @@ return [
     'title' => 'Título',
     'song_import_store' => 'Canciones importadas con éxito',
     'file_import_error' => 'Ocurrió un error en la carga del archivo, intente de nuevo',
+    'csv_import_error' => 'No puede haber campos nulos en el archivo csv',
+    'song_exist' => 'Ya fue agregada la canción',
 
     //clients
 

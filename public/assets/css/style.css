@@ -5124,3 +5124,7 @@ border:none !important;
 .tags .label {
     font-size: 16px;
 }
+.form-horizontal .button-uploading {
+    color: transparent;
+    cursor: default;
+}

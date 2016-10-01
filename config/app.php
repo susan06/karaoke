@@ -173,6 +173,7 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class,
         UxWeb\SweetAlert\SweetAlertServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -239,6 +240,7 @@ return [
         'Entrust' => Zizaco\Entrust\EntrustFacade::class,
         'Authy' => App\Services\Auth\TwoFactor\Facade::class,
         'Settings' => anlutro\LaravelSettings\Facade::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 
     ],
 

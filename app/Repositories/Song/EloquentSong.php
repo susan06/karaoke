@@ -42,7 +42,7 @@ class EloquentSong extends Repository implements SongRepository
         $result = $query->paginate($perPage);
 
         if ($search) {
-            $result->appends(['search' => $search]);
+            $result->appends(['q' => $search]);
         }
 
         return $result;
@@ -95,5 +95,51 @@ class EloquentSong extends Repository implements SongRepository
         return $return_array;
     }
 
-  
+    /**
+     *
+     * Can add song by superadmin.
+     *
+     * @param string title
+     * @return array
+     *
+     */
+     public function canAdd(array $attributes)
+    {
+        $artist = $attributes['artist'];
+        $title = $attributes['title'];
+        $songs = Song::where('artist','=',$artist)->get();
+        foreach ($songs as $song) {
+            if (strtolower($song->title) == strtolower($title)) {
+
+                return ['success' => false, 'song' => $song];
+            }
+        }
+
+        return ['success' => true];
+    }
+
+    /**
+     *
+     * add song by import csv.
+     *
+     * @param array $attributes
+     * @return mixed
+     *
+     */
+    public function import(array $attributes)
+    {
+        $artist = $attributes['artist'];
+        $title = $attributes['title'];
+        $songs = Song::where('artist','=',$artist)->get();
+        $save = true;
+        foreach ($songs as $song) {
+            if ($song->title == $title) {
+                $save = false;
+            }
+        }
+        if ($save) {
+            $this->model->create($attributes);
+        } 
+    }
+
 }

@@ -71,12 +71,20 @@ class SongsController extends Controller
      */
     public function store(CreateSongRequest $request)
     {
-        $song = $this->songs->create($request->all());
+        $canCreate = $this->songs->canAdd($request->all());
 
-        event(new Created($song));
+        if( $canCreate['success'] ) {
+            $song = $this->songs->create($request->all());
+            event(new Created($song));
 
-        return redirect()->route('song.index')
-            ->withSuccess(trans('app.song_created'));
+            return redirect()->route('song.index')
+                ->withSuccess(trans('app.song_created'));
+        }
+
+        $song = $canCreate['song'];
+
+        return redirect()->route('song.index','q='.$song['artist'].' - '.$song['title'])
+            ->withWarning(trans('app.song_exist'));
     }
 
     /**
@@ -97,34 +105,42 @@ class SongsController extends Controller
     public function storeImport(ImportSongRequest $request)
     {
         $file = $request->file('csv_import');
-        $file_name = 'list_song.csv';
+        $file_name = 'list_songs.csv';
         $path = public_path().'/upload/song/';
         if($file){
             if ($file->isValid()) {
                 Storage::disk('song')->put($file_name, \File::get($file));
-                Storage::disk('song')->put('file.txt', 'Contents');
-                $contents = Storage::disk('song')->get($file_name);
-                /*
-                Excel::filter('chunk')->load($contents)->chunk(250, function($results)
+
+                Excel::filter('chunk')->load($path.$file_name)->chunk(100, function($results)
                 {
-                        foreach($results as $row)
-                        {
-                            $this->songs->create([
+                    foreach($results as $row)
+                    {
+                        if( $row->artist && $row->title) {
+                            $data = [
                                 'artist' => $row->artist, 
                                 'title' => $row->title
-                            ]);
+                            ];
+                            $canCreate = $this->songs->canAdd($data);
+                            if( $canCreate['success'] ) {
+                                $song = $this->songs->create($data);
+                            }
                         }
-                })*/
+                    }
+                });
+
+                event(new Imported);
+
+                return redirect()->route('song.index')
+                    ->withSuccess(trans('app.song_import_store'));
+
             } else {
                 return redirect()->back()
                 ->withErrors(trans('app.file_import_error'));
             }
         }
 
-        event(new Imported);
-
-        return redirect()->route('song.index')
-            ->withSuccess(trans('app.song_import_store'));
+        return redirect()->back()
+                ->withErrors(trans('app.file_import_error'));
     }
 
     /**

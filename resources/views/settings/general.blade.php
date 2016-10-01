@@ -52,10 +52,10 @@
   <!-- page end-->
 @stop
 
-{!! HTML::script('assets/js/jquery.js') !!}
+@section('scripts')
+
 {!! HTML::script('assets/js/jquery.validate.min.js') !!}
 
-@section('scripts')
 <script type="text/javascript">
 $(document).ready(function () {
  

@@ -140,7 +140,7 @@ return [
         'time'                  => 'hora',
         'subject'               => 'asunto',
         'message'               => 'mensaje',
-        'csv_import'            => 'archivo csv',
+        'csv_import'            => 'archivo',
     ],
 
 ];

@@ -22,19 +22,19 @@
                       <button data-dismiss="alert" class="close close-sm" type="button">
                           <i class="icon-remove"></i>
                       </button>
-                      <strong>Atención!</strong> La primera línea en el archivo csv debe tener el siguiente orden: artist, tilte. No cambiar el orden de las columnas. Los registros deben estar separados por ",".
+                      <strong>Atención!</strong> La primera línea en el archivo csv indica las columnas, el nombre correspondiente es: artist, title. Los registros deben estar separados por ",".
                   </div>    
-                {!! Form::open(['route' => 'song.import.store', 'class' => 'form-validate form-horizontal', 'id' => 'import-form']) !!}
+                {!! Form::open(['route' => 'song.import.store', 'files'=>'true', 'class' => 'form-validate form-horizontal', 'id' => 'import-form']) !!}
                     <div class="form">
                           <div class="form-group">
-                              <label for="cname" class="control-label col-lg-2">@lang('app.file') <span class="required">*</span></label>
+                              <label for="cname" class="control-label col-lg-2 col-sm-2 col-xs-2">@lang('app.file') <span class="required">*</span></label>
                               <div class="col-lg-8 col-sm-8 col-xs-10">
-                                 <input type="file" data-browse-label="browse" name="csv_import" class="form-control" id="csv_file" required="required"/>
+                                 <input type="file" name="csv_import" class="form-control"/>
                               </div>
                           </div>
                          <div class="form-group">
                           <div class="col-lg-offset-2 col-lg-10">
-                              <button class="btn btn-primary" type="submit">@lang('app.import')</button>
+                              <input class="btn btn-primary" type="submit" id="btn-submit" value="@lang('app.import')"/>
                           </div>
                         </div>
                     </div>
@@ -49,6 +49,32 @@
 
 @section('scripts')
 
-{!! JsValidator::formRequest('App\Http\Requests\Song\ImportSongRequest', '#import-form') !!}
+{!! HTML::script('assets/js/jquery.validate.min.js') !!}
 
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.15.0/additional-methods.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function () {
+    
+  $("#import-form").validate({
+      rules: {
+          csv_import: {
+              required: true,
+              extension: "csv"
+          }
+      },
+      messages: {                
+          csv_import: {
+              required: "Campo obligatorio",
+              extension: "El archivo debe ser de tipo csv"
+          } 
+      },
+      submitHandler: function (form) {
+        document.getElementById("btn-submit").value = "Subiendo...";
+        document.getElementById("btn-submit").disabled = true; 
+        form.submit();
+      },
+  });
+})
+</script>
 @stop
