@@ -39,8 +39,8 @@
 
                     <div class="row">    
                         <div class="col-lg-10 col-sm-10 col-xs-10">
-                            <div class="">
-                               <table class="table" width="100%">
+                            <div class="table-responsive">
+                               <table class="table">
                                     <thead>
                                     <tr>
                                         <th>@lang('app.song')</th>
