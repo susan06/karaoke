@@ -266,6 +266,10 @@ Route::group([
         'SongsController@import')
         ->name('song.import');
 
+    Route::post('/import/store',
+        'SongsController@storeImport')
+        ->name('song.import.store');
+
     Route::get('/search',
         'SongsController@search')
         ->name('song.search');

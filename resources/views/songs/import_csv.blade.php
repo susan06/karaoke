@@ -24,13 +24,12 @@
                       </button>
                       <strong>Atención!</strong> La primera línea en el archivo csv debe tener el siguiente orden: artist, tilte. No cambiar el orden de las columnas. Los registros deben estar separados por ",".
                   </div>    
-                {!! Form::open(['route' => 'song.store', 'class' => 'form-validate form-horizontal', 'id' => 'song-form']) !!}
+                {!! Form::open(['route' => 'song.import.store', 'class' => 'form-validate form-horizontal', 'id' => 'import-form']) !!}
                     <div class="form">
                           <div class="form-group">
                               <label for="cname" class="control-label col-lg-2">@lang('app.file') <span class="required">*</span></label>
                               <div class="col-lg-8 col-sm-8 col-xs-10">
-                                 <input type="file" data-browse-label="browse" name="userfile" class="form-control file" data-show-upload="false"
-                                       data-show-preview="false" id="csv_file" required="required"/>
+                                 <input type="file" data-browse-label="browse" name="csv_import" class="form-control" id="csv_file" required="required"/>
                               </div>
                           </div>
                          <div class="form-group">
@@ -50,48 +49,6 @@
 
 @section('scripts')
 
-{!! HTML::script('assets/js/jquery.js') !!}
-{!! HTML::script('assets/js/jquery.validate.min.js') !!}
-
-@section('scripts')
-
-<script type="text/javascript">
-$(document).ready(function(e){
-
-    $.ajaxSetup({
-        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
-    });
-
-    $('#artist').autoComplete({
-        minChars: 2,
-        source: function(term, response){
-            term = term.toLowerCase();
-            $.getJSON('{{route("song.artist.search.ajax")}}', 
-                { artist: term }, 
-                function(data){ response(data);
-            });
-        }
-    });
-
-    $("#song-form").validate({
-            rules: {
-                title: {
-                    required: true
-                },
-                artist: {
-                    required: true
-                },
-            },
-            messages: {                
-                title: {
-                    required: "Campo obligatorio",
-                },
-                artist: {
-                    required: "Campo obligatorio",
-                }   
-            }
-    });
-});
-</script>
+{!! JsValidator::formRequest('App\Http\Requests\Song\ImportSongRequest', '#import-form') !!}
 
 @stop

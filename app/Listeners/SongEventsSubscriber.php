@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use App\Activity;
 use App\Events\Song\Created;
+use App\Events\Song\Imported;
 use App\Services\Logging\UserActivity\Logger;
 
 class SongEventsSubscriber
@@ -28,6 +29,13 @@ class SongEventsSubscriber
         $this->logger->log($message);
     }
 
+    public function onImport(Imported $event)
+    {
+        $message = trans('log.import_song');
+
+        $this->logger->log($message);
+    }
+
 
     /**
      * Register the listeners for the subscriber.
@@ -39,6 +47,7 @@ class SongEventsSubscriber
         $class = 'App\Listeners\SongEventsSubscriber';
 
         $events->listen(Created::class, "{$class}@onCreate");
+        $events->listen(Imported::class, "{$class}@onImport");
 
     }
 }

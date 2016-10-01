@@ -508,6 +508,8 @@ return [
     'apply_for' => 'Solicitar',
     'song_created' => 'Canción registrada con éxito',
     'title' => 'Título',
+    'song_import_store' => 'Canciones importadas con éxito',
+    'file_import_error' => 'Ocurrió un error en la carga del archivo, intente de nuevo',
 
     //clients
 
