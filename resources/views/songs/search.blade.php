@@ -134,10 +134,19 @@ $(document).ready(function(e){
                 closeOnConfirm: false }, 
                 function(isConfirm){   
                     if (isConfirm) {  
-                        // code apply for
-                        swal("@lang('app.info')", "@lang('app.apply_for_send')", "success");     
-                    } 
-            })
+                        $.ajax({
+                            type: 'GET',
+                            url: '{{route("song.apply.for")}}',
+                            dataType: 'json',
+                            data: { 'id': $this.data('id') },
+                            success: function (request) { 
+                                row.addClass(request.status); 
+                                $this.attr('disabled', request.disabled);  
+                                swal("@lang('app.info')", request.message, request.status);
+                            }
+                        }) 
+                    }           
+                }) 
         })
     }
 
@@ -155,8 +164,9 @@ $(document).ready(function(e){
             var artist = document.createTextNode(item.artist);
 
             btn = document.createElement('a');
-            btn.className = 'btn btn-success btn-apply-for';
+            btn.className = 'btn btn-xs btn-success btn-apply-for';
             btn.setAttribute("data-id", item.id);
+            btn.setAttribute("data-ref", "{{route('song.apply.for', 'id="+item.id+"')}}");
             btn.setAttribute("data-confirm-title", "@lang('app.please_confirm')");
             btn.setAttribute("data-confirm-text", "@lang('app.are_you_sure_apply_song') la canción "+item.title+" de "+item.artist);
             btn.setAttribute("data-confirm", "@lang('app.apply_for')");

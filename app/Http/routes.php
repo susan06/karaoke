@@ -309,6 +309,10 @@ Route::group([
         'SongsController@searchArtistAjax')
         ->name('song.artist.search.ajax');
 
+    Route::get('/apply/for',
+        'SongsController@applySong')
+        ->name('song.apply.for');
+
     Route::get('/my_list',
         'SongsController@myList')
         ->name('song.my_list');

@@ -518,6 +518,8 @@ return [
     'please_confirm_apply' => 'Confirmar la solicitud',
     'are_you_sure_apply_song' => 'Esta seguro de querer solicitar: ',
     'apply_for_send' => 'Su solicitud fue enviada',
+    'apply_for_send_not' => 'Tu solicitud no fue enviada, intentar de nuevo',
+    '#_apply' => '# solicitada',
 
     //clients
 

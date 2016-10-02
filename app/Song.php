@@ -18,4 +18,5 @@ class Song extends Model
     public $timestamps = true;
 
     protected $fillable = ['title', 'artist'];
+
 }

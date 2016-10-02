@@ -6,10 +6,15 @@ use Storage;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
+use Auth;
+use App\Song;
+use App\Playlist;
 use App\Http\Requests;
+use App\Mailers\NotificationMailer;
 use App\Events\Song\Created;
 use App\Events\Song\Imported;
 use App\Repositories\Song\SongRepository;
+use App\Repositories\Playlist\PlaylistRepository;
 use App\Http\Requests\Song\CreateSongRequest;
 use App\Http\Requests\Song\ImportSongRequest;
 
@@ -21,13 +26,19 @@ class SongsController extends Controller
     private $songs;
 
     /**
+     * @var PlaylistRepository
+     */
+    private $playlists;
+
+    /**
      * SongsController constructor.
      * @param SongRepository $songs
      */
-    public function __construct(SongRepository $songs)
+    public function __construct(SongRepository $songs, PlaylistRepository $playlists)
     {
         $this->middleware('auth');
         $this->songs = $songs;
+        $this->playlists = $playlists;
     }
 
 
@@ -188,9 +199,13 @@ class SongsController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function myList()
+    public function myList(Request $request)
     {
-        return view('songs.my_list');
+        $perPage = 10;
+        $user = Auth::id();
+        $songs = $this->playlists->myList($perPage, $request->search, $user);
+
+        return view('songs.my_list', compact('songs'));
     }
 
     /**
@@ -201,6 +216,36 @@ class SongsController extends Controller
     public function ranking()
     {
         return view('songs.ranking');
+    }
+
+    /**
+     * Apply for song
+     *
+     * @param Song $song
+     */
+    public function applySong(Request $request, NotificationMailer $mailer)
+    {
+        try {
+            $this->playlists->create(['song_id' => $request->id, 'user_id' => Auth::id()]);
+            $song = $this->songs->find($request->id); 
+            $mailer->sendApplySong($song, Auth::user());
+            $response = [
+                'success' => true,
+                'status' => 'success',
+                'disabled' => true,
+                'message' => trans('app.apply_for_send')
+            ];
+        } catch (Exception $e){
+            $response = [
+                'success' => false,
+                'status' => 'error',
+                'disabled' => false,
+                'message' => trans('app.apply_for_send_not')
+            ];
+        }
+            
+        return response()->json($response);
+        
     }
 
 }

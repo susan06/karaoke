@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: host.soluciones3r.com
--- Tiempo de generación: 02-10-2016 a las 14:21:22
+-- Tiempo de generación: 02-10-2016 a las 14:19:16
 -- Versión del servidor: 5.6.25-log
 -- Versión de PHP: 7.0.9
 
@@ -19,6 +19,170 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `karaoke_bd`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `migrations`
+--
+
+CREATE TABLE `migrations` (
+  `migration` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `batch` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `migrations`
+--
+
+INSERT INTO `migrations` (`migration`, `batch`) VALUES
+('2014_10_12_000000_create_users_table', 1),
+('2014_10_12_100000_create_password_resets_table', 1),
+('2015_08_25_172600_create_settings_table', 1),
+('2015_10_10_170911_create_user_social_networks_table', 1),
+('2015_10_10_171049_create_social_login_table', 1),
+('2015_10_10_171734_add_foreign_keys', 1),
+('2015_12_24_080704_entrust_setup_tables', 1),
+('2015_12_24_152327_create_sessions_table', 1),
+('2015_12_29_224252_create_user_activity_table', 1),
+('2016_09_28_205935_create_songs_table', 1),
+('2016_10_02_200655_create_playlist_table', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `password_resets`
+--
+
+CREATE TABLE `password_resets` (
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `playlists`
+--
+
+CREATE TABLE `playlists` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `song_id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `play_status` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `roles`
+--
+
+CREATE TABLE `roles` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `display_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `removable` tinyint(1) NOT NULL DEFAULT '1',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `roles`
+--
+
+INSERT INTO `roles` (`id`, `name`, `display_name`, `description`, `removable`, `created_at`, `updated_at`) VALUES
+(1, 'superAdmin', 'Super Admininistrador', 'System Super administrator.', 0, '2016-10-01 17:20:48', '2016-10-01 17:20:48'),
+(2, 'admin', 'Administradores', 'System administrator.', 0, '2016-10-01 17:20:48', '2016-10-01 17:20:48'),
+(3, 'user', 'Clientes', 'Default system user.', 0, '2016-10-01 17:20:48', '2016-10-01 17:20:48'),
+(4, 'dj', 'DJ', 'Default system DJ.', 0, '2016-10-01 17:20:48', '2016-10-01 17:20:48');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `role_user`
+--
+
+CREATE TABLE `role_user` (
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `role_id` int(10) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `role_user`
+--
+
+INSERT INTO `role_user` (`user_id`, `role_id`) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(5, 3),
+(6, 3),
+(4, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `sessions`
+--
+
+CREATE TABLE `sessions` (
+  `id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `ip_address` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `user_agent` text COLLATE utf8_unicode_ci,
+  `payload` text COLLATE utf8_unicode_ci NOT NULL,
+  `last_activity` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `sessions`
+--
+
+INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
+('11066336ecb270fcf3800920e7170dc1726e7640', NULL, '190.140.20.96', 'WhatsApp/2.16.275 A', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiVDRiMnNlekZUOG9yNGZ1SUZpblEyTDRROEk4RlpmMTB6Qzk2aTY0WiI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czo0MjoiaHR0cDovL3d3dy5zb2x1Y2lvbmVzM3IuY29tL2thcmFva2UvcHVibGljIjt9czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDI6Imh0dHA6Ly93d3cuc29sdWNpb25lczNyLmNvbS9rYXJhb2tlL3B1YmxpYyI7fXM6OToiX3NmMl9tZXRhIjthOjM6e3M6MToidSI7aToxNDc1NDM1OTczO3M6MToiYyI7aToxNDc1NDM1OTczO3M6MToibCI7czoxOiIwIjt9czo1OiJmbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19', 1475435973),
+('44a2b7c306b263b9230f3a994415290cc3f845bc', 1, '190.141.124.187', 'Mozilla/5.0 (iPhone; CPU iPhone OS 10_0_2 like Mac OS X) AppleWebKit/602.1.50 (KHTML, like Gecko) Version/10.0 Mobile/14A456 Safari/602.1', 'YTo3OntzOjY6Il90b2tlbiI7czo0MDoiMXB1dW95R1hvaWJFNjNQZ1g2VWhVZVlSYldnMlk5Wk5CTmFlQTE1cCI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjUyOiJodHRwOi8vd3d3LnNvbHVjaW9uZXMzci5jb20va2FyYW9rZS9wdWJsaWMvc29uZ3MvYWxsIjt9czo1OiJmbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjU6ImxvZ2luIjtzOjU6InBhbmVsIjtzOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6OToiX3NmMl9tZXRhIjthOjM6e3M6MToidSI7aToxNDc1NDM3NDUzO3M6MToiYyI7aToxNDc1NDM1OTc5O3M6MToibCI7czoxOiIwIjt9fQ==', 1475437453),
+('65483b3fc55f98134cac7e060e2886e9eb85031d', NULL, '190.140.20.96', 'WhatsApp/2.16.275 A', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiQXVqSDlxbUhXMDdDa0loNTVMRzlXNUZwZ3Y2dG4wOGZZYUY5SmdtcyI7czo1OiJsb2dpbiI7czo1OiJwYW5lbCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDg6Imh0dHA6Ly93d3cuc29sdWNpb25lczNyLmNvbS9rYXJhb2tlL3B1YmxpYy9wYW5lbCI7fXM6OToiX3NmMl9tZXRhIjthOjM6e3M6MToidSI7aToxNDc1NDM1OTczO3M6MToiYyI7aToxNDc1NDM1OTczO3M6MToibCI7czoxOiIwIjt9czo1OiJmbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19', 1475435973),
+('7d46ad5d48071c38aa53b04867f7b745b35ac4ce', 1, '66.249.88.2', 'Mozilla/5.0 (Linux; Android 5.0; LG-D855 Build/LRX21R) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36', 'YTo3OntzOjY6Il90b2tlbiI7czo0MDoiWkpkMmh1Z3NLTU1FY1FvelllSUM4UnJPM0ZVVmRvYnNGeDNUcGJ4eiI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjUyOiJodHRwOi8vd3d3LnNvbHVjaW9uZXMzci5jb20va2FyYW9rZS9wdWJsaWMvc29uZ3MvYWxsIjt9czo1OiJmbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjU6ImxvZ2luIjtzOjU6InBhbmVsIjtzOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6OToiX3NmMl9tZXRhIjthOjM6e3M6MToidSI7aToxNDc1NDM1NjU4O3M6MToiYyI7aToxNDc1NDM1NDYxO3M6MToibCI7czoxOiIwIjt9fQ==', 1475435658);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `settings`
+--
+
+CREATE TABLE `settings` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `key` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `value` text COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `social_logins`
+--
+
+CREATE TABLE `social_logins` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `provider` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `provider_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `avatar` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `social_logins`
+--
+
+INSERT INTO `social_logins` (`id`, `user_id`, `provider`, `provider_id`, `avatar`, `created_at`) VALUES
+(1, 5, 'facebook', '1724779304442056', 'https://graph.facebook.com/v2.6/1724779304442056/picture?type=normal', '2016-10-01 19:12:28'),
+(2, 6, 'facebook', '10154018056411647', 'https://graph.facebook.com/v2.6/10154018056411647/picture?type=normal', '2016-10-02 07:29:24');
 
 -- --------------------------------------------------------
 
@@ -4841,9 +5005,145 @@ INSERT INTO `songs` (`id`, `artist`, `title`, `created_at`, `updated_at`) VALUES
 (4792, 'ZIGGY MARLEY', 'TOMORROW PEOPLE', '2016-10-02 00:47:06', '2016-10-02 00:47:06'),
 (4793, 'ZZTOP', 'LEGS', '2016-10-02 00:47:06', '2016-10-02 00:47:06');
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `username` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `first_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `last_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `birthday` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `phone` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `avatar` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `last_login` timestamp NULL DEFAULT NULL,
+  `confirmation_token` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `status` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `users`
+--
+
+INSERT INTO `users` (`id`, `email`, `username`, `password`, `first_name`, `last_name`, `birthday`, `phone`, `avatar`, `last_login`, `confirmation_token`, `status`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'user@superadmin.com', 'superadmin', '$2y$10$tUihs2yrzOtU3Xq2K47aHe.QZhyuh8.Z3wftCUini4h3aB32B3Lz.', 'super_admin_name', NULL, NULL, NULL, NULL, '2016-10-03 02:42:01', NULL, 'Active', 'R5dyB2ZvM15Lz2NivxH0OTTznwQN7SGH0RE7SJ4hR4w1OD3ksmSlACPhphw0', '2016-10-01 17:20:48', '2016-10-03 02:42:01'),
+(2, 'user@admin.com', 'admin', '$2y$10$ind6.DZ9Wky9xGOUKOwQteLpkcbtG6TQFt8RBIXX.9mV7th2uqpgO', 'admin_name', NULL, NULL, NULL, NULL, NULL, NULL, 'Active', NULL, '2016-10-01 17:20:48', '2016-10-01 17:20:48'),
+(3, 'user@user.com', 'user', '$2y$10$KzJXSTVapVBUxJX/NbQf8uy/K7I0fpLkWaFJeXc/XuTwoCNlffBem', 'user_name', NULL, NULL, NULL, NULL, NULL, NULL, 'Active', NULL, '2016-10-01 17:20:48', '2016-10-01 17:20:48'),
+(4, 'user@dj.com', 'dj', '$2y$10$tG7/ApJTHXOz8Y5rGAgf1OLYfijSRIOs1MTpbmz8gdq61aTP5wKnG', 'dj_name', NULL, NULL, NULL, NULL, NULL, NULL, 'Active', NULL, '2016-10-01 17:20:48', '2016-10-01 17:20:48'),
+(5, 'susi_6192@hotmail.com', NULL, '$2y$10$IY51nVnRqUR5fegOxF3lhextxc/vdZkQIjXaE6NDTAytR/AmUrNai', 'Josue', 'Medina', NULL, NULL, 'https://graph.facebook.com/v2.6/1724779304442056/picture?type=normal', NULL, NULL, 'Active', '15YttuDEYZWBo2Vm4F8iZ5OOF5k8wv6H65UplVIfFFxh7GFJTsX3O0sdplw9', '2016-10-01 19:12:27', '2016-10-01 19:16:11'),
+(6, 'gabrieli_06@hotmail.com', NULL, '$2y$10$1e9QYJiqj86QV0c11SS6terhr75rAfQe9sFAT1B.abrHmOb86pOoe', 'Susan', 'Medina Rodriguez', NULL, NULL, 'https://graph.facebook.com/v2.6/10154018056411647/picture?type=normal', NULL, NULL, 'Active', 'e0OjclCfAsrUEgzNFv292bOSf7CEGKyuH2ClNuXEXb6oJEvdmnFl5CZUFMCf', '2016-10-02 07:29:24', '2016-10-02 07:31:49');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `user_activity`
+--
+
+CREATE TABLE `user_activity` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `description` text COLLATE utf8_unicode_ci NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `ip_address` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  `user_agent` text COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `user_activity`
+--
+
+INSERT INTO `user_activity` (`id`, `description`, `user_id`, `ip_address`, `user_agent`, `created_at`) VALUES
+(1, 'Conectado.', 1, '190.205.157.194', 'Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36', '2016-10-01 17:21:06'),
+(2, 'Importación de canciones', 1, '190.205.157.194', 'Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36', '2016-10-01 19:04:10'),
+(3, 'Desconectado.', 1, '190.205.157.194', 'Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36', '2016-10-01 19:12:03'),
+(4, 'Desconectado.', 5, '190.205.157.194', 'Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36', '2016-10-01 19:15:07'),
+(5, 'Desconectado.', 5, '190.205.157.194', 'Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36', '2016-10-01 19:16:11'),
+(6, 'Conectado.', 1, '190.142.165.134', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36', '2016-10-02 04:04:40'),
+(7, 'Desconectado.', 1, '190.142.165.134', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36', '2016-10-02 04:12:46'),
+(8, 'Desconectado.', 6, '190.142.165.134', 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36', '2016-10-02 07:31:49'),
+(9, 'Conectado.', 1, '190.140.20.96', 'Mozilla/5.0 (Linux; Android 5.0; LG-D855 Build/LRX21R) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.124 Mobile Safari/537.36', '2016-10-03 02:12:31'),
+(10, 'Conectado.', 1, '190.141.124.187', 'Mozilla/5.0 (iPhone; CPU iPhone OS 10_0_2 like Mac OS X) AppleWebKit/602.1.50 (KHTML, like Gecko) Version/10.0 Mobile/14A456 Safari/602.1', '2016-10-03 02:42:01');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `user_social_networks`
+--
+
+CREATE TABLE `user_social_networks` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL,
+  `facebook` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `user_social_networks`
+--
+
+INSERT INTO `user_social_networks` (`id`, `user_id`, `facebook`) VALUES
+(1, 5, 'https://www.facebook.com/1724779304442056'),
+(2, 6, 'https://www.facebook.com/10154018056411647');
+
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `password_resets`
+--
+ALTER TABLE `password_resets`
+  ADD KEY `password_resets_email_index` (`email`),
+  ADD KEY `password_resets_token_index` (`token`);
+
+--
+-- Indices de la tabla `playlists`
+--
+ALTER TABLE `playlists`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `playlists_song_id_foreign` (`song_id`),
+  ADD KEY `playlists_user_id_foreign` (`user_id`);
+
+--
+-- Indices de la tabla `roles`
+--
+ALTER TABLE `roles`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `roles_name_unique` (`name`);
+
+--
+-- Indices de la tabla `role_user`
+--
+ALTER TABLE `role_user`
+  ADD PRIMARY KEY (`user_id`,`role_id`),
+  ADD KEY `role_user_role_id_foreign` (`role_id`);
+
+--
+-- Indices de la tabla `sessions`
+--
+ALTER TABLE `sessions`
+  ADD UNIQUE KEY `sessions_id_unique` (`id`);
+
+--
+-- Indices de la tabla `settings`
+--
+ALTER TABLE `settings`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `settings_key_index` (`key`);
+
+--
+-- Indices de la tabla `social_logins`
+--
+ALTER TABLE `social_logins`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `social_logins_user_id_foreign` (`user_id`);
 
 --
 -- Indices de la tabla `songs`
@@ -4852,14 +5152,100 @@ ALTER TABLE `songs`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `users_email_unique` (`email`),
+  ADD UNIQUE KEY `users_username_unique` (`username`);
+
+--
+-- Indices de la tabla `user_activity`
+--
+ALTER TABLE `user_activity`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_activity_user_id_foreign` (`user_id`);
+
+--
+-- Indices de la tabla `user_social_networks`
+--
+ALTER TABLE `user_social_networks`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
+--
+-- AUTO_INCREMENT de la tabla `playlists`
+--
+ALTER TABLE `playlists`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `roles`
+--
+ALTER TABLE `roles`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT de la tabla `settings`
+--
+ALTER TABLE `settings`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `social_logins`
+--
+ALTER TABLE `social_logins`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT de la tabla `songs`
 --
 ALTER TABLE `songs`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4794;
+--
+-- AUTO_INCREMENT de la tabla `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT de la tabla `user_activity`
+--
+ALTER TABLE `user_activity`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+--
+-- AUTO_INCREMENT de la tabla `user_social_networks`
+--
+ALTER TABLE `user_social_networks`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `playlists`
+--
+ALTER TABLE `playlists`
+  ADD CONSTRAINT `playlists_song_id_foreign` FOREIGN KEY (`song_id`) REFERENCES `songs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `playlists_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `songs` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `role_user`
+--
+ALTER TABLE `role_user`
+  ADD CONSTRAINT `role_user_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `role_user_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `social_logins`
+--
+ALTER TABLE `social_logins`
+  ADD CONSTRAINT `social_logins_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `user_activity`
+--
+ALTER TABLE `user_activity`
+  ADD CONSTRAINT `user_activity_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

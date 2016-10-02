@@ -45,7 +45,6 @@
                                     <tr>
                                         <th>@lang('app.song')</th>
                                         <th>@lang('app.artist')</th>
-                                        <th>@lang('app.action')</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -54,12 +53,11 @@
                                             <tr>
                                                 <td>{{$song->title}}</td>
                                                 <td>{{$song->artist}}</td>
-                                                <td><a class="btn btn-sm btn-xm btn-success" href="" title="Solicitar">@lang('app.apply_for')</a></td>
                                             </tr>
                                         @endforeach
                                     @else
                                     <tr>
-                                        <td colspan="3"><em>@lang('app.no_records_found')</em></td>
+                                        <td colspan="2"><em>@lang('app.no_records_found')</em></td>
                                     </tr>
                                     @endif                                
                                     </tbody>

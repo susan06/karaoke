@@ -36,7 +36,6 @@ class SongEventsSubscriber
         $this->logger->log($message);
     }
 
-
     /**
      * Register the listeners for the subscriber.
      *
