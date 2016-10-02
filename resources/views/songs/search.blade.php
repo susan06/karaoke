@@ -62,8 +62,6 @@
 
 <script type="text/javascript">
 
-var first_search = '@lang("app.first_search")';
-
 $(document).ready(function(e){
 
     $.ajaxSetup({
@@ -82,16 +80,13 @@ $(document).ready(function(e){
     })
 
     $('#search').keyup(function(e) {
-        $(".autocomplete-suggestions").hide();
         var unicode = e.keyCode ? e.keyCode : e.which;    
-        console.log(unicode);
         if (unicode == 13){  
            start_search();
         }    
     })
 
     $('.btn-search').click(function() {
-        $(".autocomplete-suggestions").hide();
         start_search();
     })
 
@@ -101,19 +96,28 @@ $(document).ready(function(e){
     })
 
 });
-
-    function reset_search() {
+    
+    function load_text_search(text) {
         document.getElementById('result_search').innerHTML = '';
         var tr = document.createElement('TR');
         var td = document.createElement('TD');
         var em = document.createElement('em');
         td.setAttribute("colspan", 3);
-        var t = document.createTextNode(first_search);
+        var t = document.createTextNode(text);
         em.appendChild(t);
         td.appendChild(em);
         tr.appendChild(td);
         container = document.getElementById('result_search');
         container.appendChild(tr);
+        $('#search').focus();
+    }
+
+    function reset_search() {
+       load_text_search('@lang("app.first_search")');
+    }
+
+    function searching() {
+       load_text_search('@lang("app.searching")');
     }
 
     function apply_for() {
@@ -172,7 +176,8 @@ $(document).ready(function(e){
     }
 
     function start_search() {
-        if ($('#search').val()) {  
+        if ($('#search').val()) { 
+            searching(); 
             $.ajax({
                 type: 'POST',
                 url: '{{route("song.search.ajax.client")}}',

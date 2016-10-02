@@ -91,15 +91,27 @@ class EloquentSong extends Repository implements SongRepository
      */
     public function autocomplete($term = null)
     {
-
-        $query = DB::table('songs')
-        ->distinct()
-        ->select('title', 'artist')
-        ->where('title', 'LIKE', '%'.$term.'%')
-        ->orWhere('artist', 'LIKE', '%'.$term.'%')
-        ->take(10)
-        ->get();
-        
+        $find   = ' - ';
+        $pos = strpos($term, $find);
+        if ($pos) {
+            $string = explode($find, $term);
+            $query = DB::table('songs')
+            ->distinct()
+            ->select('title', 'artist')
+            ->where('artist', "like", "%{$string[0]}%")
+            ->orWhere('title', 'like', "%{$string[1]}%")
+            ->take(10)
+            ->get();
+        } else {
+             $query = DB::table('songs')
+            ->distinct()
+            ->select('title', 'artist')
+            ->where('title', 'LIKE', '%'.$term.'%')
+            ->orWhere('artist', 'LIKE', '%'.$term.'%')
+            ->take(10)
+            ->get();
+        }
+     
         foreach ($query as $data) {
         $return_array[] = $data->artist.' - '.$data->title;
         }

@@ -4,6 +4,7 @@ return [
     'search' => 'Búsqueda',
     'add' => 'Agregar',
     'find'  => 'Buscar',
+    'searching' => 'Buscando...',
     'trash_search' => 'Remover Búsqueda',
     'home' => 'Inicio',
     'my_profile' => 'Mi Perfil',
