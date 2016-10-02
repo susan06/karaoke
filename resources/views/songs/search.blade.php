@@ -158,7 +158,7 @@ $(document).ready(function(e){
             btn.className = 'btn btn-success btn-apply-for';
             btn.setAttribute("data-id", item.id);
             btn.setAttribute("data-confirm-title", "@lang('app.please_confirm')");
-            btn.setAttribute("data-confirm-text", "@lang('app.are_you_sure_apply_song') la canción"+item.title+' de '+item.artist);
+            btn.setAttribute("data-confirm-text", "@lang('app.are_you_sure_apply_song') la canción "+item.title+" de "+item.artist);
             btn.setAttribute("data-confirm", "@lang('app.apply_for')");
 
             btn.appendChild(apply_for);
