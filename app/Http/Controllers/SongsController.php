@@ -213,9 +213,12 @@ class SongsController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function ranking()
+    public function ranking(Request $request)
     {
-        return view('songs.ranking');
+        $perPage = 10;
+        $songs = $this->playlists->ranking($perPage, $request->search);
+
+        return view('songs.ranking', compact('songs'));
     }
 
     /**

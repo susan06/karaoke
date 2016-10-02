@@ -49,4 +49,35 @@ class EloquentPlaylist extends Repository implements PlaylistRepository
         return $result;
     }
 
+    /**
+     * Paginate registered ranking top 50.
+     *
+     * @param $perPage
+     * @param null $search
+     * @return mixed
+     */
+    public function ranking($perPage, $search = null)
+    {
+    	$query = Playlist::groupBy('song_id')
+    		->select(['*', DB::raw('count(song_id) as count')])
+    		->orderBy('count', 'DESC');
+
+        if ($search) {
+        	$query->whereHas(
+                'song', function ($q) use($search) {
+                   $q->where('title', "like", "%{$search}%");
+                   $q->orWhere('artist', 'like', "%{$search}%");
+                }
+            );
+        } 
+
+        $result = $query->take(50)->paginate($perPage);
+
+        if ($search) {
+            $result->appends(['search' => $search]);
+        }
+
+        return $result;	
+    }
+
 }

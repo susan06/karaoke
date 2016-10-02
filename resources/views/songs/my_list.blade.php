@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('page-title', trans('app.songs'))
+@section('page-title', trans('app.my_list'))
 
 @section('content')
 
     <div class="row">
         <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa-play-circle"></i> @lang('app.songs')</h3>
+            <h3 class="page-header"><i class="fa fa-play-circle"></i> @lang('app.my_list')</h3>
         </div>
     </div>
 
@@ -38,7 +38,7 @@
                     </div> 
 
                     <div class="row">    
-                        <div class="col-lg-12 col-sm-12 col-xs-12">
+                        <div class="col-lg-10 col-sm-10 col-xs-12">
                             <div class="table-responsive">
                                <table class="table">
                                     <thead>
