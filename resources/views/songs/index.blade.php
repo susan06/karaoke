@@ -38,7 +38,7 @@
                     </div> 
 
                     <div class="row">    
-                        <div class="col-lg-10 col-sm-10 col-xs-10">
+                        <div class="col-lg-12 col-sm-12 col-xs-12">
                             <div class="table-responsive">
                                <table class="table">
                                     <thead>
@@ -67,7 +67,7 @@
                             </div>  
                             {!! $songs->render() !!}
                         </div>
-                     </div> 
+                    </div> 
 
                 </div>
             </section>

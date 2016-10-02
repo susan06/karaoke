@@ -148,11 +148,25 @@ class SongsController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function searchAjax(Request $request)
+    public function searchAutocomplete(Request $request)
     {
         $term = $request->q;
         $songs = $this->songs->autocomplete($term);
 
+        return response()->json($songs); 
+    }
+
+    /**
+     * Search songs by clients
+     *
+     * @return \Illuminate\View\View
+     */
+    public function searchByClient(Request $request)
+    {
+        $perPage = 10;
+        $search = $request->q;
+        $songs = $this->songs->search($perPage, $search);
+        
         return response()->json($songs); 
     }
 

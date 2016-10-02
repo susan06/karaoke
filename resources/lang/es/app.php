@@ -8,6 +8,7 @@ return [
     'home' => 'Inicio',
     'my_profile' => 'Mi Perfil',
     'profile_info' => 'Información de perfil',
+    'info' => 'Información',
     'active_sessions' => 'Sesiones Activas',
     'copyright' => 'Copyright',
     'users' => 'Usuarios',
@@ -512,6 +513,10 @@ return [
     'file_import_error' => 'Ocurrió un error en la carga del archivo, intente de nuevo',
     'csv_import_error' => 'No puede haber campos nulos en el archivo csv',
     'song_exist' => 'Ya fue agregada la canción',
+    'first_search' => 'Buscar primero canciones en el buscador',
+    'please_confirm_apply' => 'Confirmar la solicitud',
+    'are_you_sure_apply_song' => 'Esta seguro de querer solicitar: ',
+    'apply_for_send' => 'Su solicitud fue enviada',
 
     //clients
 

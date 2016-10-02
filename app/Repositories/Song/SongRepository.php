@@ -27,6 +27,14 @@ interface SongRepository extends RepositoryInterface
     public function index($perPage, $search = null);
 
     /**
+     * Search by clients.
+     *
+     * @param null $term
+     * @return model
+     */
+    public function search($perPage, $search = null);
+
+    /**
      * Search autocomplete.
      *
      * @param null $term

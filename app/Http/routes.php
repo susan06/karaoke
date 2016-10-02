@@ -285,10 +285,6 @@ Route::group([
         'SongsController@store')
         ->name('song.store');
 
-    Route::get('/',
-        'SongsController@')
-        ->name('song.');
-
     Route::get('/import',
         'SongsController@import')
         ->name('song.import');
@@ -301,8 +297,12 @@ Route::group([
         'SongsController@search')
         ->name('song.search');
 
+    Route::post('/search/ajax/by/client',
+        'SongsController@searchByClient')
+        ->name('song.search.ajax.client');
+
     Route::get('/ajax/search',
-        'SongsController@searchAjax')
+        'SongsController@searchAutocomplete')
         ->name('song.search.ajax');
 
     Route::get('/artist/ajax/search',
