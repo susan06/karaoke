@@ -275,4 +275,28 @@ class SongsController extends Controller
         
     }
 
+    /**
+     * play song by dj
+     *
+     * @param Song $song
+     */
+    public function playSong(Request $request)
+    {
+        try {
+            $this->playlists->update($request->id, ['play_status' => true]);
+            $response = [
+                'success' => true,
+                'status' => 'success'
+            ];
+        } catch (Exception $e){
+            $response = [
+                'success' => false,
+                'status' => 'error'
+            ];
+        }
+            
+        return response()->json($response);
+        
+    }
+
 }

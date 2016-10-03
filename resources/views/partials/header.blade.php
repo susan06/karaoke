@@ -1,8 +1,10 @@
       <!--header start--> 
       <header class="header dark-bg">
+            @if (!Auth::user()->hasRole('dj'))
             <div class="toggle-nav">
                 <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"><i class="icon_menu"></i></div>
             </div>
+            @endif
 
             <!--logo start-->
             <a href="{{route('dashboard')}}" class="logo">{{Settings::get('app_name')}}</a>
@@ -24,6 +26,11 @@
                         </a>
                         <ul class="dropdown-menu extended logout">
                             <div class="log-arrow-up"></div>
+                            @if (Auth::user()->hasRole('dj'))
+                            <li class="eborder-top">
+                                <a href="{{route('song.apply.list')}}"><i class="fa fa-play-circle"></i> @lang('app.requested_songs')</a>
+                            </li>
+                            @endif
                             <li class="eborder-top">
                                 <a href="{{ route('profile') }}"><i class="icon_profile"></i> @lang('app.my_profile')</a>
                             </li>

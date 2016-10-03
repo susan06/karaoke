@@ -34,7 +34,13 @@
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
     <![endif]-->
-
+    @if (Auth::user()->hasRole('dj'))
+    <style type="text/css">
+        #main-content {
+            margin-left: 0px;
+        }
+    </style>
+    @endif
 
     @yield('styles')
 </head>
@@ -46,7 +52,9 @@
 
     @include('partials.header')
 
+    @if (!Auth::user()->hasRole('dj'))
     @include('partials.menu')
+    @endif
 
     <!--main content start-->
       <section id="main-content">

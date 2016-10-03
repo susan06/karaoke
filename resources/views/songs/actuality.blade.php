@@ -25,14 +25,14 @@
                             <div class='input-group'>
                                 <input class="form-control" id="date" name="date" value="{{ Input::get('date') ? Input::get('date') : Carbon\Carbon::now()->format('d-m-Y') }}" />
                                 <a href="{{ route('song.apply.list') }}" class="input-group-addon">
-                                    Hoy</a>
+                                    @lang('app.today')</a>
                             </div>
                         </div>
                     </form>
                     </div> 
 
                     <div class="row">    
-                        <div class="col-lg-10 col-sm-10 col-xs-12">
+                        <div class="col-lg-12 col-sm-12 col-xs-12">
                             <div class="table-responsive">
                                <table class="table">
                                     <thead>
@@ -40,6 +40,8 @@
                                         <th>@lang('app.song')</th>
                                         <th>@lang('app.artist')</th>
                                         @if (Auth::user()->hasRole('dj')) 
+                                        <th>@lang('app.who_apply')</th>
+                                        <th>@lang('app.status')</th>
                                         <th>@lang('app.action')</th>
                                         @endif
                                     </tr>
@@ -47,18 +49,28 @@
                                     <tbody>
                                     @if (count($songs))
                                         @foreach ($songs as $playlist) 
-                                            <tr>
+                                            <tr class="@if($playlist->play_status) success @endif">
                                                 <td>{{$playlist->song->title}}</td>
                                                 <td>{{$playlist->song->artist}}</td>
                                                 @if (Auth::user()->hasRole('dj')) 
+                                                <td>{{$playlist->user->present()->name}}</td>
+                                                <td id="status_{{$playlist->id}}">
+                                                @if($playlist->play_status)
+                                                  <strong>@lang('app.placed')</strong>
+                                                @else
+                                                   @lang('app.place')
+                                                @endif
+                                                </td>
                                                 <td>
-                                                    <a class="btn btn-xs btn-success btn-apply-for" 
-                                                    data-id="{{$playlist->song_id}}"
-                                                    data-count="{{$playlist->count}}"
+                                                    <a class="btn btn-xs btn-success btn-apply-for"
+                                                    title="@lang('app.play')" 
+                                                    data-toggle="tooltip" 
+                                                    data-placement="top" 
+                                                    data-id="{{$playlist->id}}"
                                                     data-confirm-title="@lang('app.please_confirm')"
                                                     data-confirm-text="@lang('app.are_you_sure_apply_song') la canción {{$playlist->song->title}} de {{$playlist->song->artist}}"
-                                                    data-confirm="@lang('app.apply_for')">
-                                                    @lang('app.apply_for')</a>    
+                                                    data-confirm="@lang('app.play')">
+                                                    <i class="fa fa-play-circle"></i></a>    
                                                 </td>
                                                 @endif
                                             </tr>
@@ -116,13 +128,15 @@ $(document).on('click', '.btn-apply-for', function() {
             if (isConfirm) {  
                 $.ajax({
                     type: 'GET',
-                    url: '{{route("song.apply.for")}}',
+                    url: '{{route("song.dj.play")}}',
                     dataType: 'json',
                     data: { 'id': $this.data('id') },
                     success: function (request) { 
                         row.addClass(request.status); 
-                        $this.attr('disabled', request.disabled);  
-                        swal("@lang('app.info')", request.message, request.status);
+                        if(request.success) {
+                            document.getElementById('status_'+$this.data('id')).innerHTML = "<strong>@lang('app.placed')</strong>";
+                        }
+                        swal.close();
                     }
                 }) 
             }           

@@ -2,6 +2,7 @@
 
 return [
     'search' => 'Búsqueda',
+    'today' => 'Hoy',
     'add' => 'Agregar',
     'find'  => 'Buscar',
     'searching' => 'Buscando...',
@@ -520,6 +521,11 @@ return [
     'apply_for_send' => 'Su solicitud fue enviada',
     'apply_for_send_not' => 'Tu solicitud no fue enviada, intentar de nuevo',
     '#_apply' => '# solicitada',
+    'who_apply' => 'Solicitada por:',
+    'place' => 'Colocar',
+    'placed' => 'Colocada',
+    'play' => 'Play',
+    
 
     //clients
 

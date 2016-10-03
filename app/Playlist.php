@@ -19,6 +19,10 @@ class Playlist extends Model
 
     protected $fillable = ['song_id', 'user_id', 'play_status'];
 
+    protected $casts = [
+        'play_status' => 'boolean'
+    ];
+
     /*
     * Relationships
     *
@@ -26,5 +30,10 @@ class Playlist extends Model
     public function song()
     {
         return $this->hasOne(Song::class, 'id', 'song_id');
+    }
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
     }
 }

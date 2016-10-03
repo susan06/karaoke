@@ -50,7 +50,9 @@ class DashboardController extends Controller
             return redirect()->route('user.client.index');
         }
 
-        return $this->defaultDashboard();
+        if (Auth::user()->hasRole('dj')) {
+            return redirect()->route('song.apply.list');
+        }
     }
 
     /**
@@ -76,16 +78,5 @@ class DashboardController extends Controller
 
         return view('dashboard.admin', compact('stats', 'latestRegistrations', 'usersPerMonth'));
     }
-
-    /**
-     * Displays default dashboard for non-admin users.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    private function defaultDashboard()
-    {
-        return view('dashboard.default');
-    }
-
 
 }

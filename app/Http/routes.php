@@ -324,5 +324,9 @@ Route::group([
     Route::get('/apply/actuality',
         'SongsController@applyActuality')
         ->name('song.apply.list');
+
+    Route::get('/play',
+        'SongsController@playSong')
+        ->name('song.dj.play');
 });
 

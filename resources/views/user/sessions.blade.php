@@ -26,7 +26,9 @@
                                 <th>@lang('app.ip_address')</th>
                                 <th>@lang('app.user_agent')</th>
                                 <th>@lang('app.last_activity')</th>
+                                @if (Auth::user()->hasRole('superadmin') || Auth::user()->hasRole('admin'))
                                 <th class="text-center">@lang('app.actions')</th>
+                                @endif
                             </tr>
                             </thead>
                             <tbody>
@@ -36,6 +38,7 @@
                                             <td>{{ $session->ip_address }}</td>
                                             <td>{{ $session->user_agent }}</td>
                                             <td>{{ \Carbon\Carbon::createFromTimestamp($session->last_activity)->format('Y-m-d H:i:s') }}</td>
+                                            @if (Auth::user()->hasRole('superadmin') || Auth::user()->hasRole('admin'))
                                             <td class="text-center">
                                                 <a href="{{ route('user.sessions.invalidate', [$user->id, $session->id]) }}"
                                                     class="btn btn-danger" title="@lang('app.invalidate_session')"
@@ -48,6 +51,7 @@
                                                     <i class="icon_close_alt2"></i>
                                                 </a>
                                             </td>
+                                            @endif
                                         </tr>
                                     @endforeach
                                 @else
