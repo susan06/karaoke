@@ -162,8 +162,8 @@ return [
         Since this is your first time to log in with Twitter account, please provide your email
         below so we can create an account for you.',
 
-    'reset_password' => 'Reset Password',
-    'reset_your_password' => 'Reset Your Password',
+    'reset_password' => 'Restaurar contraseña',
+    'reset_your_password' => 'Restablecer Contraseña',
     'new_password' => 'Nueva Contraseña',
     'confirm_new_password' => 'Confirmar Nueva Contraseña',
     'update_password' => 'Actualizar Contraseña',

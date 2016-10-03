@@ -9,4 +9,4 @@
 <p>{{ url('password/reset/' . $token) }}</p>
 
 @lang('app.many_thanks'), <br/>
-{{ settings('app_name') }}
+{{ Settings::get('app_name') }}

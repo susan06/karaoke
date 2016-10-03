@@ -118,7 +118,7 @@ table tr th { color: #688a7e;}
     border-radius: 5px 5px 0 0;
     -webkit-border-radius: 5px 5px 0 0;
     color: #fff;
-    font-size: 18px;
+    font-size: 20px;
     text-transform: uppercase;
     font-weight: 300;
     font-family: 'Lato', sans-serif;
@@ -183,19 +183,22 @@ table tr th { color: #688a7e;}
 
 .login-form p {
     text-align: center;
-    color: #b6b6b6;
-    font-size: 16px;
-    font-weight: 300;
+    color: #707070;
+    font-size: 18px;
+    font-weight: bold;
 }
 .login-img3-body .login-form p,.login-img2-body .login-form p {
     color: #34aadc;
 }
 .login-form a {
     color: #b6b6b6;
+    font-size: 16px;
+    font-weight: normal;
 }
 
 .login-form a:hover {
     color: #34aadc;
+    font-weight: bold;
 }
 .form .required{
     font-size: 16px;
@@ -5127,4 +5130,10 @@ border:none !important;
 .form-horizontal .button-uploading {
     color: transparent;
     cursor: default;
+}
+.green {
+    color: #4CD964;
+}
+.gray {
+    color: #A4A4A4;
 }

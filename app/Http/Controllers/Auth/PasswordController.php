@@ -87,7 +87,7 @@ class PasswordController extends Controller
 
         switch ($response) {
             case Password::PASSWORD_RESET:
-                return redirect('login')->with('success', trans($response));
+                return redirect('panel')->with('success', trans($response));
 
             default:
                 return redirect()->back()
