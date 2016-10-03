@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
 use Auth;
+use App\User;
 use App\Song;
 use App\Playlist;
 use App\Http\Requests;
@@ -202,10 +203,19 @@ class SongsController extends Controller
     public function myList(Request $request)
     {
         $perPage = 10;
-        $user = Auth::id();
-        $songs = $this->playlists->myList($perPage, $request->search, $user);
+        if($request->user) {
+            $user_id = $request->user;
+            $user = User::find($user_id);
+            $admin = true;
+        } else {
+            $user_id = Auth::id();
+            $admin = false;
+            $user = false;
+        }
+        
+        $songs = $this->playlists->myList($perPage, $request->search, $user_id, $admin);
 
-        return view('songs.my_list', compact('songs'));
+        return view('songs.my_list', compact('songs', 'admin', 'user'));
     }
 
     /**

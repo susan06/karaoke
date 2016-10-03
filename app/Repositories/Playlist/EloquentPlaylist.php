@@ -25,7 +25,7 @@ class EloquentPlaylist extends Repository implements PlaylistRepository
      * @param null $user
      * @return mixed
      */
-    public function myList($perPage, $search = null, $user = null) 
+    public function myList($perPage, $search = null, $user = null, $admin = null) 
     {
  		$query = Playlist::where('user_id', '=', $user)
     		->orderBy('created_at', 'DESC')
@@ -45,6 +45,10 @@ class EloquentPlaylist extends Repository implements PlaylistRepository
 
         if ($search) {
             $result->appends(['search' => $search]);
+        }
+
+        if ($admin) {
+            $result->appends(['user' => $user]);
         }
 
         return $result;
@@ -95,8 +99,7 @@ class EloquentPlaylist extends Repository implements PlaylistRepository
         	$date1 = date_format(date_create($date), 'Y-m-d');
         	$query = Playlist::where('created_at', 'like', $date1.'%')->paginate($perPage);
         } else {
-        	//$query = Playlist::where('created_at', 'like', $today.'%')->paginate($perPage);
-        	$query = Playlist::paginate($perPage);
+        	$query = Playlist::where('created_at', 'like', $today.'%')->paginate($perPage);
         }
 
         if ($date) {

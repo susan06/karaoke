@@ -6,7 +6,13 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa-play-circle"></i> @lang('app.my_list')</h3>
+            <h3 class="page-header"><i class="fa fa-play-circle"></i> 
+            @if($admin) 
+                 @lang('app.requested_songs') de {{ $user->present()->name }}
+            @else                    
+                @lang('app.my_list')
+            @endif 
+            </h3>
         </div>
     </div>
 
@@ -22,14 +28,23 @@
                     <div class="row">  
                     <form method="GET" action="" accept-charset="UTF-8">  
                         <div class="col-lg-7 col-sm-8 col-xs-12">
-                            <div class="input-group">         
+                            <div class="input-group">  
+                                @if($admin) 
+                                <input type="hidden" name="user" value="{{$user->id}}">
+                                @endif      
                                 <input type="text" class="form-control margin_search" name="search" value="{{ Input::get('search') }}" id="search" placeholder="@lang('app.search_song_artist')">
                                 <span class="input-group-btn">
                                     <button class="btn btn-primary" type="submit"><span class="fa fa-search"></span></button>
                                     @if (Input::has('search') && Input::get('search') != '')
-                                        <a href="{{ route('song.my_list') }}" class="btn btn-danger">
-                                           <i class="icon_close_alt2"></i>
-                                        </a>
+                                        @if($admin)
+                                            <a href="{{ route('song.my_list', 'user='.$user->id) }}" class="btn btn-danger">
+                                               <i class="icon_close_alt2"></i>
+                                            </a>
+                                        @else
+                                            <a href="{{ route('song.my_list') }}" class="btn btn-danger">
+                                               <i class="icon_close_alt2"></i>
+                                            </a>
+                                        @endif
                                     @endif
                                 </span>
                             </div>
@@ -46,7 +61,9 @@
                                         <th>@lang('app.song')</th>
                                         <th>@lang('app.artist')</th>
                                         <th>@lang('app.#_apply')</th>
+                                        @if(!$admin)
                                         <th>@lang('app.action')</th>
+                                        @endif
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -56,6 +73,7 @@
                                                 <td>{{$playlist->song->title}}</td>
                                                 <td>{{$playlist->song->artist}}</td>
                                                 <td id="count_{{$playlist->song_id}}">{{$playlist->count}}</td>
+                                                @if(!$admin)
                                                 <td>
                                                     <a class="btn btn-xs btn-success btn-apply-for" 
                                                     data-id="{{$playlist->song_id}}"
@@ -65,6 +83,7 @@
                                                     data-confirm="@lang('app.apply_for')">
                                                     @lang('app.apply_for')</a>    
                                                 </td>
+                                                @endif
                                             </tr>
                                         @endforeach
                                     @else

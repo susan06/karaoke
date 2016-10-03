@@ -13,7 +13,7 @@ interface PlaylistRepository extends RepositoryInterface
      * @param null $search
      * @param null $user
      */
-    public function myList($perPage, $search = null, $user = null);
+    public function myList($perPage, $search = null, $user = null, $admin = null);
 
     /**
      *  ranking top 50.
