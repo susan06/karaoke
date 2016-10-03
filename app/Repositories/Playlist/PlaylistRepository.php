@@ -12,17 +12,23 @@ interface PlaylistRepository extends RepositoryInterface
      * @param $perPage
      * @param null $search
      * @param null $user
-     * @return mixed
      */
     public function myList($perPage, $search = null, $user = null);
 
     /**
-     * Paginate registered ranking top 50.
+     *  ranking top 50.
      *
      * @param $perPage
      * @param null $search
-     * @return mixed
      */
     public function ranking($perPage, $search = null);
+
+    /**
+     *  list song by date
+     *
+     * @param $perPage
+     * @param null $date
+     */
+    public function listActuality($perPage, $date = null);
 
 }

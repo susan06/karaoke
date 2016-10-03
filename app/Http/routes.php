@@ -321,5 +321,8 @@ Route::group([
         'SongsController@ranking')
         ->name('song.ranking');
 
+    Route::get('/apply/actuality',
+        'SongsController@applyActuality')
+        ->name('song.apply.list');
 });
 

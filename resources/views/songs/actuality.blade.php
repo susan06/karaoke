@@ -6,7 +6,7 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <h3 class="page-header"><i class="icon_star"></i> @lang('app.most_requested')</h3>
+            <h3 class="page-header"><i class="fa fa-play-circle"></i> @lang('app.requested_songs')</h3>
         </div>
     </div>
 
@@ -16,22 +16,16 @@
 
             <section class="panel">
                <header class="panel-heading">
-                  Top 50
+                  @lang('app.requested_songs')
                 </header>
                 <div class="panel-body">
                     <div class="row">  
-                    <form method="GET" action="" accept-charset="UTF-8">  
-                        <div class="col-lg-7 col-sm-8 col-xs-12">
-                            <div class="input-group">         
-                                <input type="text" class="form-control margin_search" name="search" value="{{ Input::get('search') }}" id="search" placeholder="@lang('app.search_song_artist')">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-primary" type="submit"><span class="fa fa-search"></span></button>
-                                    @if (Input::has('search') && Input::get('search') != '')
-                                        <a href="{{ route('song.my_list') }}" class="btn btn-danger">
-                                           <i class="icon_close_alt2"></i>
-                                        </a>
-                                    @endif
-                                </span>
+                    <form method="GET" action="" accept-charset="UTF-8" id="date-form">  
+                        <div class="col-lg-4 col-sm-4 col-xs-8">
+                            <div class='input-group'>
+                                <input class="form-control" id="date" name="date" value="{{ Input::get('date') ? Input::get('date') : Carbon\Carbon::now()->format('d-m-Y') }}" />
+                                <a href="{{ route('song.apply.list') }}" class="input-group-addon">
+                                    Hoy</a>
                             </div>
                         </div>
                     </form>
@@ -43,10 +37,9 @@
                                <table class="table">
                                     <thead>
                                     <tr>
-                                        <th>#</th>
                                         <th>@lang('app.song')</th>
                                         <th>@lang('app.artist')</th>
-                                        @if (Auth::user()->hasRole('user')) 
+                                        @if (Auth::user()->hasRole('dj')) 
                                         <th>@lang('app.action')</th>
                                         @endif
                                     </tr>
@@ -55,10 +48,9 @@
                                     @if (count($songs))
                                         @foreach ($songs as $playlist) 
                                             <tr>
-                                                <td>{{$i++}}</td>
                                                 <td>{{$playlist->song->title}}</td>
                                                 <td>{{$playlist->song->artist}}</td>
-                                                @if (Auth::user()->hasRole('user')) 
+                                                @if (Auth::user()->hasRole('dj')) 
                                                 <td>
                                                     <a class="btn btn-xs btn-success btn-apply-for" 
                                                     data-id="{{$playlist->song_id}}"
@@ -91,9 +83,23 @@
   <!-- page end-->
 @stop
 
+@section('styles')
+    {!! HTML::style('assets/css/bootstrap-datetimepicker.min.css') !!}
+@stop
+
 @section('scripts')
 
+{!! HTML::script('assets/js/bootstrap-datetimepicker.min.js') !!}
+
 <script type="text/javascript">
+
+$('#date').datetimepicker({
+  format: 'DD-MM-YYYY'
+});
+
+ $("#date").on("dp.change", function (e) {
+    $("#date-form").submit();
+});
 
 $(document).on('click', '.btn-apply-for', function() {
     var $this = $(this);

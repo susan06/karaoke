@@ -209,16 +209,30 @@ class SongsController extends Controller
     }
 
     /**
-     * User´s List songs
+     * Ranking top 50
      *
      * @return \Illuminate\View\View
      */
     public function ranking(Request $request)
     {
         $perPage = 10;
+        $i = 1;
         $songs = $this->playlists->ranking($perPage, $request->search);
 
-        return view('songs.ranking', compact('songs'));
+        return view('songs.ranking', compact('songs', 'i'));
+    }
+
+    /**
+     * Apply song filter by date
+     *
+     * @return \Illuminate\View\View
+     */
+    public function applyActuality(Request $request)
+    {
+        $perPage = 20;
+        $songs = $this->playlists->listActuality($perPage, $request->date);
+
+        return view('songs.actuality', compact('songs'));
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Repositories\Playlist;
 
 use DB;
+use Carbon\Carbon;
 
 use App\Song;
 use App\Playlist;
@@ -78,6 +79,31 @@ class EloquentPlaylist extends Repository implements PlaylistRepository
         }
 
         return $result;	
+    }
+
+    /**
+     *  list song by date
+     *
+     * @param $perPage
+     * @param null $date
+     */
+    public function listActuality($perPage, $date = null)
+    {
+    	$today = Carbon::today()->toDateString().'%';
+
+        if ($date) {
+        	$date1 = date_format(date_create($date), 'Y-m-d');
+        	$query = Playlist::where('created_at', 'like', $date1.'%')->paginate($perPage);
+        } else {
+        	//$query = Playlist::where('created_at', 'like', $today.'%')->paginate($perPage);
+        	$query = Playlist::paginate($perPage);
+        }
+
+        if ($date) {
+            $query->appends(['date' => $date]);
+        }
+
+        return $query;
     }
 
 }

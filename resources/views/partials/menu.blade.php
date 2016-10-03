@@ -60,8 +60,8 @@
                           <span class="menu-arrow arrow_carrot-right"></span>
                       </a>
                       <ul class="sub">
-                          <li><a class="" href="#">@lang('app.popular_songs')</a></li>
-                          <li><a class="" href="#">@lang('app.requested_songs')</a></li>
+                          <li><a class="" href="{{route('song.ranking')}}">@lang('app.popular_songs')</a></li>
+                          <li><a class="" href="{{route('song.apply.list')}}">@lang('app.requested_songs')</a></li>
                       </ul>
                   </li>
                   <li class="">
