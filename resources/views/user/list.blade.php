@@ -47,6 +47,12 @@
                           </div>
                       </div>
                     </form>
+                     <div class="col-md-2 pull-right">
+                       <a href="{{ route('user.create') }}" class="btn btn-primary" id="add-user">
+                          <i class="fa fa-plus"></i>
+                          @lang('app.add_user')
+                      </a>
+                      </div>
 
                     <div class="table-responsive">
                        <table class="table">
@@ -55,6 +61,7 @@
                                 <th>@lang('app.username')</th>
                                 <th>@lang('app.full_name')</th>
                                 <th>@lang('app.email')</th>
+                                <th>@lang('app.role')</th>
                                 <th>@lang('app.registration_date')</th>
                                 <th>@lang('app.status')</th>
                                 <th class="text-center">@lang('app.actions')</th>
@@ -67,6 +74,7 @@
                                         <td>{{ $user->username ?: trans('app.n_a') }}</td>
                                         <td>{{ $user->first_name . ' ' . $user->last_name }}</td>
                                         <td>{{ $user->email }}</td>
+                                        <td>{{ $user->roles->first()->display_name }}</td>
                                         <td>{{ $user->created_at->format('d-m-Y') }}</td>
                                         <td>
                                             <span class="label label-{{ $user->present()->labelClass }}">{{ trans("app.{$user->status}") }}</span>
@@ -81,6 +89,10 @@
                                             <a href="{{ route('user.show', $user->id) }}" class="btn btn-success"
                                                title="@lang('app.view_user')" data-toggle="tooltip" data-placement="top">
                                                 <i class="fa fa-eye"></i>
+                                            </a>
+                                            <a href="{{ route('user.edit', $user->id) }}" class="btn btn-warning edit" title="@lang('app.edit_user')"
+                                                  data-toggle="tooltip" data-placement="top">
+                                              <i class="fa fa-pencil"></i>
                                             </a>
                                             <a href="javascript:void(0)" class="btn btn-danger btn-delete" title="@lang('app.delete_user')"
                                                     data-href="{{ route('user.delete') }}"

@@ -10,7 +10,7 @@ class UserMailer extends AbstractMailer
     {
         $view = 'emails.registration.confirmation';
         $data = ['token' => $token];
-        $subject = 'Registration Confirmation';
+        $subject = 'Confirmación de registro';
 
         $this->sendTo($user->email, $subject, $view, $data);
     }

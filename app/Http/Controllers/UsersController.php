@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\User\Created;
 use App\Events\User\Banned;
 use App\Events\User\Deleted;
 use App\Events\User\UpdatedByAdmin;
@@ -18,6 +19,7 @@ use App\Repositories\Session\SessionRepository;
 use App\Repositories\User\UserRepository;
 use App\Services\Upload\UserAvatarManager;
 use App\Support\Enum\UserStatus;
+use App\Mailers\UserMailer;
 use App\User;
 use Auth;
 use Authy;
@@ -85,13 +87,12 @@ class UsersController extends Controller
      * @param RoleRepository $roleRepository
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create(CountryRepository $countryRepository, RoleRepository $roleRepository)
+    public function create(RoleRepository $roleRepository)
     {
-        $countries = $countryRepository->lists();
         $roles = $roleRepository->lists();
         $statuses = UserStatus::lists();
 
-        return view('user.add', compact('countries', 'roles', 'statuses'));
+        return view('user.add', compact('roles', 'statuses'));
     }
 
     /**
@@ -100,24 +101,34 @@ class UsersController extends Controller
      * @param CreateUserRequest $request
      * @return mixed
      */
-    public function store(CreateUserRequest $request)
+    public function store(CreateUserRequest $request, UserMailer $mailer)
     {
         // When user is created by administrator, we will set his
         // status to Active by default.
-        $data = $request->all() + ['status' => UserStatus::ACTIVE];
+        $data = $request->all() + ['status' => UserStatus::UNCONFIRMED];
 
-        // Username should be updated only if it is provided.
-        // So, if it is an empty string, then we just leave it as it is.
-        if (trim($data['username']) == '') {
-            $data['username'] = null;
-        }
+        $data['username'] = null;
 
         $user = $this->users->create($data);
-        $this->users->updateSocialNetworks($user->id, []);
         $this->users->setRole($user->id, $request->get('role'));
+
+        event(new Created($user));
+
+        $this->sendConfirmationEmail($mailer, $user);
 
         return redirect()->route('user.list')
             ->withSuccess(trans('app.user_created'));
+    }
+
+    /**
+     * @param UserMailer $mailer
+     * @param $user
+     */
+    private function sendConfirmationEmail(UserMailer $mailer, $user)
+    {
+        $token = str_random(60);
+        $this->users->update($user->id, ['confirmation_token' => $token]);
+        $mailer->sendConfirmationEmail($user, $token);
     }
 
     /**
@@ -128,17 +139,13 @@ class UsersController extends Controller
      * @param RoleRepository $roleRepository
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit(User $user, CountryRepository $countryRepository, RoleRepository $roleRepository)
+    public function edit(User $user, RoleRepository $roleRepository)
     {
-        $edit = true;
-        $countries = $countryRepository->lists();
-        $socials = $user->socialNetworks;
         $roles = $roleRepository->lists();
         $statuses = UserStatus::lists();
-        $socialLogins = $this->users->getUserSocialLogins($user->id);
 
         return view('user.edit',
-            compact('edit', 'user', 'countries', 'socials', 'socialLogins', 'roles', 'statuses'));
+            compact('user', 'roles', 'statuses'));
     }
 
     /**
@@ -171,7 +178,7 @@ class UsersController extends Controller
      * @param UpdateDetailsRequest $request
      * @return mixed
      */
-    public function updateDetailsByAdmin(User $user, UpdateDetailsRequest $request)
+    public function updateDetailsByAdmin(User $user, Request $request)
     {
         $this->users->update($user->id, $request->all());
         $this->users->setRole($user->id, $request->get('role'));
