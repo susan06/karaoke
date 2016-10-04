@@ -38,6 +38,9 @@
                             <li class="eborder-top">
                                 <a href="{{route('song.apply.list')}}"><i class="fa fa-play-circle"></i> @lang('app.requested_songs')</a>
                             </li>
+                            <li class="">
+                                <a href="{{route('song.my_list')}}"><i class="icon_headphones"></i> @lang('app.my_list')</a>
+                            </li>
                             @endif
                             @if(Agent::isMobile() && Auth::user()->hasRole('user'))
                             <li class="eborder-top">
