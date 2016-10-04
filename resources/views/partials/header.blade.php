@@ -11,12 +11,13 @@
                     </div>
                 @endif
             @endif
+            {{var_dump(Agent::isMobile())}}
             <!--logo start-->
             <a href="{{route('dashboard')}}" class="logo">{{Settings::get('app_name')}}</a>
             <!--logo end-->
 
 
-            <div class="top-nav notification-row">                
+            <div class="top-nav">                
                 <!-- notificatoin dropdown start-->
                 <ul class="nav pull-right top-menu">
                     
