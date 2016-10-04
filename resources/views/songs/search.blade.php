@@ -20,7 +20,7 @@
                 </header>
                 <div class="panel-body">
                     <div class="row">    
-                        <div class="col-lg-7 col-sm-8 col-xs-12 margen_search">
+                        <div class="col-lg-7 col-sm-8 col-xs-12 margin_search">
                             <div class="input-group">         
                                 <input type="text" class="form-control" name="q" id="search" placeholder="@lang('app.search_song_artist')">
                                 <span class="input-group-btn">
@@ -32,7 +32,7 @@
                   </div> 
                   <div class="row">    
                         <div class="col-lg-10 col-sm-12 col-xs-12">
-                            <div class="table-responsive">
+                            <!--<div class="table-responsive">-->
                                <table class="table">
                                     <thead>
                                     <tr>
@@ -41,13 +41,13 @@
                                         <th>@lang('app.action')</th>
                                     </tr>
                                     </thead>
-                                    <tbody id="result_search">
+                                    <tbody class="songs" id="result_search">
                                     <tr>
                                         <td colspan="3"><em>@lang('app.first_search')</em></td>
-                                    </tr>                             
+                                    </tr>                            
                                     </tbody>
                                </table>
-                            </div>  
+                            <!--</div>-->  
                         </div>
                     </div>                
                 </div>
@@ -68,21 +68,12 @@ $(document).ready(function(e){
         headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
     })
 
-    $('#search').autoComplete({
-        minChars: 2,
-        source: function(term, response){
-            term = term.toLowerCase();
-            $.getJSON('{{route("song.search.ajax")}}', 
-                { q: term }, 
-                function(data){ response(data);
-            });
-        }
-    })
-
     $('#search').keyup(function(e) {
         var unicode = e.keyCode ? e.keyCode : e.which;    
-        if (unicode == 13){  
-           start_search();
+        if (unicode == 13){ 
+            $('#search').autoComplete('destroy'); 
+            autocomplete();
+            start_search();
         }    
     })
 
@@ -91,12 +82,29 @@ $(document).ready(function(e){
     })
 
     $('#reset_search').click(function() {
-        document.getElementById('search').value = '';
-        reset_search();
+        if ($('#search').val()) { 
+            document.getElementById('search').value = '';
+            $('#search').autoComplete('destroy'); 
+            autocomplete();
+            reset_search();
+        }
     })
 
 });
     
+    function autocomplete() {
+        $('#search').autoComplete({
+            minChars: 2,
+            source: function(term, response){
+                term = term.toLowerCase();
+                $.getJSON('{{route("song.search.ajax")}}', 
+                    { q: term }, 
+                    function(data){ response(data);
+                });
+            }
+        })
+    }
+
     function load_text_search(text) {
         document.getElementById('result_search').innerHTML = '';
         var tr = document.createElement('TR');
@@ -133,7 +141,8 @@ $(document).ready(function(e){
                 confirmButtonText: $this.data('confirm'),   
                 closeOnConfirm: false }, 
                 function(isConfirm){   
-                    if (isConfirm) {  
+                    if (isConfirm) { 
+                        swal.close(); 
                         $.ajax({
                             type: 'GET',
                             url: '{{route("song.apply.for")}}',
@@ -164,7 +173,7 @@ $(document).ready(function(e){
             var artist = document.createTextNode(item.artist);
 
             btn = document.createElement('a');
-            btn.className = 'btn btn-xs btn-success btn-apply-for';
+            btn.className = 'btn btn-lg btn-sm btn-xs btn-success btn-apply-for';
             btn.setAttribute("data-id", item.id);
             btn.setAttribute("data-ref", "{{route('song.apply.for', 'id="+item.id+"')}}");
             btn.setAttribute("data-confirm-title", "@lang('app.please_confirm')");
@@ -202,6 +211,8 @@ $(document).ready(function(e){
             })     
         } 
     }
+
+    autocomplete();
 
 </script>
 

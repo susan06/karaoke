@@ -30,7 +30,6 @@
         z-index: 1001;
     }
 
-
     /* body container */
     #main-content {
         margin: 0px!important;
@@ -76,7 +75,6 @@
     #sidebar > ul > li > ul.sub > li > a:hover {
         /*background: #4A8BC2 !important ;*/
     }
-
 
     /* sidebar */
     #sidebar {
@@ -219,10 +217,7 @@
         margin-bottom: 0;
     }
 
-
-
 }
-
 
 @media (max-width: 740px) {
     #task_notificatoin_bar,#mail_notificatoin_bar,#alert_notificatoin_bar{
@@ -321,6 +316,54 @@
 
 }
 
+/* 
+Max width before this PARTICULAR table gets nasty
+This query will take effect for any screen smaller than 760px
+and also iPads specifically.
+*/
+@media only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+    /* Force table to not be like tables anymore */
+    table, thead, tbody, th, td, tr { 
+        display: block; 
+    }
+    
+    /* Hide table headers (but not display: none;, for accessibility) */
+    thead tr { 
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+    
+    tr { border: 1px solid #ccc; }
+    
+    td { 
+        /* Behave  like a "row" */
+        border: none;
+        border-bottom: 1px solid #eee; 
+        position: relative;
+        padding-left: 50%; 
+    }
+
+    /*
+    Label the data
+    */
+    .my_list td:nth-of-type(1):before { content: "Canción: "; }
+    .my_list td:nth-of-type(2):before { content: "Artista: "; }
+    .my_list td:nth-of-type(3):before { content: "# Solicitada: "; }
+    
+    .songs td:nth-of-type(1):before { content: "Canción: "; }
+    .songs td:nth-of-type(2):before { content: "Artista: "; }
+
+    .ranking td:nth-of-type(1):before { content: "# "; }
+    .ranking td:nth-of-type(2):before { content: "Canción: "; }
+    .ranking td:nth-of-type(3):before { content: "Artista: "; }
+
+    .margin_search {
+        margin-bottom: 20px;
+    }
+}
 
 
 

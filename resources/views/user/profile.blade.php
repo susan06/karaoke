@@ -9,24 +9,26 @@
     <div class="col-lg-12 col-sm-12 col-xs-12">
         <div class="profile-widget profile-widget-info">
               <div class="panel-body">
-                <div class="col-lg-2 col-sm-4 col-xm-4">
-                  <h4>{{$user->first_name.' '.$user->last_name }}</h4>               
-                  <div class="follow-ava">
-                      <img src="{{$user->present()->avatar}}" alt="avatar">
-                  </div>
-                  <h6>{{$user->roles->first()->display_name}}</h6>
-                </div>
-                <div class="row col-lg-10 col-sm-8 col-xm-8 follow-info">
-                    <p><i class="icon_mail_alt"></i> {{$user->email}}</p>
-                    @if ($socialNetworks)
-                      @if ($socialNetworks->facebook)
-                      <p><a href="{{ $socialNetworks->facebook }}" target="_blank" class="white">
-                          <i class="fa fa-facebook"></i> Facebook
-                      </a></p>
-                      @endif
-                    @endif
-                    <p><i class="icon_calendar"></i> {{$user->birthday}}</p>
-                    <p><i class="icon_phone"></i> {{$user->phone}}</p>
+                <div class="row">
+                    <div class="col-lg-2 col-sm-4 col-xm-4 follow-avat">
+                      <h4>{{$user->first_name.' '.$user->last_name }}</h4>               
+                      <div class="follow-ava">
+                          <img src="{{$user->present()->avatar}}" alt="avatar">
+                      </div>
+                      <h6>{{$user->roles->first()->display_name}}</h6>
+                    </div>
+                    <div class="col-lg-10 col-sm-6 col-xm-8 follow-info">
+                        <p><i class="icon_mail_alt"></i> {{$user->email}}</p>
+                        @if ($socialNetworks)
+                          @if ($socialNetworks->facebook)
+                          <p><a href="{{ $socialNetworks->facebook }}" target="_blank" class="white">
+                              <i class="fa fa-facebook"></i> Facebook
+                          </a></p>
+                          @endif
+                        @endif
+                        <p><i class="icon_calendar"></i> {{$user->birthday}}</p>
+                        <p><i class="icon_phone"></i> {{$user->phone}}</p>
+                    </div>
                 </div>
               </div>
         </div>
@@ -36,22 +38,22 @@
     <div class="row">
      <div class="col-lg-12">
         <section class="panel">
+              @if (! Auth::user()->hasRole('user'))
               <header class="panel-heading tab-bg-info">
-                  <ul class="nav nav-tabs">
+                  <ul class="nav nav-tabs">               
                       <li class="active">
                           <a data-toggle="tab" href="#edit-profile">
                               @lang('app.edit_user_details')
                           </a>
-                      </li>
-                      @if (! Auth::user()->hasRole('user'))  
+                      </li>       
                       <li class="">
                           <a data-toggle="tab" href="#authentication">
                               @lang('app.authentication')
                           </a>
                       </li>
-                      @endif
                   </ul>
               </header>
+              @endif
               <div class="panel-body">
                   <div class="tab-content">
                       <!-- edit-profile -->

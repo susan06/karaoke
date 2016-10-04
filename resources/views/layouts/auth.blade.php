@@ -53,8 +53,6 @@
 
     {!! HTML::script('assets/bootstrap/js/bootstrap.min.js') !!}
 
-    {!! HTML::script('assets/js/jsvalidation/jsvalidation.js') !!}
-
     {!! HTML::script('assets/js/sweetalert.min.js') !!}
 
     @include('sweet::alert')

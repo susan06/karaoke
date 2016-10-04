@@ -34,6 +34,12 @@
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
     <![endif]-->
+    <!--[if !IE]><!-->
+    <style>
+       /* table-related media query stuff only */
+    </style>
+    <!--<![endif]-->
+    
     @if (Auth::user()->hasRole('dj'))
     <style type="text/css">
         #main-content {
@@ -107,9 +113,9 @@
 
     {!! HTML::script('assets/js/jquery.auto-complete.min.js') !!}
 
-    <!-- nice scroll 
+    <!-- nice scroll -->
     {!! HTML::script('assets/js/jquery.scrollTo.min.js') !!}
-    {!! HTML::script('assets/js/jquery.nicescroll.js') !!}-->
+    <!--{!! HTML::script('assets/js/jquery.nicescroll.js') !!}-->
 
     <!--Forms--> 
     {!! HTML::script('assets/js/jquery.maskedinput.min.js') !!}

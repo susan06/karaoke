@@ -21,9 +21,9 @@
                 <div class="panel-body">
                     <div class="row">  
                     <form method="GET" action="" accept-charset="UTF-8">  
-                        <div class="col-lg-7 col-sm-8 col-xs-12">
+                        <div class="col-lg-7 col-sm-8 col-xs-12 margin_search">
                             <div class="input-group">         
-                                <input type="text" class="form-control margin_search" name="q" value="{{ Input::get('q') }}" id="search" placeholder="@lang('app.search_song_artist')">
+                                <input type="text" class="form-control" name="q" value="{{ Input::get('q') }}" id="search" placeholder="@lang('app.search_song_artist')">
                                 <span class="input-group-btn">
                                     <button class="btn btn-primary" type="submit"><span class="fa fa-search"></span></button>
                                     @if (Input::has('q') && Input::get('q') != '')
@@ -39,7 +39,7 @@
 
                     <div class="row">    
                         <div class="col-lg-12 col-sm-12 col-xs-12">
-                            <div class="table-responsive">
+                            <!--<div class="table-responsive">-->
                                <table class="table">
                                     <thead>
                                     <tr>
@@ -47,7 +47,7 @@
                                         <th>@lang('app.artist')</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody class="songs">
                                     @if (count($songs))
                                         @foreach ($songs as $song) 
                                             <tr>
@@ -62,7 +62,7 @@
                                     @endif                                
                                     </tbody>
                                </table>
-                            </div>  
+                            <!--</div>-->  
                             {!! $songs->render() !!}
                         </div>
                     </div> 

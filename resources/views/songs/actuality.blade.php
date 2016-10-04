@@ -62,7 +62,7 @@
                                                 @endif
                                                 </td>
                                                 <td>
-                                                    <a class="btn btn-xs btn-success btn-apply-for"
+                                                    <a class="btn btn-lg btn-sm btn-xs btn-success btn-apply-for"
                                                     title="@lang('app.play')" 
                                                     data-toggle="tooltip" 
                                                     data-placement="top" 
@@ -125,7 +125,8 @@ $(document).on('click', '.btn-apply-for', function() {
         confirmButtonText: $this.data('confirm'),   
         closeOnConfirm: false }, 
         function(isConfirm){   
-            if (isConfirm) {  
+            if (isConfirm) { 
+                swal.close(); 
                 $.ajax({
                     type: 'GET',
                     url: '{{route("song.dj.play")}}',
@@ -136,7 +137,6 @@ $(document).on('click', '.btn-apply-for', function() {
                         if(request.success) {
                             document.getElementById('status_'+$this.data('id')).innerHTML = "<strong>@lang('app.placed')</strong>";
                         }
-                        swal.close();
                     }
                 }) 
             }           

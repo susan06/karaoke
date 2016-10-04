@@ -255,7 +255,7 @@ class SongsController extends Controller
         try {
             $this->playlists->create(['song_id' => $request->id, 'user_id' => Auth::id()]);
             $song = $this->songs->find($request->id); 
-            $mailer->sendApplySong($song, Auth::user());
+            //$mailer->sendApplySong($song, Auth::user());
             $response = [
                 'success' => true,
                 'status' => 'success',

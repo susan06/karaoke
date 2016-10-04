@@ -34,8 +34,26 @@ a, a:hover, a:focus {
     outline: 0;
 }
 input:focus, textarea:focus { outline: none; }
-table tr th { color: #688a7e;}
+td, th { 
+  padding: 6px; 
+  text-align: left; 
+}
+th { 
+  background: #eee; 
+  color: white; 
+  font-weight: bold; 
+}
+table tr th { 
+  color: #688a7e;  
+  padding: 6px; 
+}
+/* Zebra striping */
+tr:nth-of-type(2n+0) { 
+  background: #FAF9F9; 
+}
+
 *:focus {outline: none;}
+
 ::selection {
     background: #688a7e;
     color: #fff;
@@ -44,12 +62,10 @@ table tr th { color: #688a7e;}
     background: #688a7e;
     color: #fff;
 }
-
 #container {
     width: 100%;
     height: 100%;
 }
-
 .Creative-pro, .Creative-pro h3{
     display: block;
     position: fixed;
@@ -2529,6 +2545,7 @@ ul.ft-link li a i {
     padding-top: 30px;
     padding-left: 20px;
 	padding-bottom: 10px;
+    display: inline-block;
 }
 .profile-widget h4 {
     margin: 5px;
@@ -2576,6 +2593,9 @@ ul.ft-link li a i {
     border-radius: 50%;
     -webkit-border-radius: 50%;
     border: 5px solid rgba(0,0,0,0.1);
+    display: inline-block;
+}
+.follow-avat {
     display: inline-block;
 }
 .timeline-ava {
@@ -4982,7 +5002,7 @@ border:none !important;
     text-align: center;
 }
 .margin_search {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 .btns-search {
     margin-left: 15px;

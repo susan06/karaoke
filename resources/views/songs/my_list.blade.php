@@ -27,12 +27,12 @@
                 <div class="panel-body">
                     <div class="row">  
                     <form method="GET" action="" accept-charset="UTF-8">  
-                        <div class="col-lg-7 col-sm-8 col-xs-12">
+                        <div class="col-lg-7 col-sm-8 col-xs-12 margin_search">
                             <div class="input-group">  
                                 @if($admin) 
                                 <input type="hidden" name="user" value="{{$user->id}}">
                                 @endif      
-                                <input type="text" class="form-control margin_search" name="search" value="{{ Input::get('search') }}" id="search" placeholder="@lang('app.search_song_artist')">
+                                <input type="text" class="form-control" name="search" value="{{ Input::get('search') }}" id="search" placeholder="@lang('app.search_song_artist')">
                                 <span class="input-group-btn">
                                     <button class="btn btn-primary" type="submit"><span class="fa fa-search"></span></button>
                                     @if (Input::has('search') && Input::get('search') != '')
@@ -54,7 +54,7 @@
 
                     <div class="row">    
                         <div class="col-lg-10 col-sm-10 col-xs-12">
-                            <div class="table-responsive">
+                            <!--<div class="table-responsive">-->
                                <table class="table">
                                     <thead>
                                     <tr>
@@ -66,7 +66,7 @@
                                         @endif
                                     </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody class="my_list">
                                     @if (count($songs))
                                         @foreach ($songs as $playlist) 
                                             <tr>
@@ -75,7 +75,7 @@
                                                 <td id="count_{{$playlist->song_id}}">{{$playlist->count}}</td>
                                                 @if(!$admin)
                                                 <td>
-                                                    <a class="btn btn-xs btn-success btn-apply-for" 
+                                                    <a class="btn btn-lg btn-sm btn-xs btn-success btn-apply-for" 
                                                     data-id="{{$playlist->song_id}}"
                                                     data-count="{{$playlist->count}}"
                                                     data-confirm-title="@lang('app.please_confirm')"
@@ -93,7 +93,7 @@
                                     @endif                                
                                     </tbody>
                                </table>
-                            </div>  
+                            <!--</div>-->  
                             {!! $songs->render() !!}
                         </div>
                     </div> 
