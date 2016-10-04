@@ -1,17 +1,19 @@
       <!--header start--> 
       <header class="header dark-bg">
             @if (!Auth::user()->hasRole('dj'))
-                @if(Auth::user()->hasRole('user') && !Agent::isMobile())
-                <div class="toggle-nav">
-                    <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"><i class="icon_menu"></i></div>
-                </div>
+                @if(Auth::user()->hasRole('user'))
+                     @if(!Agent::isMobile())
+                        <div class="toggle-nav">
+                            <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"><i class="icon_menu"></i></div>
+                        </div>
+                     @endif
                 @else
                     <div class="toggle-nav">
                         <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"><i class="icon_menu"></i></div>
                     </div>
                 @endif
             @endif
-            {{var_dump(Agent::isMobile())}}
+  
             <!--logo start-->
             <a href="{{route('dashboard')}}" class="logo">{{Settings::get('app_name')}}</a>
             <!--logo end-->
