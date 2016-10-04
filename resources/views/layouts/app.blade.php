@@ -49,7 +49,12 @@
     @endif
     @if(Agent::isMobile() && Auth::user()->hasRole('user'))
     <style type="text/css">
-        #sli
+        #sidebar {
+            display: none;
+        }
+        #sidebar > ul {
+            display: none;
+        }
         #main-content {
             margin-left: 0px;
         }
@@ -96,9 +101,7 @@
 
                 if (wSize > 768) {
                     jQuery('#container').removeClass('sidebar-close');
-                    @if(Agent::isMobile() && Auth::user()->hasRole('user'))
                     jQuery('#sidebar > ul').show();
-                    @endif
                 }
             }
             jQuery(window).on('load', responsiveView);
