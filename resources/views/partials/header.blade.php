@@ -1,11 +1,16 @@
       <!--header start--> 
       <header class="header dark-bg">
             @if (!Auth::user()->hasRole('dj'))
-            <div class="toggle-nav">
-                <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"><i class="icon_menu"></i></div>
-            </div>
+                @if(Auth::user()->hasRole('user') && !Agent::isMobile())
+                <div class="toggle-nav">
+                    <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"><i class="icon_menu"></i></div>
+                </div>
+                @else
+                    <div class="toggle-nav">
+                        <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"><i class="icon_menu"></i></div>
+                    </div>
+                @endif
             @endif
-
             <!--logo start-->
             <a href="{{route('dashboard')}}" class="logo">{{Settings::get('app_name')}}</a>
             <!--logo end-->
@@ -29,6 +34,11 @@
                             @if (Auth::user()->hasRole('dj'))
                             <li class="eborder-top">
                                 <a href="{{route('song.apply.list')}}"><i class="fa fa-play-circle"></i> @lang('app.requested_songs')</a>
+                            </li>
+                            @endif
+                            @if(Agent::isMobile() && Auth::user()->hasRole('user'))
+                            <li class="eborder-top">
+                                <a href="{{route('song.search')}}"><i class="fa fa-play-circle"></i> @lang('app.ask_song')</a>
                             </li>
                             @endif
                             <li class="eborder-top">

@@ -47,7 +47,13 @@
         }
     </style>
     @endif
-
+    @if(Agent::isMobile() && Auth::user()->hasRole('user'))
+    <style type="text/css">
+        #main-content {
+            margin-left: 0px;
+        }
+    </style>
+    @endif
     @yield('styles')
 </head>
 <body>
