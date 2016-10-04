@@ -271,8 +271,8 @@
 @media (max-width:320px) {
 
     a.logo {
-        font-size: 18px;
-        /*font-weight: 300;/
+        /*font-size: 18px;
+        font-weight: 300;*/
     }
 
     .login-social-link a {
