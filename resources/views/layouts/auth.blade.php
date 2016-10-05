@@ -21,6 +21,9 @@
     {!! HTML::style("assets/css/style.css") !!}
     <!-- alert style -->
     {!! HTML::style("assets/css/sweetalert.min.css") !!}
+
+    @yield('styles')
+
     {!! HTML::style("assets/css/style-responsive.css") !!}
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
@@ -28,7 +31,6 @@
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
     <![endif]-->
-    @yield('styles')
 
     @yield('header-scripts')
 </head>

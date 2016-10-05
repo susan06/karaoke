@@ -50,7 +50,7 @@ return [
 
         'user' => [
             'driver' => 'local',
-            'root' => storage_path('app/user'),
+            'root' => public_path('/upload/users'),
         ],
 
         'song' => [
@@ -60,7 +60,7 @@ return [
 
         'login' => [
             'driver' => 'local',
-            'root' => storage_path('app/login'),
+            'root' => public_path('/upload/login'),
         ],
 
         'public' => [

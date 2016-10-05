@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Events\Settings\Updated;
 use Illuminate\Http\Request;
 use Settings;
+use Storage;
+use DateTime;
 
 /**
  * Class SettingsController
@@ -45,6 +47,22 @@ class SettingsController extends Controller
         return back()->withSuccess(trans('app.settings_updated'));
     }
 
+     /**
+     * Handle application settings update by ajax.
+     *
+     * @param Request $request
+     * @return mixed
+     */
+    public function updateAjax(Request $request)
+    {
+        $this->updateSettings($request->all());
+        $response = [
+            'success' => true
+        ];
+
+        return response()->json($response);
+    }
+
     /**
      * Update settings and fire appropriate event.
      *
@@ -60,6 +78,33 @@ class SettingsController extends Controller
 
         event(new Updated);
 
+    }
+
+
+    /**
+     * store import by csv
+     *
+     * @param ImportSongRequest $request
+     */
+    public function uploadImage(Request $request)
+    {
+        $file = $request->file('image');
+        $date = new DateTime();
+        $file_name = $date->getTimestamp();
+        if($file){
+            if ($file->isValid()) {
+                Storage::disk('login')->put($file_name, \File::get($file));
+
+                return redirect()->back();
+
+            } else {
+                return redirect()->back()
+                ->withErrors(trans('app.image_upload_success'));
+            }
+        }
+
+        return redirect()->back()
+                ->withErrors(trans('app.file_import_error'));
     }
 
 

@@ -5004,6 +5004,9 @@ border:none !important;
 .margin_search {
     margin-bottom: 20px;
 }
+.margin-top {
+    margin-top: 20px;
+}
 .btns-search {
     margin-left: 15px;
 }

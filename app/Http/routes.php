@@ -262,7 +262,14 @@ Route::group([
     Route::post('/update',
         'SettingsController@update')
         ->name('settings.update');
-        
+
+    Route::post('/update/ajax',
+        'SettingsController@updateAjax')
+        ->name('settings.update.ajax');
+
+    Route::post('/upload/image',
+        'SettingsController@uploadImage')
+        ->name('image.upload');    
 });
 
 

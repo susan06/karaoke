@@ -4,12 +4,12 @@
                 @if(Auth::user()->hasRole('user'))
                      @if(!Agent::isMobile())
                         <div class="toggle-nav">
-                            <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"><i class="icon_menu"></i></div>
+                            <div class="icon-reorder"><i class="icon_menu"></i></div>
                         </div>
                      @endif
                 @else
                     <div class="toggle-nav">
-                        <div class="icon-reorder tooltips" data-original-title="Toggle Navigation" data-placement="bottom"><i class="icon_menu"></i></div>
+                        <div class="icon-reorder"><i class="icon_menu"></i></div>
                     </div>
                 @endif
             @endif

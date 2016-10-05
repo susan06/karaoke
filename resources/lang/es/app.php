@@ -4,6 +4,7 @@ return [
     'search' => 'Búsqueda',
     'today' => 'Hoy',
     'add' => 'Agregar',
+    'upload' => 'Subir',
     'find'  => 'Buscar',
     'searching' => 'Buscando...',
     'trash_search' => 'Remover Búsqueda',
