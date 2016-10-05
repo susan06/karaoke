@@ -10,6 +10,8 @@ background: url('{{asset('upload/login/'.Settings::get("background-login"))}}') 
 -moz-background-size: cover;
 -o-background-size: cover;
 background-size: cover;
+height: auto;
+width: 100%;
 }
 </style>
 @endsection
