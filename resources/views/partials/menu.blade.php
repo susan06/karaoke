@@ -53,7 +53,7 @@
                           <span>@lang('app.clients')</span>
                       </a>
                   </li> 
-                  <li class="sub-menu">
+                  <li class="sub-menu {{ Request::is('songs*') ? 'active' : ''  }}">
                       <a href="javascript:;" class="">
                           <i class="icon_headphones"></i>
                           <span>@lang('app.songs')</span>
@@ -64,8 +64,8 @@
                           <li><a class="" href="{{route('song.apply.list')}}">@lang('app.requested_songs')</a></li>
                       </ul>
                   </li>
-                  <li class="">
-                      <a href="#" class="">
+                  <li class="{{ Request::is('reservations*') ? 'active' : ''  }}">
+                      <a href="{{route('reservation.index')}}" class="">
                           <i class="icon_refresh"></i>
                           <span>@lang('app.reservations')</span>
                       </a>

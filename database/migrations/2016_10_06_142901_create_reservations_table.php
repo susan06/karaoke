@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePlaylistTable extends Migration
+class CreateReservationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,17 +12,17 @@ class CreatePlaylistTable extends Migration
      */
     public function up()
     {
-        Schema::create('playlists', function(Blueprint $table)
+         Schema::create('reservations', function(Blueprint $table)
         {
             $table->increments('id');
-            $table->unsignedInteger('song_id');
+            $table->unsignedInteger('num_table');
             $table->unsignedInteger('user_id');
-            $table->boolean('play_status')->default(false);  
+            $table->date('date');
+            $table->string('time');
+            $table->boolean('status')->nullable();  
             $table->timestamps();
             $table->engine = 'InnoDB';
 
-            $table->foreign('song_id')->references('id')->on('songs')
-                ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')
                 ->onUpdate('cascade')->onDelete('cascade');
         });
@@ -35,6 +35,6 @@ class CreatePlaylistTable extends Migration
      */
     public function down()
     {
-        Schema::drop('playlists');
+        Schema::drop('reservations');
     }
 }

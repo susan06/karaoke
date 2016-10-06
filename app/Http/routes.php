@@ -337,3 +337,14 @@ Route::group([
         ->name('song.dj.play');
 });
 
+/*
+ * Reservations
+*/
+
+Route::get('reservations',
+    'ReservationsController@index')
+    ->name('reservation.index');
+
+Route::get('reservations/status/update',
+    'ReservationsController@updateStatus')
+    ->name('reservation.status.update');
