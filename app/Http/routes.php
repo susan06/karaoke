@@ -341,6 +341,10 @@ Route::group([
  * Reservations
 */
 
+Route::get('reservations/clients',
+    'ReservationsController@clientIndex')
+    ->name('reservation.clientIndex');
+
 Route::get('reservations',
     'ReservationsController@index')
     ->name('reservation.index');

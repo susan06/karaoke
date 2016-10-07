@@ -90,8 +90,8 @@
                           <span>@lang('app.most_requested')</span>
                       </a>
                   </li>
-                  <li class="">
-                      <a href="#" class="">
+                  <li class="{{ Request::is('reservations*') ? 'active' : ''  }}">
+                      <a href="{{route('reservation.clientIndex')}}" class="">
                           <i class="icon_refresh"></i>
                           <span>@lang('app.reservation_table')</span>
                       </a>

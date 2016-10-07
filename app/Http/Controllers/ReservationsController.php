@@ -13,9 +13,9 @@ class ReservationsController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function clientIndex()
     {
-        return view('reservations.index');
+        return view('reservations.clientIndex');
     }
 
      /**

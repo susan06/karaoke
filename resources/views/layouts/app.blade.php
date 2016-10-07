@@ -171,9 +171,6 @@
         }
     }
 
-    @if(Auth::user()->hasRole('user'))
-        getLocation();
-    @endif
     </script>
     @yield('scripts')
 </body>

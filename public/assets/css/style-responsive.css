@@ -331,20 +331,20 @@ and also iPads specifically.
 (min-device-width: 768px) and (max-device-width: 1024px)  {
 
     /* Force table to not be like tables anymore */
-    table, thead, tbody, th, td, tr { 
+    table, thead, tbody, th, td, tr :not(.table-resevations table, thead, tbody, th, td, tr) { 
         display: block; 
     }
     
     /* Hide table headers (but not display: none;, for accessibility) */
-    thead tr { 
+    thead tr :not(.table-resevations thead tr){ 
         position: absolute;
         top: -9999px;
         left: -9999px;
     }
     
-    tr { border: 1px solid #ccc; }
+    tr :not(.table-resevations tr) { border: 1px solid #ccc; }
     
-    td { 
+    td :not(.table-resevations td) { 
         /* Behave  like a "row" */
         border: none;
         border-bottom: 1px solid #eee; 
@@ -368,6 +368,29 @@ and also iPads specifically.
 
     .margin_search {
         margin-bottom: 20px;
+    }
+   
+    .button-circle {
+      -moz-border-radius: 200px;
+      -webkit-border-radius: 200px;
+      border-radius: 200px;
+      width: 40px;
+      line-height: 30px;
+      height: 40px;
+      padding: 0px;
+      border-width: 4px;
+      font-size: 14px; 
+      font-weight: bold;
+    }
+    .barra {
+        font-size: 14px;
+    }
+
+    .btn-t {
+      width: 60px;
+      line-height: 30px;
+      height: 60px;
+      font-size: 14px; 
     }
 }
 
