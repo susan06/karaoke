@@ -19,6 +19,7 @@ class CreateSocialLoginTable extends Migration
             $table->string('provider_id');
             $table->string('avatar');
             $table->timestamp('created_at');
+            $table->engine = 'InnoDB';
         });
     }
 

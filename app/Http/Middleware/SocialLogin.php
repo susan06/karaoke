@@ -18,10 +18,6 @@ class SocialLogin
     {
         $provider = $request->route()->getParameter('provider');
 
-        if (! in_array($provider, config('auth.social.providers'))) {
-            throw new NotFoundHttpException;
-        }
-
         return $next($request);
     }
 }

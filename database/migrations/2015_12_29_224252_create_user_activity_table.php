@@ -19,9 +19,11 @@ class CreateUserActivityTable extends Migration
             $table->string('ip_address', 45);
             $table->text('user_agent');
             $table->timestamp('created_at');
+            $table->engine = 'InnoDB';
         });
 
         Schema::table('user_activity', function(Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')

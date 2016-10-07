@@ -16,6 +16,7 @@ class CreateUserSocialNetworksTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->string('facebook')->nullable();
+            $table->engine = 'InnoDB';
         });
     }
 

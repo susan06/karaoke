@@ -14,6 +14,7 @@ class AddForeignKeys extends Migration
     {
 
         Schema::table('social_logins', function(Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')

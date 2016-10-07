@@ -37,16 +37,8 @@ class Authenticate
     {
         if ($this->auth->guest()) {
 
-            if ($request->ajax()) {
-                return response('Unauthorized.', 401);
-            } else {
-                if(session()->get('login') == 'user') {
-                    return redirect()->guest('login');
-                }else{
-                    return redirect()->guest('panel');
-                }
-                
-            }
+            return redirect()->guest('login');
+            
         }
 
         return $next($request);
