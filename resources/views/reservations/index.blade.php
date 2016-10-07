@@ -60,7 +60,20 @@
                                                 <td>{{$reservation->num_table}}</td>
                                                 <td>{{date_format(date_create($reservation->date), 'd-m-Y')}}</td>
                                                 <td>{{$reservation->time}}</td>
-                                                <td>{{ $reservation->user->first_name . ' ' . $reservation->user->last_name }}</td>
+                                                <td>
+                                                     <a tabindex="0" role="button" 
+                                                         data-trigger="focus"
+                                                         data-placement="top"
+                                                         data-toggle="popover"
+                                                         title="Datos del cliente"
+                                                         data-content="
+                                                         nombre: {{ $reservation->user->first_name . ' ' . $reservation->user->last_name }} <br>
+                                                         email: {{ $reservation->user->email }} <br>
+                                                         Télefono: {{ $reservation->user->phone }}
+                                                          ">
+                                                          {{ $reservation->user->first_name . ' ' . $reservation->user->last_name }}
+                                                      </a>
+                                                </td>
                                                 @if (Auth::user()->hasRole('admin')) 
                                                     <input type="hidden" id="input_status_{{$reservation->id}}" value="{{$reservation->status}}"/>
                                                     <td id="status_{{$reservation->id}}">

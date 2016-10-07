@@ -6,7 +6,9 @@ function initializeJS() {
 
     //popovers
     jQuery('.popovers').popover();
-    $('[data-toggle="popover"]').popover();
+    $('[data-toggle="popover"]').popover({
+        html : true
+    });
     
     //custom scrollbar
         //for html
