@@ -15,20 +15,20 @@ class ReservationSeed extends Seeder
         Reservation::create([
             'num_table' => 1,
             'user_id' => 1,
-            'date' => '2016-10-06',
-            'time' => '06:00'
+            'date' => '2016-10-08',
+            'time' => '06:00 PM'
         ]);
         Reservation::create([
             'num_table' => 1,
             'user_id' => 2,
-            'date' => '2016-10-06',
-            'time' => '07:00'
+            'date' => '2016-10-09',
+            'time' => '07:00 PM'
         ]);
         Reservation::create([
             'num_table' => 1,
             'user_id' => 3,
-            'date' => '2016-10-06',
-            'time' => '08:00'
+            'date' => '2016-10-10',
+            'time' => '08:00 PM'
         ]);
     }
 }
