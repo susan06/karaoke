@@ -17,5 +17,5 @@ class Reservation extends Model
     
     public $timestamps = true;
 
-    protected $fillable = ['num_table', 'user_id', 'date', 'status'];
+    protected $fillable = ['num_table', 'user_id', 'date', 'time', 'status'];
 }

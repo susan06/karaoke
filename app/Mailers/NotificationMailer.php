@@ -4,6 +4,7 @@ namespace App\Mailers;
 
 use App\User;
 use App\Song;
+use App\Reservation;
 use Settings;
 
 class NotificationMailer extends AbstractMailer
@@ -24,5 +25,14 @@ class NotificationMailer extends AbstractMailer
         $subject = 'Solicitud de canción - '.Settings::get('app_name');
 
         $this->sendTo(Settings::get('email_song'), $subject, $view, $data);
+    }
+
+    public function sendReservation(Reservation $reservation, User $user)
+    {
+        $view = 'emails.notifications.reservation';
+        $data = ['reservation' => $reservation, 'client' => $user];
+        $subject = 'Solicitud de reservación';
+
+        $this->sendTo(Settings::get('email_reservations'), $subject, $view, $data);
     }
 }

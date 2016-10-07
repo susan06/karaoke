@@ -5336,3 +5336,21 @@ button-c.button-c:disabled {
 .text-right {
     text-align: right;
 }
+.button-danger {
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #d43f3a), color-stop(100%, #d9534f));
+  background: -moz-linear-gradient(top, #d43f3a, #d9534f);
+  background: -webkit-linear-gradient(top, #d43f3a, #d9534f);
+  background: linear-gradient(to bottom, #d43f3a, #d9534f);
+  background-color: #d43f3a;
+  border-color: #d43f3a;
+  color: #FFFFFF;
+  text-shadow: 0 -1px 1px rgba(0, 40, 50, 0.35); 
+}
+.button-danger:hover, .button-danger:focus {
+    background-color: #c9302c;
+    color: #FFFFFF;
+    background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #c9302c), color-stop(100%, #c9302c));
+    background: -moz-linear-gradient(top, #c9302c, #c9302c);
+    background: -webkit-linear-gradient(top, #c9302c, #c9302c);
+    background: linear-gradient(to bottom, #c9302c, #c9302c); 
+}

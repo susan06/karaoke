@@ -352,3 +352,7 @@ Route::get('reservations',
 Route::get('reservations/status/update',
     'ReservationsController@updateStatus')
     ->name('reservation.status.update');
+
+Route::post('reservations/by/client/ajax',
+    'ReservationsController@reserveByClient')
+    ->name('reservation.client.ajax');
