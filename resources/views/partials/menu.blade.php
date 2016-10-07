@@ -65,7 +65,7 @@
                       </ul>
                   </li>
                   <li class="{{ Request::is('reservations*') ? 'active' : ''  }}">
-                      <a href="{{route('reservation.index')}}" class="">
+                      <a href="{{route('reservation.adminIndex')}}" class="">
                           <i class="icon_refresh"></i>
                           <span>@lang('app.reservations')</span>
                       </a>
@@ -90,11 +90,16 @@
                           <span>@lang('app.most_requested')</span>
                       </a>
                   </li>
-                  <li class="{{ Request::is('reservations*') ? 'active' : ''  }}">
-                      <a href="{{route('reservation.clientIndex')}}" class="">
+                  <li class="sub-menu {{ Request::is('reservations*') ? 'active' : ''  }}">
+                      <a href="javascript:void(0);" class="">
                           <i class="icon_refresh"></i>
-                          <span>@lang('app.reservation_table')</span>
+                          <span>@lang('app.reservations') </span>
+                          <span class="menu-arrow arrow_carrot-right"></span>
                       </a>
+                      <ul class="sub">
+                          <li><a class="" href="{{route('reservation.clientStore')}}">@lang('app.reservation_table')</a></li>
+                          <li><a class="" href="{{route('reservation.index')}}">@lang('app.my_reservations')</a></li>
+                      </ul>
                   </li>
                 @endif      
               </ul>

@@ -3,7 +3,8 @@
 namespace App\Repositories\Reservation;
 
 use DB;
-
+use DateTime;
+use Carbon\Carbon;
 use App\Reservation;
 use App\Repositories\Repository;
 
@@ -16,130 +17,33 @@ class EloquentReservation extends Repository implements ReservationRepository
     }
 
     /**
-     * Paginate registered songs.
+     *  list Reservation by date
      *
+     * @param $perPage
+     * @param null $date
+     * @param null $user
      */
-    public function index($perPage, $search = null)
+    public function index($perPage, $date = null, $user = null)
     {
-        $query = Reservation::query();
-
-        if ($search) {
-            $find   = ' - ';
-            $pos = strpos($search, $find);
-
-            if($pos) {
-                $string = explode($find, $search);
-                $query->where('artist', "like", "%{$string[0]}%");
-                $query->where('title', 'like', "%{$string[1]}%");
-            } else {
-                $query->where(function ($q) use($search) {
-                    $q->where('title', "like", "%{$search}%");
-                    $q->orWhere('artist', 'like', "%{$search}%");
-                });
-            }
-        }
-
-        $result = $query->paginate($perPage);
-
-        if ($search) {
-            $result->appends(['q' => $search]);
-        }
-
-        return $result;
-    }
-
-    /**
-     * Search by clients.
-     *
-     * @param null $term
-     * @return model
-     */
-    public function search($perPage, $search = null) 
-    {
-        $query = Reservation::query();
-
-        if ($search) {
-            $find   = ' - ';
-            $pos = strpos($search, $find);
-
-            if($pos) {
-                $string = explode($find, $search);
-                $query->where('artist', "like", "%{$string[0]}%");
-                $query->where('title', 'like', "%{$string[1]}%");
-            } else {
-                $query->where(function ($q) use($search) {
-                    $q->where('title', "like", "%{$search}%");
-                    $q->orWhere('artist', 'like', "%{$search}%");
-                });
-            }
-        }
-
-        $result = $query->paginate($perPage);
-
-        if ($search) {
-            $result->appends(['q' => $search]);
-        }
-
-        return $result;
-    }
-
-    /**
-     * Search autocomplete.
-     *
-     * @param null $term
-     * @return model
-     */
-    public function autocomplete($term = null)
-    {
-        $find   = ' - ';
-        $pos = strpos($term, $find);
-        if ($pos) {
-            $string = explode($find, $term);
-            $query = DB::table('songs')
-            ->distinct()
-            ->select('title', 'artist')
-            ->where('artist', "like", "%{$string[0]}%")
-            ->orWhere('title', 'like', "%{$string[1]}%")
-            ->take(10)
-            ->get();
-        } else {
-             $query = DB::table('songs')
-            ->distinct()
-            ->select('title', 'artist')
-            ->where('title', 'LIKE', '%'.$term.'%')
-            ->orWhere('artist', 'LIKE', '%'.$term.'%')
-            ->take(10)
-            ->get();
-        }
-     
-        foreach ($query as $data) {
-        $return_array[] = $data->artist.' - '.$data->title;
-        }
-
-        return $return_array;
-    }
-
-    /**
-     * Search autocomplete by client.
-     *
-     * @param null $term
-     * @return model
-     */
-    public function autocompleteArtist($term = null)
-    {
-
-        $query = DB::table('songs')
-        ->distinct()
-        ->select('artist')
-        ->orWhere('artist', 'LIKE', '%'.$term.'%')
-        ->take(10)
-        ->get();
         
-        foreach ($query as $data) {
-        $return_array[] = $data->artist;
+        $today = Carbon::today()->toDateString().'%';
+
+        if ($date) {
+            $date1 = date_format(date_create($date), 'Y-m-d');
+            $query = Reservation::where('date', 'like', $date1.'%')->paginate($perPage);
+        } else {
+            $query = Reservation::where('date', 'like', $today.'%')->paginate($perPage);
         }
 
-        return $return_array;
+        if ($user) {
+            $query->where('user_id', '=', $user);
+        }
+
+        if ($date) {
+            $query->appends(['date' => $date]);
+        }
+
+        return $query;
     }
 
     /**
@@ -152,41 +56,34 @@ class EloquentReservation extends Repository implements ReservationRepository
      */
      public function canAdd(array $attributes)
     {
-        $artist = $attributes['artist'];
-        $title = $attributes['title'];
-        $songs = Reservation::where('artist','=',$artist)->get();
-        foreach ($songs as $reservation) {
-            if (strtolower($reservation->title) == strtolower($title)) {
+        $reservation = Reservation::where('user_id','=',$attributes['user_id'])
+            ->where('num_table', '=', $attributes['num_table'])
+            ->where('date', 'like', $attributes['date'])
+            ->first();
 
-                return ['success' => false, 'reservation' => $reservation];
-            }
+        $today = Carbon::now();
+
+        $datetime1 = new DateTime(Carbon::now());
+        $datetime2 = new DateTime($attributes['date'].' '.$attributes['time']);
+        $interval = $datetime1->diff($datetime2);
+        $time =$interval->format('%h%');
+
+        $today = Carbon::today()->toDateString();
+
+        if($reservation) {
+            return [
+                'success' => false, 
+                'message' => 'Ya tiene una reserva con la mesa: '.$attributes['num_table'].' para el día '.date_format(date_create($attributes['date']), 'd-m-Y')
+            ];
+        } 
+        if ($attributes['date'] == $today && $time <= 2) {
+            return [
+                'success' => false, 
+                'message' => 'Solo puede reservar la mesa dos horas antes de la estipulada'
+            ];
         }
 
         return ['success' => true];
-    }
-
-    /**
-     *
-     * add reservation by import csv.
-     *
-     * @param array $attributes
-     * @return mixed
-     *
-     */
-    public function import(array $attributes)
-    {
-        $artist = $attributes['artist'];
-        $title = $attributes['title'];
-        $songs = Reservation::where('artist','=',$artist)->get();
-        $save = true;
-        foreach ($songs as $reservation) {
-            if ($reservation->title == $title) {
-                $save = false;
-            }
-        }
-        if ($save) {
-            $this->model->create($attributes);
-        } 
     }
 
 }

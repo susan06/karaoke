@@ -16,48 +16,14 @@ interface ReservationRepository extends RepositoryInterface
      */
     public function canAdd(array $attributes);
 
-     /**
-     * Paginate registered songs.
+    /**
+     *  list Reservation by date
      *
      * @param $perPage
-     * @param null $search
-     * @param null $status
-     * @return mixed
+     * @param null $date
+     * @param null $user
      */
-    public function index($perPage, $search = null);
+    public function index($perPage, $date = null, $user = null);
 
-    /**
-     * Search by clients.
-     *
-     * @param null $term
-     * @return model
-     */
-    public function search($perPage, $search = null);
-
-    /**
-     * Search autocomplete.
-     *
-     * @param null $term
-     * @return model
-     */
-    public function autocomplete($term = null);
-
-    /**
-     * Search autocomplete by artist.
-     *
-     * @param null $term
-     * @return model
-     */
-    public function autocompleteArtist($term = null);
-
-    /**
-     *
-     * add song by import csv.
-     *
-     * @param array $attributes
-     * @return mixed
-     *
-     */
-    public function import(array $attributes);
 
 }

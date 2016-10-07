@@ -29,13 +29,41 @@ class ReservationsController extends Controller
     }
 
      /**
+     * Display reservations of user.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function index(Request $request)
+    {
+        $perPage = 20;
+        $admin = false;
+        $reservations = $this->reservations->index($perPage, $request->date, Auth::id());
+
+        return view('reservations.index', compact('reservations', 'admin'));
+    }
+
+    /**
+     * Display reservations of user.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function adminIndex(Request $request)
+    {
+        $perPage = 20;
+        $admin = true;
+        $reservations = $this->reservations->index($perPage, $request->date, Auth::id());
+
+        return view('reservations.index', compact('reservations', 'admin'));
+    }
+
+    /**
      * Display reservations today.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function clientIndex()
-    {
-        return view('reservations.clientIndex');
+    public function clientStore()
+    {      
+        return view('reservations.store');
     }
 
      /**
@@ -43,9 +71,21 @@ class ReservationsController extends Controller
      *
      * @return JSON
      */
-    public function updateStatus()
+    public function updateStatus(Request $request)
     {
-        //
+        $data = ['status' => $request->status];
+        $reservation = $this->reservations->update($request->id, $data);
+        if ( $reservation ) {
+            $response = [
+                'success' => true
+            ];
+        } else {
+            $response = [
+                'success' => false
+            ];  
+        }
+            
+        return response()->json($response);
     }
 
     /**
@@ -55,26 +95,28 @@ class ReservationsController extends Controller
      */
     public function reserveByClient(Request $request, NotificationMailer $mailer)
     {
-        try {
-            $date = explode(' / ', $request->date);
-            $reservation = $this->reservations->create([
+        $date = explode(' / ', $request->date);
+        $data = [
                 'num_table' => $request->num_table, 
                 'user_id' => Auth::id(),
                 'date' => date_format(date_create($date[0]), 'Y-m-d'),
                 'time' => $date[1]
-            ]); 
-            $mailer->sendReservation($reservation, Auth::user());
+        ];
+        $canCreate = $this->reservations->canAdd($data);
+        if ( $canCreate['success'] ) {
+            $reservation = $this->reservations->create($data); 
+            //$mailer->sendReservation($reservation, Auth::user());
             $response = [
                 'success' => true
             ];
-        } catch (Exception $e){
+        } else {
             $response = [
-                'success' => false
-            ];
+                'success' => false,
+                'message' => $canCreate['message']
+            ];  
         }
             
         return response()->json($response);
-        
     }
 
 }

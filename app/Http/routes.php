@@ -341,15 +341,19 @@ Route::group([
  * Reservations
 */
 
-Route::get('reservations/clients',
-    'ReservationsController@clientIndex')
-    ->name('reservation.clientIndex');
-
 Route::get('reservations',
     'ReservationsController@index')
     ->name('reservation.index');
 
-Route::get('reservations/status/update',
+Route::get('reservations/clients',
+    'ReservationsController@adminIndex')
+    ->name('reservation.adminIndex');
+
+Route::get('reservations/store',
+    'ReservationsController@clientStore')
+    ->name('reservation.clientStore');
+
+Route::post('reservations/status/update',
     'ReservationsController@updateStatus')
     ->name('reservation.status.update');
 

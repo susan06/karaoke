@@ -18,4 +18,13 @@ class Reservation extends Model
     public $timestamps = true;
 
     protected $fillable = ['num_table', 'user_id', 'date', 'time', 'status'];
+
+    protected $casts = [
+        'status' => 'boolean'
+    ];
+
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
 }

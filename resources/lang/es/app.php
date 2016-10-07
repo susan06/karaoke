@@ -494,6 +494,12 @@ return [
     'reservations' => 'Reservaciones',
     'reservation_table' => 'Reservar mesa',
     'email_request_reservations' => 'Email (Reservaciones)',
+    'my_reservations' => 'mis reservaciones',
+    'reserved' => 'Reservada',
+    'reserve' => 'Reservar',
+    'table' => 'Mesa',
+    'hour' => 'Hora',
+    'no_reserve' => 'No reservar',
 
     // songs
 
@@ -540,4 +546,6 @@ return [
     //background
 
     'background' => 'background',
+    'client' => 'CLiente',
+    'change_status' => 'Cambiar Estatus',
 ];

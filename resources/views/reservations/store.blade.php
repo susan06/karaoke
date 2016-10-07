@@ -105,7 +105,8 @@
   $(function() {
 
     $('#datetimepicker1').datetimepicker({
-          format: 'DD-MM-YYYY / hh:mm a'
+          format: 'DD-MM-YYYY / hh:mm a',
+          minDate:new Date(),
       });
 
     $(".reserv").click(function(){
@@ -117,18 +118,26 @@
       $('#myModal').modal("show");
          $("#reserved").click(function(){
             $('#myModal').modal("hide");
+            $this.addClass("button-danger");
             var data = {"num_table": table, "date": $("#datetimepicker1").val()};
-            $.ajax({
-              type: "post",
-              url: "{{route('reservation.client.ajax')}}",
-              data: data,
-              dataType: 'json',
-              success: function (data) {  
-                if(data.success) {                      
-                    $this.addClass("button-danger");
-                }
-              }
-            })
+            if($("#datetimepicker1").val()) {
+                $.ajax({
+                  type: "post",
+                  url: "{{route('reservation.client.ajax')}}",
+                  data: data,
+                  dataType: 'json',
+                  success: function (data) {  
+                    if(data.success) {  
+                        $this.prop('disabled', true);                    
+                        $this.addClass("button-danger");
+                        $this.removeClass("reserv");
+                    } else {
+                        $(".reserv").removeClass("button-danger");
+                        swal("@lang('app.info')", data.message, "error");
+                    }
+                  }
+                })
+            }
          });
     });
 

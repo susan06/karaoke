@@ -19,7 +19,7 @@ class CreateReservationsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->date('date');
             $table->string('time');
-            $table->boolean('status')->nullable();  
+            $table->boolean('status')->default(false);  
             $table->timestamps();
             $table->engine = 'InnoDB';
 
