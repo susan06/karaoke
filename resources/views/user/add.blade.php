@@ -72,6 +72,7 @@
 @stop
 
 @section('scripts')
+    {!! HTML::script('vendor/jsvalidation/js/jsvalidation.min.js') !!}
     {!! JsValidator::formRequest('App\Http\Requests\User\CreateUserRequest', '#user-form') !!}
 @stop
 

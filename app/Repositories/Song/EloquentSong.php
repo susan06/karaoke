@@ -93,6 +93,7 @@ class EloquentSong extends Repository implements SongRepository
     {
         $find   = ' - ';
         $pos = strpos($term, $find);
+        $return_array  = array();
         if ($pos) {
             $string = explode($find, $term);
             $query = DB::table('songs')
@@ -110,8 +111,8 @@ class EloquentSong extends Repository implements SongRepository
             ->orWhere('artist', 'LIKE', '%'.$term.'%')
             ->take(10)
             ->get();
-        }
-     
+        }  
+        
         foreach ($query as $data) {
         $return_array[] = $data->artist.' - '.$data->title;
         }

@@ -40,7 +40,7 @@
                     <div class="row">    
                         <div class="col-lg-12 col-sm-12 col-xs-12">
                             <div class="table-responsive">
-                               <table class="table">
+                               <table class="table table-default">
                                     <thead>
                                     <tr>
                                         <th>@lang('app.table')</th>
@@ -53,13 +53,14 @@
                                         @endif
                                     </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody class="reservations">
                                     @if (count($reservations))
                                         @foreach ($reservations as $reservation) 
                                             <tr>
                                                 <td>{{$reservation->num_table}}</td>
                                                 <td>{{date_format(date_create($reservation->date), 'd-m-Y')}}</td>
                                                 <td>{{$reservation->time}}</td>
+                                                @if (Auth::user()->hasRole('admin')) 
                                                 <td>
                                                      <a tabindex="0" role="button" 
                                                          data-trigger="focus"
@@ -74,7 +75,6 @@
                                                           {{ $reservation->user->first_name . ' ' . $reservation->user->last_name }}
                                                       </a>
                                                 </td>
-                                                @if (Auth::user()->hasRole('admin')) 
                                                     <input type="hidden" id="input_status_{{$reservation->id}}" value="{{$reservation->status}}"/>
                                                     <td id="status_{{$reservation->id}}">
                                                     @if($reservation->status)

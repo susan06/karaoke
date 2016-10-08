@@ -119,8 +119,6 @@
         });
     </script>
 
-    {!! HTML::script('vendor/jsvalidation/js/jsvalidation.min.js') !!}
-
     {!! HTML::script('assets/js/sweetalert.min.js') !!}
 
     {!! HTML::script('assets/js/jquery.auto-complete.min.js') !!}

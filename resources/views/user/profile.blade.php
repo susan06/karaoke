@@ -162,13 +162,15 @@
 
 @section('scripts')
 
+{!! HTML::script('vendor/jsvalidation/js/jsvalidation.min.js') !!}
+
 {!! JsValidator::formRequest('App\Http\Requests\User\UpdateProfileDetailsRequest', '#details-form') !!}
 {!! JsValidator::formRequest('App\Http\Requests\User\UpdateProfileLoginDetailsRequest', '#login-details-form') !!}
 {!! HTML::script('assets/js/bootstrap-datetimepicker.min.js') !!}
 
 <script type="text/javascript">
   if ($('#phone').length) {
-      $("#phone").mask('(999) 999-9999', {
+      $("#phone").mask('9999-9999', {
           placeholder: 'X'
       });
   }

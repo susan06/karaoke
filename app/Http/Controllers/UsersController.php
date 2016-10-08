@@ -44,7 +44,7 @@ class UsersController extends Controller
     public function __construct(UserRepository $users)
     {
         $this->middleware('auth');
-        $this->middleware('role:superAdmin');
+        //$this->middleware('role:superAdmin');
         $this->middleware('session.database', ['only' => ['sessions', 'invalidateSession']]);
         $this->users = $users;
     }
