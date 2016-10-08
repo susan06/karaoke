@@ -46,6 +46,12 @@
                             <li class="">
                                 <a href="{{route('song.my_list')}}"><i class="icon_headphones"></i> @lang('app.my_list')</a>
                             </li>
+                            <li class="">
+                                <a href="{{route('reservation.clientStore')}}"><i class="icon_refresh"></i> @lang('app.reservations')</a>
+                            </li>
+                            <li class="">
+                                <a href="{{route('reservation.index')}}"><i class="icon_ul"></i> @lang('app.my_reservations')</a>
+                            </li>
                             @endif
                             <li class="eborder-top">
                                 <a href="{{ route('profile') }}"><i class="icon_profile"></i> @lang('app.my_profile')</a>
