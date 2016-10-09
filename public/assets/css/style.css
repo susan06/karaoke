@@ -5354,3 +5354,6 @@ button-c.button-c:disabled {
     background: -webkit-linear-gradient(top, #c9302c, #c9302c);
     background: linear-gradient(to bottom, #c9302c, #c9302c); 
 }
+.alert-location {
+    display: none;
+}

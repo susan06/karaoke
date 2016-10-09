@@ -25,6 +25,16 @@
                    @lang('app.search')
                 </header>
                 <div class="panel-body">
+
+                    <div class="row alert-location">
+                        <div class="alert alert-block alert-danger fade in">
+                          <button data-dismiss="alert" class="close close-sm" type="button">
+                              <i class="icon-remove"></i>
+                          </button>
+                          <strong>Lo sentimos.</strong> No es posible solicitar canciones, debe estar en la inmediaciones del sitio.
+                        </div>  
+                    </div>
+
                     <div class="row">  
                     <form method="GET" action="" accept-charset="UTF-8">  
                         <div class="col-lg-7 col-sm-8 col-xs-12 margin_search">
@@ -143,6 +153,60 @@ $(document).on('click', '.btn-apply-for', function() {
             }           
         }) 
 })
+
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition,showError);
+        } else {
+            console.log("Geolocation is not supported by this browser.");
+        }
+    }
+
+    var lat = 0;
+    var lng = 0;
+    var lat_site = {{ Settings::get('lat') }};
+    var lng_site = {{ Settings::get('lng') }};
+
+    function showPosition(position) {
+        lat = position.coords.latitude;
+        lng = position.coords.longitude;
+
+        var lat_rd = lat*(Math.PI/180);
+        var lat_site_rd = lat_site*(Math.PI/180);
+
+        var distance = (6371 * Math.acos(Math.sin(lat_rd) * Math.sin(lat_site_rd) + Math.cos(Math.sin(lng - lng_site)) * Math.cos(lat_rd) * Math.cos(Math.sin(lat_site)) ));
+
+        if(distance <= 0.05) {
+            $('.btn-apply-for').prop('disabled',false);
+        } else {
+            $('.btn-apply-for').prop('disabled',true);
+        }
+     
+    }
+
+    function showError(error) {
+        switch(error.code) {
+            case error.PERMISSION_DENIED:
+                swal("@lang('app.info')", "Usuario ha denegado la solicitud de geolocalización.", "error");
+                break;
+            case error.POSITION_UNAVAILABLE:
+                swal("@lang('app.info')", "La información de ubicación no está disponible.", "error");
+                break;
+            case error.TIMEOUT:
+                swal("@lang('app.info')", "La solicitud para obtener la ubicación del usuario Tiempo de espera agotado.", "error");
+                break;
+            case error.UNKNOWN_ERROR:
+                swal("@lang('app.info')", "Un error desconocido ocurrió.", "error");
+                break;
+        }
+    }
+
+    @if(Auth::user()->hasRole('user'))
+        $('.alert-location').show();
+        $('.btn-apply-for').prop('disabled',true);
+        getLocation();
+    @endif
+
     
 </script>
 
