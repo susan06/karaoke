@@ -156,9 +156,9 @@ $(document).on('click', '.btn-apply-for', function() {
 
     function getLocation() {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition,showError);
+            navigator.geolocation.watchPosition(showPosition,showError);
         } else {
-            console.log("Geolocation is not supported by this browser.");
+            swal("@lang('app.info')", "La geolocalización no es soportada por el navegador.", "error");
         }
     }
 

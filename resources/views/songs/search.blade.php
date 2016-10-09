@@ -225,7 +225,7 @@ $(document).ready(function(e){
         if (navigator.geolocation) {
             navigator.geolocation.watchPosition(showPosition,showError);
         } else {
-            console.log("Geolocation is not supported by this browser.");
+            swal("@lang('app.info')", "La geolocalización no es soportada por el navegador.", "error");
         }
     }
 
