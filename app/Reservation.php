@@ -20,7 +20,7 @@ class Reservation extends Model
     protected $fillable = ['num_table', 'user_id', 'date', 'time', 'status'];
 
     protected $casts = [
-        'status' => 'boolean'
+        'status' => 'int'
     ];
 
     public function user()

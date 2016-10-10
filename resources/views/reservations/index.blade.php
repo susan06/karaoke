@@ -48,7 +48,9 @@
                                         <th>@lang('app.hour')</th>
                                         @if (Auth::user()->hasRole('admin')) 
                                         <th>@lang('app.client')</th>
+                                        @endif
                                         <th>@lang('app.status')</th>
+                                        @if (Auth::user()->hasRole('admin')) 
                                         <th>@lang('app.action')</th>
                                         @endif
                                     </tr>
@@ -75,17 +77,26 @@
                                                           {{ $reservation->user->first_name . ' ' . $reservation->user->last_name }}
                                                       </a>
                                                 </td>
+                                                @endif
                                                     <input type="hidden" id="input_status_{{$reservation->id}}" value="{{$reservation->status}}"/>
-                                                    <td id="status_{{$reservation->id}}">
-                                                    @if($reservation->status)
-                                                      @lang('app.reserved')
+                                                <td id="status_{{$reservation->id}}">
+                                                @if(! $reservation->status == 0)
+                                                    @if($reservation->status == 1)
+                                                      <span class="label label-success">@lang('app.reserved')</span>
                                                     @endif
-                                                    </td>
-                                                    <td>
-                                                    @if($reservation->status)
+                                                    @if($reservation->status == 2)
+                                                      <span class="label label-danger">Rechazada</span>
+                                                    @endif
+                                                @elseif (Auth::user()->hasRole('user'))
+                                                    En proceso...
+                                                @endif
+                                                </td>
+                                                @if (Auth::user()->hasRole('admin'))
+                                                <td>
+                                                    @if($reservation->status == 1 || $reservation->status == 0)
                                                         <button class="btn btn-lg btn-sm btn-xs btn-danger btn-status"
                                                         data-id="{{$reservation->id}}" title="@lang('app.change_status')" data-toggle="tooltip" data-placement="top"><i class="fa fa-refresh"></i></button>
-                                                    @else
+                                                    @elseif($reservation->status == 2)
                                                         <button class="btn btn-lg btn-sm btn-xs btn-success btn-status"
                                                         data-id="{{$reservation->id}}" title="@lang('app.change_status')" data-toggle="tooltip" data-placement="top"><i class="fa fa-refresh"></i></button>
                                                     @endif  
@@ -135,12 +146,12 @@ $(document).on('click', '.btn-status', function() {
     var $this = $(this);
     var id = $this.data('id');
     var status = $('#input_status_'+id).val();
-    if(status == 0) {
+    if(status == 1 || status == 0) {
+        status = 2;
+        status_text = '<span class="label label-danger">Rechazada</span>';
+    } else if(status == 2) {
         status = 1;
-        status_text = 'Reservada';
-    } else {
-        status = 0;
-        status_text = '';
+        status_text = '<span class="label label-success">Reservada</span>';
     }
     $.ajax({
         type: 'post',
