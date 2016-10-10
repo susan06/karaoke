@@ -47,8 +47,6 @@
                           </div>
                       </div>
                     </form>
-
-                    <div class="table-responsive">
                        <table class="table">
                             <thead>
                             <tr>
@@ -69,16 +67,16 @@
                                         </td>
                                         <td class="text-center">
                                             @if (config('session.driver') == 'database')
-                                                <a href="{{ route('user.client.sessions', $user->id) }}" class="btn btn-primary"
+                                                <a href="{{ route('user.client.sessions', $user->id) }}" class="btn btn-sm btn-xs btn-primary"
                                                    title="@lang('app.user_sessions')" data-toggle="tooltip" data-placement="top">
                                                     <i class="fa fa-list"></i>
                                                 </a>
                                             @endif
-                                            <a href="{{ route('song.my_list', 'user='.$user->id) }}" class="btn btn-warning"
+                                            <a href="{{ route('song.my_list', 'user='.$user->id) }}" class="btn btn-sm btn-xs btn-warning"
                                                title="@lang('app.songs')" data-toggle="tooltip" data-placement="top">
                                                 <i class="fa fa-play-circle"></i>
                                             </a>
-                                            <a href="{{ route('user.client.show', $user->id) }}" class="btn btn-success"
+                                            <a href="{{ route('user.client.show', $user->id) }}" class="btn btn-sm btn-xs btn-success"
                                                title="@lang('app.view_user')" data-toggle="tooltip" data-placement="top">
                                                 <i class="fa fa-eye"></i>
                                             </a>
@@ -92,7 +90,7 @@
                             @endif                                                       
                             </tbody>
                        </table>
-                    </div>
+          
                    {!! $users->render() !!}
                 </div>
             </section>

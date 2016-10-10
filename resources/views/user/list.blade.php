@@ -53,9 +53,8 @@
                           @lang('app.add_user')
                       </a>
                       </div>
-
-                    <div class="table-responsive">
-                       <table class="table">
+ 
+                       <table class="table table-default">
                             <thead>
                             <tr>
                                 <th>@lang('app.username')</th>
@@ -81,20 +80,20 @@
                                         </td>
                                         <td class="text-center">
                                             @if (config('session.driver') == 'database')
-                                                <a href="{{ route('user.sessions', $user->id) }}" class="btn btn-primary"
+                                                <a href="{{ route('user.sessions', $user->id) }}" class="btn btn-primary btn-sm btn-xs"
                                                    title="@lang('app.user_sessions')" data-toggle="tooltip" data-placement="top">
                                                     <i class="fa fa-list"></i>
                                                 </a>
                                             @endif
-                                            <a href="{{ route('user.show', $user->id) }}" class="btn btn-success"
+                                            <a href="{{ route('user.show', $user->id) }}" class="btn btn-success btn-sm btn-xs"
                                                title="@lang('app.view_user')" data-toggle="tooltip" data-placement="top">
                                                 <i class="fa fa-eye"></i>
                                             </a>
-                                            <a href="{{ route('user.edit', $user->id) }}" class="btn btn-warning edit" title="@lang('app.edit_user')"
+                                            <a href="{{ route('user.edit', $user->id) }}" class="btn btn-warning btn-sm btn-xs edit" title="@lang('app.edit_user')"
                                                   data-toggle="tooltip" data-placement="top">
                                               <i class="fa fa-pencil"></i>
                                             </a>
-                                            <a href="javascript:void(0)" class="btn btn-danger btn-delete" title="@lang('app.delete_user')"
+                                            <a href="javascript:void(0)" class="btn btn-sm btn-xs btn-danger btn-delete" title="@lang('app.delete_user')"
                                                     data-href="{{ route('user.delete') }}"
                                                     data-id="{{$user->id}}"
                                                     data-toggle="tooltip"
@@ -114,7 +113,7 @@
                             @endif                                                       
                             </tbody>
                        </table>
-                    </div>
+               
                    {!! $users->render() !!}
                 </div>
             </section>

@@ -374,8 +374,7 @@ and also iPads specifically.
     .reservations td:nth-of-type(1):before { content: "Mesa: "; }
     .reservations td:nth-of-type(2):before { content: "Fecha: "; }
     .reservations td:nth-of-type(3):before { content: "Hora: "; }
-    .reservations td:nth-of-type(4):before { content: "Cliente: "; }
-    .reservations td:nth-of-type(5):before { content: "Estatus: "; }
+    
 
     .margin_search {
         margin-bottom: 20px;

@@ -21,7 +21,7 @@
                 <div class="panel-body">
                     <div class="row">  
                     <form method="GET" action="" accept-charset="UTF-8" id="date-form">  
-                        <div class="col-lg-4 col-sm-4 col-xs-8">
+                        <div class="col-lg-4 col-sm-4 col-xs-8 margin_search">
                             <div class='input-group'>
                                 <input class="form-control" id="date" name="date" value="{{ Input::get('date') ? Input::get('date') : Carbon\Carbon::now()->format('d-m-Y') }}" />
                                 <a href="{{ route('song.apply.list') }}" class="input-group-addon">
