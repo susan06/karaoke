@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Storage;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
-
+use Settings;
 use Auth;
 use App\User;
 use App\Song;
@@ -255,7 +255,9 @@ class SongsController extends Controller
         try {
             $this->playlists->create(['song_id' => $request->id, 'user_id' => Auth::id()]);
             $song = $this->songs->find($request->id); 
-            //$mailer->sendApplySong($song, Auth::user());
+            if(Settings::get('notification_email_song') == 1) {
+                $mailer->sendApplySong($song, Auth::user());
+            }
             $response = [
                 'success' => true,
                 'status' => 'success',

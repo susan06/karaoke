@@ -270,7 +270,7 @@ $(document).ready(function(e){
         }
     }
 
-    @if(Auth::user()->hasRole('user'))
+    @if(Auth::user()->hasRole('user') && Settings::get('geolocation') == 1)
         $('.alert-location').show();
         $('.btn-search').prop('disabled',true);
         $('.btn-apply-for').prop('disabled',true);

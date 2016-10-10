@@ -201,13 +201,12 @@ $(document).on('click', '.btn-apply-for', function() {
         }
     }
 
-    @if(Auth::user()->hasRole('user'))
+    @if(Auth::user()->hasRole('user') && Settings::get('geolocation') == 1)
         $('.alert-location').show();
         $('.btn-apply-for').prop('disabled',true);
         getLocation();
     @endif
 
-    
 </script>
 
 @stop

@@ -44,7 +44,7 @@
             <div class="container">
                 <div class="row">
                     <div class="copyrights">
-                        <p>@lang('app.copyright') © - App {{ date('Y') }}</p>
+                        <p>@lang('app.copyright') © - {{Settings::get('app_name')}} {{ date('Y') }}</p>
                     </div>
                 </div>
             </div>

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Settings;
 use Auth;
 use App\Reservation;
 use App\Http\Requests;
@@ -105,7 +105,9 @@ class ReservationsController extends Controller
         $canCreate = $this->reservations->canAdd($data);
         if ( $canCreate['success'] ) {
             $reservation = $this->reservations->create($data); 
-            //$mailer->sendReservation($reservation, Auth::user());
+            if(Settings::get('notification_email_reservation') == 1) {
+                $mailer->sendReservation($reservation, Auth::user());
+            }
             $response = [
                 'success' => true
             ];

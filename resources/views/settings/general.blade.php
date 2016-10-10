@@ -32,10 +32,46 @@
                                   {!! Form::text('email_song', Settings::get('email_song'), ['class' => 'form-control', 'placeholder' => trans('app.email_request_song'), 'required' => 'required' ]) !!}
                               </div>
                           </div>
-                           <div class="form-group">
+                          <div class="form-group">
+                              <label for="cname" class="control-label col-lg-2">Notificar solicitudes de canciones por email</label>
+                              <div class="col-lg-6">
+                                  <input type="hidden" name="notification_email_song" value="0">
+                                  <input type="checkbox" name="notification_email_song" class="switch" value="1"
+                               data-on-text="@lang('app.yes')" data-off-text="@lang('app.no')" {{ settings::get('notification_email_song') ? 'checked' : '' }}>
+                              </div>
+                          </div>
+                          <div class="form-group">
                               <label for="cname" class="control-label col-lg-2">@lang('app.email_request_reservations') <span class="required">*</span></label>
                               <div class="col-lg-6">
                                   {!! Form::text('email_reservations', Settings::get('email_reservations'), ['class' => 'form-control', 'placeholder' => trans('app.email_request_reservations'), 'required' => 'required' ]) !!}
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <label for="cname" class="control-label col-lg-2">Notificar solicitudes de reservaciones por email</label>
+                              <div class="col-lg-6">
+                                  <input type="hidden" name="notification_email_reservation" value="0">
+                                  <input type="checkbox" name="notification_email_reservation" class="switch" value="1"
+                               data-on-text="@lang('app.yes')" data-off-text="@lang('app.no')" {{ settings::get('notification_email_reservation') ? 'checked' : '' }}>
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <label for="cname" class="control-label col-lg-2">Latitud <span class="required">*</span></label>
+                              <div class="col-lg-6">
+                                  {!! Form::text('lat', Settings::get('lat'), ['class' => 'form-control', 'placeholder' => 'Latitud', 'required' => 'required' ]) !!}
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <label for="cname" class="control-label col-lg-2">Logintud <span class="required">*</span></label>
+                              <div class="col-lg-6">
+                                  {!! Form::text('lng', Settings::get('lng'), ['class' => 'form-control', 'placeholder' => 'Longitud', 'required' => 'required' ]) !!}
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <label for="cname" class="control-label col-lg-2">Activar geolocalización de clientes</label>
+                              <div class="col-lg-6">
+                                  <input type="hidden" name="geolocation" value="0">
+                                  <input type="checkbox" name="geolocation" class="switch" value="1"
+                               data-on-text="@lang('app.yes')" data-off-text="@lang('app.no')" {{ settings::get('geolocation') ? 'checked' : '' }}>
                               </div>
                           </div>
                          <div class="form-group">
@@ -52,12 +88,18 @@
   <!-- page end-->
 @stop
 
+@section('styles')
+    {!! HTML::style('assets/plugins/bootstrap-switch/bootstrap-switch.css') !!}
+@stop
+
 @section('scripts')
 
 {!! HTML::script('assets/js/jquery.validate.min.js') !!}
+{!! HTML::script('assets/plugins/bootstrap-switch/bootstrap-switch.min.js') !!}
 
 <script type="text/javascript">
 $(document).ready(function () {
+        $(".switch").bootstrapSwitch({size: 'small'});
  
         $("#settings-form").validate({
             rules: {

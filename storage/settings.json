@@ -1,1 +1,1 @@
-{"app_name":"Bar Karaoke","email_reservations":"email@example.com","email_song":"email@example.com","background-admin":"1475682267.jpg","background-login":"1475683348.jpg","table":"5", "lat":"8.994716", "lng":"-79.514766"}
+{"app_name":"Bar Karaoke","email_reservations":"email@example.com","email_song":"email@example.com","notification_email_song":"0","notification_email_reservation":"0","background-admin":"1475682267.jpg","background-login":"1475683348.jpg","lat":"8.994716","lng":"-79.514766","geolocation":"0"}
