@@ -50,9 +50,7 @@
                                         <th>@lang('app.client')</th>
                                         @endif
                                         <th>@lang('app.status')</th>
-                                        @if (Auth::user()->hasRole('admin')) 
                                         <th>@lang('app.action')</th>
-                                        @endif
                                     </tr>
                                     </thead>
                                     <tbody class="reservations">
@@ -91,17 +89,29 @@
                                                     En proceso...
                                                 @endif
                                                 </td>
-                                                @if (Auth::user()->hasRole('admin'))
+                                                
                                                 <td>
+                                                @if (Auth::user()->hasRole('admin'))
                                                     @if($reservation->status == 1 || $reservation->status == 0)
-                                                        <button class="btn btn-lg btn-sm btn-xs btn-danger btn-status"
+                                                        <button class="btn btn-lg btn-sm btn-xs btn-warning btn-status"
                                                         data-id="{{$reservation->id}}" title="@lang('app.change_status')" data-toggle="tooltip" data-placement="top"><i class="fa fa-refresh"></i></button>
                                                     @elseif($reservation->status == 2)
                                                         <button class="btn btn-lg btn-sm btn-xs btn-success btn-status"
                                                         data-id="{{$reservation->id}}" title="@lang('app.change_status')" data-toggle="tooltip" data-placement="top"><i class="fa fa-refresh"></i></button>
                                                     @endif  
-                                                    </td>
                                                 @endif
+                                                 <a href="javascript:void(0)" class="btn btn-sm btn-xs btn-danger btn-delete" title="@lang('app.delete')"
+                                                        data-href="{{ route('reservation.delete') }}"
+                                                        data-id="{{$reservation->id}}"
+                                                        data-toggle="tooltip"
+                                                        data-placement="top"
+                                                        data-confirm-title="@lang('app.please_confirm')"
+                                                        data-confirm-text="@lang('app.are_you_sure_delete_reservation')"
+                                                        data-confirm-delete="@lang('app.yes_delete_it')">
+                                                        <i class="icon_close_alt2"></i>
+                                                  </a>
+                                                </td>
+                                                
                                             </tr>
                                         @endforeach
                                     @else
@@ -162,10 +172,10 @@ $(document).on('click', '.btn-status', function() {
             if(request.success) {
                 $('#input_status_'+id).val(status);
                 document.getElementById('status_'+id).innerHTML = status_text;
-                if(status == 0) {
-                    $this.removeClass('btn-danger').addClass('btn-success');
-                } else {
-                    $this.removeClass('btn-success').addClass('btn-danger');
+                if(status == 0 || status == 1 ) {
+                    $this.removeClass('btn-success').addClass('btn-warning');
+                } else if(status == 2) {
+                    $this.removeClass('btn-warning').addClass('btn-success');
                 }
             }
         }

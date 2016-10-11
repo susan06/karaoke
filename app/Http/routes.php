@@ -360,3 +360,8 @@ Route::post('reservations/status/update',
 Route::post('reservations/by/client/ajax',
     'ReservationsController@reserveByClient')
     ->name('reservation.client.ajax');
+
+Route::post('reservations/delete', [
+    'as' => 'reservation.delete',
+    'uses' => 'ReservationsController@delete'
+]);

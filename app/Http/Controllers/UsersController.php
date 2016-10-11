@@ -272,7 +272,7 @@ class UsersController extends Controller
     /**
      * Removes the user from database.
      *
-     * @param User $user
+     * @param Request $request
      * @return $this
      */
     public function delete(Request $request)

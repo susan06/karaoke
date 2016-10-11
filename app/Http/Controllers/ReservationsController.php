@@ -95,12 +95,11 @@ class ReservationsController extends Controller
      */
     public function reserveByClient(Request $request, NotificationMailer $mailer)
     {
-        $date = explode(' / ', $request->date);
         $data = [
                 'num_table' => $request->num_table, 
                 'user_id' => Auth::id(),
-                'date' => date_format(date_create($date[0]), 'Y-m-d'),
-                'time' => $date[1]
+                'date' => date_format(date_create($request->date), 'Y-m-d'),
+                'time' => $request->time
         ];
         $canCreate = $this->reservations->canAdd($data);
         if ( $canCreate['success'] ) {
@@ -119,6 +118,19 @@ class ReservationsController extends Controller
         }
             
         return response()->json($response);
+    }
+
+    /**
+     * Removes the reservations from database.
+     *
+     * @param Request $request
+     * @return $this
+     */
+    public function delete(Request $request)
+    {
+        $destroy = $this->reservations->delete($request->id);
+
+        return response()->json(['success'=> true]);
     }
 
 }

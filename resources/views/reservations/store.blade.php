@@ -78,8 +78,19 @@
                   </button>
                   <strong>Información!</strong> Solo prodrá reservar la mesa si selecciona la fecha y la hora
               </div>
-            <div class="form-group">
-                    <input type="text" id="datetimepicker1" class="form-control" />
+              <div class="form">
+                <div class="row form-group">
+                    <label class="control-label col-lg-2 col-xs-3">@lang('app.date')</label>
+                    <div class="col-lg-4 col-xs-6">
+                        <input type="text" id="datetimepicker1" class="form-control"/>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <label class="control-label col-lg-2 col-xs-3">@lang('app.hour')</label>
+                    <div class="col-lg-4 col-xs-6">
+                        <input type="text" id="datetimepicker2" class="form-control" />
+                    </div>
+                </div>
             </div>
           </div>
           <div class="modal-footer">
@@ -104,23 +115,27 @@
 
   $(function() {
 
-    $('#datetimepicker1').datetimepicker({
-          format: 'DD-MM-YYYY / hh:mm a',
-          minDate:new Date(),
+      $('#datetimepicker1').datetimepicker({
+        format: 'DD-MM-YYYY',
+        minDate: new Date(),
       });
+
+     $('#datetimepicker2').datetimepicker({
+        format: 'LT',
+        minDate: moment().add('hours', 2),
+     });
 
     $(".reserv").click(function(){
       var $this = $(this); 
       var table = $this.data("id");
       document.getElementById("datetimepicker1").value = "";
-      document.getElementById("reserved").disabled = true;
       $("#num_table").text(table);
       $('#myModal').modal("show");
          $("#reserved").click(function(){
+          if($("#datetimepicker1").val() && $("#datetimepicker2").val()) {
             $('#myModal').modal("hide");
             $this.addClass("button-danger");
-            var data = {"num_table": table, "date": $("#datetimepicker1").val()};
-            if($("#datetimepicker1").val()) {
+            var data = {"num_table": table, "date": $("#datetimepicker1").val(), "time": $("#datetimepicker2").val()};
                 $.ajax({
                   type: "post",
                   url: "{{route('reservation.client.ajax')}}",
@@ -139,10 +154,6 @@
                 })
             }
          });
-    });
-
-    $("#datetimepicker1").on("dp.change", function (e) {
-        document.getElementById("reserved").disabled = false;
     });
 
   })

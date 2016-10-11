@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'delete' => 'Eliminar',
     'search' => 'Búsqueda',
     'today' => 'Hoy',
     'add' => 'Agregar',
@@ -500,6 +501,7 @@ return [
     'table' => 'Mesa',
     'hour' => 'Hora',
     'no_reserve' => 'No reservar',
+    'are_you_sure_delete_reservation' => 'Esta seguro de borrar la reservación?', 
 
     // songs
 
