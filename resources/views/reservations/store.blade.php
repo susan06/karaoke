@@ -82,13 +82,13 @@
                 <div class="row form-group">
                     <label class="control-label col-lg-2 col-xs-3">@lang('app.date')</label>
                     <div class="col-lg-4 col-xs-6">
-                        <input type="text" id="datetimepicker1" class="form-control"/>
+                        <input type="text" id="datetimepicker1" class="form-control" readonly="readonly"/>
                     </div>
                 </div>
                 <div class="row form-group">
                     <label class="control-label col-lg-2 col-xs-3">@lang('app.hour')</label>
                     <div class="col-lg-4 col-xs-6">
-                        <input type="text" id="datetimepicker2" class="form-control" />
+                        <input type="text" id="datetimepicker2" class="form-control" readonly="readonly" />
                     </div>
                 </div>
             </div>
