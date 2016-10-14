@@ -30,10 +30,7 @@
                                 <img alt="user" src="{{ Auth::user()->present()->avatar }}">
                             </span>
                             <span class="username">{{ Auth::user()->present()->nameOrEmail }}</span>
-                            @if(Agent::isMobile() && Request::is('reservations*'))
-                            @else
                             <b class="caret"></b>
-                            @endif
                         </a>
                         <ul class="dropdown-menu extended logout">
                             <div class="log-arrow-up"></div>
@@ -43,22 +40,18 @@
                             </li>
                             @endif
                             @if(Agent::isMobile() && Auth::user()->hasRole('user'))
-                            @if(!Request::is('reservations*'))
-                            <li class="eborder-top">
-                                <a href="{{route('song.search')}}"><i class="fa fa-play-circle"></i> @lang('app.ask_song')</a>
-                            </li>
-                            <li class="">
-                                <a href="{{route('song.my_list')}}"><i class="icon_headphones"></i> @lang('app.my_list')</a>
-                            </li>
-                            @endif
-                            <!--
-                            <li class="">
-                                <a href="{{route('reservation.clientStore')}}"><i class="icon_refresh"></i> @lang('app.reservations')</a>
-                            </li>
-                            <li class="">
-                                <a href="{{route('reservation.index')}}"><i class="icon_ul"></i> @lang('app.my_reservations')</a>
-                            </li>
-                            -->
+                                <li class="eborder-top">
+                                    <a href="{{route('song.search')}}"><i class="fa fa-play-circle"></i> @lang('app.ask_song')</a>
+                                </li>
+                                <li class="">
+                                    <a href="{{route('song.my_list')}}"><i class="icon_headphones"></i> @lang('app.my_list')</a>
+                                </li>
+                                <li class="">
+                                    <a href="{{route('reservation.clientStore')}}"><i class="icon_refresh"></i> @lang('app.reservations')</a>
+                                </li>
+                                <li class="">
+                                    <a href="{{route('reservation.index')}}"><i class="icon_ul"></i> @lang('app.my_reservations')</a>
+                                </li>
                             @endif
                             <li class="eborder-top">
                                 <a href="{{ route('profile') }}"><i class="icon_profile"></i> @lang('app.my_profile')</a>
