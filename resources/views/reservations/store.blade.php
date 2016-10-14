@@ -118,11 +118,13 @@
       $('#datetimepicker1').datetimepicker({
         format: 'DD-MM-YYYY',
         minDate: new Date(),
+        ignoreReadonly: true
       });
 
      $('#datetimepicker2').datetimepicker({
         format: 'LT',
-        minDate: moment().add('hours', 2),
+        minDate: moment().add(2,'hours'),
+        ignoreReadonly: true
      });
 
     $(".reserv").click(function(){
