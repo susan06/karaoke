@@ -242,12 +242,13 @@ $(document).ready(function(e){
 
         var lat2 = graRad(lat_site);
         var lng2 = graRad(lng_site);
-
-        var result = Math.acos( Math.sin(lat1)*Math.sin(lat2) + Math.cos(lat1)*Math.cos(lat2) *  1 );
+        var resta = lng2-lng1;
+        
+        var result = Math.acos( Math.sin(lat1)*Math.sin(lat2) + Math.cos(lat1)*Math.cos(lat2) *  Math.cos(resta) );
 
         var distance = 6371 * result;
 
-        msg = Math.sin(lat1)+' -'+Math.sin(lat2)+' - '+Math.cos(lat1)+' - '+Math.cos(lat2)+' - '+Math.cos(lng2-lng1);
+        msg = Math.sin(lat1)+' -'+Math.sin(lat2)+' - '+Math.cos(lat1)+' - '+Math.cos(lat2)+' - '+Math.cos(resta);
         msg += ' ++++++                                      ';
         msg += 'mis coordenadas: lat '+position.coords.latitude+' lng '+position.coords.longitude;
         msg += ' ,coordenadas del sitio: lat '+lat_site+' lng '+lng_site;
