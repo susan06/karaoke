@@ -246,20 +246,24 @@ $(document).ready(function(e){
 
         var distance = 6371 * result;
 
+        console.log('mis coordenadas: lat '+lat1+' lng '+lng1);
+        console.log('coordenadas del sitio: lat '+lat2+' lng '+lng2);
+        console.log('radio de medición: '+radio);
+        console.log('distancia del sitio a donde yo estoy: '+distance);
+
         if(distance <= radio) {
+            console.log('estoy DENTRO del radio de '+radio+' kilometros');
             $('.btn-search').prop('disabled',false);
             $('.btn-apply-for').prop('disabled', false);
             $('.alert-location').hide();
         } else {
+            console.log('estoy FUERA del radio de '+radio+' kilometros');
             $('.btn-search').prop('disabled',true);
             $('.btn-apply-for').prop('disabled',true);
             $('.alert-location').show();
         }
 
-        console.log('mis coordenadas: lat '+lat1+' lng '+lng1);
-        console.log('coordenadas del sitio: lat '+lat2+' lng '+lng2);
-        console.log('radio de medición: '+radio);
-        console.log('distancia del sitio a donde yo estoy: '+distance);
+
      
     }
 
