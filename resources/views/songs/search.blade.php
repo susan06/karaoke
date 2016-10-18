@@ -237,11 +237,11 @@ $(document).ready(function(e){
     var msg = '';
 
     function showPosition(position) {
-        lat1 = position.coords.latitude;
-        lng1 = position.coords.longitude;
+        lat1 = graRad(position.coords.latitude);
+        lng1 = graRad(position.coords.longitude);
 
-        var lat2 = lat_site;
-        var lng2 = lng_site;
+        var lat2 = graRad(lat_site);
+        var lng2 = graRad(lng_site);
 
         var result = Math.acos( Math.sin(lat1)*Math.sin(lat2) + Math.cos(lat1)*Math.cos(lat2) *  Math.cos(lng2-lng1) );
 
@@ -267,6 +267,11 @@ $(document).ready(function(e){
         alert(msg);
      
     }
+
+    function graRad(grados){
+            var radianes = (grados * Math.PI)/180;
+            return radianes; 
+    }  
 
     function showError(error) {
         switch(error.code) {
