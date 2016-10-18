@@ -248,17 +248,17 @@ $(document).ready(function(e){
         var distance = 6371 * result;
 
         msg = 'mis coordenadas: lat '+lat1+' lng '+lng1;
-        msg += 'coordenadas del sitio: lat '+lat2+' lng '+lng2;
-        msg += 'radio de medición: '+radio;
-        msg += 'distancia del sitio a donde yo estoy: '+distance;
+        msg += ' ,coordenadas del sitio: lat '+lat2+' lng '+lng2;
+        msg += ' ,radio de medición: '+radio;
+        msg += ' ,distancia del sitio a donde yo estoy: '+distance;
 
         if(distance <= radio) {
-            msg += 'estoy DENTRO del radio de '+radio+' kilometros';
+            msg += ' ,estoy DENTRO del radio de '+radio+' kilometros ';
             $('.btn-search').prop('disabled',false);
             $('.btn-apply-for').prop('disabled', false);
             $('.alert-location').hide();
         } else {
-            msg += 'estoy FUERA del radio de '+radio+' kilometros';
+            msg += ' ,estoy FUERA del radio de '+radio+' kilometros ';
             $('.btn-search').prop('disabled',true);
             $('.btn-apply-for').prop('disabled',true);
             $('.alert-location').show();
