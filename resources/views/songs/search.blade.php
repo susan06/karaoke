@@ -250,9 +250,9 @@ $(document).ready(function(e){
         msg = 'mis coordenadas: lat '+lat1+' lng '+lng1;
         msg += ' ,coordenadas del sitio: lat '+lat2+' lng '+lng2;
         msg += ' ,radio de medición: '+radio;
-        msg += ' ,distancia del sitio a donde yo estoy: '+distance;
+        msg += ' ,distancia del sitio a donde yo estoy: '+distance.toFixed(2);
 
-        if(distance <= radio) {
+        if(distance.toFixed(2) <= radio) {
             msg += ' ,estoy DENTRO del radio de '+radio+' kilometros ';
             $('.btn-search').prop('disabled',false);
             $('.btn-apply-for').prop('disabled', false);
@@ -269,7 +269,7 @@ $(document).ready(function(e){
     }
 
     function graRad(grados){
-            var radianes = (grados * Math.PI)/180;
+            var radianes = (grados * 3.14159265359)/180;
             return radianes; 
     }  
 
