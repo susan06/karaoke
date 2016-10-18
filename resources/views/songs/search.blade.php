@@ -234,6 +234,7 @@ $(document).ready(function(e){
     var lat_site = {{ Settings::get('lat') }};
     var lng_site = {{ Settings::get('lng') }};
     var radio = {{Settings::get('radio')}};
+    var msg = '';
 
     function showPosition(position) {
         lat1 = position.coords.latitude;
@@ -246,24 +247,24 @@ $(document).ready(function(e){
 
         var distance = 6371 * result;
 
-        console.log('mis coordenadas: lat '+lat1+' lng '+lng1);
-        console.log('coordenadas del sitio: lat '+lat2+' lng '+lng2);
-        console.log('radio de medición: '+radio);
-        console.log('distancia del sitio a donde yo estoy: '+distance);
+        msg = 'mis coordenadas: lat '+lat1+' lng '+lng1;
+        msg += 'coordenadas del sitio: lat '+lat2+' lng '+lng2;
+        msg += 'radio de medición: '+radio;
+        msg += 'distancia del sitio a donde yo estoy: '+distance;
 
         if(distance <= radio) {
-            console.log('estoy DENTRO del radio de '+radio+' kilometros');
+            msg += 'estoy DENTRO del radio de '+radio+' kilometros';
             $('.btn-search').prop('disabled',false);
             $('.btn-apply-for').prop('disabled', false);
             $('.alert-location').hide();
         } else {
-            console.log('estoy FUERA del radio de '+radio+' kilometros');
+            msg += 'estoy FUERA del radio de '+radio+' kilometros';
             $('.btn-search').prop('disabled',true);
             $('.btn-apply-for').prop('disabled',true);
             $('.alert-location').show();
         }
 
-
+        alert(msg);
      
     }
 
