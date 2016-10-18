@@ -245,10 +245,12 @@ $(document).ready(function(e){
 
         var result = Math.acos( Math.sin(lat1)*Math.sin(lat2) + Math.cos(lat1)*Math.cos(lat2) *  Math.cos(lng2-lng1) );
 
-        var distance = 6371 * result;
+        var distance = 6378.137 * result;
 
-        msg = 'mis coordenadas: lat '+lat1+' lng '+lng1;
-        msg += ' ,coordenadas del sitio: lat '+lat2+' lng '+lng2;
+        msg = Math.sin(lat1)+' -'+Math.sin(lat2)+' - '+Math.cos(lat1)+' - '+Math.cos(lat2)+' - '+Math.cos(lng2-lng1);
+        msg += '                                       ';
+        msg += 'mis coordenadas: lat '+position.coords.latitude+' lng '+position.coords.longitude;
+        msg += ' ,coordenadas del sitio: lat '+lat_site+' lng '+lng_site;
         msg += ' ,radio de medición: '+radio;
         msg += ' ,distancia del sitio a donde yo estoy: '+distance.toFixed(2);
 
