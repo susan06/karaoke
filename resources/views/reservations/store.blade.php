@@ -131,13 +131,15 @@
       var $this = $(this); 
       var table = $this.data("id");
       document.getElementById("datetimepicker1").value = "";
+      document.getElementById("datetimepicker2").value = "";
+      var data = null;
       $("#num_table").text(table);
       $('#myModal').modal("show");
          $("#reserved").click(function(){
           if($("#datetimepicker1").val() && $("#datetimepicker2").val()) {
             $('#myModal').modal("hide");
             $this.addClass("button-danger");
-            var data = {"num_table": table, "date": $("#datetimepicker1").val(), "time": $("#datetimepicker2").val()};
+            data = {"num_table": table, "date": $("#datetimepicker1").val(), "time": $("#datetimepicker2").val()};
                 $.ajax({
                   type: "post",
                   url: "{{route('reservation.client.ajax')}}",

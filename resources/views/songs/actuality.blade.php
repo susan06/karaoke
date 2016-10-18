@@ -40,6 +40,7 @@
                                         <th>@lang('app.song')</th>
                                         <th>@lang('app.artist')</th>
                                         @if (Auth::user()->hasRole('dj')) 
+                                        <th>@lang('app.hour')</th>
                                         <th>@lang('app.who_apply')</th>
                                         <th>@lang('app.status')</th>
                                         <th>@lang('app.action')</th>
@@ -53,6 +54,7 @@
                                                 <td>{{$playlist->song->title}}</td>
                                                 <td>{{$playlist->song->artist}}</td>
                                                 @if (Auth::user()->hasRole('dj')) 
+                                                <td>{{ date_format(date_create($playlist->created_at), 'h:m A') }}</td>
                                                 <td>{{$playlist->user->present()->name}}</td>
                                                 <td id="status_{{$playlist->id}}">
                                                 @if($playlist->play_status)

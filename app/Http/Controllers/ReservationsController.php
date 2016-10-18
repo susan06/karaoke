@@ -51,7 +51,7 @@ class ReservationsController extends Controller
     {
         $perPage = 20;
         $admin = true;
-        $reservations = $this->reservations->index($perPage, $request->date, Auth::id());
+        $reservations = $this->reservations->index($perPage, $request->date);
 
         return view('reservations.index', compact('reservations', 'admin'));
     }

@@ -56,9 +56,16 @@ class EloquentReservation extends Repository implements ReservationRepository
      */
      public function canAdd(array $attributes)
     {
+        $status = Reservation::where('num_table', '=', $attributes['num_table'])
+            ->where('date', 'like', $attributes['date'])
+            ->where('time','like', $attributes['time'])
+            ->where('status','=', 1)
+            ->first();
+
         $reservation = Reservation::where('user_id','=',$attributes['user_id'])
             ->where('num_table', '=', $attributes['num_table'])
             ->where('date', 'like', $attributes['date'])
+            ->where('time','like', $attributes['time'])
             ->first();
 
         $today = Carbon::now();
@@ -70,10 +77,16 @@ class EloquentReservation extends Repository implements ReservationRepository
 
         $today = Carbon::today()->toDateString();
 
+        if($status) {
+            return [
+                'success' => false, 
+                'message' => 'La mesa ya ha sido reservada, modifique la fecha o la hora'
+            ];
+        }
         if($reservation) {
             return [
                 'success' => false, 
-                'message' => 'Ya tiene una reserva con la mesa: '.$attributes['num_table'].' para el día '.date_format(date_create($attributes['date']), 'd-m-Y')
+                'message' => 'Ya tiene una reserva con la mesa: '.$attributes['num_table'].' para el día '.date_format(date_create($attributes['date']), 'd-m-Y'). ' a las '.$attributes['time'] 
             ];
         } 
         if ($attributes['date'] == $today && $time <= 2) {

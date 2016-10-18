@@ -233,23 +233,33 @@ $(document).ready(function(e){
     var lng = 0;
     var lat_site = {{ Settings::get('lat') }};
     var lng_site = {{ Settings::get('lng') }};
+    var radio = {{Settings::get('radio')}};
 
     function showPosition(position) {
-        lat = position.coords.latitude;
-        lng = position.coords.longitude;
+        lat1 = position.coords.latitude;
+        lng1 = position.coords.longitude;
 
-        var lat_rd = lat*(Math.PI/180);
-        var lat_site_rd = lat_site*(Math.PI/180);
+        var lat2 = lat_site;
+        var lng2 = lng_site;
 
-        var distance = (6371 * Math.acos(Math.sin(lat_rd) * Math.sin(lat_site_rd) + Math.cos(Math.sin(lng - lng_site)) * Math.cos(lat_rd) * Math.cos(Math.sin(lat_site)) ));
+        var result = Math.acos( Math.sin(lat1)*Math.sin(lat2) + Math.cos(lat1)*Math.cos(lat2) *  Math.cos(lng2-lng1) );
 
-        if(distance <= 0.05) {
+        var distance = 6371 * result;
+
+        if(distance <= radio) {
             $('.btn-search').prop('disabled',false);
             $('.btn-apply-for').prop('disabled', false);
+            $('.alert-location').hide();
         } else {
             $('.btn-search').prop('disabled',true);
             $('.btn-apply-for').prop('disabled',true);
+            $('.alert-location').show();
         }
+
+        console.log('mis coordenadas: lat '+lat1+' lng '+lng1);
+        console.log('coordenadas del sitio: lat '+lat2+' lng '+lng2);
+        console.log('radio de medición: '+radio);
+        console.log('distancia del sitio a donde yo estoy: '+distance);
      
     }
 
