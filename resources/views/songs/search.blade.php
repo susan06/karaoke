@@ -237,8 +237,8 @@ $(document).ready(function(e){
     var msg = '';
 
     function showPosition(position) {
-        lat1 = graRad(position.coords.latitude);
-        lng1 = graRad(position.coords.longitude);
+        lat1 = graRad(position.coords.latitude.toFixed(6));
+        lng1 = graRad(position.coords.longitude.toFixed(6));
 
         var lat2 = graRad(lat_site);
         var lng2 = graRad(lng_site);
@@ -250,7 +250,9 @@ $(document).ready(function(e){
 
         //msg = resta +' ///- '+ Math.sin(lat1)+' -'+Math.sin(lat2)+' - '+Math.cos(lat1)+' - '+Math.cos(lat2)+' - '+Math.cos(resta);
         //msg += ' ++++++';
-        msg = 'en radianes'+lng2+ ' * '+lng1;
+        msg = 'normal '+lng_site+ ' *** '+position.coords.longitude.toFixed(6);
+        msg += ' ++++++';
+        msg += 'en radianes'+lng2+ ' *** '+lng1;
         msg += ' ++++++';
         //msg += 'mis coordenadas: lat '+position.coords.latitude+' lng '+position.coords.longitude;
         //msg += ' ,coordenadas del sitio: lat '+lat_site+' lng '+lng_site;
