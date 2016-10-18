@@ -67,7 +67,7 @@
                               </div>
                           </div>
                           <div class="form-group">
-                              <label for="cname" class="control-label col-lg-2">Radio o kilomentros a la redonda <span class="required">*</span></label>
+                              <label for="cname" class="control-label col-lg-2">Radio <span class="required">*</span></label>
                               <div class="col-lg-6">
                                   {!! Form::text('radio', Settings::get('radio'), ['class' => 'form-control', 'placeholder' => 'Radio', 'required' => 'required' ]) !!}
                               </div>
