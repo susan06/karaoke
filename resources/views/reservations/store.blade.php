@@ -131,7 +131,7 @@
       var $this = $(this); 
       var table = $this.data("id");
       document.getElementById("datetimepicker1").value = "";
-      document.getElementById("datetimepicker2").value = "";
+      document.getElementById("datetimepicker2").value = "7:00 PM";
       var data = null;
       $("#num_table").text(table);
       $('#myModal').modal("show");
