@@ -23,20 +23,24 @@ class EloquentReservation extends Repository implements ReservationRepository
      * @param null $date
      * @param null $user
      */
-    public function index($perPage, $date = null, $user = null)
+    public function index($perPage, $date = null, $user = null, $all = null)
     {
         
         $today = Carbon::today()->toDateString().'%';
 
-        if ($date) {
-            $date1 = date_format(date_create($date), 'Y-m-d');
-            $query = Reservation::where('date', 'like', $date1.'%')->paginate($perPage);
+        if (!$all) {
+            if ($date) {
+                $date1 = date_format(date_create($date), 'Y-m-d');
+                $query = Reservation::where('date', 'like', $date1.'%')->paginate($perPage);
+            } else {
+                $query = Reservation::where('date', 'like', $today.'%')->paginate($perPage);
+            }
         } else {
-            $query = Reservation::where('date', 'like', $today.'%')->paginate($perPage);
-        }
-
-        if ($user) {
-            $query->where('user_id', '=', $user);
+            if ($user) {
+                $query = Reservation::where('user_id', '=', $user)->paginate($perPage);
+            } else {
+                $query = Reservation::paginate($perPage);
+            }
         }
 
         if ($date) {

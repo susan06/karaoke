@@ -29,9 +29,17 @@
                     <form method="GET" action="" accept-charset="UTF-8" id="date-form">  
                         <div class="col-lg-4 col-sm-4 col-xs-8 margin_search">
                             <div class='input-group'>
+                            @if($all)
+                                <input class="form-control" id="date" name="date" value="" />
+                            @else
                                 <input class="form-control" id="date" name="date" value="{{ Input::get('date') ? Input::get('date') : Carbon\Carbon::now()->format('d-m-Y') }}" />
+                            @endif
                                 <a href="{{ route('reservation.index') }}" class="input-group-addon">
                                     @lang('app.today')</a>
+                                @if (Auth::user()->hasRole('user'))
+                                <a href="{{ route('reservation.index', 'show=all') }}" class="input-group-addon">
+                                    @lang('app.all')</a>
+                                @endif
                             </div>
                         </div>
                     </form>

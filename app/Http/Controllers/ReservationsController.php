@@ -37,9 +37,10 @@ class ReservationsController extends Controller
     {
         $perPage = 20;
         $admin = false;
-        $reservations = $this->reservations->index($perPage, $request->date, Auth::id());
+        $all = isset($request->show) ? true : false;
+        $reservations = $this->reservations->index($perPage, $request->date, Auth::id(), $all);
 
-        return view('reservations.index', compact('reservations', 'admin'));
+        return view('reservations.index', compact('reservations', 'admin', 'all'));
     }
 
     /**
@@ -51,9 +52,10 @@ class ReservationsController extends Controller
     {
         $perPage = 20;
         $admin = true;
-        $reservations = $this->reservations->index($perPage, $request->date);
+        $all = false;
+        $reservations = $this->reservations->index($perPage, $request->date, null, null);
 
-        return view('reservations.index', compact('reservations', 'admin'));
+        return view('reservations.index', compact('reservations', 'admin', 'all'));
     }
 
     /**

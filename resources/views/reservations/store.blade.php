@@ -123,7 +123,7 @@
 
      $('#datetimepicker2').datetimepicker({
         format: 'LT',
-        minDate: moment().add(2,'hours'),
+        //minDate: moment().add(2,'hours'),
         ignoreReadonly: true
      });
 
@@ -132,27 +132,27 @@
       var table = $this.data("id");
       document.getElementById("datetimepicker1").value = "";
       document.getElementById("datetimepicker2").value = "7:00 PM";
-      var data = null;
+      var data_reservation = null;
       $("#num_table").text(table);
       $('#myModal').modal("show");
          $("#reserved").click(function(){
           if($("#datetimepicker1").val() && $("#datetimepicker2").val()) {
             $('#myModal').modal("hide");
             $this.addClass("button-danger");
-            data = {"num_table": table, "date": $("#datetimepicker1").val(), "time": $("#datetimepicker2").val()};
+            data_reservation = {"num_table": table, "date": $("#datetimepicker1").val(), "time": $("#datetimepicker2").val()};
                 $.ajax({
                   type: "post",
                   url: "{{route('reservation.client.ajax')}}",
-                  data: data,
+                  data: data_reservation,
                   dataType: 'json',
-                  success: function (data) {  
-                    if(data.success) {  
+                  success: function (response) {  
+                    if(response.success) {  
                         $this.prop('disabled', true);                    
                         $this.addClass("button-danger");
                         $this.removeClass("reserv");
                     } else {
                         $(".reserv").removeClass("button-danger");
-                        swal("@lang('app.info')", data.message, "error");
+                        swal("@lang('app.info')", response.message, "error");
                     }
                   }
                 })
