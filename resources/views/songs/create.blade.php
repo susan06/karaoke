@@ -49,10 +49,8 @@
 
 @section('scripts')
 
-{!! HTML::script('assets/js/jquery.js') !!}
-{!! HTML::script('assets/js/jquery.validate.min.js') !!}
 
-@section('scripts')
+{!! HTML::script('assets/js/jquery.validate.min.js') !!}
 
 <script type="text/javascript">
 $(document).ready(function(e){
@@ -74,20 +72,20 @@ $(document).ready(function(e){
 
     $("#song-form").validate({
             rules: {
-                title: {
-                    required: true
-                },
                 artist: {
                     required: true
                 },
+                title: {
+                    required: true
+                }
             },
-            messages: {                
-                title: {
-                    required: "Campo obligatorio",
-                },
+            messages: { 
                 artist: {
                     required: "Campo obligatorio",
-                }   
+                },                
+                title: {
+                    required: "Campo obligatorio",
+                }  
             }
     });
 });

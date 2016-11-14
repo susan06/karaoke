@@ -27,12 +27,12 @@
                 <div class="panel-body">
                     <div class="row">  
                     <form method="GET" action="" accept-charset="UTF-8" id="date-form">  
-                        <div class="col-lg-4 col-sm-4 col-xs-8 margin_search">
+                        <div class="col-lg-4 col-sm-4 col-xs-12 margin_search">
                             <div class='input-group'>
                             @if($all)
-                                <input class="form-control" id="date" name="date" value="" />
+                                <input class="form-control" id="date" name="date" value="" readonly="readonly" />
                             @else
-                                <input class="form-control" id="date" name="date" value="{{ Input::get('date') ? Input::get('date') : Carbon\Carbon::now()->format('d-m-Y') }}" />
+                                <input class="form-control" id="date" name="date" value="{{ Input::get('date') ? Input::get('date') : Carbon\Carbon::now()->format('d-m-Y') }}" readonly="readonly" />
                             @endif
                                 <a href="{{ route('reservation.index') }}" class="input-group-addon">
                                     @lang('app.today')</a>
@@ -153,7 +153,8 @@
 <script type="text/javascript">
 
 $('#date').datetimepicker({
-  format: 'DD-MM-YYYY'
+    format: 'DD-MM-YYYY',
+    ignoreReadonly: true
 });
 
  $("#date").on("dp.change", function (e) {

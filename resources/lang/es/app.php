@@ -491,7 +491,8 @@ return [
     ],
 
     // reservations
-
+    'reserv' => 'Reservar',
+    'close' => 'Cerrar',
     'reservations' => 'Reservaciones',
     'reservation_table' => 'Reservar mesa',
     'email_request_reservations' => 'Email (Reservaciones)',
