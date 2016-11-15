@@ -78,25 +78,28 @@
                   </button>
                   <strong>Información!</strong> Solo prodrá reservar la mesa si selecciona la fecha y la hora
               </div>
+              <form action="{{route('reservation.client.ajax')}}" method="post" id="form_resersar">
+              <input type="hidden" id="table" name="num_table" value=""/>
               <div class="form">
                 <div class="row form-group">
                     <label class="control-label col-lg-2 col-xs-3">@lang('app.date')</label>
                     <div class="col-lg-4 col-sm-4 col-xs-12">
-                        <input type="text" id="datetimepicker1" class="form-control" readonly="readonly"/>
+                        <input type="text" name="date" id="datetimepicker1" class="form-control" readonly="readonly" required="required"/>
                     </div>
                 </div>
                 <div class="row form-group">
                     <label class="control-label col-lg-2 col-xs-3">@lang('app.hour')</label>
                     <div class="col-lg-4 col-sm-4 col-xs-12">
-                        <input type="text" id="datetimepicker2" class="form-control" readonly="readonly" />
+                        <input type="text" name="time" id="datetimepicker2" class="form-control" readonly="readonly" required="required" />
                     </div>
                 </div>
             </div>
           </div>
           <div class="modal-footer">
-          <button type="button" class="btn btn-success" id="reserved">@lang('app.reserv')</button>
+          <button type="submit" class="btn btn-success" id="btn-reserved">@lang('app.reserv')</button>
             <button type="button" class="btn btn-default" data-dismiss="modal">@lang('app.close')</button>
           </div>
+          </form>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
     </div>
@@ -113,7 +116,7 @@
 
 <script type="text/javascript">
 
-  $(function() {
+      var $this = null;
 
       $('#datetimepicker1').datetimepicker({
         format: 'DD-MM-YYYY',
@@ -126,40 +129,40 @@
         //minDate: moment().add(2,'hours'),
         ignoreReadonly: true
      });
-
-    $(".reserv").click(function(){
-      var $this = $(this); 
+   
+    $(document).on('click', '.reserv', function () {
+      $this = $(this); 
       var table = $this.data("id");
       document.getElementById("datetimepicker1").value = "";
       document.getElementById("datetimepicker2").value = "7:00 PM";
-      var data_reservation = null;
+      document.getElementById("table").value = table;
       $("#num_table").text(table);
       $('#myModal').modal("show");
-         $("#reserved").click(function(){
-          if($("#datetimepicker1").val() && $("#datetimepicker2").val()) {
-            $('#myModal').modal("hide");
-            $this.addClass("button-danger");
-            data_reservation = {"num_table": table, "date": $("#datetimepicker1").val(), "time": $("#datetimepicker2").val()};
-                $.ajax({
-                  type: "post",
-                  url: "{{route('reservation.client.ajax')}}",
-                  data: data_reservation,
-                  dataType: 'json',
-                  success: function (response) {  
-                    if(response.success) {  
-                        $this.prop('disabled', true);                    
-                        $this.addClass("button-danger");
-                        $this.removeClass("reserv");
-                    } else {
-                        $(".reserv").removeClass("button-danger");
-                        swal("@lang('app.info')", response.message, "error");
-                    }
-                  }
-                })
-            }
-         });
     });
 
-  })
+$(document).on('click', '#btn-reserved', function (e) {
+    e.preventDefault();
+    $('#myModal').modal("hide");
+    if($("#datetimepicker1").val() && $("#datetimepicker2").val() && $("#table").val()) {
+      $.ajax({
+          url: "{{route('reservation.client.ajax')}}",
+          type: 'post',
+          data: $('#form_resersar').serialize(),
+          dataType: 'json',
+          success: function(response) {
+             if(response.success) {  
+                  $this.prop('disabled', true);                    
+                  $this.addClass("button-danger");
+                  $this.removeClass("reserv");
+              } else {
+                  $(".reserv").removeClass("button-danger");
+                  swal("@lang('app.info')", response.message, "error");
+              }
+          }
+      });
+    } else {
+
+    }
+});
 </script>
 @stop

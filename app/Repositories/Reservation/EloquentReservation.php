@@ -38,7 +38,7 @@ class EloquentReservation extends Repository implements ReservationRepository
             $query->where('date', 'like', $date1.'%');
         }
         
-        $result = $query->orderBy('id', 'DESC')->paginate($perPage);
+        $result = $query->orderBy('created_at', 'DESC')->paginate($perPage);
 
         if ($date) {
             $result->appends(['date' => $date]);
