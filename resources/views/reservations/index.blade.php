@@ -29,15 +29,14 @@
                     <form method="GET" action="" accept-charset="UTF-8" id="date-form">  
                         <div class="col-lg-4 col-sm-4 col-xs-12 margin_search">
                             <div class='input-group'>
-                            @if($all)
-                                <input class="form-control" id="date" name="date" value="" readonly="readonly" />
-                            @else
-                                <input class="form-control" id="date" name="date" value="{{ Input::get('date') ? Input::get('date') : Carbon\Carbon::now()->format('d-m-Y') }}" readonly="readonly" />
-                            @endif
+                                <input class="form-control" id="date" name="date" value="{{ Input::get('date') ? Input::get('date') : '' }}" readonly="readonly" />
+                                @if($admin)
+                                 <a href="{{ route('reservation.adminIndex', 'date='.Carbon\Carbon::now()->format('d-m-Y') ) }}" class="input-group-addon">@lang('app.today')</a>
+                                 <a href="{{ route('reservation.adminIndex') }}" class="input-group-addon">
+                                    @lang('app.all')</a>
+                                @else
+                                <a href="{{ route('reservation.index', 'date='.Carbon\Carbon::now()->format('d-m-Y') ) }}" class="input-group-addon">@lang('app.today')</a>
                                 <a href="{{ route('reservation.index') }}" class="input-group-addon">
-                                    @lang('app.today')</a>
-                                @if (Auth::user()->hasRole('user'))
-                                <a href="{{ route('reservation.index', 'show=all') }}" class="input-group-addon">
                                     @lang('app.all')</a>
                                 @endif
                             </div>

@@ -23,7 +23,7 @@ interface ReservationRepository extends RepositoryInterface
      * @param null $date
      * @param null $user
      */
-    public function index($perPage, $date = null, $user = null, $all = null);
+    public function index($perPage, $date = null, $user = null, $admin = null);
 
 
 }
