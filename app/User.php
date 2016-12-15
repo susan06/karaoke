@@ -49,6 +49,7 @@ class User extends Model implements AuthenticatableContract,
         'birthday', 
         'avatar', 
         'last_login', 
+        'branch_office_id',
         'confirmation_token', 
         'status',
         'remember_token'
@@ -108,4 +109,10 @@ class User extends Model implements AuthenticatableContract,
     {
         return $this->hasMany(Activity::class, 'user_id');
     }
+
+    public function branchoffice()
+    {
+        return $this->belongsTo(BrachOffice::class, 'branch_office_id');
+    }
+
 }

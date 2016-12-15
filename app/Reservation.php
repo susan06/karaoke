@@ -17,7 +17,7 @@ class Reservation extends Model
     
     public $timestamps = true;
 
-    protected $fillable = ['num_table', 'user_id', 'date', 'time', 'status'];
+    protected $fillable = ['num_table', 'user_id', 'date', 'time', 'status', 'branch_office_id'];
 
     protected $casts = [
         'status' => 'int'
@@ -26,5 +26,10 @@ class Reservation extends Model
     public function user()
     {
         return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
+    public function branchoffice()
+    {
+        return $this->belongsTo(BrachOffice::class, 'branch_office_id');
     }
 }

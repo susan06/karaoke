@@ -18,6 +18,8 @@ use App\Repositories\Playlist\EloquentPlaylist;
 use App\Repositories\Playlist\PlaylistRepository;
 use App\Repositories\Reservation\EloquentReservation;
 use App\Repositories\Reservation\ReservationRepository;
+use App\Repositories\BranchOffice\EloquentBranchOffice;
+use App\Repositories\BranchOffice\BranchOfficeRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -45,6 +47,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(SongRepository::class, EloquentSong::class);
         $this->app->singleton(PlaylistRepository::class, EloquentPlaylist::class);
         $this->app->singleton(ReservationRepository::class, EloquentReservation::class);
+        $this->app->singleton(BranchOfficeRepository::class, EloquentBranchOffice::class);
 
         if ($this->app->environment('local')) {
             $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);

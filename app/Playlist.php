@@ -17,7 +17,7 @@ class Playlist extends Model
     
     public $timestamps = true;
 
-    protected $fillable = ['song_id', 'user_id', 'play_status'];
+    protected $fillable = ['song_id', 'user_id', 'branch_office_id', 'play_status'];
 
     protected $casts = [
         'play_status' => 'boolean'
@@ -35,5 +35,10 @@ class Playlist extends Model
     public function user()
     {
         return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
+    public function branchoffice()
+    {
+        return $this->belongsTo(BrachOffice::class, 'branch_office_id');
     }
 }

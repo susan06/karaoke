@@ -365,3 +365,6 @@ Route::post('reservations/delete', [
     'as' => 'reservation.delete',
     'uses' => 'ReservationsController@delete'
 ]);
+
+/* Branch Offices Adminitration */
+Route::resource('branch-office', 'BranchOfficeController');

@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         //$this->call(SongSeeder::class);
         //$this->call(ReservationSeed::class);
+        $this->call(BrachOfficeSeeder::class);
 
         Model::reguard();
     }
