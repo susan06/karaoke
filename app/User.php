@@ -100,6 +100,29 @@ class User extends Model implements AuthenticatableContract,
         return $this->status == UserStatus::BANNED;
     }
 
+    public function labelClass()
+    {
+        switch($this->status) {
+            case UserStatus::ACTIVE:
+                $class = 'success';
+                break;
+
+            case UserStatus::BANNED:
+                $class = 'danger';
+                break;
+
+            default:
+                $class = 'warning';
+        }
+
+        return $class;
+    }
+
+
+    /*
+    * Relationships 
+    */
+
     public function socialNetworks()
     {
         return $this->hasOne(UserSocialNetworks::class, 'user_id');

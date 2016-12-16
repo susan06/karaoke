@@ -2,9 +2,10 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
-class BrachOffice extends Model
+class BranchOffice extends Model
 {
     /**
      * The database table used by the model.
@@ -36,6 +37,54 @@ class BrachOffice extends Model
 		'geolocation' => 'boolean',
         'status' => 'boolean'
     ];
+
+    public function getCreatedAtAttribute($date)
+    {
+        return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-m-Y G:ia');
+    }
+
+    public function getUpdatedAtAttribute($date)
+    {
+        if($date) {
+            return Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('d-m-Y G:ia');
+        }
+    }
+
+    public function labelClass()
+    {
+        switch($this->status) {
+            case 1:
+                $class = 'success';
+                break;
+
+            case 0:
+                $class = 'danger';
+                break;
+
+            default:
+                $class = 'warning';
+        }
+
+        return $class;
+    }
+
+    public function textStatus()
+    {
+        switch($this->status) {
+            case 1:
+                $text = 'published';
+                break;
+
+            case 0:
+                $text = 'nopublished';
+                break;
+
+            default:
+                $text = 'nopublished';
+        }
+
+        return $text;
+    }
 
     /*
     * Relationships

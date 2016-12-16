@@ -551,4 +551,17 @@ return [
     'background' => 'background',
     'client' => 'CLiente',
     'change_status' => 'Cambiar Estatus',
+
+    'branch_offices' => 'Sucursales',
+    'list_of_registered_branch_offices' => 'Sucursales registradas',
+    'search_for_branch' => 'Buscar sucursales',
+    'add_branch_office' => 'Agregar sucursal',
+    'published' => 'Publicada',
+    'nopublished' => 'No publicada',
+    'edit_branch_office' => 'Editar sucursal',
+    'view_branch_office' => 'Ver sucursal',
+    'branch_office_created' => 'Sucursal agregada',
+
+    'error_again' => 'Ocurrio un erro, intente de nuevo',
+
 ];

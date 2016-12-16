@@ -34,6 +34,12 @@
                           <li><a class="" href="{{route('song.import')}}">@lang('app.import_songs')</a></li>
                       </ul>
                   </li>
+                  <li class="{{ Request::is('branch-office*') ? 'active' : ''  }}">
+                      <a href="{{ route('branch-office.index') }}" class="">
+                          <i class="icon_genius"></i>
+                          <span>@lang('app.branch_offices')</span>
+                      </a>
+                  </li> 
                   <li class="sub-menu {{ Request::is('settings*') ? 'active' : ''  }}">
                       <a href="javascript:void(0);" class="">
                           <i class="icon_cog"></i>
