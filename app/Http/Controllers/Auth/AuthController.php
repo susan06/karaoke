@@ -209,7 +209,7 @@ class AuthController extends Controller
         $role = Auth::user()->hasRole('user');
 
         Session::forget('branch_office');
-        Session::forget('branch_office_id');
+        Session::forget('branch_offices');
 
         Auth::logout();
 
