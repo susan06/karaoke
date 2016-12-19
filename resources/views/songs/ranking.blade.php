@@ -28,23 +28,33 @@
                         </div>  
                     </div>
 
-                    <div class="row">  
-                    <form method="GET" action="" accept-charset="UTF-8">  
-                        <div class="col-lg-7 col-sm-8 col-xs-12 margin_search">
-                            <div class="input-group">         
-                                <input type="text" class="form-control" name="search" value="{{ Input::get('search') }}" id="search" placeholder="@lang('app.search_song_artist')">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-primary" type="submit"><span class="fa fa-search"></span></button>
-                                    @if (Input::has('search') && Input::get('search') != '')
-                                        <a href="{{ route('song.my_list') }}" class="btn btn-danger">
-                                           <i class="icon_close_alt2"></i>
-                                        </a>
-                                    @endif
-                                </span>
-                            </div>
-                        </div>
+                    <form method="GET" action="" accept-charset="UTF-8" id="ranking-form">
+                      <div class="form-group">
+                          <div class="col-lg-10 col-sm-12 col-xs-12">
+                              <div class="row">
+                              @if(session('branch_offices'))
+                                  <div class="col-lg-4 col-sm-4 col-xs-5 margin_search">
+                                      {!! Form::select('branch_office_id', session('branch_offices'), Input::get('branch_office_id'), ['id' => 'branch_offices', 'class' => 'form-control']) !!}
+                                  </div>
+                              @endif    
+                                  <div class="col-lg-6 col-sm-6 col-xs-7 margin_search">
+                                    <div class="input-group">         
+                                        <input type="text" class="form-control" name="search" value="{{ Input::get('search') }}" id="search" placeholder="@lang('app.search_song_artist')">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary" type="submit"><span class="fa fa-search"></span></button>
+                                            @if (Input::has('search') && Input::get('search') != '')
+                                                <a href="{{ route('song.ranking', 'branch_office_id='.Input::get('branch_office_id')) }}" class="btn btn-danger">
+                                                   <i class="icon_close_alt2"></i>
+                                                </a>
+                                            @endif
+                                        </span>
+                                    </div>
+                                  </div>
+                              </div>
+
+                          </div>
+                      </div>
                     </form>
-                    </div> 
 
                     <div class="row">    
                         <div class="col-lg-10 col-sm-10 col-xs-12">
@@ -104,6 +114,10 @@
 
 <script type="text/javascript">
 
+$("#branch_offices").change(function () {
+    $("#ranking-form").submit();
+});
+
 $(document).on('click', '.btn-apply-for', function() {
     var $this = $(this);
     var row = $this.closest('tr');
@@ -140,15 +154,19 @@ $(document).on('click', '.btn-apply-for', function() {
         }
     }
 
-    var lat = 0;
-    var lng = 0;
-    var lat_site = {{ Settings::get('lat') }};
-    var lng_site = {{ Settings::get('lng') }};
-    var radio = {{Settings::get('radio')}};
-
     function showPosition(position) {
         lat1 = position.coords.latitude;
         lng1 = position.coords.longitude;
+
+        var lat_site = position.coords.latitude.toFixed(6);
+        var lng_site = position.coords.longitude.toFixed(6);
+        var radio = 50;
+
+        @if(session('branch_office'))
+            var lat_site = {!! session('branch_office')->lat !!};
+            var lng_site = {!! session('branch_office')->lng !!};
+            var radio = {!! session('branch_office')->radio !!};
+        @endif
 
         var lat2 = lat_site;
         var lng2 = lng_site;
@@ -184,10 +202,12 @@ $(document).on('click', '.btn-apply-for', function() {
         }
     }
 
-    @if(Auth::user()->hasRole('user') && Settings::get('geolocation') == 1)
-        $('.alert-location').show();
-        $('.btn-apply-for').prop('disabled',true);
-        getLocation();
+    @if(Auth::user()->hasRole('user') && session('branch_office'))
+        @if(session('branch_office')->geolocation == 1)
+            $('.alert-location').show();
+            $('.btn-apply-for').prop('disabled',true);
+            getLocation();
+        @endif
     @endif
 
     

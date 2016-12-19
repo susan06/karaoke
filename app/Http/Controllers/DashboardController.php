@@ -7,6 +7,7 @@ use App\Repositories\User\UserRepository;
 use App\Support\Enum\UserStatus;
 use Auth;
 use Carbon\Carbon;
+use App\Repositories\BranchOffice\BranchOfficeRepository;
 
 class DashboardController extends Controller
 {
@@ -20,15 +21,22 @@ class DashboardController extends Controller
     private $activities;
 
     /**
+     * @var BranchOfficeRepository
+     */
+    private $branch_offices;
+
+    /**
      * DashboardController constructor.
      * @param UserRepository $users
      * @param ActivityRepository $activities
+     * @param BranchOfficeRepository $branch_offices
      */
-    public function __construct(UserRepository $users, ActivityRepository $activities)
+    public function __construct(UserRepository $users, ActivityRepository $activities, BranchOfficeRepository $branch_offices)
     {
         $this->middleware('auth');
         $this->users = $users;
         $this->activities = $activities;
+        $this->branch_offices = $branch_offices;
     }
 
     /**
@@ -47,10 +55,24 @@ class DashboardController extends Controller
         }
 
         if (Auth::user()->hasRole('admin')) {
+
+            $branch_offices = $this->branch_offices->all();
+
+            if ( count($branch_offices) > 1 && !session('branch_offices')) {
+                session()->put('branch_offices', $this->branch_offices->lists_actives()); 
+            } 
+
             return redirect()->route('user.client.index');
         }
 
         if (Auth::user()->hasRole('dj')) {
+
+            $branch_offices = $this->branch_offices->all();
+
+            if ( count($branch_offices) > 1 && !session('branch_offices')) {
+                session()->put('branch_offices', $this->branch_offices->lists_actives()); 
+            } 
+
             return redirect()->route('song.apply.list');
         }
     }

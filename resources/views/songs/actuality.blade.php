@@ -6,7 +6,8 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa-play-circle"></i> @lang('app.requested_songs')</h3>
+            <h3 class="page-header"><i class="fa fa-play-circle"></i> @lang('app.requested_songs')
+            </h3>
         </div>
     </div>
 
@@ -21,6 +22,11 @@
                 <div class="panel-body">
                     <div class="row">  
                     <form method="GET" action="" accept-charset="UTF-8" id="date-form">  
+                        @if(session('branch_offices'))
+                          <div class="col-lg-4 col-sm-4 col-xs-5 margin_search">
+                              {!! Form::select('branch_office_id', session('branch_offices'), Input::get('branch_office_id'), ['id' => 'branch_offices', 'class' => 'form-control']) !!}
+                          </div>
+                        @endif  
                         <div class="col-lg-4 col-sm-4 col-xs-8 margin_search">
                             <div class='input-group'>
                                 <input class="form-control" id="date" name="date" value="{{ Input::get('date') ? Input::get('date') : Carbon\Carbon::now()->format('d-m-Y') }}" />
@@ -37,6 +43,7 @@
                                <table class="table">
                                     <thead>
                                     <tr>
+                                        <th>Sucursal</th>
                                         <th>@lang('app.song')</th>
                                         <th>@lang('app.artist')</th>
                                         @if (Auth::user()->hasRole('dj')) 
@@ -51,6 +58,9 @@
                                     @if (count($songs))
                                         @foreach ($songs as $playlist) 
                                             <tr class="@if($playlist->play_status) success @endif">
+                                                <td>
+                                                   {{$playlist->branchoffice->name}} 
+                                                </td>
                                                 <td>{{$playlist->song->title}}</td>
                                                 <td>{{$playlist->song->artist}}</td>
                                                 @if (Auth::user()->hasRole('dj')) 
@@ -106,6 +116,10 @@
 {!! HTML::script('assets/js/bootstrap-datetimepicker.min.js') !!}
 
 <script type="text/javascript">
+
+$("#branch_offices").change(function () {
+    $("#date-form").submit();
+});
 
 $('#date').datetimepicker({
   format: 'DD-MM-YYYY'

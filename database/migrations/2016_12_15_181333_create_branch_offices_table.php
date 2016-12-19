@@ -20,8 +20,8 @@ class CreateBranchOfficesTable extends Migration
             $table->boolean('notification_email_song')->default(true);  
             $table->string('email_reservations');
             $table->boolean('notification_email_reservation')->default(true);  
-            $table->decimal('lat');
-            $table->decimal('lng');
+            $table->double('lat');
+            $table->double('lng');
             $table->double('radio');
             $table->boolean('geolocation')->default(true);
             $table->boolean('status')->default(true);  

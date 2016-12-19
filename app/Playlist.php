@@ -39,6 +39,6 @@ class Playlist extends Model
 
     public function branchoffice()
     {
-        return $this->belongsTo(BrachOffice::class, 'branch_office_id');
+        return $this->belongsTo(BranchOffice::class, 'branch_office_id');
     }
 }

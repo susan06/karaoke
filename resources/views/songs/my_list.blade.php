@@ -10,7 +10,7 @@
             @if($admin) 
                  @lang('app.requested_songs') de {{ $user->present()->name }}
             @else                    
-                @lang('app.my_list')
+                @lang('app.my_list') @if(session('branch_office')) / Sucursal: {{ session('branch_office')->name }} @endif
             @endif 
             </h3>
         </div>
@@ -162,15 +162,20 @@ $(document).on('click', '.btn-apply-for', function() {
         }
     }
 
-    var lat = 0;
-    var lng = 0;
-    var lat_site = {{ Settings::get('lat') }};
-    var lng_site = {{ Settings::get('lng') }};
-    var radio = {{Settings::get('radio')}};
 
     function showPosition(position) {
         lat1 = position.coords.latitude;
         lng1 = position.coords.longitude;
+
+        var lat_site = position.coords.latitude.toFixed(6);
+        var lng_site = position.coords.longitude.toFixed(6);
+        var radio = 50;
+
+        @if(session('branch_office'))
+            var lat_site = {!! session('branch_office')->lat !!};
+            var lng_site = {!! session('branch_office')->lng !!};
+            var radio = {!! session('branch_office')->radio !!};
+        @endif
 
         var lat2 = lat_site;
         var lng2 = lng_site;
@@ -206,10 +211,12 @@ $(document).on('click', '.btn-apply-for', function() {
         }
     }
 
-    @if(Auth::user()->hasRole('user') && Settings::get('geolocation') == 1)
-        $('.alert-location').show();
-        $('.btn-apply-for').prop('disabled',true);
-        getLocation();
+    @if(Auth::user()->hasRole('user') && session('branch_office'))
+        @if(session('branch_office')->geolocation == 1)
+            $('.alert-location').show();
+            $('.btn-apply-for').prop('disabled',true);
+            getLocation();
+        @endif
     @endif
 
 </script>

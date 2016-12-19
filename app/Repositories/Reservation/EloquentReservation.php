@@ -23,10 +23,10 @@ class EloquentReservation extends Repository implements ReservationRepository
      * @param null $date
      * @param null $user
      */
-    public function index($perPage, $date = null, $user = null, $admin = null)
+    public function index($perPage, $date = null, $user = null, $admin = null, $branch_office = null)
     {
         if ($user) {
-            $query = Reservation::where('user_id', '=', $user);
+            $query = Reservation::where('user_id', '=', $user)->where('branch_office_id', '=', session('branch_office')->id);
         } 
 
         if ($admin) {
@@ -37,11 +37,19 @@ class EloquentReservation extends Repository implements ReservationRepository
             $date1 = date_format(date_create($date), 'Y-m-d');
             $query->where('date', 'like', $date1.'%');
         }
+
+        if ($branch_office) {
+            $query->where('branch_office_id', '=', $branch_office);
+        } 
         
         $result = $query->orderBy('created_at', 'DESC')->paginate($perPage);
 
         if ($date) {
             $result->appends(['date' => $date]);
+        }
+
+        if ($branch_office) {
+            $result->appends(['branch_office_id' => $branch_office]);
         }
 
         return $result;

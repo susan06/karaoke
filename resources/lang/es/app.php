@@ -561,6 +561,8 @@ return [
     'edit_branch_office' => 'Editar sucursal',
     'view_branch_office' => 'Ver sucursal',
     'branch_office_created' => 'Sucursal agregada',
+    'branch_office_updated' => 'Sucursal actualizada',
+    'select_a_branch_office' => 'Seleccione sucursal',
 
     'error_again' => 'Ocurrio un erro, intente de nuevo',
 

@@ -51,7 +51,7 @@ class ReservationsController extends Controller
     {
         $perPage = 20;
         $admin = true;
-        $reservations = $this->reservations->index($perPage, $request->date, null, $admin);
+        $reservations = $this->reservations->index($perPage, $request->date, null, $admin, $request->branch_office_id);
 
         return view('reservations.index', compact('reservations', 'admin', 'all'));
     }
@@ -98,6 +98,7 @@ class ReservationsController extends Controller
         $data = [
                 'num_table' => $request->num_table, 
                 'user_id' => Auth::id(),
+                'branch_office_id' => session('branch_office')->id,
                 'date' => date_format(date_create($request->date), 'Y-m-d'),
                 'time' => $request->time
         ];

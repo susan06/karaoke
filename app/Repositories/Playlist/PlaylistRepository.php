@@ -21,7 +21,7 @@ interface PlaylistRepository extends RepositoryInterface
      * @param $perPage
      * @param null $search
      */
-    public function ranking($perPage, $search = null);
+    public function ranking($perPage, $search = null, $branch_office = null);
 
     /**
      *  list song by date
@@ -29,6 +29,6 @@ interface PlaylistRepository extends RepositoryInterface
      * @param $perPage
      * @param null $date
      */
-    public function listActuality($perPage, $date = null);
+    public function listActuality($perPage, $date = null, $branch_office = null, $dj = null);
 
 }

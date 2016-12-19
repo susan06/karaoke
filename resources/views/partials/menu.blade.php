@@ -52,7 +52,7 @@
                       </ul>
                   </li>
                 @endif   
-                @if (Auth::user()->hasRole('admin'))   
+                @if (Auth::user()->hasRole('admin')) 
                   <li class="{{ Request::is('clients*') ? 'active' : ''  }}">
                       <a href="{{route('user.client.index')}}" class="">
                           <i class="fa fa-user"></i>
@@ -78,6 +78,14 @@
                   </li>
                 @endif  
                 @if (Auth::user()->hasRole('user'))
+                  @if(session('branch_office'))
+                  <li class="">
+                      <a href="jajvascript::void(0)" class="">
+                          <i class="icon_genius"></i>
+                          <span>Sucursal: {{ session('branch_office')->name }}</span>
+                      </a>
+                  </li> 
+                  @endif
                   <li class="">
                       <a href="{{route('song.search')}}" class="">
                           <i class="icon_headphones"></i>

@@ -6,7 +6,7 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <h3 class="page-header"><i class="icon_refresh"></i> @lang('app.reservation_table')</h3>
+            <h3 class="page-header"><i class="icon_refresh"></i> @lang('app.reservation_table') @if(session('branch_office')) / Sucursal: {{ session('branch_office')->name }} @endif</h3>
         </div>
     </div>
 

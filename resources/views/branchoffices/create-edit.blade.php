@@ -25,7 +25,7 @@
                 </header>
                 <div class="panel-body">
                     @if($edit)
-                      @lang('app.edit_branch_office')
+                      {!! Form::model($branch_office, ['route' => ['branch-office.update', $branch_office->id], 'method' => 'PUT', 'id' => 'branch-office-form','class'=>'form-validate form-horizontal']) !!}
                     @else
                       {!! Form::open(['route' => ['branch-office.store'], 'autocomplete' => 'off', 'id' => 'branch-office-form','class'=>'form-validate form-horizontal']) !!}
                     @endif
@@ -90,6 +90,16 @@
                                data-on-text="@lang('app.yes')" data-off-text="@lang('app.no')" {{ (isset($branch_office->geolocation) && $branch_office->geolocation == true ) ? 'checked' : '' }}>
                               </div>
                           </div>
+
+                          @if($edit && $branch_office->id > 1)
+                           <div class="form-group">
+                              <label class="control-label col-lg-2">Estatus</label>
+                              <div class="col-lg-6">
+                                   {!! Form::select('status', $status, old('status'), ['class' => 'form-control col-md-7 col-xs-12']) !!}
+                              </div>
+                          </div>
+                          @endif
+
                           <div class="form-group">
                             <div class="col-lg-offset-2 col-lg-10">
                                 <button class="btn btn-primary" type="submit">

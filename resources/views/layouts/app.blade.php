@@ -61,6 +61,7 @@
         }
     </style>
     @endif
+
     @yield('styles')
 </head>
 <body>
@@ -85,6 +86,8 @@
 
   </section>
   <!-- container section end -->
+
+    @include('partials.sucursales')
 
     {!! HTML::script('assets/js/jquery-1.11.1.min.js') !!}
 
@@ -111,6 +114,13 @@
     </script>
 
     {!! HTML::script('assets/bootstrap/js/bootstrap.min.js') !!}
+
+
+    @if (Auth::user()->hasRole('user') && !session('branch_office'))
+        <script type="text/javascript">
+            $('#modal_branch_offices').modal('show');
+        </script>
+    @endif
 
     {!! HTML::script('assets/plugins/js-cookie/js.cookie.js') !!}
 

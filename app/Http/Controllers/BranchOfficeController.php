@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Requests\BranchOffice\CreateBranchOffice;
+use App\Http\Requests\BranchOffice\UpdateBranchOffice;
 use App\Repositories\BranchOffice\BranchOfficeRepository;
 
 class BranchOfficeController extends Controller
@@ -83,7 +84,9 @@ class BranchOfficeController extends Controller
      */
     public function show($id)
     {
-        //
+        $branch_office = $this->branch_offices->find($id);
+
+        return view('branchoffices.show', compact('branch_office'));
     }
 
     /**
@@ -94,7 +97,14 @@ class BranchOfficeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $edit = true;
+        $branch_office = $this->branch_offices->find($id);
+        $status = [
+            true  => trans('app.published'), 
+            false  => trans('app.nopublished')
+        ];
+
+        return view('branchoffices.create-edit', compact('branch_office', 'status', 'edit'));
     }
 
     /**
@@ -104,9 +114,21 @@ class BranchOfficeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateBranchOffice $request, $id)
     {
-        //
+        $branch_office = $this->branch_offices->update(
+            $id, 
+            $request->all()
+        );
+
+        if ( $branch_office ) {
+
+            return redirect()->route('branch-office.index')
+            ->withSuccess(trans('app.branch_office_updated'));
+        } else {
+            
+            return back()->withError(trans('app.error_again'));
+        }
     }
 
     /**

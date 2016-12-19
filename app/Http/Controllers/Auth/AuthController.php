@@ -208,6 +208,9 @@ class AuthController extends Controller
 
         $role = Auth::user()->hasRole('user');
 
+        Session::forget('branch_office');
+        Session::forget('branch_office_id');
+
         Auth::logout();
 
         if ($role) {

@@ -25,6 +25,7 @@ use Auth;
 use Authy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use App\Repositories\BranchOffice\BranchOfficeRepository;
 
 /**
  * Class UsersController
@@ -41,12 +42,13 @@ class UsersController extends Controller
      * UsersController constructor.
      * @param UserRepository $users
      */
-    public function __construct(UserRepository $users)
+    public function __construct(UserRepository $users, BranchOfficeRepository $branch_offices)
     {
         $this->middleware('auth');
         //$this->middleware('role:superAdmin');
         $this->middleware('session.database', ['only' => ['sessions', 'invalidateSession']]);
         $this->users = $users;
+        $this->branch_offices = $branch_offices;
     }
 
     /**
@@ -143,9 +145,10 @@ class UsersController extends Controller
     {
         $roles = $roleRepository->lists();
         $statuses = UserStatus::lists();
+        $branch_offices = $this->branch_offices->lists_actives();
 
         return view('user.edit',
-            compact('user', 'roles', 'statuses'));
+            compact('user', 'roles', 'statuses', 'branch_offices'));
     }
 
     /**

@@ -6,7 +6,7 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa-play-circle"></i> @lang('app.ask_song')</h3>
+            <h3 class="page-header"><i class="fa fa-play-circle"></i> @lang('app.ask_song') @if(session('branch_office')) / Sucursal: {{ session('branch_office')->name }} @endif
         </div>
     </div>
 
@@ -229,16 +229,19 @@ $(document).ready(function(e){
         }
     }
 
-    var lat = 0;
-    var lng = 0;
-    var lat_site = {{ Settings::get('lat') }};
-    var lng_site = {{ Settings::get('lng') }};
-    var radio = {{Settings::get('radio')}};
-    var msg = '';
-
     function showPosition(position) {
         lat1 = graRad(position.coords.latitude.toFixed(6));
         lng1 = graRad(position.coords.longitude.toFixed(6));
+
+        var lat_site = position.coords.latitude.toFixed(6);
+        var lng_site = position.coords.longitude.toFixed(6);
+        var radio = 50;
+
+        @if(session('branch_office'))
+            var lat_site = {!! session('branch_office')->lat !!};
+            var lng_site = {!! session('branch_office')->lng !!};
+            var radio = {!! session('branch_office')->radio !!};
+        @endif
 
         var lat2 = graRad(lat_site);
         var lng2 = graRad(lng_site);
@@ -291,11 +294,13 @@ $(document).ready(function(e){
         }
     }
 
-    @if(Auth::user()->hasRole('user') && Settings::get('geolocation') == 1)
-        $('.alert-location').show();
-        $('.btn-search').prop('disabled',true);
-        $('.btn-apply-for').prop('disabled',true);
-        getLocation();
+    @if(Auth::user()->hasRole('user') && session('branch_office'))
+        @if(session('branch_office')->geolocation == 1)
+            $('.alert-location').show();
+            $('.btn-search').prop('disabled',true);
+            $('.btn-apply-for').prop('disabled',true);
+            getLocation();
+        @endif
     @endif
 
     autocomplete();

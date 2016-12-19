@@ -10,7 +10,7 @@
             @if($admin) 
                 @lang('app.reservations')
             @else
-                @lang('app.my_reservations')
+                @lang('app.my_reservations')  @if(session('branch_office')) / Sucursal: {{ session('branch_office')->name }} @endif
             @endif
             </h3>
         </div>
@@ -26,7 +26,12 @@
                 </header>
                 <div class="panel-body">
                     <div class="row">  
-                    <form method="GET" action="" accept-charset="UTF-8" id="date-form">  
+                    <form method="GET" action="" accept-charset="UTF-8" id="date-form"> 
+                        @if($admin && session('branch_offices'))
+                          <div class="col-lg-4 col-sm-4 col-xs-5 margin_search">
+                              {!! Form::select('branch_office_id', session('branch_offices'), Input::get('branch_office_id'), ['id' => 'branch_offices', 'class' => 'form-control']) !!}
+                          </div>
+                        @endif  
                         <div class="col-lg-4 col-sm-4 col-xs-12 margin_search">
                             <div class='input-group'>
                                 <input class="form-control" id="date" name="date" value="{{ Input::get('date') ? Input::get('date') : '' }}" readonly="readonly" />
@@ -53,7 +58,8 @@
                                         <th>@lang('app.table')</th>
                                         <th>@lang('app.date')</th>
                                         <th>@lang('app.hour')</th>
-                                        @if (Auth::user()->hasRole('admin')) 
+                                        @if (Auth::user()->hasRole('admin'))
+                                        <th>Sucursal</th> 
                                         <th>@lang('app.client')</th>
                                         @endif
                                         <th>@lang('app.status')</th>
@@ -69,7 +75,10 @@
                                                 <td>{{$reservation->time}}</td>
                                                 @if (Auth::user()->hasRole('admin')) 
                                                 <td>
-                                                     <a tabindex="0" role="button" 
+                                                   {{$reservation->branchoffice->name}} 
+                                                </td>
+                                                <td>
+                                                     <a style="cursor:pointer;" tabindex="0" role="button" 
                                                          data-trigger="focus"
                                                          data-placement="top"
                                                          data-toggle="popover"
@@ -150,6 +159,10 @@
 {!! HTML::script('assets/js/bootstrap-datetimepicker.min.js') !!}
 
 <script type="text/javascript">
+
+$("#branch_offices").change(function () {
+    $("#date-form").submit();
+});
 
 $('#date').datetimepicker({
     format: 'DD-MM-YYYY',

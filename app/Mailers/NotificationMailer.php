@@ -22,17 +22,17 @@ class NotificationMailer extends AbstractMailer
     {
         $view = 'emails.notifications.apply_song';
         $data = ['song' => $song, 'client' => $user];
-        $subject = 'Solicitud de canción - '.Settings::get('app_name');
+        $subject = 'Solicitud de canción - '.Settings::get('app_name').' - Sucursal: '.session('branch_office')->name;
 
-        $this->sendTo(Settings::get('email_song'), $subject, $view, $data);
+        $this->sendTo(session('branch_office')->email_song, $subject, $view, $data);
     }
 
     public function sendReservation(Reservation $reservation, User $user)
     {
         $view = 'emails.notifications.reservation';
         $data = ['reservation' => $reservation, 'client' => $user];
-        $subject = 'Solicitud de reservación';
+        $subject = 'Solicitud de reservación - '.Settings::get('app_name').' - Sucursal: '.session('branch_office')->name;
 
-        $this->sendTo(Settings::get('email_reservations'), $subject, $view, $data);
+        $this->sendTo(session('branch_office')->email_reservations, $subject, $view, $data);
     }
 }

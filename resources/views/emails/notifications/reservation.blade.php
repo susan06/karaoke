@@ -1,5 +1,7 @@
 <p>Has recibido una notificación de reservación</p>
 
+<p>Sucursal: {{ session('branch_office')->name }}</p>
+
 <p>del cliente {{ $client->first_name.' '.$client->last_name }}</p>
 
 <p>para la mesa {{ $reservation->num_table }} </p>

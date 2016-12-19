@@ -28,6 +28,7 @@ class EloquentPlaylist extends Repository implements PlaylistRepository
     public function myList($perPage, $search = null, $user = null, $admin = null) 
     {
  		$query = Playlist::where('user_id', '=', $user)
+            ->where('branch_office_id', '=', session('branch_office')->id)
     		->orderBy('created_at', 'DESC')
     		->groupBy('song_id')
     		->select(['*', DB::raw('count(song_id) as count')]);
@@ -61,7 +62,7 @@ class EloquentPlaylist extends Repository implements PlaylistRepository
      * @param null $search
      * @return mixed
      */
-    public function ranking($perPage, $search = null)
+    public function ranking($perPage, $search = null, $branch_office = null)
     {
     	$query = Playlist::groupBy('song_id')
     		->select(['*', DB::raw('count(song_id) as count')])
@@ -76,10 +77,18 @@ class EloquentPlaylist extends Repository implements PlaylistRepository
             );
         } 
 
+        if ($branch_office) {
+            $query->where('branch_office_id', '=', $branch_office);
+        } 
+
         $result = $query->take(50)->paginate($perPage);
 
         if ($search) {
             $result->appends(['search' => $search]);
+        }
+
+        if ($branch_office) {
+            $result->appends(['branch_office_id' => $branch_office]);
         }
 
         return $result;	
@@ -91,22 +100,36 @@ class EloquentPlaylist extends Repository implements PlaylistRepository
      * @param $perPage
      * @param null $date
      */
-    public function listActuality($perPage, $date = null)
+    public function listActuality($perPage, $date = null, $branch_office = null, $dj = null)
     {
     	$today = Carbon::today()->toDateString().'%';
 
         if ($date) {
         	$date1 = date_format(date_create($date), 'Y-m-d');
-        	$query = Playlist::where('created_at', 'like', $date1.'%')->paginate($perPage);
+        	$query = Playlist::where('created_at', 'like', $date1.'%')->orderBy('created_at', 'asc');
         } else {
-        	$query = Playlist::where('created_at', 'like', $today.'%')->paginate($perPage);
+        	$query = Playlist::where('created_at', 'like', $today.'%')->orderBy('created_at', 'asc');
         }
+
+        if ($dj && session('branch_office')) {
+            $query->where('branch_office_id', '=', session('branch_office')->id);
+        } 
+
+        if ($branch_office) {
+            $query->where('branch_office_id', '=', $branch_office);
+        } 
+
+        $result = $query->paginate($perPage);
 
         if ($date) {
-            $query->appends(['date' => $date]);
+            $result->appends(['date' => $date]);
         }
 
-        return $query;
+        if ($branch_office) {
+            $result->appends(['branch_office_id' => $branch_office]);
+        }
+
+        return $result;
     }
 
 }

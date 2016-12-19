@@ -18,4 +18,12 @@ interface BranchOfficeRepository extends RepositoryInterface
      */
     public function index($perPage, $search = null, $status = null);
 
+    /**
+     * lists actives 
+     *
+     * @param string $column
+     * @param string $key
+     */
+    public function lists_actives($column = 'name', $key = 'id');
+
 }

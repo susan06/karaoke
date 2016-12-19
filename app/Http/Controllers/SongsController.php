@@ -18,6 +18,7 @@ use App\Repositories\Song\SongRepository;
 use App\Repositories\Playlist\PlaylistRepository;
 use App\Http\Requests\Song\CreateSongRequest;
 use App\Http\Requests\Song\ImportSongRequest;
+use App\Repositories\BranchOffice\BranchOfficeRepository;
 
 class SongsController extends Controller
 {
@@ -31,15 +32,23 @@ class SongsController extends Controller
      */
     private $playlists;
 
+     /**
+     * @var BranchOfficeRepository
+     */
+    private $branch_offices;
+
     /**
      * SongsController constructor.
      * @param SongRepository $songs
+     * @param PlaylistRepository $playlists
+     * @param BranchOfficeRepository $branch_offices
      */
-    public function __construct(SongRepository $songs, PlaylistRepository $playlists)
+    public function __construct(SongRepository $songs, PlaylistRepository $playlists, BranchOfficeRepository $branch_offices)
     {
         $this->middleware('auth');
         $this->songs = $songs;
         $this->playlists = $playlists;
+        $this->branch_offices = $branch_offices;
     }
 
 
@@ -61,9 +70,25 @@ class SongsController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function search()
+    public function search(Request $request)
     {
-        return view('songs.search');
+        $branch_offices = $this->branch_offices->all();
+        $branch_office = $branch_offices->first();
+
+        if ($request->branch_office_id) {
+            $branch_office = $this->branch_offices->find($request->branch_office_id);
+            session()->put('branch_office', $branch_office); 
+        }
+
+        if ( count($branch_offices) > 1 && !session('branch_office')) {
+            session()->put('branch_offices', $this->branch_offices->lists_actives()); 
+        } else {
+            if(!session('branch_office')) {
+                session()->put('branch_office', $branch_office); 
+            } 
+        }
+
+        return view('songs.search', compact('branch_offices'));
     }
 
     /**
@@ -227,7 +252,7 @@ class SongsController extends Controller
     {
         $perPage = 10;
         $i = 1;
-        $songs = $this->playlists->ranking($perPage, $request->search);
+        $songs = $this->playlists->ranking($perPage, $request->search, $request->branch_office_id);
 
         return view('songs.ranking', compact('songs', 'i'));
     }
@@ -240,7 +265,12 @@ class SongsController extends Controller
     public function applyActuality(Request $request)
     {
         $perPage = 20;
-        $songs = $this->playlists->listActuality($perPage, $request->date);
+        if (Auth::user()->hasRole('dj')) {
+            $dj = true;
+        } else {
+            $dj = false;
+        }
+        $songs = $this->playlists->listActuality($perPage, $request->date, $request->branch_office_id, $dj);
 
         return view('songs.actuality', compact('songs'));
     }
@@ -253,7 +283,7 @@ class SongsController extends Controller
     public function applySong(Request $request, NotificationMailer $mailer)
     {
         try {
-            $this->playlists->create(['song_id' => $request->id, 'user_id' => Auth::id()]);
+            $this->playlists->create(['song_id' => $request->id, 'user_id' => Auth::id(), 'branch_office_id' => session('branch_office')->id ]);
             $song = $this->songs->find($request->id); 
             if(Settings::get('notification_email_song') == 1) {
                 $mailer->sendApplySong($song, Auth::user());

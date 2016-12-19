@@ -38,4 +38,15 @@ class EloquentBranchOffice extends Repository implements BranchOfficeRepository
         return $result;
     }
 
+    /**
+     * lists actives 
+     *
+     * @param string $column
+     * @param string $key
+     */
+    public function lists_actives($column = 'name', $key = 'id')
+    {
+        return ['' => trans('app.select_a_branch_office')] + BranchOffice::where('status', 1)->pluck($column, $key)->all();
+    }
+
 }
