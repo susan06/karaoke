@@ -92,9 +92,8 @@ class UsersController extends Controller
     public function create(RoleRepository $roleRepository)
     {
         $roles = $roleRepository->lists();
-        $statuses = UserStatus::lists();
 
-        return view('user.add', compact('roles', 'statuses'));
+        return view('user.add', compact('roles'));
     }
 
     /**
@@ -103,11 +102,11 @@ class UsersController extends Controller
      * @param CreateUserRequest $request
      * @return mixed
      */
-    public function store(CreateUserRequest $request, UserMailer $mailer)
+    public function store(CreateUserRequest $request)
     {
         // When user is created by administrator, we will set his
         // status to Active by default.
-        $data = $request->all() + ['status' => UserStatus::UNCONFIRMED];
+        $data = $request->all() + ['status' => UserStatus::ACTIVE];
 
         $data['username'] = null;
 
@@ -115,8 +114,6 @@ class UsersController extends Controller
         $this->users->setRole($user->id, $request->get('role'));
 
         event(new Created($user));
-
-        $this->sendConfirmationEmail($mailer, $user);
 
         return redirect()->route('user.list')
             ->withSuccess(trans('app.user_created'));

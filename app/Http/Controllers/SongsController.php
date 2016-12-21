@@ -265,12 +265,14 @@ class SongsController extends Controller
     public function applyActuality(Request $request)
     {
         $perPage = 20;
-        if (Auth::user()->hasRole('dj')) {
-            $dj = true;
-        } else {
-            $dj = false;
-        }
-        $songs = $this->playlists->listActuality($perPage, $request->date, $request->branch_office_id, $dj);
+        
+        $branch_offices = $this->branch_offices->all();
+
+        if ( count($branch_offices) > 1 && !session('branch_offices')) {
+            session()->put('branch_offices', $this->branch_offices->lists_actives()); 
+        } 
+       
+        $songs = $this->playlists->listActuality($perPage, $request->date, $request->branch_office_id);
 
         return view('songs.actuality', compact('songs'));
     }

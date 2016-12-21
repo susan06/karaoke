@@ -29,6 +29,6 @@ interface PlaylistRepository extends RepositoryInterface
      * @param $perPage
      * @param null $date
      */
-    public function listActuality($perPage, $date = null, $branch_office = null, $dj = null);
+    public function listActuality($perPage, $date = null, $branch_office = null);
 
 }
