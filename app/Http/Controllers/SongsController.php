@@ -80,7 +80,7 @@ class SongsController extends Controller
             session()->put('branch_office', $branch_office); 
         }
 
-        if ( count($branch_offices) > 1 && !session('branch_office')) {
+        if ( count($branch_offices) > 1) {
             session()->put('branch_offices', $this->branch_offices->lists_actives()); 
         } else {
             if(!session('branch_office')) {

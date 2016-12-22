@@ -122,6 +122,14 @@
         </script>
     @endif
 
+    @if (Auth::user()->hasRole('user'))
+        <script type="text/javascript">
+        function change_branch_office(){
+            $('#modal_branch_offices').modal('show');
+        }
+        </script>
+    @endif
+
     {!! HTML::script('assets/plugins/js-cookie/js.cookie.js') !!}
 
     <script type="text/javascript">

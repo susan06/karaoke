@@ -46,6 +46,12 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        $branch_offices = $this->branch_offices->all();
+
+        if ( count($branch_offices) > 1 && !session('branch_offices')) {
+            session()->put('branch_offices', $this->branch_offices->lists_actives()); 
+        } 
+
         if (Auth::user()->hasRole('superAdmin')) {
             return $this->adminDashboard();
         }
@@ -56,22 +62,10 @@ class DashboardController extends Controller
 
         if (Auth::user()->hasRole('admin')) {
 
-            $branch_offices = $this->branch_offices->all();
-
-            if ( count($branch_offices) > 1 && !session('branch_offices')) {
-                session()->put('branch_offices', $this->branch_offices->lists_actives()); 
-            } 
-
             return redirect()->route('user.client.index');
         }
 
         if (Auth::user()->hasRole('dj')) {
-
-            $branch_offices = $this->branch_offices->all();
-
-            if ( count($branch_offices) > 1 && !session('branch_offices')) {
-                session()->put('branch_offices', $this->branch_offices->lists_actives()); 
-            } 
 
             return redirect()->route('song.apply.list');
         }
