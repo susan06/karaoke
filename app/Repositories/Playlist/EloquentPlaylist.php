@@ -111,10 +111,6 @@ class EloquentPlaylist extends Repository implements PlaylistRepository
         	$query = Playlist::where('created_at', 'like', $today.'%')->orderBy('created_at', 'asc');
         }
 
-        if ($dj && session('branch_office')) {
-            $query->where('branch_office_id', '=', session('branch_office')->id);
-        } 
-
         if ($branch_office) {
             $query->where('branch_office_id', '=', $branch_office);
         } 
