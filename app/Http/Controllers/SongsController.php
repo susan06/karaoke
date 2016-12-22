@@ -237,6 +237,11 @@ class SongsController extends Controller
             $admin = false;
             $user = false;
         }
+
+        if ($request->branch_office_id) {
+            $branch_office = $this->branch_offices->find($request->branch_office_id);
+            session()->put('branch_office', $branch_office); 
+        }
         
         $songs = $this->playlists->myList($perPage, $request->search, $user_id, $admin);
 
@@ -250,9 +255,21 @@ class SongsController extends Controller
      */
     public function ranking(Request $request)
     {
+        if ($request->branch_office_id) {
+            $branch_office = $this->branch_offices->find($request->branch_office_id);
+            session()->put('branch_office', $branch_office); 
+        }
+
         $perPage = 10;
         $i = 1;
-        $songs = $this->playlists->ranking($perPage, $request->search, $request->branch_office_id);
+        $branch_office_id = null;
+        if(Auth::user()->hasRole('admin') || Auth::user()->hasRole('dj')) {
+            $branch_office_id = $request->branch_office_id;
+        }
+        if(Auth::user()->hasRole('user')) {
+            $branch_office_id = session('branch_office')->id;
+        }
+        $songs = $this->playlists->ranking($perPage, $request->search, $branch_office_id);
 
         return view('songs.ranking', compact('songs', 'i'));
     }

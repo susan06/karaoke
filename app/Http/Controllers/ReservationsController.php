@@ -9,6 +9,7 @@ use App\Reservation;
 use App\Http\Requests;
 use App\Mailers\NotificationMailer;
 use App\Repositories\Reservation\ReservationRepository;
+use App\Repositories\BranchOffice\BranchOfficeRepository;
 
 class ReservationsController extends Controller
 {
@@ -19,13 +20,19 @@ class ReservationsController extends Controller
     private $reservations;
 
     /**
+     * @var BranchOfficeRepository
+     */
+    private $branch_offices;
+
+    /**
      * ReservationsController constructor.
      * @param ReservationRepository $reservations
      */
-    public function __construct(ReservationRepository $reservations)
+    public function __construct(ReservationRepository $reservations, BranchOfficeRepository $branch_offices)
     {
         $this->middleware('auth');
         $this->reservations = $reservations;
+        $this->branch_offices = $branch_offices;
     }
 
      /**
@@ -35,6 +42,17 @@ class ReservationsController extends Controller
      */
     public function index(Request $request)
     {
+        $branch_offices = $this->branch_offices->all();
+
+        if ( count($branch_offices) > 1 && !session('branch_offices')) {
+            session()->put('branch_offices', $this->branch_offices->lists_actives()); 
+        } 
+
+        if ($request->branch_office_id) {
+            $branch_office = $this->branch_offices->find($request->branch_office_id);
+            session()->put('branch_office', $branch_office); 
+        }
+        
         $perPage = 20;
         $admin = false;
         $reservations = $this->reservations->index($perPage, $request->date, Auth::id(), $admin);
@@ -61,8 +79,19 @@ class ReservationsController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function clientStore()
+    public function clientStore(Request $request)
     {      
+        $branch_offices = $this->branch_offices->all();
+
+        if ( count($branch_offices) > 1 && !session('branch_offices')) {
+            session()->put('branch_offices', $this->branch_offices->lists_actives()); 
+        } 
+
+        if ($request->branch_office_id) {
+            $branch_office = $this->branch_offices->find($request->branch_office_id);
+            session()->put('branch_office', $branch_office); 
+        }
+
         return view('reservations.store');
     }
 

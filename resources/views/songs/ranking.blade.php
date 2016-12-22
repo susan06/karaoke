@@ -32,11 +32,13 @@
                       <div class="form-group">
                           <div class="col-lg-10 col-sm-12 col-xs-12">
                               <div class="row">
-                              @if(session('branch_offices'))
-                                  <div class="col-lg-4 col-sm-4 col-xs-5 margin_search">
-                                      {!! Form::select('branch_office_id', session('branch_offices'), Input::get('branch_office_id'), ['id' => 'branch_offices', 'class' => 'form-control']) !!}
-                                  </div>
-                              @endif    
+                              @if(Auth::user()->hasRole('admin') || Auth::user()->hasRole('dj'))
+                                  @if(session('branch_offices'))
+                                      <div class="col-lg-4 col-sm-4 col-xs-5 margin_search">
+                                          {!! Form::select('branch_office_id', session('branch_offices'), Input::get('branch_office_id'), ['id' => 'branch_offices', 'class' => 'form-control']) !!}
+                                      </div>
+                                  @endif  
+                              @endif  
                                   <div class="col-lg-6 col-sm-6 col-xs-7 margin_search">
                                     <div class="input-group">         
                                         <input type="text" class="form-control" name="search" value="{{ Input::get('search') }}" id="search" placeholder="@lang('app.search_song_artist')">

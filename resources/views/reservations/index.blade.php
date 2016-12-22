@@ -10,7 +10,7 @@
             @if($admin) 
                 @lang('app.reservations')
             @else
-                @lang('app.my_reservations')  @if(session('branch_office')) / Sucursal: {{ session('branch_office')->name }} @endif
+                @lang('app.my_reservations')  @if(session('branch_office') && Auth::user()->hasRole('user')) / Sucursal: {{ session('branch_office')->name }} @endif
             @endif
             </h3>
         </div>
