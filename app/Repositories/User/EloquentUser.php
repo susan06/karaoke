@@ -307,4 +307,15 @@ class EloquentUser extends Repository implements UserRepository
 
         return $result;
     }
+
+    public function list_client()
+    {
+        $query = User::whereHas(
+            'roles', function($q){
+                $q->where('name','=', 'user');
+            }
+        )->get();
+
+        return $query;
+    }
 }

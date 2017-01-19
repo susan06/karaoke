@@ -117,8 +117,8 @@ class SocialAuthController extends Controller
         } else {
             $this->users->update($user->id, [
                 'email' => $socialUser->getEmail(),
-                'first_name' => $firstName,
-                'last_name' => $lastName,
+                'first_name' => isset($firstName) ? $firstName : null,
+                'last_name' => isset($lastName) ? $lastName : null,
                 'phone' => null,
                 'avatar' => $socialUser->getAvatar()
             ]);

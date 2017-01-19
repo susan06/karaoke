@@ -565,5 +565,14 @@ return [
     'select_a_branch_office' => 'Seleccione sucursal',
 
     'error_again' => 'Ocurrio un erro, intente de nuevo',
+    'select_event' => 'Seleccionar evento',
+    'events' => 'Eventos',
+    'list_of_registered_events' => 'Lista de eventos registrados',
+    'search_for_event' => 'Buscar por evento',
+    'add_event' => 'Agregar evento',
+    'event_created' => 'Evento creado',
+    'event_updated' => 'Evento actualizado',
+    'add_clients_event' => 'Agregar clientes',
+    'event' => 'Evento',
 
 ];

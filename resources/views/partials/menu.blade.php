@@ -40,6 +40,12 @@
                           <span>@lang('app.branch_offices')</span>
                       </a>
                   </li> 
+                  <li class="{{ Request::is('events*') ? 'active' : ''  }}">
+                      <a href="{{ route('event.index') }}" class="">
+                          <i class="icon_ul"></i>
+                          <span>@lang('app.events')</span>
+                      </a>
+                  </li> 
                   <li class="sub-menu {{ Request::is('settings*') ? 'active' : ''  }}">
                       <a href="javascript:void(0);" class="">
                           <i class="icon_cog"></i>
@@ -76,12 +82,17 @@
                           <span>@lang('app.reservations')</span>
                       </a>
                   </li>
+                  <li class="{{ Request::is('events*') ? 'active' : ''  }}">
+                      <a href="{{ route('event.index') }}" class="">
+                          <i class="icon_ul"></i>
+                          <span>@lang('app.events')</span>
+                      </a>
+                  </li> 
                 @endif  
                 @if (Auth::user()->hasRole('user'))
                   @if(session('branch_office'))
                   <li class="">
                       <a href="javascript::void(0)" class="" 
-                      session('branch_offices')
                       @if(session('branch_offices'))
                       onclick="change_branch_office()"
                       @endif

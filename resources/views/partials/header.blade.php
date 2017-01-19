@@ -40,6 +40,15 @@
                             </li>
                             @endif
                             @if(Agent::isMobile() && Auth::user()->hasRole('user'))
+                                @if(session('branch_office'))
+                                <li class="eborder-top">
+                                    <a href="javascript::void(0)"
+                                      @if(session('branch_offices'))
+                                        onclick="change_branch_office()"
+                                      @endif    
+                                    ><i class="icon_genius"></i> Sucursal: {{ session('branch_office')->name }}</a>
+                                </li>
+                                @endif
                                 <li class="eborder-top">
                                     <a href="{{route('song.search')}}"><i class="fa fa-play-circle"></i> @lang('app.ask_song')</a>
                                 </li>

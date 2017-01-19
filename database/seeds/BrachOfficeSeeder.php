@@ -1,6 +1,6 @@
 <?php
 
-use App\BrachOffice;
+use App\BranchOffice;
 use Illuminate\Database\Seeder;
 
 class BrachOfficeSeeder extends Seeder
@@ -12,7 +12,7 @@ class BrachOfficeSeeder extends Seeder
      */
     public function run()
     {
-        BrachOffice::create([
+        BranchOffice::create([
             'name' => 'sucursal 1',
             'email_song' => 'email@example.com',
             'email_reservations' => 'email@example.com', 
@@ -21,7 +21,7 @@ class BrachOfficeSeeder extends Seeder
             'radio' => 50
         ]);
 
-        BrachOffice::create([
+        BranchOffice::create([
             'name' => 'sucursal 2',
             'email_song' => 'email@example.com',
             'email_reservations' => 'email@example.com', 

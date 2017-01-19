@@ -368,3 +368,15 @@ Route::post('reservations/delete', [
 
 /* Branch Offices Adminitration */
 Route::resource('branch-office', 'BranchOfficeController');
+
+/* Events  */
+
+Route::get('event/add/client/{id}',
+    'EventController@create_client')
+    ->name('event.add.client');
+    
+Route::post('event/store/client/{id}', [
+    'as' => 'event.store.client',
+    'uses' => 'EventController@storeClient'
+]);
+Route::resource('event', 'EventController');

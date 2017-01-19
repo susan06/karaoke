@@ -163,4 +163,6 @@ interface UserRepository extends RepositoryInterface
      * @return mixed
      */
     public function clientIndex($perPage, $search = null, $status = null);
+
+    public function list_client();
 }

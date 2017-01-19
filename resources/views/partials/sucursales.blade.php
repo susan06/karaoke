@@ -10,7 +10,7 @@
           <div class="form-group">
               <div class="col-sm-12">
                 @if (session('branch_offices'))
-                   {!! Form::select("branch_office_id", session("branch_offices"), "", ["class" => "form-control"]) !!}
+                   {!! Form::select("branch_office_id", session("branch_offices"), session('branch_office'), ["class" => "form-control"]) !!}
                 @endif
               </div>
           </div>
