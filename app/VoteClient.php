@@ -19,7 +19,8 @@ class VoteClient extends Model
 
     protected $fillable = [
     	'event_client_id',
-        'user_id'
+        'user_id',
+        'event_id'
     ];
 
 

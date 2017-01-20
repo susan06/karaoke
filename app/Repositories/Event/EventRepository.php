@@ -41,4 +41,25 @@ interface EventRepository extends RepositoryInterface
      */
     public function add_client(array $data);
 
+     /**
+     * list event for client
+     *
+     */
+    public function index_client($perPage);
+
+    /**
+     * find vote of user
+     *
+     * @param int $event_id
+     * @param int $user_id
+     */
+    public function find_vote($event_id, $user_id);
+
+     /**
+     * add client of event
+     *
+     * @param array $data
+     */
+    public function add_vote(array $data);
+
 }

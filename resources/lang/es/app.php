@@ -581,5 +581,13 @@ return [
     'votes' => 'Votos',
     'total_votes' => 'Total de votos',
     'first_place' => 'Primer lugar',
-
+    'contests' => 'Concursos',
+    'contest' => 'Concurso',
+    'show_participants' => 'Ver participantes',
+    'participants' => 'Participantes',
+    'contests_actives' => 'Concursos activos',
+    'vote' => 'Votar',
+    'delete_event' => 'Eliminar evento',
+    'are_you_sure_delete_event' => 'Esta seguro que desea eliminar el evento?',
+ 
 ];

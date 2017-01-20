@@ -89,6 +89,17 @@
                                                   data-toggle="tooltip" data-placement="top">
                                               <i class="fa fa-pencil"></i>
                                             </a>
+
+                                            <a href="javascript:void(0)" class="btn btn-sm btn-xs btn-danger btn-delete" title="@lang('app.delete_event')"
+                                                    data-href="{{ route('event.delete') }}"
+                                                    data-id="{{ $event->id }}"
+                                                    data-toggle="tooltip"
+                                                    data-placement="top"
+                                                    data-confirm-title="@lang('app.please_confirm')"
+                                                    data-confirm-text="@lang('app.are_you_sure_delete_event')"
+                                                    data-confirm-delete="@lang('app.yes_delete_him')">
+                                                <i class="icon_close_alt2"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach

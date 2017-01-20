@@ -17,11 +17,14 @@ class CreateVotesClientsTable extends Migration
         {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
+            $table->integer('event_id')->unsigned();
             $table->integer('event_client_id')->unsigned();
             $table->timestamps();
             $table->engine = 'InnoDB';
 
             $table->foreign('event_client_id')->references('id')->on('event_clients')
+                ->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('event_id')->references('id')->on('events')
                 ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')
                 ->onUpdate('cascade')->onDelete('cascade');

@@ -131,6 +131,12 @@
                           <li><a class="" href="{{route('reservation.index')}}">@lang('app.my_reservations')</a></li>
                       </ul>
                   </li>
+                  <li class="{{ Request::is('contests*') ? 'active' : ''  }}">
+                      <a href="{{ route('event.contests') }}" class="">
+                          <i class="icon_ul"></i>
+                          <span>@lang('app.contests')</span>
+                      </a>
+                  </li> 
                 @endif      
               </ul>
               <!-- sidebar menu end-->

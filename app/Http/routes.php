@@ -389,4 +389,22 @@ Route::get('event/show/votes/{id}',
     'EventController@show_votes')
     ->name('event.show.votes');
 
+Route::get('contests',
+    'EventController@contests')
+    ->name('event.contests');
+
+Route::get('contests/show/participants/{id}',
+    'EventController@show_participants')
+    ->name('event.show.participants');
+
+Route::post('event/vote/participants', [
+    'as' => 'event.vote.participants',
+    'uses' => 'EventController@vote_participant'
+]);
+
+Route::post('event/delete', [
+    'as' => 'event.delete',
+    'uses' => 'EventController@delete'
+]);
+
 Route::resource('event', 'EventController');

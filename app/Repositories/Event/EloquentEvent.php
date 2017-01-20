@@ -82,4 +82,42 @@ class EloquentEvent extends Repository implements EventRepository
         return $client; 
     }
 
+     /**
+     * list event for client
+     *
+     */
+    public function index_client($perPage)
+    {
+        $result = Event::where('status', 'start')->orderBy('created_at', 'desc')->paginate($perPage);
+
+        return $result;
+    }
+
+    /**
+     * find vote of user
+     *
+     * @param int $event_id
+     * @param int $user_id
+     */
+    public function find_vote($event_id, $user_id)
+    {
+        $vote = VoteClient::where('user_id', $user_id)
+            ->where('event_id', $event_id)
+            ->first();
+
+        return $vote;
+    }
+
+     /**
+     * add client of event
+     *
+     * @param array $data
+     */
+    public function add_vote(array $data)
+    {
+        $vote = VoteClient::create($data);
+
+        return $vote; 
+    }
+
 }

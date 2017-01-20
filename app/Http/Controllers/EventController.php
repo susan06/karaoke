@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Auth;
 use App\Http\Requests;
 use App\Http\Requests\Event\CreateEvent;
 use App\Http\Requests\Event\UpdateEvent;
@@ -44,6 +45,19 @@ class EventController extends Controller
         ];
 
         return view('events.list', compact('events', 'statuses'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function contests(Request $request)
+    {
+        $perPage = 10;
+        $events = $this->events->index_client($perPage);
+
+        return view('events.list_contests', compact('events'));
     }
 
     /**
@@ -132,14 +146,17 @@ class EventController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Removes the user from database.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return $this
      */
-    public function destroy($id)
+    public function delete(Request $request)
     {
-        //
+        $destroy = $this->events->delete($request->id);
+
+        return response()->json(['success'=> true]);
+
     }
 
     /**
@@ -179,7 +196,6 @@ class EventController extends Controller
         }
     }
 
-
     /**
      * store client of event
      *
@@ -194,6 +210,44 @@ class EventController extends Controller
         }
         
         return view('events.client_votes', compact('event', 'votes'));
+    }
+
+    /**
+     * show participants of event
+     *
+     */
+    public function show_participants($id, Request $request)
+    {
+        $event = $this->events->find($id);
+        
+        return view('events.list_participants', compact('event'));
+    }
+
+    /**
+     * vote by participant
+     *
+     */
+    public function vote_participant(Request $request) 
+    {
+        $isVote = $this->events->find_vote($request->event_id, Auth::user()->id);
+        if ( !$isVote ) {
+            $event = $this->events->add_vote([
+                'event_id' => $request->event_id,
+                'user_id' => Auth::user()->id, 
+                'event_client_id' => $request->event_client_id
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Se ha registrado su voto con éxito',
+            ]);
+        } else {
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Ya usted a votado por un participante del concurso'
+            ]);
+        }
     }
 
 }
