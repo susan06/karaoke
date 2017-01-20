@@ -62,4 +62,10 @@ interface EventRepository extends RepositoryInterface
      */
     public function add_vote(array $data);
 
+    /**
+     * delete participant
+     *
+     */
+    public function delete_participant($id);
+
 }

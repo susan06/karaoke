@@ -46,6 +46,7 @@
                             <th>@lang('app.username')</th>
                             <th>@lang('app.full_name')</th>
                             <th>@lang('app.email')</th>
+                            <th class="text-center">@lang('app.actions')</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -55,6 +56,18 @@
                                       <td>{{ $client->user->username ?: trans('app.n_a') }}</td>
                                       <td>{{ $client->user->first_name . ' ' . $client->user->last_name }}</td>
                                       <td>{{ $client->user->email }}</td>
+                                      <td class="text-center">
+                                        <a href="javascript:void(0)" class="btn btn-sm btn-xs btn-danger btn-delete" title="@lang('app.delete_participant')"
+                                                    data-href="{{ route('event.delete.participant') }}"
+                                                    data-id="{{ $client->id }}"
+                                                    data-toggle="tooltip"
+                                                    data-placement="top"
+                                                    data-confirm-title="@lang('app.please_confirm')"
+                                                    data-confirm-text="@lang('app.are_you_sure_delete_participant')"
+                                                    data-confirm-delete="@lang('app.yes_delete_him')">
+                                                <i class="icon_close_alt2"></i>
+                                            </a>
+                                      </td>
                                   </tr>
                               @endforeach
                           @else

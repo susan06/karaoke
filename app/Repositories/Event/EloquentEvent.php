@@ -120,4 +120,13 @@ class EloquentEvent extends Repository implements EventRepository
         return $vote; 
     }
 
+    /**
+     * delete participant
+     *
+     */
+    public function delete_participant($id)
+    {
+        return EventClient::destroy($id);
+    }
+
 }

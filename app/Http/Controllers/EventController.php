@@ -196,6 +196,18 @@ class EventController extends Controller
         }
     }
 
+     /**
+     * Delete participant
+     *
+     */
+    public function delete_participant(Request $request)
+    {
+        $destroy = $this->events->delete_participant($request->id);
+
+        return response()->json(['success'=> true]);
+
+    }
+
     /**
      * store client of event
      *

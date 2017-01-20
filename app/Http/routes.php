@@ -407,4 +407,9 @@ Route::post('event/delete', [
     'uses' => 'EventController@delete'
 ]);
 
+Route::post('event/delete/participant', [
+    'as' => 'event.delete.participant',
+    'uses' => 'EventController@delete_participant'
+]);
+
 Route::resource('event', 'EventController');
