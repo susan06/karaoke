@@ -563,6 +563,7 @@ return [
     'branch_office_created' => 'Sucursal agregada',
     'branch_office_updated' => 'Sucursal actualizada',
     'select_a_branch_office' => 'Seleccione sucursal',
+    'branch_office' => 'Sucursal',
 
     'error_again' => 'Ocurrio un erro, intente de nuevo',
     'select_event' => 'Seleccionar evento',

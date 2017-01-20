@@ -30,6 +30,13 @@
                       {!! Form::open(['route' => ['event.store'], 'autocomplete' => 'off', 'id' => 'event-form','class'=>'form-validate form-horizontal']) !!}
                     @endif
                     <div class="form">
+                        <div class="form-group">
+                              <label for="cname" class="control-label col-lg-2">@lang('app.status') <span class="required">*</span></label>
+                              <div class="col-lg-6">
+                                  {!! Form::select('branch_office_id', $branch_offices, old('branch_office_id'),
+                        ['class' => 'form-control', 'id' => 'status']) !!}
+                              </div>
+                          </div>
                           <div class="form-group">
                               <label class="control-label col-lg-2">@lang('app.name') <span class="required">*</span></label>
                               <div class="col-lg-6">

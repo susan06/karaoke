@@ -56,4 +56,9 @@ class Event extends Model
     {
         return $this->hasMany(EventClient::class, 'event_id');
     }
+
+    public function branch_office()
+    {
+        return $this->belongsTo(BranchOffice::class, 'branch_office_id');
+    }
 }

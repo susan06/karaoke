@@ -16,12 +16,16 @@ class EloquentEvent extends Repository implements EventRepository
         parent::__construct($event);
     }
 
-    public function index($perPage, $search = null, $status = null)
+    public function index($perPage, $search = null, $status = null, $branch_office = null)
     {
         $query = Event::query();
 
         if ($status) {
             $query->where('status', '=', $status);
+        }
+
+        if ($branch_office) {
+            $query->where('branch_office_id', '=', $branch_office);
         }
 
         if ($search) {
@@ -88,7 +92,9 @@ class EloquentEvent extends Repository implements EventRepository
      */
     public function index_client($perPage)
     {
-        $result = Event::where('status', 'start')->orderBy('created_at', 'desc')->paginate($perPage);
+        $result = Event::where('status', 'start')
+            ->where('branch_office_id', session('branch_office')->id)
+            ->orderBy('created_at', 'desc')->paginate($perPage);
 
         return $result;
     }

@@ -10,6 +10,7 @@ use App\Http\Requests\Event\CreateEvent;
 use App\Http\Requests\Event\UpdateEvent;
 use App\Repositories\Event\EventRepository;
 use App\Repositories\User\UserRepository;
+use App\Repositories\BranchOffice\BranchOfficeRepository;
 
 class EventController extends Controller
 {
@@ -33,18 +34,18 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, BranchOfficeRepository $branch_offices)
     {
         $perPage = 10;
-
-        $events = $this->events->index($perPage, $request->search, $request->status);
+        $branch_offices = ['' => trans('app.select_a_branch_office')] + $branch_offices->lists_actives();
+        $events = $this->events->index($perPage, $request->search, $request->status, $request->branch_office_id);
         $statuses = [
             '' => trans('app.all'),
             'start' => trans('app.start'), 
             'finish' => trans('app.finish')
         ];
 
-        return view('events.list', compact('events', 'statuses'));
+        return view('events.list', compact('events', 'statuses', 'branch_offices'));
     }
 
     /**
@@ -65,11 +66,12 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(BranchOfficeRepository $branch_offices)
     {
         $edit = false;
+        $branch_offices = $branch_offices->lists_actives();
 
-        return view('events.create-edit', compact('edit'));
+        return view('events.create-edit', compact('edit', 'branch_offices'));
     }
 
     /**
@@ -109,16 +111,17 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, BranchOfficeRepository $branch_offices)
     {
         $edit = true;
         $event = $this->events->find($id);
+        $branch_offices = $branch_offices->lists_actives();
         $status = [
             'start' => trans('app.start'), 
             'finish' => trans('app.finish')
         ];
 
-        return view('events.create-edit', compact('event', 'status', 'edit'));
+        return view('events.create-edit', compact('event', 'status', 'edit', 'branch_offices'));
     }
 
     /**

@@ -24,11 +24,14 @@
                       <div class="form-group">
                           <div class="col-lg-10 col-sm-12 col-xs-12">
                               <div class="row">
-                                  <div class="col-lg-4 col-sm-4 col-xs-5 margin_search">
+                                  <div class="col-lg-4 col-sm-4 col-xs-4 margin_search">
                                       {!! Form::select('status', $statuses, Input::get('status'), ['id' => 'status', 'class' => 'form-control']) !!}
                                   </div>
+                                  <div class="col-lg-4 col-sm-4 col-xs-4 margin_search">
+                                    {!! Form::select('branch_office_id', $branch_offices, Input::get('branch_office_id'), ['id' => 'branch_offices', 'class' => 'form-control']) !!}
+                                </div>
 
-                                  <div class="col-lg-6 col-sm-6 col-xs-7 margin_search">
+                                  <div class="col-lg-4 col-sm-4 col-xs-4 margin_search">
                                     <div class="input-group">
                                         <input type="text" class="form-control" name="search" value="{{ Input::get('search') }}" placeholder="@lang('app.search_for_event')">
                                         
@@ -57,6 +60,7 @@
                        <table class="table table-default">
                             <thead>
                             <tr>
+                                <th>@lang('app.branch_office')</th>
                                 <th>@lang('app.name')</th>
                                 <th>@lang('app.description')</th>
                                 <th>@lang('app.registration_date')</th>
@@ -68,6 +72,7 @@
                             @if (count($events))
                                 @foreach ($events as $event) 
                                     <tr>
+                                        <td>{{ ($event->branch_office_id) ? $event->branch_office->name : '' }}</td>
                                         <td>{{ $event->name }}</td>
                                         <td>{{ $event->description }}</td>
                                         <td>{{ $event->created_at }}</td>
@@ -123,6 +128,9 @@
 @section('scripts')
     <script>
         $("#status").change(function () {
+            $("#event-form").submit();
+        });
+        $("#branch_offices").change(function () {
             $("#event-form").submit();
         });
     </script>

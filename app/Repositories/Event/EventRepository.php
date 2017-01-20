@@ -16,7 +16,7 @@ interface EventRepository extends RepositoryInterface
      * @param null $status
      * @return mixed
      */
-    public function index($perPage, $search = null, $status = null);
+    public function index($perPage, $search = null, $status = null, $branch_office = null);
 
     /**
      * lists actives 
