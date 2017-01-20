@@ -397,7 +397,7 @@ Route::get('contests/show/participants/{id}',
     'EventController@show_participants')
     ->name('event.show.participants');
 
-Route::post('event/vote/participants', [
+Route::get('event/vote/participants', [
     'as' => 'event.vote.participants',
     'uses' => 'EventController@vote_participant'
 ]);

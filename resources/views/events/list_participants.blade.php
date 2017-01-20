@@ -76,7 +76,7 @@
         function(isConfirm){   
             if (isConfirm) {
                 $.ajax({
-                    type: 'post',
+                    type: 'get',
                     url: "{{ route('event.vote.participants') }}",
                     dataType: 'json',
                     data: { 
@@ -87,7 +87,7 @@
                         if(response.success){
                           swal(response.message);   
                         } else {
-                          swal('error', response.message);             
+                          swal('Error', response.message);             
                         }   
                     },
                     error: function (status) {
