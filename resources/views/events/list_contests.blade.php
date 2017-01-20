@@ -38,7 +38,7 @@
                                       <td>{{ $event->description }}</td>
                                       <td class="text-center">
   
-                                          <a href="{{ route('event.show.participants', $event->id) }}" class="btn btn-success btn-sm btn-xs">
+                                          <a href="{{ route('event.show.participants', $event->id) }}" class="btn btn-success">
                                               @lang('app.show_participants')
                                           </a>
   

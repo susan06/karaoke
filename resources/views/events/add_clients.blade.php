@@ -57,7 +57,7 @@
                                       <td>{{ $client->user->first_name . ' ' . $client->user->last_name }}</td>
                                       <td>{{ $client->user->email }}</td>
                                       <td class="text-center">
-                                        <a href="javascript:void(0)" class="btn btn-sm btn-xs btn-danger btn-delete" title="@lang('app.delete_participant')"
+                                        <a href="javascript:void(0)" class="btn  btn-danger btn-delete" title="@lang('app.delete_participant')"
                                                     data-href="{{ route('event.delete.participant') }}"
                                                     data-id="{{ $client->id }}"
                                                     data-toggle="tooltip"
