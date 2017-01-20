@@ -103,7 +103,7 @@
               ].join('\n'),
 
               suggestion: function (data) {
-                  return '<div onclick="set_client_id('+data.id+')">'+data.first_name+' '+data.last_name+' - '+data.username+'</div>'
+                  return '<div onclick="set_client_id('+data.id+')">'+data.first_name+' '+data.last_name+'</div>'
               }
           }
       });
