@@ -34,8 +34,8 @@
                             @if (count($votes) > 0)
                                 @foreach ($votes as $votes => $client) 
                                     <tr>
-                                        <td>{!! $client !!}</td>
-                                        <td>{{ $votes }}</td>
+                                        <td>{!! $client['client'] !!}</td>
+                                        <td>{{ $client['votes'] }}</td>
                                     </tr>
                                 @endforeach
                             @else
