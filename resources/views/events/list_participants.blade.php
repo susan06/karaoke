@@ -40,7 +40,7 @@
                                       </td>
                                       <td>{{ $client->user->email }}</td>
                                       <td class="text-center">
-                                        <button type="button" class="btn btn-success register_vote" data-event="{{ $client->event_id }}" data-participant="{{ $client->user_id }}"> @lang('app.vote') </button>
+                                        <button type="button" class="btn btn-success register_vote" data-event="{{ $client->event_id }}" data-participant="{{ $client->id }}"> @lang('app.vote') </button>
                                       </td>
                                   </tr>
                               @endforeach
