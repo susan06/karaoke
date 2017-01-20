@@ -32,10 +32,10 @@
                           </thead>
                           <tbody>
                             @if (count($votes) > 0)
-                                @foreach ($votes as $votes => $client) 
+                                @foreach ($votes as $vote => $value) 
                                     <tr>
-                                        <td>{!! $client['client'] !!}</td>
-                                        <td>{{ $client['votes'] }}</td>
+                                        <td>{!! $value['client'] !!}</td>
+                                        <td>{{ $value['count'] }}</td>
                                     </tr>
                                 @endforeach
                             @else
