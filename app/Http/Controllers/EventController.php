@@ -251,7 +251,7 @@ class EventController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Se ha registrado su voto con éxito, solo es permitido un voto por concurso',
+                'message' => 'Se ha registrado su voto con éxito. Solo tiene permitido votar una vez',
             ]);
         } else {
 
