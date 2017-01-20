@@ -216,10 +216,11 @@ class EventController extends Controller
     {
         $event = $this->events->find($id);
         $votes = array();
-
         foreach ($event->event_clients as $client) {
-            $votes[$client->vote_clients->count()] = 'Nombre: <strong>'.$client->user->first_name.' '.$client->user->last_name.'</strong>, Email: <strong>'.$client->user->email.'</strong>, Usuario: <strong>'.$client->user->username.'</strong>';
+            $votes['votes'] = $client->vote_clients->count();
+            $votes['client'] = 'Nombre: <strong>'.$client->user->first_name.' '.$client->user->last_name.'</strong>, Email: <strong>'.$client->user->email.'</strong>, Usuario: <strong>'.$client->user->username.'</strong>';
         }
+        arsort($votes);
         
         return view('events.client_votes', compact('event', 'votes'));
     }
