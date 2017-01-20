@@ -42,7 +42,7 @@
                             @if(Agent::isMobile() && Auth::user()->hasRole('user'))
                                 @if(session('branch_office'))
                                 <li class="eborder-top">
-                                    <a href="javascript::void(0)"
+                                    <a href="#"
                                       @if(session('branch_offices'))
                                         onclick="change_branch_office()"
                                       @endif    
