@@ -244,8 +244,8 @@ class EventController extends Controller
         $isVote = $this->events->find_vote($request->event_id, Auth::user()->id);
         if ( !$isVote ) {
             $event = $this->events->add_vote([
-                'event_id' => $request->event_id,
                 'user_id' => Auth::user()->id, 
+                'event_id' => $request->event_id,
                 'event_client_id' => $request->event_client_id
             ]);
 
