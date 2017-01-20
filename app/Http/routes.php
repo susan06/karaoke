@@ -194,6 +194,11 @@ Route::delete('client/{user}/sessions/{session}/invalidate', [
     'uses' => 'ClientsController@invalidateSession'
 ]);
 
+Route::get('search/clients', [
+    'as' => 'find.clients',
+    'uses' => 'ClientsController@get_clients'
+]);
+
 /**
  * Roles & Permissions
  */
@@ -372,11 +377,16 @@ Route::resource('branch-office', 'BranchOfficeController');
 /* Events  */
 
 Route::get('event/add/client/{id}',
-    'EventController@create_client')
+    'EventController@add_client')
     ->name('event.add.client');
     
 Route::post('event/store/client/{id}', [
     'as' => 'event.store.client',
     'uses' => 'EventController@storeClient'
 ]);
+
+Route::get('event/show/votes/{id}',
+    'EventController@show_votes')
+    ->name('event.show.votes');
+
 Route::resource('event', 'EventController');

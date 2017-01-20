@@ -26,4 +26,19 @@ interface EventRepository extends RepositoryInterface
      */
     public function lists_actives($column = 'name', $key = 'id');
 
+     /**
+     * find client of event
+     *
+     * @param int $event_id
+     * @param int $client_id
+     */
+    public function find_client($event_id, $client_id);
+
+     /**
+     * add client of event
+     *
+     * @param array $data
+     */
+    public function add_client(array $data);
+
 }

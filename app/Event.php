@@ -54,6 +54,6 @@ class Event extends Model
     */
     public function event_clients()
     {
-        return $this->hasMany(EventClient::class, 'id', 'event_id');
+        return $this->hasMany(EventClient::class, 'event_id');
     }
 }

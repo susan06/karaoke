@@ -122,4 +122,18 @@ class ClientsController extends Controller
         return view('clients.activity', compact('activities', 'user'));
     }
 
+    /**
+     * search clients by autocomplet
+     *
+     * @param  Request $request
+     * @return \Illuminate\Http\Response JSON
+     */
+    public function get_clients(Request $request)
+    {
+        $term = $request->term;
+        $clients = $this->users->get_clients($term);
+
+        return response()->json($clients);
+    }
+
 }

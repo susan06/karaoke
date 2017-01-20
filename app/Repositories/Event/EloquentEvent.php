@@ -3,6 +3,8 @@
 namespace App\Repositories\Event;
 
 use App\Event;
+use App\EventClient;
+use App\VoteClient;
 use Carbon\Carbon;
 use App\Repositories\Repository;
 
@@ -51,6 +53,33 @@ class EloquentEvent extends Repository implements EventRepository
     public function lists_actives($column = 'name', $key = 'id')
     {
         return ['' => trans('app.select_event')] + Event::where('status', 'start')->pluck($column, $key)->all();
+    }
+
+    /**
+     * find client of event
+     *
+     * @param int $event_id
+     * @param int $client_id
+     */
+    public function find_client($event_id, $client_id)
+    {
+        $client = EventClient::where('user_id', $client_id)
+            ->where('event_id', $event_id)
+            ->first();
+
+        return $client;
+    }
+
+     /**
+     * add client of event
+     *
+     * @param array $data
+     */
+    public function add_client(array $data)
+    {
+        $client = EventClient::create($data);
+
+        return $client; 
     }
 
 }

@@ -574,5 +574,12 @@ return [
     'event_updated' => 'Evento actualizado',
     'add_clients_event' => 'Agregar clientes',
     'event' => 'Evento',
+    'search_client' => 'Buscar cliente por nombre o apellido',
+    'client_register_event' => 'Usuarios registrados en el evento',
+    'show_votes' => 'Ver votos',
+    'votes_clients' => 'Votos de los clientes registrados al evento',
+    'votes' => 'Votos',
+    'total_votes' => 'Total de votos',
+    'first_place' => 'Primer lugar',
 
 ];

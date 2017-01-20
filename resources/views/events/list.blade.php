@@ -80,6 +80,11 @@
                                                 @lang('app.add_clients_event')
                                             </a>
                                         @endif
+                                        
+                                            <a href="{{ route('event.show.votes', $event->id) }}" class="btn btn-success btn-sm btn-xs">
+                                                @lang('app.show_votes')
+                                            </a>
+    
                                             <a href="{{ route('event.edit', $event->id) }}" class="btn btn-warning btn-sm btn-xs edit" title="@lang('app.edit_event')"
                                                   data-toggle="tooltip" data-placement="top">
                                               <i class="fa fa-pencil"></i>

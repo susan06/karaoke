@@ -308,6 +308,10 @@ class EloquentUser extends Repository implements UserRepository
         return $result;
     }
 
+    /*
+     * get all client
+     *
+     */
     public function list_client()
     {
         $query = User::whereHas(
@@ -317,5 +321,22 @@ class EloquentUser extends Repository implements UserRepository
         )->get();
 
         return $query;
+    }
+
+    /*
+     * get clients, return in json
+     *
+     */
+    public function get_clients($search = null)
+    {
+        $result = User::where('first_name', 'LIKE', "%$search%")
+        ->orWhere('last_name', 'LIKE', "%$search%")
+        ->whereHas(
+            'roles', function($q){
+                $q->where('name','=', 'user');
+            }
+        )->get(['first_name', 'last_name', 'username', 'id']);
+
+        return $result;
     }
 }

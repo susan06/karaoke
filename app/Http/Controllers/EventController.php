@@ -142,25 +142,58 @@ class EventController extends Controller
         //
     }
 
-    public function create_client($id, UserRepository $userRepository)
+    /**
+     * form and list of clients of events
+     *
+     */
+    public function add_client($id, UserRepository $userRepository)
     {
-        $list_clients = $userRepository->list_client();
         $event = $this->events->find($id);
         
-        return view('events.add_clients', compact('list_clients', 'event'));
+        return view('events.add_clients', compact('event'));
     }
 
+    /**
+     * store client of event
+     *
+     */
     public function storeClient($id, Request $request)
     {
-        $event = $this->events->add_client($id, $request->get('user_id'));
+        $client = $this->events->find_client($id, $request->user_id);
+        if ( !$client ) {
+            $event = $this->events->add_client([
+                'event_id' => $id, 
+                'user_id' => $request->user_id
+            ]);
 
-        if ( $event ) {
-
-            return redirect()->route('event.add.client', $id)
-            ->withSuccess(trans('app.added_client'));
+            return response()->json([
+                'success' => true,
+                'url_return' => route('event.add.client', $id)
+            ]);
         } else {
-            
-            return back()->withError(trans('app.error_again'));
+
+            return response()->json([
+                'success' => false,
+                'message' => 'el usuario ya fue agregado al evento'
+            ]);
         }
     }
+
+
+    /**
+     * store client of event
+     *
+     */
+    public function show_votes($id, Request $request)
+    {
+        $event = $this->events->find($id);
+        $votes = array();
+
+        foreach ($event->event_clients as $client) {
+            $votes[$client->vote_clients->count()] = 'Nombre: <strong>'.$client->user->first_name.' '.$client->user->last_name.'</strong>, Email: <strong>'.$client->user->email.'</strong>, Usuario: <strong>'.$client->user->username.'</strong>';
+        }
+        
+        return view('events.client_votes', compact('event', 'votes'));
+    }
+
 }
