@@ -27,7 +27,6 @@
                      <thead>
                         <tr>
                             <th>@lang('app.full_name')</th>
-                            <th>@lang('app.email')</th>
                             <th class="text-center">@lang('app.actions')</th>
                         </tr>
                         </thead>
@@ -36,9 +35,8 @@
                               @foreach ($event->event_clients as $client) 
                                   <tr>
                                       <td>
-                                      {{ $client->user->first_name . ' ' . $client->user->last_name }}
+                                      {{ $client->participant }}
                                       </td>
-                                      <td>{{ $client->user->email }}</td>
                                       <td class="text-center">
                                         <button type="button" class="btn btn-success register_vote" data-event="{{ $client->event_id }}" data-participant="{{ $client->id }}"> @lang('app.vote') </button>
                                       </td>

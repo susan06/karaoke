@@ -576,9 +576,9 @@ return [
     'add_clients_event' => 'Agregar clientes',
     'event' => 'Evento',
     'search_client' => 'Buscar cliente por nombre o apellido',
-    'client_register_event' => 'Usuarios registrados en el evento',
+    'client_register_event' => 'Participantes registrados en el concurso',
     'show_votes' => 'Ver votos',
-    'votes_clients' => 'Votos de los clientes registrados al evento',
+    'votes_clients' => 'Votos de los participantes registrados al Concurso',
     'votes' => 'Votos',
     'total_votes' => 'Total de votos',
     'first_place' => 'Primer lugar',
@@ -590,5 +590,6 @@ return [
     'vote' => 'Votar',
     'delete_event' => 'Eliminar evento',
     'are_you_sure_delete_event' => 'Esta seguro que desea eliminar el evento?',
+    'name_participant' => 'Nombre del participante',
  
 ];

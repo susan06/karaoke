@@ -67,7 +67,7 @@ class EloquentEvent extends Repository implements EventRepository
      */
     public function find_client($event_id, $client_id)
     {
-        $client = EventClient::where('user_id', $client_id)
+        $client = EventClient::where('participant', $client_id)
             ->where('event_id', $event_id)
             ->first();
 
@@ -92,9 +92,11 @@ class EloquentEvent extends Repository implements EventRepository
      */
     public function index_client($perPage)
     {
-        $result = Event::where('status', 'start')
-            ->where('branch_office_id', session('branch_office')->id)
-            ->orderBy('created_at', 'desc')->paginate($perPage);
+        $query = Event::where('status', 'start');
+        if(session('branch_office')) {
+            $query->where('branch_office_id', session('branch_office')->id);
+        } 
+        $result = $query->orderBy('created_at', 'desc')->paginate($perPage);
 
         return $result;
     }

@@ -23,10 +23,9 @@
                     {!! Form::open(['route' => ['event.store.client', $event->id], 'autocomplete' => 'off', 'id' => 'event-form','class'=>'form-validate form-horizontal']) !!}
                     <div class="form">
                          <div class="form-group">
-                            <label class="control-label col-lg-2">@lang('app.clients')</label>
+                            <label class="control-label col-lg-2">@lang('app.name_participant')</label>
                             <div class="col-lg-6">
-                                <input type="text" name="search" autocomplete="off" class="form-control typeahead" value="{{ Input::get('search') }}" placeholder="@lang('app.search_client')">
-                                <input type="hidden" id="client_id" name="user_id">
+                                <input type="text" name="participant" autocomplete="off" class="form-control" value="" placeholder="" id="participant">
                             </div>
                             <div class="col-lg-4">
                               <button class="btn btn-primary" id="add-client" type="submit">
@@ -43,9 +42,7 @@
                    <table class="table table-default">
                      <thead>
                         <tr>
-                            <th>@lang('app.username')</th>
                             <th>@lang('app.full_name')</th>
-                            <th>@lang('app.email')</th>
                             <th class="text-center">@lang('app.actions')</th>
                         </tr>
                         </thead>
@@ -53,11 +50,9 @@
                           @if (count($event->event_clients) > 0)
                               @foreach ($event->event_clients as $client) 
                                   <tr>
-                                      <td>{{ $client->user->username ?: trans('app.n_a') }}</td>
-                                      <td>{{ $client->user->first_name . ' ' . $client->user->last_name }}</td>
-                                      <td>{{ $client->user->email }}</td>
+                                      <td>{{ $client->participant }}</td>
                                       <td class="text-center">
-                                        <a href="javascript:void(0)" class="btn  btn-danger btn-delete" title="@lang('app.delete_participant')"
+                                        <a href="javascript:void(0)" class="btn btn-danger btn-delete" title="@lang('app.delete_participant')"
                                                     data-href="{{ route('event.delete.participant') }}"
                                                     data-id="{{ $client->id }}"
                                                     data-toggle="tooltip"
@@ -72,7 +67,7 @@
                               @endforeach
                           @else
                               <tr>
-                                  <td colspan="3"><em>@lang('app.no_records_found')</em></td>
+                                  <td colspan="2"><em>@lang('app.no_records_found')</em></td>
                               </tr>
                           @endif
                         </tbody>
@@ -89,47 +84,10 @@
 @section('scripts')
 @parent
   <script type="text/javascript">
-    $(document).ready(function(){
-
-      var engine = new Bloodhound({
-          datumTokenizer: Bloodhound.tokenizers.whitespace('term'),
-          queryTokenizer: Bloodhound.tokenizers.whitespace,
-          remote:{
-                  url: '{{ route("find.clients", "term=%QUERY%") }}',
-                  wildcard: '%QUERY'
-              }
-      });
-
-      engine.initialize();
-
-      $(".typeahead").typeahead({
-          hint: true,
-          highlight: true,
-          minLength: 2,
-      }, {
-          source: engine.ttAdapter(),
-          name: 'clients_list',
-          displayKey: 'first_name',
-          templates: {
-              empty: [
-                  '<div class="empty-message"></div>'
-              ].join('\n'),
-
-              suggestion: function (data) {
-                  return '<div onclick="set_client_id('+data.id+')">'+data.first_name+' '+data.last_name+'</div>'
-              }
-          }
-      });
-
-    }); 
-
-    function set_client_id(client){
-      $('#client_id').val(client);
-    }
 
     $(document).on('click', '#add-client', function (e) { 
        e.preventDefault();
-      if($('#client_id').val()) {
+      if($('#participant').val()) {
         var form = $('#event-form');
          $.ajax({
           url: form.attr('action'),
@@ -148,7 +106,7 @@
           }
       });
       } else {
-        swal('Debe buscar y seleccionar un cliente válido');
+        swal('Debe escribir el nombre del participante');
       }
     });
   </script>

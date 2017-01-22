@@ -7,7 +7,10 @@
     <div class="row">
         <div class="col-lg-12 col-sm-12 col-xs-12">
             <h3 class="page-header"><i class="icon_genius"></i> 
-              @lang('app.contests')
+              @lang('app.contests') 
+              @if(session('branch_office'))
+              - Sucursal: {{ session('branch_office')->name }}
+              @endif
             </h3>
         </div>
     </div>
@@ -31,7 +34,7 @@
                           </tr>
                           </thead>
                           <tbody>
-                          @if (count($events))
+                          @if (count($events) > 0)
                               @foreach ($events as $event) 
                                   <tr>
                                       <td>{{ $event->name }}</td>
@@ -47,7 +50,7 @@
                               @endforeach
                           @else
                               <tr>
-                                  <td colspan="6"><em>@lang('app.no_records_found')</em></td>
+                                  <td colspan="3"><em>@lang('app.no_records_found')</em></td>
                               </tr>
                           @endif                                                       
                           </tbody>

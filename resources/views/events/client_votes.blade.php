@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-lg-12">
             <h3 class="page-header"><i class="icon_genius"></i> 
-                {{  trans('app.event').' '.$event->name }}
+                {{  trans('app.contest').': '.$event->name.' - '.trans('app.branch_office').' '.$event->branch_office->name }}
             </h3>
         </div>
     </div>
@@ -23,28 +23,9 @@
 
                   <div class="col-lg-12 col-sm-12 col-xs-12">
                     <div class="row">
-                     <table class="table table-default">
-                       <thead>
-                          <tr>
-                              <th>@lang('app.client')</th>
-                              <th>@lang('app.total_votes')</th>
-                          </tr>
-                          </thead>
-                          <tbody>
-                            @if (count($votes) > 0)
-                                @foreach ($votes as $vote => $value) 
-                                    <tr>
-                                        <td>{!! $value['client'] !!}</td>
-                                        <td>{{ $value['count'] }}</td>
-                                    </tr>
-                                @endforeach
-                            @else
-                                <tr>
-                                    <td colspan="2"><em>@lang('app.no_records_found')</em></td>
-                                </tr>
-                            @endif
-                          </tbody>
-                     </table>
+                     <div id="reload_list">
+                      @include('events.list_votes')
+                     </div>
                     </div>
                   </div>
                 </div>
@@ -54,3 +35,25 @@
   <!-- page end-->
 @stop
 
+@section('scripts')
+<script type="text/javascript">
+       function reload_votes() {
+        console.log('{{ route("event.show.votes", $event->id) }}');
+            $.ajax({
+                url: '{{ route("event.show.votes", $event->id) }}',
+                type : 'get',
+                dataType: 'json',
+                success: function (response) {
+                  if(response.success){
+                    $('#reload_list').html(response.view);
+                  }
+                }
+            });
+        }
+    
+        $(document).ready(function () {            
+            setInterval(reload_votes,5000);
+        });
+
+</script>
+@endsection

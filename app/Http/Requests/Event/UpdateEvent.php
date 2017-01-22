@@ -26,7 +26,8 @@ class UpdateEvent extends Request
     {
         return [
             'name' => 'required',
-            'description' => 'required'
+            'description' => 'required',
+            'branch_office_id' => 'required|exists:branch_offices,id'
         ];
     }
 }

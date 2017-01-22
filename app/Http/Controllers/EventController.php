@@ -19,14 +19,22 @@ class EventController extends Controller
      */
     private $events;
 
+     /**
+     * @var BranchOfficeRepository
+     */
+    private $branch_offices;
+
     /**
      * EventController constructor.
      * @param EventRepository $events
      */
-    public function __construct(EventRepository $events)
-    {
+    public function __construct(
+        EventRepository $events,
+        BranchOfficeRepository $branch_offices
+    ){
         $this->middleware('auth');
         $this->events = $events;
+        $this->branch_offices = $branch_offices;
     }
 
     /**
@@ -56,6 +64,21 @@ class EventController extends Controller
     public function contests(Request $request)
     {
         $perPage = 10;
+        $branch_offices = $this->branch_offices->all();
+        $branch_office = $branch_offices->first();
+
+        if ($request->branch_office_id) {
+            $branch_office = $this->branch_offices->find($request->branch_office_id);
+            session()->put('branch_office', $branch_office); 
+        }
+
+        if ( count($branch_offices) > 1) {
+            session()->put('branch_offices', $this->branch_offices->lists_actives()); 
+        } else {
+            if(!session('branch_office')) {
+                session()->put('branch_office', $branch_office); 
+            } 
+        }
         $events = $this->events->index_client($perPage);
 
         return view('events.list_contests', compact('events'));
@@ -179,11 +202,11 @@ class EventController extends Controller
      */
     public function storeClient($id, Request $request)
     {
-        $client = $this->events->find_client($id, $request->user_id);
+        $client = $this->events->find_client($id, $request->participant);
         if ( !$client ) {
             $event = $this->events->add_client([
                 'event_id' => $id, 
-                'user_id' => $request->user_id
+                'participant' => $request->participant
             ]);
 
             return response()->json([
@@ -194,7 +217,7 @@ class EventController extends Controller
 
             return response()->json([
                 'success' => false,
-                'message' => 'el usuario ya fue agregado al evento'
+                'message' => 'el participante ya fue agregado al evento'
             ]);
         }
     }
@@ -223,10 +246,17 @@ class EventController extends Controller
         foreach ($event->event_clients as $client) {
             $votes[] = [
             'count' => $client->vote_clients->count(),
-            'client' => "Nombre: ".$client->user->first_name." ".$client->user->last_name.", Email: ".$client->user->email.""
+            'participant' => $client->participant
             ];
         }
         arsort($votes);
+
+        if ( $request->ajax() ) {
+            return response()->json([
+                'success' => true,
+                'view' => view('events.list_votes', compact('votes'))->render(),
+            ]);
+        }
         
         return view('events.client_votes', compact('event', 'votes'));
     }

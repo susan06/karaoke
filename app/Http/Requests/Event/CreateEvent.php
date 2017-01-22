@@ -25,7 +25,8 @@ class CreateEvent extends Request
     {
         return [
             'name' => 'required|unique:events,name',
-            'description' => 'required'
+            'description' => 'required',
+            'branch_office_id' => 'required|exists:branch_offices,id'
         ];
     }
 }

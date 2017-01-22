@@ -16,13 +16,11 @@ class CreateEventsClientsTable extends Migration
        Schema::create('event_clients', function(Blueprint $table)
         {
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
+            $table->text('participant');
             $table->integer('event_id')->unsigned();
             $table->timestamps();
             $table->engine = 'InnoDB';
 
-            $table->foreign('user_id')->references('id')->on('users')
-                ->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('event_id')->references('id')->on('events')
                 ->onUpdate('cascade')->onDelete('cascade');
 

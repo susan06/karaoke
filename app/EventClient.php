@@ -19,7 +19,7 @@ class EventClient extends Model
 
     protected $fillable = [
     	'event_id',
-        'user_id'
+        'participant'
     ];
 
     /*
@@ -29,11 +29,6 @@ class EventClient extends Model
     public function vote_clients()
     {
         return $this->hasMany(VoteClient::class, 'event_client_id');
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function event()

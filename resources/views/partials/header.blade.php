@@ -40,15 +40,19 @@
                             </li>
                             @endif
                             @if(Agent::isMobile() && Auth::user()->hasRole('user'))
-                                @if(session('branch_office'))
-                                <li class="eborder-top">
-                                    <a href="#"
-                                      @if(session('branch_offices'))
-                                        onclick="change_branch_office()"
-                                      @endif    
-                                    ><i class="icon_genius"></i> Sucursal: {{ session('branch_office')->name }}</a>
-                                </li>
+    
+                                @if(session('branch_offices'))
+                                   <li class="eborder-top">
+                                    <a href="#" onclick="change_branch_office()"><i class="icon_genius"></i> Sucursal: {{ session('branch_office')->name }}</a>
+                                    </li>
+                                @else
+                                    @if(session('branch_office'))
+                                      <li class="eborder-top">
+                                        <a href="#"><i class="icon_genius"></i> Sucursal: {{ session('branch_office')->name }}</a>
+                                        </li>
+                                    @endif
                                 @endif
+
                                 <li class="eborder-top">
                                     <a href="{{route('song.search')}}"><i class="fa fa-play-circle"></i> @lang('app.ask_song')</a>
                                 </li>

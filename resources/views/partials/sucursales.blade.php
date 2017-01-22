@@ -9,8 +9,12 @@
         <div class="modal-body form-horizontal">
           <div class="form-group">
               <div class="col-sm-12">
-                @if (session('branch_offices'))
-                   {!! Form::select("branch_office_id", session("branch_offices"), session('branch_office'), ["class" => "form-control"]) !!}
+                 @if (session('branch_offices'))
+                  <select name="branch_office_id" class="form-control">
+                    @foreach(session('branch_offices') as $office_id => $office)
+                    <option value="{{ $office_id }}">{{ $office }}</option>
+                    @endforeach
+                  </select>
                 @endif
               </div>
           </div>
