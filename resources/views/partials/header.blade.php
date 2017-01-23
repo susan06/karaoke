@@ -42,9 +42,11 @@
                             @if(Agent::isMobile() && Auth::user()->hasRole('user'))
     
                                 @if(session('branch_offices'))
-                                   <li class="eborder-top">
-                                    <a href="#" onclick="change_branch_office()"><i class="icon_genius"></i> Sucursal: {{ session('branch_office')->name }}</a>
-                                    </li>
+                                    @if(session('branch_office'))
+                                        <li class="eborder-top">
+                                            <a href="#" onclick="change_branch_office()"><i class="icon_genius"></i> Sucursal: {{ session('branch_office')->name }}</a>
+                                        </li>
+                                    @endif
                                 @else
                                     @if(session('branch_office'))
                                       <li class="eborder-top">
