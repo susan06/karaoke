@@ -72,8 +72,7 @@ $(document).on('click', '.register_vote', function () {
     var $this = $(this);
     swal({   
         title: 'Seguro que desea votar por el participante: '+$this.data('name')+'?',   
-        text: 'Solo podrá votar una vez por concurso',   
-        type: "warning",   
+        text: 'Solo podrá votar una vez por concurso',     
         showCancelButton: true,   
         cancelButtonText: 'Cancelar',
         confirmButtonColor: "#DD6B55",   
