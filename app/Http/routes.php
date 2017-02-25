@@ -309,7 +309,7 @@ Route::group([
         'SongsController@search')
         ->name('song.search');
 
-    Route::post('/search/ajax/by/client',
+    Route::get('/search/ajax/by/client',
         'SongsController@searchByClient')
         ->name('song.search.ajax.client');
 

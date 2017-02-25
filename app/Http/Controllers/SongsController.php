@@ -204,7 +204,9 @@ class SongsController extends Controller
         $search = $request->q;
         $songs = $this->songs->search($perPage, $search);
         
-        return response()->json($songs); 
+        return response()->json([
+            view('songs.list', compact('songs'))->render()
+        ]);
     }
 
     /**

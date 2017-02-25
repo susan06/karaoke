@@ -41,6 +41,7 @@
                   </div> 
                   <div class="row">    
                         <div class="col-lg-10 col-sm-12 col-xs-12">
+                            <div id="list_song">
                             <!--<div class="table-responsive">-->
                                <table class="table table-default">
                                     <thead>
@@ -57,6 +58,7 @@
                                     </tbody>
                                </table>
                             <!--</div>-->  
+                            </div>
                         </div>
                     </div>                
                 </div>
@@ -100,7 +102,56 @@ $(document).ready(function(e){
     })
 
 });
-    
+
+    $(document).on('click', '.btn-apply-for', function () {
+            var $this = $(this);
+            var row = $this.closest('tr');
+            swal({   
+                title: $this.data('confirm-title'),   
+                text: $this.data('confirm-text'),   
+                type: "warning",   
+                showCancelButton: true,   
+                confirmButtonColor: "#DD6B55",   
+                confirmButtonText: $this.data('confirm'),   
+                closeOnConfirm: false }, 
+                function(isConfirm){   
+                    if (isConfirm) { 
+                        swal.close(); 
+                        $.ajax({
+                            type: 'GET',
+                            url: '{{route("song.apply.for")}}',
+                            dataType: 'json',
+                            data: { 'id': $this.data('id') },
+                            success: function (request) { 
+                                row.addClass(request.status); 
+                                $this.attr('disabled', request.disabled);  
+                                swal("@lang('app.info')", request.message, request.status);
+                            }
+                        }) 
+                    }           
+                }) 
+    });
+
+    $(document).on('click', '.pagination a', function (e) {
+        getPages($(this).attr('href'));
+        e.preventDefault();
+    });
+
+    function getPages(page) {
+    if(page) {
+        $.ajax({
+            url: page,
+            type:"GET",
+            dataType: 'json',
+            success: function(response) {
+                $('#list_song').html(response);
+            },
+            error: function (status) {
+                //console.log(status.statusText);
+            }
+        });
+    }
+}
     function autocomplete() {
         $('#search').autoComplete({
             minChars: 2,
@@ -137,82 +188,16 @@ $(document).ready(function(e){
        load_text_search('@lang("app.searching")');
     }
 
-    function apply_for() {
-        $('.btn-apply-for').click(function() {
-            var $this = $(this);
-            var row = $this.closest('tr');
-            swal({   
-                title: $this.data('confirm-title'),   
-                text: $this.data('confirm-text'),   
-                type: "warning",   
-                showCancelButton: true,   
-                confirmButtonColor: "#DD6B55",   
-                confirmButtonText: $this.data('confirm'),   
-                closeOnConfirm: false }, 
-                function(isConfirm){   
-                    if (isConfirm) { 
-                        swal.close(); 
-                        $.ajax({
-                            type: 'GET',
-                            url: '{{route("song.apply.for")}}',
-                            dataType: 'json',
-                            data: { 'id': $this.data('id') },
-                            success: function (request) { 
-                                row.addClass(request.status); 
-                                $this.attr('disabled', request.disabled);  
-                                swal("@lang('app.info')", request.message, request.status);
-                            }
-                        }) 
-                    }           
-                }) 
-        })
-    }
-
-    function construct_result(songs) {
-        document.getElementById('result_search').innerHTML = '';
-        $.each(songs.data, function(i, item){
-            var tr = document.createElement('TR');
-
-            var td = document.createElement('TD');
-            var td1 = document.createElement('TD');
-            var td2 = document.createElement('TD');
-
-            var apply_for = document.createTextNode("@lang('app.apply_for')");
-            var title = document.createTextNode(item.title);
-            var artist = document.createTextNode(item.artist);
-
-            btn = document.createElement('a');
-            btn.className = 'btn btn-lg btn-sm btn-xs btn-success btn-apply-for';
-            btn.setAttribute("data-id", item.id);
-            btn.setAttribute("data-ref", "{{route('song.apply.for', 'id="+item.id+"')}}");
-            btn.setAttribute("data-confirm-title", "@lang('app.please_confirm')");
-            btn.setAttribute("data-confirm-text", "@lang('app.are_you_sure_apply_song') la canción "+item.title+" de "+item.artist);
-            btn.setAttribute("data-confirm", "@lang('app.apply_for')");
-
-            btn.appendChild(apply_for);
-            td.appendChild(title);
-            td1.appendChild(artist);
-            td2.appendChild(btn);
-            tr.appendChild(td);
-            tr.appendChild(td1);
-            tr.appendChild(td2);
-
-            container = document.getElementById('result_search');
-            container.appendChild(tr);
-        })
-        apply_for();
-    }
-
     function start_search() {
         if ($('#search').val()) { 
             searching(); 
             $.ajax({
-                type: 'POST',
+                type: 'get',
                 url: '{{route("song.search.ajax.client")}}',
                 dataType: 'json',
                 data: { 'q': $('#search').val() },
-                success: function (songs) {                           
-                    construct_result(songs);
+                success: function (response) {                           
+                    $('#list_song').html(response);
                 },
                 error: function () {
                    //
