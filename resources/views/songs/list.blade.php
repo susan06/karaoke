@@ -14,7 +14,7 @@
                     <td>{{$playlist->artist}}</td>
                     <td>
                         <a class="btn btn-lg btn-sm btn-xs btn-success btn-apply-for" 
-                        data-id="{{$playlist->song_id}}"
+                        data-id="{{$playlist->id}}"
                         data-ref="{{route('song.apply.for', $playlist->id)}}"
                         data-confirm-title="@lang('app.please_confirm')"
                         data-confirm-text="@lang('app.are_you_sure_apply_song') la canción {{$playlist->title}} de {{$playlist->artist}}"
