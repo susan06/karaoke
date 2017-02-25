@@ -31,4 +31,6 @@
         </tbody>
    </table>
 <!--</div>-->  
+@if (count($songs))
 {!! $songs->links() !!}
+@endif

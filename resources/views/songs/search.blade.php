@@ -181,6 +181,18 @@ $(document).ready(function(e){
     }
 
     function reset_search() {
+        $.ajax({
+            type: 'get',
+            url: '{{route("song.search.ajax.client")}}',
+            dataType: 'json',
+            data: { 'q': 'reset-songs-greenroom' },
+            success: function (response) {                           
+                $('#list_song').html(response);
+            },
+            error: function () {
+               //
+            }
+        }) 
        load_text_search('@lang("app.first_search")');
     }
 
