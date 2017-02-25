@@ -30,7 +30,7 @@
     {!! HTML::style("assets/css/style.css") !!}
     {!! HTML::style("assets/css/style-responsive.css") !!}
 
-    {!! HTML::style("assets/css/typeahead.css") !!}
+    {!! HTML::style("assets/css/jquery.auto-complete.css") !!}
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
     <!--[if lt IE 9]>
@@ -142,12 +142,10 @@
 
     {!! HTML::script('assets/js/sweetalert.min.js') !!}
 
-    <!--typeahead--> 
-    {!! HTML::script('assets/js/typeahead/typeahead.bundle.min.js') !!}
+    {!! HTML::script('assets/js/jquery.auto-complete.min.js') !!}
 
     <!-- nice scroll -->
     {!! HTML::script('assets/js/jquery.scrollTo.min.js') !!}
-    <!--{!! HTML::script('assets/js/jquery.nicescroll.js') !!}-->
 
     <!--Forms--> 
     {!! HTML::script('assets/js/jquery.maskedinput.min.js') !!}
