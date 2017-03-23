@@ -327,11 +327,11 @@ Route::group([
 
     Route::get('/my_list',
         'SongsController@myList')
-        ->name('song.my_list');
+        ->name('song.my_list')->middleware('sucursal');
 
     Route::get('/ranking',
         'SongsController@ranking')
-        ->name('song.ranking');
+        ->name('song.ranking')->middleware('sucursal');
 
     Route::get('/apply/actuality',
         'SongsController@applyActuality')
@@ -348,7 +348,7 @@ Route::group([
 
 Route::get('reservations',
     'ReservationsController@index')
-    ->name('reservation.index');
+    ->name('reservation.index')->middleware('sucursal');
 
 Route::get('reservations/clients',
     'ReservationsController@adminIndex')
@@ -356,7 +356,7 @@ Route::get('reservations/clients',
 
 Route::get('reservations/store',
     'ReservationsController@clientStore')
-    ->name('reservation.clientStore');
+    ->name('reservation.clientStore')->middleware('sucursal');
 
 Route::post('reservations/status/update',
     'ReservationsController@updateStatus')
@@ -391,7 +391,7 @@ Route::get('event/show/votes/{id}',
 
 Route::get('contests',
     'EventController@contests')
-    ->name('event.contests');
+    ->name('event.contests')->middleware('sucursal');
 
 Route::get('contests/show/participants/{id}',
     'EventController@show_participants')

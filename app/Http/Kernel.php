@@ -48,6 +48,8 @@ class Kernel extends HttpKernel
         'social.login' => \App\Http\Middleware\SocialLogin::class,
         'role' => \Zizaco\Entrust\Middleware\EntrustRole::class,
         'ability' => \Zizaco\Entrust\Middleware\EntrustAbility::class,
-        'session.database' => \App\Http\Middleware\DatabaseSession::class
+        'session.database' => \App\Http\Middleware\DatabaseSession::class,
+        'sucursal' => \App\Http\Middleware\isSucursal::class,
+
     ];
 }
