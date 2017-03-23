@@ -90,9 +90,10 @@ class SettingsController extends Controller
     {
         $file = $request->file('image');
         $date = new DateTime();
-        $file_name = $date->getTimestamp();
+    
         if($file){
             if ($file->isValid()) {
+                $file_name = $date->getTimestamp().'.'.$file->getClientOriginalExtension();
                 Storage::disk('login')->put($file_name, \File::get($file));
 
                 return redirect()->back();
