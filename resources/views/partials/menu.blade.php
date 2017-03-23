@@ -125,6 +125,7 @@
                           <span>@lang('app.most_requested')</span>
                       </a>
                   </li>
+                  <!--
                   <li class="sub-menu {{ Request::is('reservations*') ? 'active' : ''  }}">
                       <a href="javascript:void(0);" class="">
                           <i class="icon_refresh"></i>
@@ -142,6 +143,7 @@
                           <span>@lang('app.contests')</span>
                       </a>
                   </li> 
+                  -->
                 @endif      
               </ul>
               <!-- sidebar menu end-->
