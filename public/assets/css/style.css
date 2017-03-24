@@ -16,7 +16,7 @@ body {
     font-family: 'Lato', sans-serif;
     padding: 0px !important;
     margin: 0px !important;
-    font-size:14px !important;    
+    font-size:15px !important;    
 }
 h1,h2,h3,h4,h5{
     font-weight: 300;
@@ -113,7 +113,7 @@ tr:nth-of-type(2n+0) {
 .login-img-body .login-form{
     max-width: 350px;
     margin: 200px auto 0;
-    background: rgba(213,215,222,0.8);
+    background: rgba(213, 215, 222, 0.57);
     border: 1px solid #B0B6BE;
 }
 .login-img2-body .login-form{
@@ -125,7 +125,8 @@ tr:nth-of-type(2n+0) {
     background: rgba(213,215,222,0.9);
 }
 .login-form a{
-    color: #688a7e !important;
+   /* color: #688a7e !important;*/
+   color: #ec0a18 !important;
 }
 .login-form h2.login-form-heading {
     margin: 0;
@@ -309,7 +310,7 @@ ul.sidebar-menu {
 }
 
 ul.sidebar-menu li ul.sub li{
-    background: #394a59;
+    background: #636363; /*394A59/
     margin-bottom: 0;
     margin-left: 0;
     margin-right: 0;
@@ -4971,7 +4972,8 @@ span.customSelect.changed {
     text-align: center;
 }
 .blue {
-    color: #39579B;
+    /*color: #39579B;*/
+    color: rgba(236, 10, 24, 0.62);
 }
 a.white {
     color: #FFFFFF !important;
@@ -5362,5 +5364,5 @@ button-c.button-c:disabled {
 }
 
 img.header-logo {
-    width: 60px;
+    width: 150px;
 }

@@ -16,7 +16,7 @@
   
             <!--logo start-->
             <a href="{{route('dashboard')}}" class="logo">
-            {{ HTML::image('assets/images/logos/logo.png', Settings::get('app_name'), array('class' => 'header-logo')) }} {{Settings::get('app_name')}}
+            {{ HTML::image('assets/images/logos/logo5.png', Settings::get('app_name'), array('class' => 'header-logo')) }} 
             </a>
             <!--logo end-->
 
