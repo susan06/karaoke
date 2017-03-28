@@ -14,6 +14,19 @@ background-size: cover;
 height: auto;
 width: 100%;
 }
+@media (max-width: 560px) {
+.login-img-body{
+background: url('{{asset('upload/login/'.Settings::get("background-login"))}}') no-repeat center fixed;
+/*background: url('{{asset('upload/login/'.Settings::get("background-login"))}}') no-repeat center center fixed;*/
+-webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+height: auto;
+width: 100%;
+}
+}
+
 </style>
 @endsection
 
