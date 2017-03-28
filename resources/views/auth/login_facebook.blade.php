@@ -4,6 +4,12 @@
 
 @section('styles')
 <style type="text/css">
+body {
+	background-color: #020003;
+}
+.copyrights {
+	color: #fff;
+}
 .login-img-body{
 background: url('{{asset('upload/login/'.Settings::get("background-login"))}}') no-repeat;
 /*background: url('{{asset('upload/login/'.Settings::get("background-login"))}}') no-repeat center center fixed;*/
