@@ -16,6 +16,7 @@
   
             <!--logo start-->
             <a href="{{route('dashboard')}}" class="logo">{{Settings::get('app_name')}}</a>
+            
             <!--logo end-->
 
 
