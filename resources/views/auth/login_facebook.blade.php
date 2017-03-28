@@ -19,7 +19,8 @@ width: 100%;
 
 @section('content')
 
-	{!! Form::open(['class' => 'login-form', 'id' => 'login-form']) !!}     
+	{!! Form::open(['class' => 'login-form', 'id' => 'login-form']) !!}  
+	<input type="hidden" name="access_token" value="{{ csrf_token() }}">  
         <div class="login-wrap">
             <p class="login-img"><i class="social_facebook_circle blue"></i></p>
             <a href="{{ url('auth/facebook/login') }}" class="btn btn-default btn-lg btn-block">Sign in with facebook</a>
