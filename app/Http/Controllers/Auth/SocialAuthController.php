@@ -78,7 +78,15 @@ class SocialAuthController extends Controller
      */
     private function getUserFromProvider($provider)
     {
-        return Socialite::driver($provider)->user();
+       try {
+            $providerUser = Socialite::driver($provider)->user();
+            
+            return $providerUser;
+
+          } catch (RequestException $e) {
+
+          dd($e->getResponse()->json());
+        }
     }
 
     /**
