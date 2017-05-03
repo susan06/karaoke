@@ -13,9 +13,11 @@ class CreateSongRequest extends Request
      */
     public function rules()
     {
+        
         return [
             'artist' => 'required',
             'title' => 'required'
         ];
+
     }
 }

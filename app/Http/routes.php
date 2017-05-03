@@ -333,6 +333,10 @@ Route::group([
         'SongsController@ranking')
         ->name('song.ranking')->middleware('sucursal');
 
+    Route::get('/admin/ranking',
+        'SongsController@ranking')
+        ->name('song.admin.ranking');
+
     Route::get('/apply/actuality',
         'SongsController@applyActuality')
         ->name('song.apply.list');
