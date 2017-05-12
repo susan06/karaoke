@@ -13,50 +13,87 @@
 
   <!-- page start-->
     <div class="row">
-        <div class="col-lg-5 col-md-6 col-xs-10">
+        <div class="col-lg-5 col-md-6 col-xs-12 content-table">
             <section class="panel">
-                <div class="panel-body">
+                <div class="panel-body" style="background: #474747;">
                     <table class="table-resevations" width="100%">
-                        <tr>
-                            <td><button class="button-circle btn-t">TARIMA</button></td>
-                            <td class="text-right"><button class="button-c button-circle reserv" data-id="1">1</button></td>
-                            <td class="text-right"><button class="button-c button-circle reserv" data-id="2">2</button></td>
-                            <td class="text-right"><button class="button-c button-circle reserv" data-id="3">3</button></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td class="text-right"><button class="button-c button-circle reserv" data-id="5">5</button></td>
-                            <td class="text-right"><button class="button-c button-circle reserv" data-id="6">6</button></td>
-                            <td class="text-right"><button class="button-c button-circle reserv" data-id="7">7</button></td>
-                        </tr>
-                        <tr>
-                            <td><button class="button-c button-circle reserv" data-id="4">4</button></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td><button class="button-c button-circle reserv" data-id="8">8</button></td>
-                            <td><button class="button-c button-circle reserv" data-id="9">9</button></td>
-                        </tr>
-                        <tr>
-                            <td rowspan="3" class="barra">B<br>A<br>R<br>R<br>A</td>
-                            <td></td>
-                            <td><button class="button-c button-circle reserv" data-id="10">10</button></td>
-                            <td><button class="button-c button-circle reserv" data-id="11">11</button></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><button class="button-c button-circle reserv" data-id="12">12</button></td>
-                            <td><button class="button-c button-circle reserv" data-id="13">13</button></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td><button class="button-c button-circle reserv" data-id="14">14</button></td>
-                            <td><button class="button-c button-circle reserv" data-id="15">15</button></td>
-                        </tr>                        
+                      <tr>
+                        <td></td>
+                        <td><button class="button-c btn-vip reserv" data-id="0">VIP</button></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td rowspan="4">
+                        <div class="barra barra-1">
+                        {{ HTML::image('assets/images/barra.jpg', 'barra', array('class' => 'img-barra')) }} 
+                        </div></td>
+                      </tr>
+                      <tr>
+                        <td><button class="button-c  reserv" data-id="14">14</button></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td><button class="button-c  reserv" data-id="13">13</button></td>
+                        <td></td>
+                        <td><button class="button-c  reserv" data-id="8">8</button></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td><button class="button-c  reserv" data-id="12">12</button></td>
+                        <td></td>
+                        <td><button class="button-c  reserv" data-id="7">7</button></td>
+                        <td></td>                        
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td><button class="button-c  reserv" data-id="11">11</button></td>
+                        <td></td>                        
+                        <td><button class="button-c  reserv" data-id="6">6</button></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td><button class="button-c  reserv" data-id="10">10</button></td>
+                        <td></td>                        
+                        <td><button class="button-c  reserv" data-id="5">5</button></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td rowspan="2"><div class="barra barra-2">
+                        {{ HTML::image('assets/images/tarima.jpg', 'barra', array('class' => 'img-tarima')) }} 
+                        </div></td>
+                      </tr>
+                      <tr>
+                        <td><button class="button-c  reserv" data-id="9">9</button></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td></td>
+                        <td><button class="button-c  reserv" data-id="1">1</button></td>
+                        <td><button class="button-c  reserv" data-id="2">2</button></td>
+                        <td><button class="button-c  reserv" data-id="3">3</button></td>
+                        <td><button class="button-c  reserv" data-id="4">4</button></td>
+                        <td></td>
+                      </tr>                 
                     </table>
                 </div>
             </section>
@@ -137,6 +174,9 @@
       document.getElementById("datetimepicker1").value = "";
       document.getElementById("datetimepicker2").value = "7:00 PM";
       document.getElementById("table").value = table;
+      if(table == 0) {
+        table = 'VIP';
+      }
       $("#num_table").text(table);
       $('#myModal').modal("show");
     });

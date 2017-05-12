@@ -70,7 +70,7 @@
                                     @if (count($reservations))
                                         @foreach ($reservations as $reservation) 
                                             <tr>
-                                                <td>{{$reservation->num_table}}</td>
+                                                <td>{{ ($reservation->num_table == 0) ? 'VIP' : $reservation->num_table }}</td>
                                                 <td>{{date_format(date_create($reservation->date), 'd-m-Y')}}</td>
                                                 <td>{{$reservation->time}}</td>
                                                 @if (Auth::user()->hasRole('admin')) 
