@@ -66,11 +66,14 @@
 
     @yield('styles')
 </head>
-<body>
+<body onload="hideLoading()">
 
  <!-- container section start -->
   <section id="container">
-      <!--header start-->
+
+    <div class="loader loader-default is-active" id="loading"></div>
+
+    <!--header start-->
 
     @include('partials.header')
 
@@ -157,6 +160,18 @@
 
     <!--confirm delete--> 
     {!! HTML::script('assets/js/delete.handler.js') !!}
+
+    <script type="text/javascript">
+        function hideLoading() {
+            $('#loading').removeClass('is-active'); 
+        }
+
+        function showLoading() {
+            $('#loading').addClass('is-active');
+            //setTimeout('hideLoading()', 400);
+        }
+
+    </script>
     
     {!! HTML::script('assets/js/scripts.js') !!}
 

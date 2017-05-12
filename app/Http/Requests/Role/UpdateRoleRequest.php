@@ -1,8 +1,8 @@
 <?php
 
-namespace Vanguard\Http\Requests\Role;
+namespace App\Http\Requests\Role;
 
-use Vanguard\Http\Requests\Request;
+use App\Http\Requests\Request;
 
 class UpdateRoleRequest extends Request
 {
