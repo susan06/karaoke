@@ -8,6 +8,8 @@ use App\Http\Requests;
 use App\Http\Requests\BranchOffice\CreateBranchOffice;
 use App\Http\Requests\BranchOffice\UpdateBranchOffice;
 use App\Repositories\BranchOffice\BranchOfficeRepository;
+use App\Repositories\Reservation\ReservationRepository;
+use App\Repositories\Playlist\PlaylistRepository;
 
 class BranchOfficeController extends Controller
 {
@@ -19,9 +21,11 @@ class BranchOfficeController extends Controller
     /**
      * BranchOfficeController constructor.
      * @param BranchOfficeRepository $branch_offices
+     * @param PlaylistRepository $playlists
      */
-    public function __construct(BranchOfficeRepository $branch_offices)
-    {
+    public function __construct(
+        BranchOfficeRepository $branch_offices
+    ){
         $this->middleware('auth');
         $this->branch_offices = $branch_offices;
     }
@@ -137,8 +141,10 @@ class BranchOfficeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete($id)
     {
-        //
+        $destroy = $this->branch_offices->delete($id);
+
+        return response()->json(['success'=> true]);
     }
 }

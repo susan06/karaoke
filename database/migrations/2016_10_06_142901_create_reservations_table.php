@@ -17,7 +17,7 @@ class CreateReservationsTable extends Migration
             $table->increments('id');
             $table->integer('num_table')->unsigned();
             $table->integer('user_id')->unsigned();
-            $table->integer('branch_office_id')->nullable();
+            $table->integer('branch_office_id')->nullable()->unsigned();
             $table->date('date');
             $table->string('time');
             $table->integer('status')->default(0);  
@@ -25,6 +25,8 @@ class CreateReservationsTable extends Migration
             $table->engine = 'InnoDB';
 
             $table->foreign('user_id')->references('id')->on('users')
+                ->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('branch_office_id')->references('id')->on('branch_offices')
                 ->onUpdate('cascade')->onDelete('cascade');
         });
     }

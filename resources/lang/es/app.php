@@ -591,5 +591,7 @@ return [
     'delete_event' => 'Eliminar evento',
     'are_you_sure_delete_event' => 'Esta seguro que desea eliminar el evento?',
     'name_participant' => 'Nombre del participante',
+    'are_you_sure_delete_branch' => 'Seguro que desea eliminar la sucursal?',
+    'delete_branch' => 'Eliminar sucursal',
  
 ];

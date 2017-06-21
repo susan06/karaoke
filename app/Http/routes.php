@@ -375,6 +375,11 @@ Route::post('reservations/delete', [
     'uses' => 'ReservationsController@delete'
 ]);
 
+Route::post('branch-office/delete/{id}', [
+    'as' => 'branch-office.delete',
+    'uses' => 'BranchOfficeController@delete'
+]);
+
 /* Branch Offices Adminitration */
 Route::resource('branch-office', 'BranchOfficeController');
 

@@ -81,6 +81,16 @@
                                                   data-toggle="tooltip" data-placement="top">
                                               <i class="fa fa-pencil"></i>
                                             </a>
+                                             <a href="javascript:void(0)" class="btn btn-sm btn-xs btn-danger btn-delete" title="@lang('app.delete_branch')"
+                                                    data-href="{{ route('branch-office.delete', $branch_office->id) }}"
+                                                    data-id="{{$branch_office->id}}"
+                                                    data-toggle="tooltip"
+                                                    data-placement="top"
+                                                    data-confirm-title="@lang('app.please_confirm')"
+                                                    data-confirm-text="@lang('app.are_you_sure_delete_branch')"
+                                                    data-confirm-delete="@lang('app.yes_delete_him')">
+                                                <i class="icon_close_alt2"></i>
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach

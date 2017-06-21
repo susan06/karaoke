@@ -82,7 +82,8 @@ function initializeJS() {
             type: "warning",   
             showCancelButton: true,   
             confirmButtonColor: "#DD6B55",   
-            confirmButtonText: $this.data('confirm-delete'),   
+            confirmButtonText: $this.data('confirm-delete'), 
+            cancelButtonText: 'Cancelar',  
             closeOnConfirm: false }, 
             function(isConfirm){   
                 if (isConfirm) {  
