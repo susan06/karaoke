@@ -31,7 +31,6 @@ class SocialAuthController extends Controller
     public function __construct(UserRepository $users, RoleRepository $roles)
     {
         $this->middleware('guest');
-
         $this->users = $users;
         $this->roles = $roles;
     }
@@ -103,13 +102,12 @@ class SocialAuthController extends Controller
         $user = $this->users->findByEmail($socialUser->getEmail());
 
         if (! $user) {
-
             // User with email retrieved from social auth provider does not
             // exist in our database. That means that we have to create new user here
             list($firstName, $lastName) = $this->parseUserFullName($socialUser);
-
             $user = $this->users->create([
                 'email' => $socialUser->getEmail(),
+                'client_id' => $this->getClientNumber(),
                 'password' => str_random(10),
                 'first_name' => $firstName,
                 'last_name' => $lastName,
@@ -124,6 +122,7 @@ class SocialAuthController extends Controller
             $user->attachRole($role);
         } else {
             $this->users->update($user->id, [
+                'client_id' => ($user->client_id) ? $user->client_id : $this->getClientNumber(),
                 'email' => $socialUser->getEmail(),
                 'first_name' => isset($firstName) ? $firstName : null,
                 'last_name' => isset($lastName) ? $lastName : null,
@@ -137,6 +136,24 @@ class SocialAuthController extends Controller
 
         return $user;
     }
+
+    public function getClientNumber(){
+     do{
+        $rand = $this->generateRandomString(4);
+      }while(! empty($this->users->where('client_id',$rand)->first()) );
+
+       return $rand;
+    }
+
+    public function generateRandomString($length) {
+        $characters = '123456789';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+     }
 
     /**
      * Parse User's name from his social network account.

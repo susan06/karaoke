@@ -22,6 +22,8 @@ use App\Repositories\BranchOffice\EloquentBranchOffice;
 use App\Repositories\BranchOffice\BranchOfficeRepository;
 use App\Repositories\Event\EventRepository;
 use App\Repositories\Event\EloquentEvent;
+use App\Repositories\Coupon\CouponRepository;
+use App\Repositories\Coupon\EloquentCoupon;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -51,6 +53,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(ReservationRepository::class, EloquentReservation::class);
         $this->app->singleton(BranchOfficeRepository::class, EloquentBranchOffice::class);
         $this->app->singleton(EventRepository::class, EloquentEvent::class);
+        $this->app->singleton(CouponRepository::class, EloquentCoupon::class);
 
         if ($this->app->environment('local')) {
             $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);

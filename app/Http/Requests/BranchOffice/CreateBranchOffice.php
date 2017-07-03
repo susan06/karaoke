@@ -28,7 +28,8 @@ class CreateBranchOffice extends Request
             'email_song' => 'required|email',
             'email_reservations' => 'required|email',
             'lat' => 'required',
-            'lng' => 'required'
+            'lng' => 'required',
+            'reservation_time_max' => 'required'
         ];
     }
 }

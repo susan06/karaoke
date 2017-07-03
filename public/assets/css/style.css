@@ -5357,3 +5357,62 @@ button-c.button-c:disabled {
 .alert-location {
     display: none;
 }
+
+/*Coupons */
+
+.coupons {
+  position: relative;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  min-height: 60px;
+  text-align: center;
+  box-shadow: 0 1px 1px rgba(0,0,0, .05);
+  background: #c6d5d3;
+}
+.coupons-inner {
+  margin-left: 50px;
+  font-size: 0.85em;
+  font-weight: 600;
+  border-left: 5px dashed #fff;
+  padding: 15px;
+  background: #ddd
+}
+.coupons:before {
+  content: "";
+  position: absolute;
+  top: 45%;
+  left: 15px;
+  width: 15px;
+  height: 15px;
+  background: #fff;
+  border-radius: 50%;
+}
+.coupons-code {
+  font-size: 1.5em;
+  font-weight: 800;
+  color: #fff;
+  padding: 5px;
+  margin-top: 5px;
+  background-color: #858689;
+}
+.coupons .one-time {
+  margin-top: 10px;
+  color: #999;
+  border: 2px solid #999;
+  display: inline-block;
+  padding: 3px 7px;
+  font-weight: 800;
+  font-size: 1em;
+}
+
+.overline {
+  text-decoration: line-through;
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}

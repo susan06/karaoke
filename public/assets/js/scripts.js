@@ -1,5 +1,4 @@
 function initializeJS() {
-
     //tool tips
     jQuery('.tooltips').tooltip();
     $('[data-toggle="tooltip"]').tooltip();
@@ -9,15 +8,7 @@ function initializeJS() {
     $('[data-toggle="popover"]').popover({
         html : true
     });
-    
-    //custom scrollbar
-        //for html
-    //jQuery("html").niceScroll({styler:"fb",cursorcolor:"#007AFF", cursorwidth: '6', cursorborderradius: '10px', background: '#F7F7F7', cursorborder: '', zindex: '1000'});
-        //for sidebar
-    //jQuery("#sidebar").niceScroll({styler:"fb",cursorcolor:"#007AFF", cursorwidth: '3', cursorborderradius: '10px', background: '#F7F7F7', cursorborder: ''});
-        // for scroll panel
-    //jQuery(".scroll-panel").niceScroll({styler:"fb",cursorcolor:"#007AFF", cursorwidth: '3', cursorborderradius: '10px', background: '#F7F7F7', cursorborder: ''});
-    
+
     //sidebar dropdown menu
     jQuery('#sidebar .sub-menu > a').click(function () {
         var last = jQuery('.sub-menu.open', jQuery('#sidebar'));        
@@ -83,6 +74,7 @@ function initializeJS() {
             showCancelButton: true,   
             confirmButtonColor: "#DD6B55",   
             confirmButtonText: $this.data('confirm-delete'),   
+            cancelButtonText: "Cancelar",  
             closeOnConfirm: false }, 
             function(isConfirm){   
                 if (isConfirm) {  
@@ -112,4 +104,75 @@ function initializeJS() {
 
 jQuery(document).ready(function(){
     initializeJS();
+});
+
+var CURRENT_URL = window.location.href.split('?')[0];
+
+function getPages(page) {
+    if(page) {
+        $.ajax({
+            url: page,
+            type:"GET",
+            dataType: 'json',
+            success: function(response) {
+                if(response.success){
+                    $('#load-content').html(response.view);
+                    CURRENT_URL = page;
+                }
+            },
+            error: function (status) {
+                console.log(status)
+            }
+        });
+    }
+}
+
+//open create show or edit in modal or content
+$(document).on('click', '.create-edit-show', function () {
+    $('[data-toggle="tooltip"]').tooltip('hide');
+    var $this = $(this);
+    var title = $this.attr("title");
+    if(!title) {
+        title = $this.data("title");
+    }
+    var message = $this.data("message");
+
+    current_model = $this.data('model');
+    if($this.data('current')){
+        CURRENT_URL = $this.data('current');
+    }
+    if($this.data('div')){
+        divId = $this.data('div');
+    } else {
+        divId = 'tab-content';
+    }
+    var href = $this.data('href');
+    if($this.data('url')){
+        href = $this.data('url');
+    }
+    $.ajax({
+        url: href,
+        type:'GET',
+        success: function(response) {
+            if(response.success){
+                if(current_model == 'modal') {
+                    $('#modal-title').text(title);
+                    $('#modal-title').html(title);
+                    $('#content-modal').html(response.view);
+                    $('#general-modal').modal('show');
+                } else {
+                    $('.top_search').hide();
+                    $('.btn-create').hide();
+                    current_title = $('#content-title').text();
+                    $('#content-title').text(title);
+                    $('#tab-content').html(response.view);
+                }
+            } else {
+                sweetAlert("Oops...", response.message, "error");
+            }
+        },
+        error: function (status) {
+            console.log(status.statusText);
+        }
+    });
 });

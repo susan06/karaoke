@@ -27,6 +27,8 @@ class BranchOffice extends Model
     	'radio',
     	'notification_email_song',
 	    'notification_email_reservation',
+        'reservation_time_max',
+        'reservation_time_min',
 		'geolocation',
         'status'
     ];

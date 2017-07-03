@@ -73,7 +73,7 @@
             <h4 class="modal-title">@lang('app.reservation_table'): <span id="num_table"></span></h4>
           </div>
           <div class="modal-body">
-            <div class="alert alert-info fade in">
+              <div class="alert alert-info fade in">
                 <button data-dismiss="alert" class="close close-sm" type="button">
                       <i class="icon-remove"></i>
                   </button>
@@ -89,10 +89,15 @@
                     </div>
                 </div>
                 <div class="row form-group">
-                    <label class="control-label col-lg-2 col-xs-3">@lang('app.hour')</label>
+                    <label class="control-label col-lg-2 col-xs-3">
+                    @lang('app.hour') 
+                    </label>
                     <div class="col-lg-4 col-sm-4 col-xs-12">
                         <input type="text" name="time" id="datetimepicker2" class="form-control" readonly="readonly" required="required" />
                     </div>
+                     @if(session('branch_office') && session('branch_office')->reservation_time_min && session('branch_office')->reservation_time_max) 
+                        Desde las {{ session('branch_office')->reservation_time_min }} Hasta las {{ session('branch_office')->reservation_time_max }}
+                      @endif
                 </div>
             </div>
           </div>
@@ -125,9 +130,24 @@
         ignoreReadonly: true
       });
 
+      var hour_min = moment({hour: 19, minute: 00}); 
+      var hour_max = moment({hour: 21, minute: 30}); 
+      var time_min_text = '7:00 PM';
+
+      @if(session('branch_office') && session('branch_office')->reservation_time_min && session('branch_office')->reservation_time_max) 
+        time_min_text = "{{ session('branch_office')->reservation_time_min }}";
+        var time_min = moment("{{ session('branch_office')->reservation_time_min }}","h:mm a").format("HH:mm");
+        var arr_time_min = time_min.split(':');
+        hour_min = moment({hour: parseInt(arr_time_min[0]), minute: parseInt(arr_time_min[1])});
+        var time_max = moment("{{ session('branch_office')->reservation_time_max }}","h:mm a").format("HH:mm");
+        var arr_time_max = time_max.split(':');
+        hour_max = moment({hour: parseInt(arr_time_max[0]), minute: parseInt(arr_time_max[1])});
+      @endif      
+
      $('#datetimepicker2').datetimepicker({
         format: 'LT',
-        //minDate: moment().add(2,'hours'),
+        minDate: hour_min,
+        maxDate: hour_max,
         ignoreReadonly: true
      });
    
@@ -135,7 +155,7 @@
       $this = $(this); 
       var table = $this.data("id");
       document.getElementById("datetimepicker1").value = "";
-      document.getElementById("datetimepicker2").value = "7:00 PM";
+      document.getElementById("datetimepicker2").value = time_min_text;
       document.getElementById("table").value = table;
       $("#num_table").text(table);
       $('#myModal').modal("show");
@@ -151,6 +171,7 @@ $(document).on('click', '#btn-reserved', function (e) {
           data: $('#form_resersar').serialize(),
           dataType: 'json',
           success: function(response) {
+            //console.log(response);
              if(response.success) {  
                   $this.prop('disabled', true);                    
                   $this.addClass("button-danger");

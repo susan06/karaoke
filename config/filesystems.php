@@ -63,6 +63,11 @@ return [
             'root' => public_path('/upload/login'),
         ],
 
+        'groupfie' => [
+            'driver' => 'local',
+            'root' => public_path('/upload/groupfie')
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

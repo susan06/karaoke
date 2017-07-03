@@ -19,6 +19,8 @@ class CreateBranchOfficesTable extends Migration
             $table->string('email_song');
             $table->boolean('notification_email_song')->default(true);  
             $table->string('email_reservations');
+            $table->string('reservation_time_min')->nullable();
+            $table->string('reservation_time_max')->nullable();
             $table->boolean('notification_email_reservation')->default(true);  
             $table->double('lat');
             $table->double('lng');

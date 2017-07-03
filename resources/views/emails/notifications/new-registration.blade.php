@@ -1,3 +1,7 @@
+@extends('emails.layout')
+
+@section('content')
+
 <p>@lang('app.hi') {{ $user->present()->nameOrEmail }},</p>
 
 <p>@lang('app.new_user_was_registered_on', ['app' => Settings::get('app_name')])</p>
@@ -8,3 +12,5 @@
 
 @lang('app.many_thanks'), <br/>
 {{ Settings::get('app_name') }}
+
+@endsection

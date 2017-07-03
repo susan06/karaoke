@@ -130,6 +130,7 @@ $(document).on('click', '.btn-apply-for', function() {
         showCancelButton: true,   
         confirmButtonColor: "#DD6B55",   
         confirmButtonText: $this.data('confirm'),   
+        cancelButtonText: "Cancelar",  
         closeOnConfirm: false }, 
         function(isConfirm){   
             if (isConfirm) {  

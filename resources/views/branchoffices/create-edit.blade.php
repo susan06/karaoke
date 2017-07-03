@@ -65,6 +65,18 @@
                               </div>
                           </div>
                           <div class="form-group">
+                              <label class="control-label col-lg-2">Hora comienzo Reservas<span class="required">*</span></label>
+                              <div class="col-lg-6">
+                                  {!! Form::text('reservation_time_min', old('reservation_time_min'), ['class' => 'form-control', 'id' => 'reservation_time_min', 'required' => 'required', 'readOnly' => 'readOnly' ]) !!}
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <label class="control-label col-lg-2">Hora limite Reservas<span class="required">*</span></label>
+                              <div class="col-lg-6">
+                                  {!! Form::text('reservation_time_max', old('reservation_time_max'), ['class' => 'form-control', 'id' => 'reservation_time_max', 'required' => 'required', 'readOnly' => 'readOnly' ]) !!}
+                              </div>
+                          </div>
+                          <div class="form-group">
                               <label class="control-label col-lg-2">Latitud <span class="required">*</span></label>
                               <div class="col-lg-6">
                                   {!! Form::text('lat', old('lat'), ['class' => 'form-control', 'placeholder' => 'Latitud', 'required' => 'required' ]) !!}
@@ -128,10 +140,21 @@
     
     {!! HTML::script('assets/plugins/bootstrap-switch/bootstrap-switch.min.js') !!}
     {!! HTML::script('vendor/jsvalidation/js/jsvalidation.min.js') !!}
+    {!! HTML::script('assets/js/bootstrap-datetimepicker.min.js') !!}
     
     <script type="text/javascript">
       $(document).ready(function () {
         $(".switch").bootstrapSwitch({size: 'small'});
+      });
+
+      $('#reservation_time_min').datetimepicker({
+        format: 'LT',
+        ignoreReadonly: true
+      });
+
+      $('#reservation_time_max').datetimepicker({
+        format: 'LT',
+        ignoreReadonly: true
       });
     </script>
     @if($edit)

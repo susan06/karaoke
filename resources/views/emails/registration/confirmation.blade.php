@@ -1,3 +1,7 @@
+@extends('emails.layout')
+
+@section('content')
+
 <h1>{{ Settings::get('app_name') }}</h1>
 <p>@lang('app.thank_you_for_registering', ['app' => Settings::get('app.name')])</p>
 
@@ -11,3 +15,5 @@
 
 @lang('app.many_thanks'), <br/>
 {{ Settings::get('app_name') }}
+
+@endsection

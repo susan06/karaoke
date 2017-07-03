@@ -1,3 +1,7 @@
+@extends('emails.layout')
+
+@section('content')
+
 <p>@lang('app.request_for_password_reset_made')</p>
 
 <p>@lang('app.click_on_link_below')</p>
@@ -10,3 +14,5 @@
 
 @lang('app.many_thanks'), <br/>
 {{ Settings::get('app_name') }}
+
+@endsection

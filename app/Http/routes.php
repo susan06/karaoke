@@ -366,14 +366,38 @@ Route::post('reservations/status/update',
     'ReservationsController@updateStatus')
     ->name('reservation.status.update');
 
+Route::post('reservations/arrival/update',
+    'ReservationsController@updateArrival')
+    ->name('reservation.arrival.update');
+
 Route::post('reservations/by/client/ajax',
     'ReservationsController@reserveByClient')
     ->name('reservation.client.ajax');
+
+Route::post('reservations/by/admin/ajax',
+    'ReservationsController@reserveByAdmin')
+    ->name('reservation.admin.ajax');
 
 Route::post('reservations/delete', [
     'as' => 'reservation.delete',
     'uses' => 'ReservationsController@delete'
 ]);
+
+Route::post('reservations/upload/groupfie',
+    'ReservationsController@uploadGroupfie')
+    ->name('reservation.upload.groupfie');
+
+Route::post('reservations/send/groupfie',
+    'ReservationsController@sendGroupfie')
+    ->name('reservation.send.groupfie');
+
+Route::get('reservations/groupfie/show/{id}',
+    'ReservationsController@showGroupfie')
+    ->name('reservation.groupfie.show');
+
+Route::post('reservations/groupfie/coupon/update',
+    'ReservationsController@updateCouponGroupfie')
+    ->name('reservation.update.status.coupon');
 
 /* Branch Offices Adminitration */
 Route::resource('branch-office', 'BranchOfficeController');
@@ -417,3 +441,42 @@ Route::post('event/delete/participant', [
 ]);
 
 Route::resource('event', 'EventController');
+
+Route::get('/file-storage/{folder}/{file}', function($folder = null, $file = null)
+{
+  $path = storage_path().'/app/'.$folder.'/'.$file;
+  if (file_exists($path)) {
+    return response()->file($path);
+  } else {
+    return false;
+  }
+});
+
+Route::get('/img-file/{folder}/{image}', function($folder = null, $image = null)
+{
+  $path = storage_path().'/app/'.$folder.'/'.$image;
+  if (file_exists($path)) {
+    return response()->file($path);
+  }
+});
+
+Route::get('/public-img/{folder}/{image}', function($folder = null, $image = null)
+{
+  $path = public_path().'/'.$folder.'/'.$image;
+  if (file_exists($path)) {
+    return response()->file($path);
+  }
+});
+
+Route::get('/upload-img/{folder}/{image}', function($folder = null, $image = null)
+{
+  $path = public_path().'/upload/'.$folder.'/'.$image;
+  if (file_exists($path)) {
+    return response()->file($path);
+  }
+});
+
+Route::get('reservation/reminder', [
+    'as' => 'reservation.reminder',
+    'uses' => 'CronController@reminder'
+]);

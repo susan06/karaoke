@@ -91,6 +91,8 @@
 
     @include('partials.sucursales')
 
+    @include('partials.modals')
+
     {!! HTML::script('assets/js/jquery-1.11.1.min.js') !!}
 
     {!! HTML::script('assets/js/jquery.js') !!}

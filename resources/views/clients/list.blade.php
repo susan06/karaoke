@@ -50,6 +50,7 @@
                        <table class="table">
                             <thead>
                             <tr>
+                                <th># Cliente</th>
                                 <th>@lang('app.full_name')</th>
                                 <th>@lang('app.email')</th>
                                 <th>@lang('app.status')</th>
@@ -60,6 +61,7 @@
                             @if (count($users))
                                 @foreach ($users as $user) 
                                     <tr>
+                                        <td>{{ $user->client_id }}</td>
                                         <td>{{ $user->first_name . ' ' . $user->last_name }}</td>
                                         <td>{{ $user->email }}</td>
                                         <td>
