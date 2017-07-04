@@ -624,6 +624,7 @@ return [
     'discount' => 'Descuento',
     'coupons_of' => 'Cupones de ',
     'content_coupon' => 'Descuento del: :percentage %, Use este cupón para recibir el descuento',
-
+    'new_songs' => 'Nuevas canciones',
+ 
  
 ];

@@ -114,6 +114,12 @@
                       </a>
                   </li>
                   <li class="">
+                      <a href="{{route('song.new')}}" class="">
+                          <i class="icon_star"></i>
+                          <span>@lang('app.new_songs')</span>
+                      </a>
+                  </li>
+                  <li class="">
                       <a href="{{route('song.my_list')}}" class="">
                           <i class="icon_ul"></i>
                           <span>@lang('app.my_list')</span>

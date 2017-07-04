@@ -344,6 +344,11 @@ Route::group([
     Route::get('/play',
         'SongsController@playSong')
         ->name('song.dj.play');
+
+    Route::get('/news',
+        'SongsController@newSongs')
+        ->name('song.new');
+
 });
 
 /*

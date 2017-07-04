@@ -3,7 +3,7 @@
 namespace App\Repositories\Song;
 
 use DB;
-
+use Carbon\Carbon;
 use App\Song;
 use App\Repositories\Repository;
 
@@ -188,6 +188,21 @@ class EloquentSong extends Repository implements SongRepository
         if ($save) {
             $this->model->create($attributes);
         } 
+    }
+
+    /**
+     * Paginate news songs.
+     *
+     */
+    public function news($perPage)
+    {
+        $query = Song::query();
+        $query->whereYear('created_at', '=', Carbon::today()->year);
+        $query->whereMonth('created_at', '=', Carbon::today()->month);
+
+        $result = $query->paginate($perPage);
+
+        return $result;
     }
 
 }

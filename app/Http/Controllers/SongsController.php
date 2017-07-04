@@ -352,4 +352,17 @@ class SongsController extends Controller
         
     }
 
+    /**
+     * List news songs
+     *
+     * @return \Illuminate\View\View
+     */
+    public function newSongs(Request $request)
+    {
+        $perPage = 10;
+        $songs = $this->songs->news($perPage);
+
+        return view('songs.news', compact('songs'));
+    }
+
 }

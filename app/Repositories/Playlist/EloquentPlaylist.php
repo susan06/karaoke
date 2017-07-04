@@ -28,10 +28,11 @@ class EloquentPlaylist extends Repository implements PlaylistRepository
     public function myList($perPage, $search = null, $user = null, $admin = null) 
     {
  		$query = Playlist::where('user_id', '=', $user)
+            ->select(['*', DB::raw('count(song_id) as count')])
             ->where('branch_office_id', '=', session('branch_office')->id)
-    		->orderBy('created_at', 'DESC')
-    		->groupBy('song_id')
-    		->select(['*', DB::raw('count(song_id) as count')]);
+    		->orderBy('count', 'DESC')
+    		->groupBy('song_id');
+    		
 
         if ($search) {
         	$query->whereHas(

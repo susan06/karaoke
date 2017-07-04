@@ -60,4 +60,10 @@ interface SongRepository extends RepositoryInterface
      */
     public function import(array $attributes);
 
+    /**
+     * Paginate news songs.
+     *
+     */
+    public function news($perPage);
+
 }
