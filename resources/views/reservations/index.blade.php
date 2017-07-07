@@ -272,6 +272,15 @@ $(document).on('click', '.btn-status', function() {
         next_status = 1;
         status_text = '<span class="label label-danger">Rechazada</span>';
     } 
+    var msg = "Cambiando el estado de la reserva, enviando notificación al cliente a su email";
+    @if (Auth::user()->hasRole('user'))
+      msg = "Cambiando el estado de la reserva.";
+    @endif
+    swal({
+        title: msg,
+        imageUrl: "{{ url('/public-img/images/loading-1.gif') }}",
+        showConfirmButton: false
+    });
     $.ajax({
         type: 'post',
         url: '{{route("reservation.status.update")}}',
@@ -289,6 +298,7 @@ $(document).on('click', '.btn-status', function() {
                     $this.text('Aprobar Reserva');
                 }
             }
+            swal.close();
         }
     }) 
 })
