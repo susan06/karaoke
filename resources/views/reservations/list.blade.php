@@ -43,7 +43,6 @@
                                 </a>
                           </td>
                           @endif
-                            <input type="hidden" id="input_status_{{$reservation->id}}" value="{{ $reservation->nextStatus() }}"/>
                           <td id="status_{{$reservation->id}}">
                           @if(! $reservation->status == 0)
                               @if($reservation->status == 1)
@@ -67,6 +66,8 @@
                          <button class="btn btn-lg btn-sm btn-xs btn-success create-edit-show {{ ($reservation->groupfie) ? 'block' : 'hide' }}" 
                             data-id="{{$reservation->id}}" title="Ver GROUPFIE - Cupón" data-title="Ver GROUPFIE - Cupón (Reservación # {{ $reservation->num_reservation() }})" data-href="{{ route('reservation.groupfie.show', $reservation->id) }}" data-model="modal" data-toggle="tooltip" data-placement="top" id="show-groupfie-{{$reservation->id}}"> GROUPFIE / Cupón
                           </button>
+
+                         <input type="hidden" id="input_status_{{$reservation->id}}" value="{{ $reservation->nextStatus() }}"/>
                          
                           @if (Auth::user()->hasRole('user') && $reservation->status == 1 && (date('Y-m-d') == $reservation->date))
                             @if(!$reservation->arrival)

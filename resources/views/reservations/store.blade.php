@@ -165,17 +165,22 @@ $(document).on('click', '#btn-reserved', function (e) {
     e.preventDefault();
     $('#myModal').modal("hide");
     if($("#datetimepicker1").val() && $("#datetimepicker2").val() && $("#table").val()) {
+      swal({
+        title: "Estamos guardando su reserva, esperar por favor",
+        imageUrl: "{{ url('/public-img/images/loading-1.gif') }}",
+        showConfirmButton: false
+      });
       $.ajax({
           url: "{{route('reservation.client.ajax')}}",
           type: 'post',
           data: $('#form_resersar').serialize(),
           dataType: 'json',
-          success: function(response) {
-            //console.log(response);
+          success: function(response) {          
              if(response.success) {  
                   $this.prop('disabled', true);                    
                   $this.addClass("button-danger");
                   $this.removeClass("reserv");
+                  swal.close();
               } else {
                   $(".reserv").removeClass("button-danger");
                   swal("@lang('app.info')", response.message, "error");

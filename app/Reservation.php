@@ -54,6 +54,10 @@ class Reservation extends Model
             case 2:
                 $class = 1;
                 break;
+
+            case 3:
+                $class = 0;
+                break;
         }
 
         return $class;
