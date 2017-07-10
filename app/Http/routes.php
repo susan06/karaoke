@@ -347,7 +347,7 @@ Route::group([
 
     Route::get('/news',
         'SongsController@newSongs')
-        ->name('song.new');
+        ->name('song.new')->middleware('sucursal');
 
 });
 
@@ -362,6 +362,10 @@ Route::get('reservations',
 Route::get('reservations/clients',
     'ReservationsController@adminIndex')
     ->name('reservation.adminIndex');
+
+Route::get('reservations/branchs',
+    'ReservationsController@index')
+    ->name('reservation.client.index')->middleware('sucursal');
 
 Route::get('reservations/store',
     'ReservationsController@clientStore')

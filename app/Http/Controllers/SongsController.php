@@ -362,6 +362,11 @@ class SongsController extends Controller
         $perPage = 10;
         $songs = $this->songs->news($perPage);
 
+        if ($request->branch_office_id) {
+            $branch_office = $this->branch_offices->find($request->branch_office_id);
+            session()->put('branch_office', $branch_office); 
+        }
+
         return view('songs.news', compact('songs'));
     }
 
