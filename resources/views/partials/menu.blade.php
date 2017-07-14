@@ -139,7 +139,7 @@
                       </a>
                       <ul class="sub">
                           <li><a class="" href="{{route('reservation.clientStore')}}">@lang('app.reservation_table')</a></li>
-                          <li><a class="" href="{{route('reservation.client.index')}}">@lang('app.my_reservations')</a></li>
+                          <li><a class="" href="{{route('reservation.index')}}">@lang('app.my_reservations')</a></li>
                       </ul>
                   </li>
                   <li class="{{ Request::is('contests*') ? 'active' : ''  }}">

@@ -68,7 +68,7 @@
                                     <a href="{{route('reservation.clientStore')}}"><i class="icon_refresh"></i> @lang('app.reservations')</a>
                                 </li>
                                 <li class="">
-                                    <a href="{{route('reservation.client.index')}}"><i class="icon_ul"></i> @lang('app.my_reservations')</a>
+                                    <a href="{{route('reservation.index')}}"><i class="icon_ul"></i> @lang('app.my_reservations')</a>
                                 </li>
                                 <li class="">
                                     <a href="{{route('event.contests')}}"><i class="icon_ul"></i> @lang('app.contests')</a>
