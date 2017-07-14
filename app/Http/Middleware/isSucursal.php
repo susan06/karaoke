@@ -43,11 +43,13 @@ class isSucursal
                   return redirect()->route('dashboard');
                 }
             }
+
+            return $next($request);
+
         } else {
 
             return redirect()->guest('login');
         }
 
-        //return $next($request);
     }
 }
