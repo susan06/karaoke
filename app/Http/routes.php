@@ -357,7 +357,7 @@ Route::group([
 
 Route::get('reservations',
     'ReservationsController@index')
-    ->name('reservation.index')->middleware('sucursal');
+    ->name('reservation.index');
 
 Route::get('reservations/clients',
     'ReservationsController@adminIndex')
