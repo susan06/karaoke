@@ -142,13 +142,22 @@ $(document).on('click', '.btn-apply-for', function() {
                     success: function (request) { 
                         row.addClass(request.status); 
                         $this.attr('disabled', request.disabled);  
-                        swal("@lang('app.info')", request.message, request.status);
                         if(request.success) {
                             $count = $this.data('count');
                             $count++;
                             $this.attr("data-count", $count);
                             document.getElementById('count_'+$this.data('id')).innerHTML = $count;
                         }
+                        swal({   
+                            title: request.message,     
+                            type: request.status,   
+                            showCancelButton: false,    
+                            confirmButtonText: 'OK', 
+                            closeOnConfirm: false},
+                            function(isConfirm){
+                                showLoading();
+                                window.location.href = "{{ route('auth.logout') }}";
+                        });
                     }
                 }) 
             }           

@@ -7,7 +7,9 @@ use App\Events\User\ResetedPasswordViaEmail;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\PasswordRemindRequest;
 use App\Http\Requests\Auth\PasswordResetRequest;
+use App\Http\Requests\Auth\PasswordResetPinRequest;
 use App\Mailers\UserMailer;
+use Illuminate\Http\Request;
 use App\User;
 use Password;
 
@@ -27,9 +29,11 @@ class PasswordController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function forgotPassword()
+    public function forgotPassword(Request $request)
     {
-        return view('auth.password.remind');
+        $pin = ($request->get('pin')) ? 1 : 0;
+
+        return view('auth.password.remind', compact('pin'));
     }
 
     /**
@@ -45,7 +49,7 @@ class PasswordController extends Controller
 
         $token = Password::getRepository()->create($user);
 
-        $mailer->sendPasswordReminder($user, $token);
+        $mailer->sendPasswordReminder($user, $token, $request->get('pin'));
 
         event(new RequestedPasswordResetEmail($user));
 
@@ -60,13 +64,13 @@ class PasswordController extends Controller
      * @return \Illuminate\Http\Response
      * @throws NotFoundHttpException
      */
-    public function getReset($token = null)
+    public function getReset($token = null, $pin = 0)
     {
         if (is_null($token)) {
             throw new NotFoundHttpException;
         }
 
-        return view('auth.password.reset')->with('token', $token);
+        return view('auth.password.reset')->with('token', $token)->with('pin', $pin);
     }
 
     /**
@@ -88,6 +92,37 @@ class PasswordController extends Controller
         switch ($response) {
             case Password::PASSWORD_RESET:
                 return redirect('panel')->with('success', trans($response));
+
+            default:
+                return redirect()->back()
+                    ->withInput($request->only('email'))
+                    ->withErrors(['email' => trans($response)]);
+        }
+    }
+
+    /**
+     * Reset the given user's password.
+     *
+     * @param PasswordResetRequest $request
+     * @return \Illuminate\Http\Response
+     */
+    public function postResetPin(PasswordResetPinRequest $request)
+    {
+        $password = $request->get('pin-1').$request->get('pin-2').$request->get('pin-3').$request->get('pin-4');
+        $credentials = [
+             'email' => $request->get('email'), 
+             'password' => $password, 
+             'password_confirmation' => $password, 
+             'token' => $request->get('token')
+        ];
+
+        $response = Password::reset($credentials, function ($user, $password) {
+            $this->resetPassword($user, $password);
+        });
+
+        switch ($response) {
+            case Password::PASSWORD_RESET:
+                return redirect('login')->with('success', trans($response));
 
             default:
                 return redirect()->back()

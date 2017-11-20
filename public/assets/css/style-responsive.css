@@ -227,6 +227,10 @@
 
 @media (max-width: 480px) {
 
+    .login-img-body .login-form {
+        margin: 135px auto 0;
+    }
+
     .notification-row,.task_notificatoin_bar, .search-row,.knob-charts, .dont-show , .inbox-head .sr-input, .inbox-head .sr-btn{
         display: none;
     }

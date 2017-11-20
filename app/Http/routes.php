@@ -4,7 +4,10 @@
  * Authentication
  */
 
-Route::get('login', 'Auth\AuthController@getLoginFacebook');
+Route::get('login', 'Auth\AuthController@getLoginPin');
+Route::post('login', 'Auth\AuthController@postLoginPin');
+
+//Route::get('login', 'Auth\AuthController@getLoginFacebook');
 
 Route::get('/panel', [
     'as' => 'get.panel',
@@ -31,9 +34,9 @@ Route::get('register/confirmation/{token}', [
 
 Route::get('password/remind', 'Auth\PasswordController@forgotPassword');
 Route::post('password/remind', 'Auth\PasswordController@sendPasswordReminder');
-Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
+Route::get('password/reset/{token}/{pin}', 'Auth\PasswordController@getReset');
 Route::post('password/reset', 'Auth\PasswordController@postReset');
-
+Route::post('password/reset/client', 'Auth\PasswordController@postResetPin');
 /**
  * Social Facebook Login
  */

@@ -126,7 +126,16 @@ $(document).ready(function(e){
                             success: function (request) { 
                                 row.addClass(request.status); 
                                 $this.attr('disabled', request.disabled);  
-                                swal("@lang('app.info')", request.message, request.status);
+                                swal({   
+                                    title: request.message,     
+                                    type: request.status,   
+                                    showCancelButton: false,    
+                                    confirmButtonText: 'OK', 
+                                    closeOnConfirm: false},
+                                    function(isConfirm){
+                                        showLoading();
+                                        window.location.href = "{{ route('auth.logout') }}";
+                                });
                             }
                         }) 
                     }           

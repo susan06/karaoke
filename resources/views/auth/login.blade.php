@@ -24,7 +24,7 @@ width: 100%;
             <p class="login-img"><i class="icon_lock_alt blue"></i></p>
             <div class="input-group">
               <span class="input-group-addon"><i class="icon_profile"></i></span>
-              <input type="text" name="username" id="username" class="form-control" placeholder="@lang('app.email_or_username')" autofocus>
+              <input type="text" name="username" id="username" class="form-control" placeholder="@lang('app.email_or_username')" value="" autofocus>
             </div>
             <div class="input-group">
                 <span class="input-group-addon"><i class="icon_key_alt"></i></span>

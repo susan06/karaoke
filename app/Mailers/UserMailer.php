@@ -15,10 +15,10 @@ class UserMailer extends AbstractMailer
         $this->sendTo($user->email, $subject, $view, $data);
     }
 
-    public function sendPasswordReminder(User $user, $token)
+    public function sendPasswordReminder(User $user, $token, $pin = 0)
     {
         $view = 'emails.password.remind';
-        $data = ['user' => $user, 'token' => $token];
+        $data = ['user' => $user, 'token' => $token, 'pin' => $pin];
         $subject = 'Password Reset Required';
 
         $this->sendTo($user->email, $subject, $view, $data);

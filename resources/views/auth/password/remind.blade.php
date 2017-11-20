@@ -17,6 +17,7 @@ background-size: cover;
 @section('content')
 
   {!! Form::open(['class' => 'login-form', 'id' => 'remind-password-form']) !!}    
+        <input type="hidden" name="pin" value="{{ $pin }}">
         <div class="login-wrap">
             <p>@lang('app.forgot_your_password')</p>
             <div class="form-group">

@@ -6,6 +6,7 @@ use App\Events\User\LoggedIn;
 use App\Events\User\LoggedOut;
 use App\Events\User\Registered;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\Auth\LoginPinRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Mailers\UserMailer;
 use App\Repositories\Role\RoleRepository;
@@ -57,6 +58,18 @@ class AuthController extends Controller
     }
 
     /**
+     * Show the application login form by PIN.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getLoginPin()
+    {
+        session()->put('login', 'user');
+
+        return view('auth.loginPin');
+    }
+
+    /**
      * Handle a login request to the application.
      *
      * @param LoginRequest $request
@@ -105,6 +118,63 @@ class AuthController extends Controller
         Auth::login($user, $request->get('remember'));
 
         return $this->handleUserWasAuthenticated($request, $throttles, $user);
+    }
+
+    /**
+     * Handle a login request to the application by Pin.
+     *
+     * @param LoginPinRequest $request
+     * @return \Illuminate\Http\Response
+     */
+    public function postLoginPin(LoginPinRequest $request)
+    {
+        $throttles = Config('auth.throttle_enabled');
+        $username = $request->get('username');
+        $password = $request->get('pin-1').$request->get('pin-2').$request->get('pin-3').$request->get('pin-4');
+
+        $credentials = $this->getPinCredentials($username, $password);
+
+        if (! Auth::validate($credentials)) {
+
+            return redirect()->to('login')->withErrors(trans('auth.failed'));
+        }
+
+        $user = Auth::getProvider()->retrieveByCredentials($credentials);
+
+        if ($user->isBanned()) {
+            return redirect()->to('login')->withErrors(trans('app.your_account_is_banned'));
+        }
+
+        Auth::login($user, true);
+
+        $user->update(['last_login' => Carbon::now()]);
+
+        session()->put('username', $user->username);
+
+        return redirect()->intended('/');
+    }
+
+    /**
+     * Get the needed authorization credentials from the request.
+     *
+     * @param  Request  $request
+     * @return array
+     */
+    protected function getPinCredentials($username, $password)
+    {
+        $usernameOrEmail = $username;
+
+        if ($this->isEmail($usernameOrEmail)) {
+            return [
+                'email' => $usernameOrEmail,
+                'password' => $password
+            ];
+        }
+
+        return [
+            'username' => $usernameOrEmail,
+            'password' =>  $password
+        ];
     }
 
     /**
@@ -348,9 +418,7 @@ class AuthController extends Controller
      */
     public function getRegister()
     {
-        $socialProviders = config('auth.social.providers');
-
-        return view('auth.register', compact('socialProviders'));
+        return view('auth.register-pin');
     }
 
     /**
@@ -362,35 +430,25 @@ class AuthController extends Controller
      */
     public function postRegister(RegisterRequest $request, UserMailer $mailer, RoleRepository $roles)
     {
-        // Determine user status. User's status will be set to UNCONFIRMED
-        // if he has to confirm his email or to ACTIVE if email confirmation is not required
-        $status = Config('auth.reg_email_confirmation')
-            ? UserStatus::UNCONFIRMED
-            : UserStatus::ACTIVE;
+        $status = UserStatus::ACTIVE;
+        $password = $request->get('pin-1').$request->get('pin-2').$request->get('pin-3').$request->get('pin-4');
 
         // Add the user to database
         $user = $this->users->create(array_merge(
-            $request->only('email', 'username', 'password'),
-            ['status' => $status]
+            $request->only('email', 'username', 'first_name', 'last_name'),
+            [
+                'status' => $status,
+                'password' => $password
+            ]
         ));
 
         $this->users->updateSocialNetworks($user->id, []);
 
         $role = $roles->findByName('User');
         $this->users->setRole($user->id, $role->id);
+        $message = trans('app.account_created_login');
 
-        // Check if email confirmation is required,
-        // and if it does, send confirmation email to the user.
-        if (Config('auth.reg_email_confirmation')) {
-            $this->sendConfirmationEmail($mailer, $user);
-            $message = trans('app.account_create_confirm_email');
-        } else {
-            $message = trans('app.account_created_login');
-        }
-
-        event(new Registered($user));
-
-        return redirect('panel')->with('success', $message);
+        return redirect('login')->with('success', $message);
     }
 
     /**

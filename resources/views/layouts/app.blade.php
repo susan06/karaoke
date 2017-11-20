@@ -72,6 +72,8 @@
   <section id="container">
       <!--header start-->
 
+    <div class="loader loader-default" id="loading"></div>
+
     @include('partials.header')
 
     @if (!Auth::user()->hasRole('dj'))

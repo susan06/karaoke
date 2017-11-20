@@ -124,7 +124,9 @@ tr:nth-of-type(2n+0) {
     background: rgba(213,215,222,0.9);
 }
 .login-form a{
-    color: #688a7e !important;
+    color: #333836 !important;
+    font-size: 18px;
+    font-weight: normal;
 }
 .login-form h2.login-form-heading {
     margin: 0;
@@ -206,12 +208,6 @@ tr:nth-of-type(2n+0) {
 .login-img3-body .login-form p,.login-img2-body .login-form p {
     color: #34aadc;
 }
-.login-form a {
-    color: #b6b6b6;
-    font-size: 16px;
-    font-weight: normal;
-}
-
 .login-form a:hover {
     color: #34aadc;
     font-weight: bold;
@@ -5416,3 +5412,126 @@ button-c.button-c:disabled {
 .show {
     display: block;
 }
+
+.input-success {
+    border: 1px solid #4cd964 !important;
+}
+
+/************************************ loading *************************************/
+.loader {
+    color: #fff;
+    position: fixed;
+    box-sizing: border-box;
+    left: -9999px;
+    top: -9999px;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    z-index: 999999;
+    display: none;
+}
+
+.loader:after,
+.loader:before {
+    box-sizing: border-box
+}
+
+.loader.is-active {
+    background-color: rgba(0, 0, 0, 0.45);
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    display: block;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0) scale(1);
+        border-radius: 0;
+        background: #f3d53f
+    }
+    25%,
+    75% {
+        transform: rotate(180deg) scale(.4);
+        border-radius: 50%;
+        background: #0fd6ff
+    }
+    100% {
+        transform: rotate(360deg) scale(1);
+        border-radius: 0;
+        background: #f3d53f
+    }
+}
+
+@keyframes blink {
+    from {
+        opacity: .5
+    }
+    to {
+        opacity: 1
+    }
+}
+
+@keyframes cp-round-animate {
+    0% {
+        transform: rotate(0)
+    }
+    100% {
+        transform: rotate(360deg)
+    }
+}
+
+.loader[data-text]:before {
+    position: fixed;
+    left: 0;
+    top: 50%;
+    color: currentColor;
+    font-family: "Avenir", sans-serif;
+    text-align: center;
+    width: 100%;
+    font-size: 14px
+}
+
+.loader[data-text='']:before {
+    content: 'Loading'
+}
+
+.loader[data-text]:not([data-text='']):before {
+    content: attr(data-text)
+}
+
+.loader[data-text][data-blink]:before {
+    animation: blink 1s linear infinite alternate
+}
+
+.loader-default[data-text]:before {
+    top: calc(50% - 63px)
+}
+
+.loader-default:after {
+    border-radius: 50%;
+    content: " ";
+    width: 48px;
+    height: 48px;
+    display: inline-block;
+    box-sizing: border-box;
+    border-top: solid 6px #4CD964;
+    border-right: solid 6px #fff;
+    border-bottom: solid 6px #fff;
+    border-left: solid 6px #fff;
+    position: fixed;
+    top: calc(50% - 24px);
+    left: calc(50% - 24px);
+    animation: cp-round-animate 1s ease-in-out infinite
+}
+
+.loader-default[data-half]:after {
+    border-right-color: transparent
+}
+
+.loader-default[data-inverse]:after {
+    animation-direction: reverse
+}
+
+/********************** fin loading ***********************/

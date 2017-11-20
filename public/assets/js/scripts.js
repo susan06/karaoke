@@ -176,3 +176,11 @@ $(document).on('click', '.create-edit-show', function () {
         }
     });
 });
+
+function showLoading() {
+    $('#loading').addClass('is-active');
+}
+
+function hideLoading() {
+    $('#loading').removeClass('is-active'); 
+}
