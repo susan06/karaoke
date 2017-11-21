@@ -80,6 +80,7 @@ width: 100%;
             var p2 = document.getElementById("pin-2").value;
             var p3 = document.getElementById("pin-3").value;
             var p4 = document.getElementById("pin-4").value;
+            alert('hola');
             if(p1.length == 1 && p2.length == 1 && p3.length == 1 && p4.length == 1) {
                 $(".btn-pin-login").removeClass('disabled');
             } else {
