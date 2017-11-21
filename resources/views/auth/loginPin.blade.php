@@ -38,10 +38,10 @@ width: 100%;
               <input type="text" name="username" id="username" class="form-control" placeholder="@lang('app.email_or_username')" value="{{ (session('username')) ? session('username') : old('username') }}" autofocus>
             </div>
             <div class="input-group">
-                <input type="password" name="pin-1" id="pin-1" maxlength="1" onkeyup="return onlyNumber(event, 1);" class="input-pin input-first" autocomplete="off">
-                <input type="password" name="pin-2" id="pin-2" maxlength="1" disabled="disabled" onkeyup="return onlyNumber(event, 2);" class="input-pin" autocomplete="off">
-                <input type="password" name="pin-3" id="pin-3" maxlength="1" disabled="disabled" onkeyup="return onlyNumber(event, 3);" class="input-pin" autocomplete="off">
-                <input type="password" name="pin-4" id="pin-4" maxlength="1" disabled="disabled" onkeyup="return onlyNumber(event, 4);" class="input-pin input-last" autocomplete="off">
+                <input type="password" name="pin-1" id="pin-1" maxlength="1" data-order="1" class="input-pin input-first" autocomplete="off">
+                <input type="password" name="pin-2" id="pin-2" maxlength="1" disabled="disabled" data-order="2" class="input-pin" autocomplete="off">
+                <input type="password" name="pin-3" id="pin-3" maxlength="1" disabled="disabled" data-order="3" class="input-pin" autocomplete="off">
+                <input type="password" name="pin-4" id="pin-4" maxlength="1" disabled="disabled" data-order="4" class="input-pin input-last" autocomplete="off">
             </div>
             <label class="checkbox" style="padding-left: 0px;">
                 <span class="pull-left"> <a href="{{url('register')}}"> @lang('app.register')</a></span>
@@ -56,31 +56,35 @@ width: 100%;
 
 @section('scripts')
     <script type="text/javascript">
-        var count = 0;
-        function onlyNumber(e, order){
-            tecla = (document.all) ? e.keyCode : e.which;
+        function onlyNumber(tecla, order){
             if (tecla==8){
-                count = count - 1;
-                if(count < 0) {
-                    count = 0;
-                }
                 return true;
             }
             patron =/[1-9]/;
             tecla_final = String.fromCharCode(tecla);
-            if(patron.test(tecla_final)) {
-                count = count + 1;
-                if(count == 4) {
-                    $(".btn-pin-login").removeClass('disabled');
-                }
+            if(patron.test(tecla_final) && tecla_final >= 1 && tecla_final <= 9) {
                 $('#pin-'+order).addClass('input-success');
                 var next = order + 1;
                 $('#pin-'+next).prop('disabled', false);
                 $('#pin-'+next).focus();
                 return true;
             }
-            count = count - 1;
             return false;
         }
+
+        $(document).on('keyup', '.input-pin', function(evt){ 
+            var keyPressed = evt.which || evt.keyCode;
+            var order = $(this).data('order');
+            onlyNumber(keyPressed, order);  
+            var p1 = document.getElementById("pin-1").value;
+            var p2 = document.getElementById("pin-2").value;
+            var p3 = document.getElementById("pin-3").value;
+            var p4 = document.getElementById("pin-4").value;
+            if(p1.length == 1 && p2.length == 1 && p3.length == 1 && p4.length == 1) {
+                $(".btn-pin-login").removeClass('disabled');
+            } else {
+                $(".btn-pin-login").addClass('disabled');
+            }  
+        });    
     </script>
 @stop
