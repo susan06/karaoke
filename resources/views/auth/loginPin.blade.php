@@ -63,6 +63,7 @@ width: 100%;
             patron =/[1-9]/;
             tecla_final = String.fromCharCode(tecla);
             if(patron.test(tecla_final) && tecla_final >= 1 && tecla_final <= 9) {
+                alert(order);
                 $('#pin-'+order).addClass('input-success');
                 var next = order + 1;
                 $('#pin-'+next).prop('disabled', false);
@@ -80,7 +81,6 @@ width: 100%;
             var p2 = document.getElementById("pin-2").value;
             var p3 = document.getElementById("pin-3").value;
             var p4 = document.getElementById("pin-4").value;
-            alert('hola');
             if(p1.length == 1 && p2.length == 1 && p3.length == 1 && p4.length == 1) {
                 $(".btn-pin-login").removeClass('disabled');
             } else {
