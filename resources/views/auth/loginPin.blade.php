@@ -70,6 +70,7 @@ width: 100%;
                 $('#pin-'+next).focus();
                 return true;
             }
+            document.getElementById("pin-"+order).value = '';
             return false;
         }
 
