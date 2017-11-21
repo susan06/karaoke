@@ -134,6 +134,7 @@ $(document).on('click', '.btn-apply-for', function() {
         closeOnConfirm: false }, 
         function(isConfirm){   
             if (isConfirm) {  
+                showLoading();
                 $.ajax({
                     type: 'GET',
                     url: '{{route("song.apply.for")}}',
@@ -148,6 +149,7 @@ $(document).on('click', '.btn-apply-for', function() {
                             $this.attr("data-count", $count);
                             document.getElementById('count_'+$this.data('id')).innerHTML = $count;
                         }
+                        hideLoading(); 
                         swal({   
                             title: request.message,     
                             type: request.status,   
@@ -160,6 +162,7 @@ $(document).on('click', '.btn-apply-for', function() {
                         });
                     }
                 }) 
+                hideLoading(); 
             }           
         }) 
 })

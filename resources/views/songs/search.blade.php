@@ -118,6 +118,7 @@ $(document).ready(function(e){
                 function(isConfirm){   
                     if (isConfirm) { 
                         swal.close(); 
+                        showLoading();
                         $.ajax({
                             type: 'GET',
                             url: '{{route("song.apply.for")}}',
@@ -125,7 +126,8 @@ $(document).ready(function(e){
                             data: { 'id': $this.data('id') },
                             success: function (request) { 
                                 row.addClass(request.status); 
-                                $this.attr('disabled', request.disabled);  
+                                $this.attr('disabled', request.disabled); 
+                                hideLoading(); 
                                 swal({   
                                     title: request.message,     
                                     type: request.status,   
@@ -138,6 +140,7 @@ $(document).ready(function(e){
                                 });
                             }
                         }) 
+                        hideLoading(); 
                     }           
                 }) 
     });

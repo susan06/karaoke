@@ -134,6 +134,7 @@ $(document).on('click', '.btn-apply-for', function() {
         closeOnConfirm: false }, 
         function(isConfirm){   
             if (isConfirm) {  
+                showLoading();
                 $.ajax({
                     type: 'GET',
                     url: '{{route("song.apply.for")}}',
@@ -142,6 +143,7 @@ $(document).on('click', '.btn-apply-for', function() {
                     success: function (request) { 
                         row.addClass(request.status); 
                         $this.attr('disabled', request.disabled);  
+                        hideLoading(); 
                         swal({   
                             title: request.message,     
                             type: request.status,   
@@ -153,7 +155,8 @@ $(document).on('click', '.btn-apply-for', function() {
                                 window.location.href = "{{ route('auth.logout') }}";
                         });
                     }
-                }) 
+                })
+                hideLoading();  
             }           
         }) 
 })

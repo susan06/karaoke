@@ -102,13 +102,15 @@ $(document).on('click', '.btn-apply-for', function() {
         cancelButtonText: "Cancelar",    
         closeOnConfirm: false }, 
         function(isConfirm){   
-            if (isConfirm) {  
+            if (isConfirm) {
+            showLoading();  
                 $.ajax({
                     type: 'GET',
                     url: '{{route("song.apply.for")}}',
                     dataType: 'json',
                     data: { 'id': $this.data('id') },
                     success: function (request) { 
+                        hideLoading(); 
                         row.addClass(request.status); 
                         $this.attr('disabled', request.disabled);  
                         swal({   
@@ -123,6 +125,7 @@ $(document).on('click', '.btn-apply-for', function() {
                         });
                     }
                 }) 
+                hideLoading(); 
             }           
         }) 
 })
