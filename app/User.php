@@ -74,6 +74,14 @@ class User extends Model implements AuthenticatableContract,
         $this->attributes['password'] = bcrypt($value);
     }
 
+    public function setUsernameAttribute($value)
+    {
+        if($value) {
+            $this->attributes['username'] = strtolower($value);
+        }
+        
+    }
+
     public function setBirthdayAttribute($value)
     {
         $this->attributes['birthday'] = trim($value) ?: null;
