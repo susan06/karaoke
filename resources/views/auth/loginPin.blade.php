@@ -38,10 +38,10 @@ width: 100%;
               <input type="text" name="username" id="username" class="form-control" placeholder="@lang('app.email_or_username')" value="{{ (session('username')) ? session('username') : old('username') }}" autofocus>
             </div>
             <div class="input-group">
-                <input type="password" name="pin-1" id="pin-1" maxlength="1" onkeypress="return onlyNumber(event, 1);" class="input-pin input-first" autocomplete="off">
-                <input type="password" name="pin-2" id="pin-2" maxlength="1" disabled="disabled" onkeypress="return onlyNumber(event, 2);" class="input-pin" autocomplete="off">
-                <input type="password" name="pin-3" id="pin-3" maxlength="1" disabled="disabled" onkeypress="return onlyNumber(event, 3);" class="input-pin" autocomplete="off">
-                <input type="password" name="pin-4" id="pin-4" maxlength="1" disabled="disabled" onkeypress="return onlyNumber(event, 4);" class="input-pin input-last" autocomplete="off">
+                <input type="password" name="pin-1" id="pin-1" maxlength="1" onkeyup="return onlyNumber(event, 1);" class="input-pin input-first" autocomplete="off">
+                <input type="password" name="pin-2" id="pin-2" maxlength="1" disabled="disabled" onkeyup="return onlyNumber(event, 2);" class="input-pin" autocomplete="off">
+                <input type="password" name="pin-3" id="pin-3" maxlength="1" disabled="disabled" onkeyup="return onlyNumber(event, 3);" class="input-pin" autocomplete="off">
+                <input type="password" name="pin-4" id="pin-4" maxlength="1" disabled="disabled" onkeyup="return onlyNumber(event, 4);" class="input-pin input-last" autocomplete="off">
             </div>
             <label class="checkbox" style="padding-left: 0px;">
                 <span class="pull-left"> <a href="{{url('register')}}"> @lang('app.register')</a></span>
