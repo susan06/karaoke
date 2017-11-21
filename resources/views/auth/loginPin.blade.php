@@ -60,10 +60,10 @@ width: 100%;
             if (tecla==8){
                 return true;
             }
+             alert(tecla);
             patron =/[1-9]/;
             tecla_final = String.fromCharCode(tecla);
             if(patron.test(tecla_final) && tecla_final >= 1 && tecla_final <= 9) {
-                alert(order);
                 $('#pin-'+order).addClass('input-success');
                 var next = order + 1;
                 $('#pin-'+next).prop('disabled', false);
