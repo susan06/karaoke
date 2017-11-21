@@ -216,6 +216,7 @@ $(document).ready(function(e){
     function start_search() {
         if ($('#search').val()) { 
             searching(); 
+            showLoading();
             $.ajax({
                 type: 'get',
                 url: '{{route("song.search.ajax.client")}}',
@@ -223,9 +224,10 @@ $(document).ready(function(e){
                 data: { 'q': $('#search').val() },
                 success: function (response) {                           
                     $('#list_song').html(response);
+                    hideLoading();
                 },
                 error: function () {
-                   //
+                   hideLoading();
                 }
             })     
         } 
