@@ -44,7 +44,7 @@ width: 100%;
             <div class="input-group col-md-12 col-xs-12">
               <input type="text" name="email" id="email" class="form-control" placeholder="@lang('app.email')" value="{{ old('email') }}">
             </div>
-            <label class="checkbox">
+            <label class="checkbox" style="color: #191818;">
                 <span class="pull-left">Pin de 4 dígitos </span>
             </label>
             <div class="input-group col-md-12">
