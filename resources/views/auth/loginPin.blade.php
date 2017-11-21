@@ -72,7 +72,7 @@ width: 100%;
             return false;
         }
 
-        $(document).on('keyup', '.input-pin', function(evt){ 
+        $(document).on('keyup touchend', '.input-pin', function(evt){ 
             var keyPressed = evt.which || evt.keyCode;
             var order = $(this).data('order');
             onlyNumber(keyPressed, order);  
