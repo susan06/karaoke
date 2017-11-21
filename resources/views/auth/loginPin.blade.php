@@ -56,14 +56,9 @@ width: 100%;
 
 @section('scripts')
     <script type="text/javascript">
-        function onlyNumber(tecla, order){
-            if (tecla==8){
-                return true;
-            }
-            patron =/[1-9]/;
-            tecla_final = String.fromCharCode(tecla);
-            alert(tecla_final);
-            if(patron.test(tecla_final) && tecla_final >= 1 && tecla_final <= 9) {
+        function onlyNumber(order){
+            var tecla_final = document.getElementById("pin-"+order).value;
+            if(tecla_final >= 1 && tecla_final <= 9) {
                 $('#pin-'+order).addClass('input-success');
                 var next = order + 1;
                 $('#pin-'+next).prop('disabled', false);
@@ -75,9 +70,8 @@ width: 100%;
         }
 
         $(document).on('keyup touchend', '.input-pin', function(evt){ 
-            var keyPressed = evt.which || evt.keyCode;
             var order = $(this).data('order');
-            onlyNumber(keyPressed, order);  
+            onlyNumber(order);  
             var p1 = document.getElementById("pin-1").value;
             var p2 = document.getElementById("pin-2").value;
             var p3 = document.getElementById("pin-3").value;
