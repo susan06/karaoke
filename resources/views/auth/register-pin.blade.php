@@ -18,6 +18,7 @@ width: 100%;
     display: inline-block;  
     margin-right: 9px; 
     padding: 5px 18px;
+    text-align: center;
 }
 .input-first {
    margin-left: 0px; 
