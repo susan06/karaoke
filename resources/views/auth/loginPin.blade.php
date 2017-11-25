@@ -58,7 +58,7 @@ width: 100%;
     <script type="text/javascript">
         function onlyNumber(order){
             var tecla_final = document.getElementById("pin-"+order).value;
-            if(tecla_final >= 0 && tecla_final <= 9) {
+            if(tecla_final.length == 1 && tecla_final >= 0 && tecla_final <= 9) {
                 $('#pin-'+order).addClass('input-success');
                 var next = order + 1;
                 $('#pin-'+next).prop('disabled', false);
