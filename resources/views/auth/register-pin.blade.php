@@ -48,10 +48,10 @@ width: 100%;
                 <span class="pull-left">Pin de 4 dígitos </span>
             </label>
             <div class="input-group col-md-12">
-                <input type="password" name="pin-1" id="pin-1" maxlength="1" data-order="1" class="input-pin input-first">
-                <input type="password" name="pin-2" id="pin-2" maxlength="1" data-order="2" class="input-pin">
-                <input type="password" name="pin-3" id="pin-3" maxlength="1" data-order="3" class="input-pin">
-                <input type="password" name="pin-4" id="pin-4" maxlength="1" data-order="4" class="input-pin input-last">
+                <input type="tel" name="pin-1" id="pin-1" maxlength="1" pattern="[0-9]" data-order="1" class="input-pin input-first">
+                <input type="tel" name="pin-2" id="pin-2" maxlength="1" pattern="[0-9]" data-order="2" class="input-pin">
+                <input type="tel" name="pin-3" id="pin-3" maxlength="1" pattern="[0-9]" data-order="3" class="input-pin">
+                <input type="tel" name="pin-4" id="pin-4" maxlength="1" pattern="[0-9]" data-order="4" class="input-pin input-last">
             </div>
             <div class="input-group col-md-12 col-xs-12">
               <button class="btn btn-primary btn-lg btn-block" type="submit">@lang('app.register')</button>
@@ -65,7 +65,7 @@ width: 100%;
    <script>
         function onlyNumber(order){
             var tecla_final = document.getElementById("pin-"+order).value;
-            if(tecla_final >= 1 && tecla_final <= 9) {
+            if(tecla_final >= 0 && tecla_final <= 9) {
                 $('#pin-'+order).addClass('input-success');
                 var next = order + 1;
                 $('#pin-'+next).focus();
