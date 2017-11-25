@@ -17,7 +17,7 @@ width: 100%;
     width: 22.2%; 
     display: inline-block;  
     margin-right: 9px; 
-    padding: 10px 22px;
+    padding: 10px 20px;
 }
 .input-first {
    margin-left: 0px; 
