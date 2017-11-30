@@ -45,7 +45,7 @@ width: 100%;
             <div class="input-group col-md-12 col-xs-12">
               <input type="text" name="email" id="email" class="form-control" placeholder="@lang('app.email')" value="{{ old('email') }}">
             </div>
-            <label class="pin-text">
+            <label class="pin-text col-md-12 col-xs-12">
                 El pin será enviado al correo indicado
             </label>
             <div class="input-group col-md-12 col-xs-12">
@@ -65,7 +65,7 @@ width: 100%;
     function hideLoading() {
         $('#loading').removeClass('is-active'); 
     }
-    
+
     (function ($, document) {
         $(document).ready(function () {
             $("#login-form").on("submit", function () {
