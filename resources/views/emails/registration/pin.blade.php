@@ -7,7 +7,7 @@
 
 <p>@lang('app.confirm_pin')</p>
 
-<p style="text-align: center; font-weight: bold; font-size: 16px;">PIN: {{ $pin }}</p>
+<p style="font-weight: bold; font-size: 16px;">PIN: {{ $pin }}</p>
 
 
 @lang('app.many_thanks'), <br/>
