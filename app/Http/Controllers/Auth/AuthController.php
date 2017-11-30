@@ -431,7 +431,8 @@ class AuthController extends Controller
     public function postRegister(RegisterRequest $request, UserMailer $mailer, RoleRepository $roles)
     {
         $status = UserStatus::ACTIVE;
-        $password = $request->get('pin-1').$request->get('pin-2').$request->get('pin-3').$request->get('pin-4');
+        $password = $this->generateRandomString(4);
+        //$password = $request->get('pin-1').$request->get('pin-2').$request->get('pin-3').$request->get('pin-4');
 
         // Add the user to database
         $user = $this->users->create(array_merge(
@@ -442,14 +443,31 @@ class AuthController extends Controller
             ]
         ));
 
+        $mailer->sendPin($user, $password);
+
         $this->users->updateSocialNetworks($user->id, []);
 
         $role = $roles->findByName('User');
         $this->users->setRole($user->id, $role->id);
-        $message = trans('app.account_created_login');
+        $message = trans('app.email_pin_create_can_login');
 
         return redirect('login')->with('success', $message);
     }
+
+
+    /**
+     * generate random pin
+     *
+     */
+    public function generateRandomString($length) {
+        $characters = '123456789';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+     }
 
     /**
      * Confirm user's email.

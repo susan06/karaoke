@@ -416,11 +416,13 @@ return [
     'phone_without_country_code' => 'Teléfono sin código de país',
 
     'please_confirm_your_email_first' => 'Por favor confirme su dirección de correo electrónico primero.',
+    'confirm_pin' => 'A continuación se muestra su pin generado por el sistema.',
     'your_account_is_banned' => 'Su cuenta está prohibido por el administrador.',
     '2fa_token_invalid' => '2FA Token es invalida!',
     'account_create_confirm_email' => 'Su cuenta se creo con éxito! Por favor confirme su correo electrónico con el fin de conectarse.',
     'account_created_login' => 'Su cuenta se creo con éxito! Puede acceder ahora.',
     'email_confirmed_can_login' => 'Correo electrónico confirmada . Puede acceder ahora.',
+    'email_pin_create_can_login' => 'Su cuenta se creo con éxito! Por favor verifique su correo electrónico su PIN para poder conectarse.',
     'wrong_confirmation_token' => 'token de confirmación incorrecto.',
     'password_reset_email_sent' => 'Restablecimiento de contraseña de correo electrónico enviada. Compruebe su bandeja de entrada(y spam).',
     'only_users_with_account_can_login' => 'Sólo los usuarios que ya se ha creado una cuenta puede conectarse.',

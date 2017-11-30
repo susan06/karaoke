@@ -15,6 +15,15 @@ class UserMailer extends AbstractMailer
         $this->sendTo($user->email, $subject, $view, $data);
     }
 
+    public function sendPin($user, $pin)
+    {
+        $view = 'emails.registration.pin';
+        $data = ['pin' => $pin];
+        $subject = 'PIN';
+
+        $this->sendTo($user->email, $subject, $view, $data);
+    }
+
     public function sendPasswordReminder(User $user, $token, $pin = 0)
     {
         $view = 'emails.password.remind';

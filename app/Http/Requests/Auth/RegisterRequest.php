@@ -19,10 +19,10 @@ class RegisterRequest extends Request
             //'password' => 'required|confirmed|min:4',
             'first_name' => 'required',
             'last_name' => 'required',
-            'pin-1' => 'required|min:1|max:9|integer',
-            'pin-2' => 'required|min:1|max:9|integer',
-            'pin-3' => 'required|min:1|max:9|integer',
-            'pin-4' => 'required|min:1|max:9|integer',
+            //'pin-1' => 'required|min:1|max:9|integer',
+            //'pin-2' => 'required|min:1|max:9|integer',
+            //'pin-3' => 'required|min:1|max:9|integer',
+            //'pin-4' => 'required|min:1|max:9|integer',
         ];
 
     }

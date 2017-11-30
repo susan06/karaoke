@@ -36,6 +36,8 @@
 </head>
 <body class="login-img-body">
 
+    <div class="loader loader-default" id="loading"></div>
+
     <div class="container">
 
         @yield('content')

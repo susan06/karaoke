@@ -5535,3 +5535,11 @@ button-c.button-c:disabled {
 }
 
 /********************** fin loading ***********************/
+
+.pin-text {
+    color: #191818;
+    text-align: center;
+    font-size: 15px;
+    font-weight: unset;
+    padding: 0 5px;
+}
