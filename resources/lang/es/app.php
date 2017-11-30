@@ -422,7 +422,7 @@ return [
     'account_create_confirm_email' => 'Su cuenta se creo con éxito! Por favor confirme su correo electrónico con el fin de conectarse.',
     'account_created_login' => 'Su cuenta se creo con éxito! Puede acceder ahora.',
     'email_confirmed_can_login' => 'Correo electrónico confirmada . Puede acceder ahora.',
-    'email_pin_create_can_login' => 'Su cuenta se creo con éxito! Por favor verifique su correo electrónico su PIN para poder conectarse.',
+    'email_pin_create_can_login' => 'Su cuenta se creo con éxito! Por favor verifique en su correo electrónico, su PIN para poder conectarse.',
     'wrong_confirmation_token' => 'token de confirmación incorrecto.',
     'password_reset_email_sent' => 'Restablecimiento de contraseña de correo electrónico enviada. Compruebe su bandeja de entrada(y spam).',
     'only_users_with_account_can_login' => 'Sólo los usuarios que ya se ha creado una cuenta puede conectarse.',
