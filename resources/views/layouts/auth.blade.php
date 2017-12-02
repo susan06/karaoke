@@ -61,6 +61,17 @@
 
     @include('sweet::alert')
 
+    <script type="text/javascript">
+        function showLoading() {
+            $('#loading').addClass('is-active');
+        }
+
+        function hideLoading() {
+            $('#loading').removeClass('is-active'); 
+        }
+
+   </script>
+
     @yield('scripts')
 </body>
 </html>

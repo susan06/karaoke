@@ -4,10 +4,10 @@
  * Authentication
  */
 
-Route::get('login', 'Auth\AuthController@getLoginPin');
-Route::post('login', 'Auth\AuthController@postLoginPin');
+Route::get('login', 'Auth\AuthController@getLoginFacebook');
 
-//Route::get('login', 'Auth\AuthController@getLoginFacebook');
+Route::get('login-pin', 'Auth\AuthController@getLoginPin');
+Route::post('login-pin', 'Auth\AuthController@postLoginPin');
 
 Route::get('/panel', [
     'as' => 'get.panel',
@@ -100,6 +100,13 @@ Route::delete('profile/sessions/{session}/invalidate', [
     'as' => 'profile.sessions.invalidate',
     'uses' => 'ProfileController@invalidateSession'
 ]);
+
+Route::get('send/pin', [
+    'as' => 'send.pin',
+    'uses' => 'ProfileController@sendPin'
+]);
+
+
 
 /**
  * User Management

@@ -64,7 +64,7 @@ class AuthController extends Controller
      */
     public function getLoginPin()
     {
-        session()->put('login', 'user');
+        session()->put('login', 'pin');
 
         return view('auth.loginPin');
     }
@@ -136,13 +136,13 @@ class AuthController extends Controller
 
         if (! Auth::validate($credentials)) {
 
-            return redirect()->to('login')->withErrors(trans('auth.failed'));
+            return redirect()->to('login-pin')->withErrors(trans('auth.failed'));
         }
 
         $user = Auth::getProvider()->retrieveByCredentials($credentials);
 
         if ($user->isBanned()) {
-            return redirect()->to('login')->withErrors(trans('app.your_account_is_banned'));
+            return redirect()->to('login-pin')->withErrors(trans('app.your_account_is_banned'));
         }
 
         Auth::login($user, true);
@@ -284,6 +284,9 @@ class AuthController extends Controller
         Auth::logout();
 
         if ($role) {
+            if(Session::get('login') == 'pin') {
+                return redirect('login-pin');
+            }
             return redirect('login');
         }
 

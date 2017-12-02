@@ -26,8 +26,15 @@
                           </a></p>
                           @endif
                         @endif
+                        <p><a href="{{ route('send.pin') }}" onclick="showLoading();" class="white">
+                              <i class="icon_mail_alt"></i> Enviar Pin
+                          </a></p>
+                         @if ($user->birthday)
                         <p><i class="icon_calendar"></i> {{$user->birthday}}</p>
+                        @endif
+                         @if ($user->phone)
                         <p><i class="icon_phone"></i> {{$user->phone}}</p>
+                        @endif
                     </div>
                 </div>
               </div>

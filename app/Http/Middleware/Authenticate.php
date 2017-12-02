@@ -36,7 +36,10 @@ class Authenticate
     public function handle($request, Closure $next)
     {
         if ($this->auth->guest()) {
-
+            if(Session::get('login') == 'pin') {
+                return redirect()->guest('login-pin');
+            }
+            
             return redirect()->guest('login');
             
         }

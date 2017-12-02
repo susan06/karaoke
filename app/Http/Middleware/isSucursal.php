@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Auth;
 use Closure;
+use Session;
 use Illuminate\Contracts\Auth\Guard;
 
 class isSucursal
@@ -48,6 +49,10 @@ class isSucursal
 
         } else {
 
+            if(Session::get('login') == 'pin') {
+                return redirect()->guest('login-pin');
+            }
+            
             return redirect()->guest('login');
         }
 

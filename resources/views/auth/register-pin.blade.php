@@ -51,6 +51,9 @@ width: 100%;
             <div class="input-group col-md-12 col-xs-12">
               <button class="btn btn-primary btn-lg btn-block" type="submit">@lang('app.register')</button>
             </div>
+            <label class="checkbox">
+                <span class=""> <a href="{{url('login-pin')}}" onclick="showLoading();">Regresar a Login</a></span>
+            </label>
         </div>
   {!! Form::close() !!}
 
@@ -58,14 +61,6 @@ width: 100%;
 
 @section('scripts')
    <script> 
-    function showLoading() {
-        $('#loading').addClass('is-active');
-    }
-
-    function hideLoading() {
-        $('#loading').removeClass('is-active'); 
-    }
-
     (function ($, document) {
         $(document).ready(function () {
             $("#login-form").on("submit", function () {

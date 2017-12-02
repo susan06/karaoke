@@ -44,11 +44,11 @@ width: 100%;
                 <input type="tel" name="pin-3" id="pin-3" maxlength="1" pattern="[0-9]" disabled="disabled" data-order="3" class="input-pin" autocomplete="off">
                 <input type="tel" name="pin-4" id="pin-4" maxlength="1" pattern="[0-9]" disabled="disabled" data-order="4" class="input-pin input-last" autocomplete="off">
             </div>
-            <label class="checkbox" style="padding-left: 0px;">
-                <span class="pull-left"> <a href="{{url('register')}}"> @lang('app.register')</a></span>
-                <span class="pull-right"> <a href="{{url('password/remind?pin=1')}}"> @lang('app.i_forgot_my_pin')</a></span>
-            </label>
             <input class="btn btn-primary btn-lg btn-block btn-pin-login disabled" type="submit" value="@lang('app.log_in')">
+            <label class="checkbox" style="padding-left: 0px;">
+                <span class="pull-left"> <a href="{{url('register')}}" onclick="showLoading();"> @lang('app.register')</a></span>
+                <span class="pull-right"> <a href="{{url('login')}}" onclick="showLoading();"> Entrar por Facebook</a></span>
+            </label>
         </div>
 	{!! Form::close() !!}
 

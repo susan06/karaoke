@@ -20,6 +20,8 @@ use App\User;
 use Auth;
 use Authy;
 use Illuminate\Http\Request;
+use App\Mailers\UserMailer;
+use Password;
 
 /**
  * Class ProfileController
@@ -201,4 +203,64 @@ class ProfileController extends Controller
         return redirect()->route('profile.sessions')
             ->withSuccess(trans('app.session_invalidated'));
     }
+
+    /**
+     * Handle a registration request for the application.
+     *
+     */
+    public function sendPin(UserMailer $mailer)
+    {
+        $password = $this->generateRandomPin(4);
+        $theUser = $this->theUser;
+        $token = Password::getRepository()->create($theUser);
+
+        $credentials = [
+            'email' => $theUser->email, 
+            'password' => $password, 
+            'password_confirmation' => $password, 
+            'token' => $token
+        ];
+
+        $mailer->sendPin($theUser, $password);
+
+        $response = Password::reset($credentials, function ($user, $password) {
+            $this->resetPassword($user, $password);
+        });
+
+        switch ($response) {
+            case Password::PASSWORD_RESET:
+                return redirect()->back()->with('success', 'Se ha enviado su pin a su correo.');
+
+            default:
+                return redirect()->back()->with('Errors',  'No se puede enviar el pin, intente de nuevo');
+        }
+    }
+
+    /**
+     * generate random pin
+     *
+     */
+    public function generateRandomPin($length) {
+        $characters = '123456789';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+     }
+
+    /**
+     * Reset the given user's password.
+     *
+     * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
+     * @param  string  $password
+     * @return void
+     */
+    protected function resetPassword($user, $password)
+    {
+        $user->password = $password;
+        $user->save();
+    }
+
 }

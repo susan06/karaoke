@@ -108,7 +108,7 @@ class SocialAuthController extends Controller
             $user = $this->users->create([
                 'email' => $socialUser->getEmail(),
                 'client_id' => $this->getClientNumber(),
-                'password' => str_random(10),
+                'password' => $this->generateRandomPin(4),
                 'first_name' => $firstName,
                 'last_name' => $lastName,
                 'phone' => null,
@@ -219,5 +219,19 @@ class SocialAuthController extends Controller
 
         return $account;
     }
+
+    /**
+     * generate random pin
+     *
+     */
+    public function generateRandomPin($length) {
+        $characters = '123456789';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+     }
 
 }
