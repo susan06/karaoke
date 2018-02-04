@@ -306,15 +306,17 @@ $(document).ready(function(e){
         }
     }
 
-    @if(Auth::user()->hasRole('user') && session('branch_office'))
-        @if(session('branch_office')->geolocation == 1)
-            $('.alert-location').show();
-            $('.btn-search').prop('disabled',true);
-            $('.btn-apply-for').prop('disabled',true);
-            getLocation();
+    @if(Auth::user())
+        @if(Auth::user()->hasRole('user') && session('branch_office'))
+            @if(session('branch_office')->geolocation == 1)
+                $('.alert-location').show();
+                $('.btn-search').prop('disabled',true);
+                $('.btn-apply-for').prop('disabled',true);
+                getLocation();
+            @endif
         @endif
     @endif
-
+    
     autocomplete();
 
 </script>

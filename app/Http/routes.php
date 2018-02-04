@@ -499,3 +499,25 @@ Route::get('reservation/reminder', [
     'as' => 'reservation.reminder',
     'uses' => 'CronController@reminder'
 ]);
+
+
+Route::get('search-songs', [
+    'as' => 'search',
+    'uses' => 'SearchController@index'
+]);
+
+Route::get('search-songs/ajax/search',
+    'SearchController@searchAutocomplete')
+->name('song.search.ajax.simple');
+
+Route::get('search-songs/search/ajax/by/client',
+    'SearchController@searchByClient')
+->name('song.search.ajax.client.simple');
+
+Route::get('search-songs/apply/for',
+    'SearchController@applySong')
+->name('song.apply.for.simple');
+
+Route::post('search-songs/login-pin',
+    'Auth\AuthController@postLoginPinSearch')
+->name('search-songs.login-pin');

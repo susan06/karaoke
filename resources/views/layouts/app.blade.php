@@ -42,15 +42,21 @@
        /* table-related media query stuff only */
     </style>
     <!--<![endif]-->
-    
-    @if (Auth::user()->hasRole('dj'))
-    <style type="text/css">
-        #main-content {
-            margin-left: 0px;
-        }
-    </style>
+    @if (Auth::user() && Auth::user()->hasRole('dj'))
+        <style type="text/css">
+            #main-content {
+                margin-left: 0px;
+            }
+        </style>
     @endif
-    @if(Agent::isMobile() && Auth::user()->hasRole('user'))
+    @if(Request::is('search-songs*')) 
+        <style type="text/css">
+            #main-content {
+                margin-left: 0px;
+            }
+        </style>
+    @endif
+    @if(Auth::user() && Agent::isMobile() && Auth::user()->hasRole('user'))
     <style type="text/css">
         #sidebar {
             display: none;
@@ -76,7 +82,7 @@
 
     @include('partials.header')
 
-    @if (!Auth::user()->hasRole('dj'))
+    @if (Auth::user() && !Auth::user()->hasRole('dj'))
     @include('partials.menu')
     @endif
 
@@ -117,24 +123,50 @@
             jQuery(window).on('load', responsiveView);
             jQuery(window).on('resize', responsiveView);
         });
+
+        function onlyNumber(order){
+            var tecla_final = document.getElementById("pin-"+order).value;
+            if(tecla_final.length == 1 && tecla_final >= 0 && tecla_final <= 9) {
+                $('#pin-'+order).addClass('input-success');
+                var next = order + 1;
+                $('#pin-'+next).prop('disabled', false);
+                $('#pin-'+next).focus();
+                return true;
+            }
+            document.getElementById("pin-"+order).value = '';
+            return false;
+        }
+
+        $(document).on('keyup touchend', '.input-pin', function(evt){ 
+            var order = $(this).data('order');
+            onlyNumber(order);  
+            var username = document.getElementById("username").value;
+            var p1 = document.getElementById("pin-1").value;
+            var p2 = document.getElementById("pin-2").value;
+            var p3 = document.getElementById("pin-3").value;
+            var p4 = document.getElementById("pin-4").value;
+            if(username.length > 1 && p1.length == 1 && p2.length == 1 && p3.length == 1 && p4.length == 1) {
+                $(".btn-pin-login").removeClass('disabled');
+            } else {
+                $(".btn-pin-login").addClass('disabled');
+            }  
+        });    
     </script>
 
     {!! HTML::script('assets/bootstrap/js/bootstrap.min.js') !!}
 
 
-    @if (Auth::user()->hasRole('user') && !session('branch_office'))
+    @if (Auth::user() && Auth::user()->hasRole('user') && !session('branch_office'))
         <script type="text/javascript">
             $('#modal_branch_offices').modal('show');
         </script>
     @endif
 
-    @if (Auth::user()->hasRole('user'))
-        <script type="text/javascript">
+    <script type="text/javascript">
         function change_branch_office(){
             $('#modal_branch_offices').modal('show');
         }
-        </script>
-    @endif
+    </script>
 
     {!! HTML::script('assets/plugins/js-cookie/js.cookie.js') !!}
 

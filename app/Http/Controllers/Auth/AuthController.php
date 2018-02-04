@@ -154,6 +154,46 @@ class AuthController extends Controller
         return redirect()->intended('/');
     }
 
+
+    /**
+     * Handle a login request to the application by Pin.
+     *
+     * @param LoginPinRequest $request
+     * @return \Illuminate\Http\Response
+     */
+    public function postLoginPinSearch(Request $request)
+    {
+        $throttles = Config('auth.throttle_enabled');
+        $username = $request->get('username');
+        $password = $request->get('pin');
+
+        $credentials = $this->getPinCredentials($username, $password);
+
+        if (! Auth::validate($credentials)) {
+            $response = [
+                'success' => false,
+                'status' => 'error',
+                'message' => trans('auth.failed')
+            ];
+        } else {
+            $user = Auth::getProvider()->retrieveByCredentials($credentials);
+
+            if ($user->isBanned()) {
+                $response = [
+                    'success' => false,
+                    'status' => 'error',
+                    'message' => trans('app.your_account_is_banned')
+                ];
+            } else {
+                $response = [
+                    'success' => true,
+                    'user_id' => $user->id
+                ];
+            }
+        } 
+
+        return response()->json($response);
+    }
     /**
      * Get the needed authorization credentials from the request.
      *

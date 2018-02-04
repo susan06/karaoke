@@ -3,7 +3,7 @@
           <div id="sidebar"  class="nav-collapse ">
                <!--sidebar menu start-->
               <ul class="sidebar-menu">                
-                @if (Auth::user()->hasRole('superAdmin'))  
+                @if (Auth::user() && Auth::user()->hasRole('superAdmin'))  
                   <li class="{{ Request::is('/') ? 'active' : ''  }}">
                       <a class="" href="{{route('dashboard')}}">
                           <i class="icon_house_alt"></i>
@@ -58,7 +58,7 @@
                       </ul>
                   </li>
                 @endif   
-                @if (Auth::user()->hasRole('admin')) 
+                @if (Auth::user() && Auth::user()->hasRole('admin')) 
                   <li class="{{ Request::is('clients*') ? 'active' : ''  }}">
                       <a href="{{route('user.client.index')}}" class="">
                           <i class="fa fa-user"></i>
@@ -89,7 +89,7 @@
                       </a>
                   </li> 
                 @endif  
-                @if (Auth::user()->hasRole('user'))
+                @if (Auth::user() && Auth::user()->hasRole('user'))
                   @if(session('branch_office'))
                   <li class="">
                     @if(session('branch_offices'))

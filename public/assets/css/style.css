@@ -5543,3 +5543,18 @@ button-c.button-c:disabled {
     font-weight: unset;
     padding: 0 5px;
 }
+
+
+.input-pin {
+    width: 22.2%; 
+    display: inline-block;  
+    margin-right: 9px; 
+    padding: 10px 20px;
+    text-align: center;
+}
+.input-first {
+   margin-left: 0px; 
+}
+.input-last {
+   margin-right: 0px; 
+}
