@@ -187,22 +187,33 @@ class ReservationsController extends Controller
      */
     public function reserveByClient(Request $request, NotificationMailer $mailer)
     {
+        $user_id = ($request->user_id) ? $request->user_id : Auth::id();
         $data = [
-                'num_table' => $request->num_table, 
-                'user_id' => Auth::id(),
-                'branch_office_id' => session('branch_office')->id,
-                'date' => date_format(date_create($request->date), 'Y-m-d'),
-                'time' => $request->time
+          'num_table' => $request->num_table, 
+          'user_id' => $user_id,
+          'branch_office_id' => session('branch_office')->id,
+          'date' => date_format(date_create($request->date), 'Y-m-d'),
+          'time' => $request->time
         ];
         $canCreate = $this->reservations->canAdd($data);
         if ( $canCreate['success'] ) {
             $reservation = $this->reservations->create($data); 
+            $message_alert = false;
             if(session('branch_office')->notification_email_reservation == 1) {
-              $mailer->sendReservation($reservation, Auth::user());
+              try {
+                $user = $this->users->find($user_id);
+                $mailer->sendReservation($reservation, $user);
+              } 
+              catch(\Swift_TransportException $e){
+              $message_alert = 'Se ha guardado su reserva, pero falló la conexión para el envio de la notificación a la administración.';
+              }
+              catch (\Exception $e) {
+                $message_alert = 'Se ha guardado su reserva, pero falló el envio de la notificación a la administración.';
+              }
             }
             $response = [
                 'success' => true,
-                'correo' => session('branch_office')->email_reservations
+                'message_alert' => $message_alert
             ];
         } else {
             $response = [

@@ -500,7 +500,7 @@ Route::get('reservation/reminder', [
     'uses' => 'CronController@reminder'
 ]);
 
-
+/* search song without auth */
 Route::get('search-songs', [
     'as' => 'search',
     'uses' => 'SearchController@index'
@@ -521,3 +521,13 @@ Route::get('search-songs/apply/for',
 Route::post('search-songs/login-pin',
     'Auth\AuthController@postLoginPinSearch')
 ->name('search-songs.login-pin');
+
+/* reservation without auth */
+Route::get('reservation-simple', [
+    'as' => 'reservation.simple',
+    'uses' => 'ReservationSimpleController@index'
+]);
+
+Route::post('reservation-simple/by/client/ajax',
+    'ReservationSimpleController@reserveByClient')
+    ->name('reservation.simple.client.ajax');

@@ -96,13 +96,13 @@
                             @if(session('branch_offices'))
                               <a href="javascript::void(0)" class="dropdown-toggle" onclick="change_branch_office()">
                                   <i class="icon_genius"></i>
-                                  <span>Sucursal: {{ session('branch_office')->name }}</span>
+                                  <span>{{ session('branch_office')->name }}</span>
                               </a>
                             @else
                               @if(session('branch_office'))
                               <a href="javascript::void(0)" class="">
                                   <i class="icon_genius"></i>
-                                  <span>Sucursal: {{ session('branch_office')->name }}</span>
+                                  <span>{{ session('branch_office')->name }}</span>
                               </a>
                               @endif
                             @endif

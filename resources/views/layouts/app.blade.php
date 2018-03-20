@@ -49,7 +49,7 @@
             }
         </style>
     @endif
-    @if(Request::is('search-songs*')) 
+    @if(Request::is('search-songs*') ||Request::is('reservation-simple*')) 
         <style type="text/css">
             #main-content {
                 margin-left: 0px;

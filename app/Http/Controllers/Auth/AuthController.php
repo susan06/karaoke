@@ -482,7 +482,8 @@ class AuthController extends Controller
             $request->only('email', 'username', 'first_name', 'last_name'),
             [
                 'status' => $status,
-                'password' => $password
+                'password' => $password,
+                'client_id' => $this->getClientNumber()
             ]
         ));
 
@@ -497,6 +498,13 @@ class AuthController extends Controller
         return redirect('login')->with('success', $message);
     }
 
+    public function getClientNumber(){
+     do{
+        $rand = $this->generateRandomString(4);
+      }while(! empty($this->users->where('client_id',$rand)->first()) );
+
+       return $rand;
+    }
 
     /**
      * generate random pin
