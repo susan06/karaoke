@@ -151,9 +151,8 @@ class AuthController extends Controller
 
         session()->put('username', $user->username);
 
-        return redirect()->intended('/');
+        return redirect()->intended('/dashboard');
     }
-
 
     /**
      * Handle a login request to the application by Pin.
@@ -194,6 +193,45 @@ class AuthController extends Controller
 
         return response()->json($response);
     }
+
+    /**
+     * Handle a login request to the application by nick.
+     *
+     * @param LoginPinRequest $request
+     * @return \Illuminate\Http\Response
+     */
+    public function postLoginNickSearch(Request $request)
+    {
+        $throttles = Config('auth.throttle_enabled');
+        $username = $request->get('username');
+
+        $user = $this->users->where('username', $username)->first();
+
+        if (! $user ) {
+            $response = [
+                'success' => false,
+                'status' => 'error',
+                'message' => 'El usuario no existe.'
+            ];
+        } else {
+
+            if ($user->isBanned()) {
+                $response = [
+                    'success' => false,
+                    'status' => 'error',
+                    'message' => trans('app.your_account_is_banned')
+                ];
+            } else {
+                $response = [
+                    'success' => true,
+                    'user_id' => $user->id
+                ];
+            }
+        } 
+
+        return response()->json($response);
+    }
+
     /**
      * Get the needed authorization credentials from the request.
      *
@@ -239,7 +277,7 @@ class AuthController extends Controller
             return redirect()->to($request->get('to'));
         }
 
-        return redirect()->intended('/');
+        return redirect()->intended('/dashboard');
     }
 
     protected function logoutAndRedirectToTokenPage(Request $request, Authenticatable $user)
@@ -280,7 +318,7 @@ class AuthController extends Controller
 
         event(new LoggedIn($user));
 
-        return redirect()->intended('/');
+        return redirect()->intended('/dashboard');
     }
 
     /**

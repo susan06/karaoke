@@ -92,7 +92,7 @@
                             </ul>
                         </li>
                     @else
-                        <li class="dropdown">
+                        <li class="dropdown" style="display: inline-flex;">
                             @if(session('branch_offices'))
                               <a href="javascript::void(0)" class="dropdown-toggle" onclick="change_branch_office()">
                                   <i class="icon_genius"></i>
@@ -106,6 +106,9 @@
                               </a>
                               @endif
                             @endif
+                            <a href="{{ url('login') }}" class="">
+                                <span>Login</span>
+                            </a>
                         </li>
                     @endif
                     <!-- user login dropdown end -->

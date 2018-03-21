@@ -131,8 +131,15 @@ $(document).on('click', '.btn-apply-for', function () {
             function(isConfirm){   
                 if (isConfirm) { 
                     swal.close();
-                    $('#nick').val('');
-                    $('#modal_login_nick').modal('show');
+                    $('#username').val('');
+                    $('#pin-1').val('');
+                    $('#pin-2').val('');
+                    $('#pin-3').val('');
+                    $('#pin-4').val('');
+                    $('#pin-2').prop('disabled', true);
+                    $('#pin-3').prop('disabled', true);
+                    $('#pin-4').prop('disabled', true);
+                    $('#modal_login').modal('show');
                 }           
             }
         ) 
@@ -143,14 +150,15 @@ $(document).on('click', '.pagination a', function (e) {
     e.preventDefault();
 });
 
-$(document).on('click', '.btn-pin-login-nick', function (e) {
+$(document).on('click', '.btn-pin-login', function (e) {
    showLoading();
-   var username = $('#nick').val();
+   var username = $('#username').val();
+   var pin = $('#pin-1').val()+$('#pin-2').val()+$('#pin-3').val()+$('#pin-4').val();
     $.ajax({
         type: 'POST',
-        url: '{{route("search-songs.login-nick")}}',
+        url: '{{route("search-songs.login-pin")}}',
         dataType: 'json',
-        data: { 'username': username },
+        data: { 'username': username, 'pin': pin },
         success: function (response) { 
             hideLoading();
             if(response.success) {
@@ -186,7 +194,7 @@ function storeSong(user_id) {
         success: function (request) { 
             row.addClass(request.status); 
             $this.attr('disabled', request.disabled);
-            $('#modal_login_nick').modal('hide'); 
+            $('#modal_login').modal('hide'); 
             hideLoading(); 
             swal({   
                 title: request.message,     

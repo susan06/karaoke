@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\User;
 use App\Song;
 use App\Playlist;
@@ -48,6 +49,7 @@ class SearchController extends Controller
      */
     public function index(Request $request)
     {
+        $this->getLogout();
         $branch_offices = $this->branch_offices->all();
         $branch_office = $branch_offices->first();
 
@@ -121,7 +123,18 @@ class SearchController extends Controller
             ];
         }
             
-        return response()->json($response);
-        
+        return response()->json($response);   
+    }
+
+    /**
+     * Log the user out of the application.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getLogout()
+    {
+        if(Auth::user()) {
+              Auth::logout();
+        }
     }
 }

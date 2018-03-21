@@ -44,4 +44,21 @@
   </div>
 </div>
 
+<!--login Modal-->
+<div class="modal fade" id="modal_login_nick" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content" style="background: #fff; max-width: 350px;margin-left: auto; margin-right: auto;">
+      <div class="login-form" id="login-form-nick" style="margin: 0px auto 0px auto;">
+         <div class="login-wrap">
+            <p class="login-img"><i class="icon_lock_alt blue"></i></p>
+            <div class="input-group">
+              <span class="input-group-addon"><i class="icon_profile"></i></span>
+              <input type="text" name="username" id="nick" class="form-control" placeholder="@lang('app.username')" value="" autofocus>
+            </div>
+            <buttom class="btn btn-primary btn-lg btn-block btn-pin-login-nick">Validar mi usuario</buttom>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <!-- /.modal --> 

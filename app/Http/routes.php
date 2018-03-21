@@ -53,6 +53,11 @@ Route::get('auth/{provider}/callback', 'Auth\SocialAuthController@handleProvider
  */
 
 Route::get('/', [
+    'as' => 'search',
+    'uses' => 'SearchController@index'
+]);
+
+Route::get('/dashboard', [
     'as' => 'dashboard',
     'uses' => 'DashboardController@index'
 ]);
@@ -521,6 +526,10 @@ Route::get('search-songs/apply/for',
 Route::post('search-songs/login-pin',
     'Auth\AuthController@postLoginPinSearch')
 ->name('search-songs.login-pin');
+
+Route::post('search-songs/login-nick',
+    'Auth\AuthController@postLoginNickSearch')
+->name('search-songs.login-nick');
 
 /* reservation without auth */
 Route::get('reservation-simple', [
