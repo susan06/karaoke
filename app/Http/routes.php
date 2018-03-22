@@ -385,6 +385,10 @@ Route::get('reservations/branchs',
 
 Route::get('reservations-store',
     'ReservationsController@clientStore')
+    ->name('reservation.clientStore.session')->middleware('sucursal');
+
+Route::get('reservations/store',
+    'ReservationsController@clientStore')
     ->name('reservation.clientStore')->middleware('sucursal');
 
 Route::post('reservations/status/update',
