@@ -10,6 +10,7 @@ use App\Http\Requests\Auth\Social\SaveEmailRequest;
 use App\Repositories\Role\RoleRepository;
 use App\Repositories\User\UserRepository;
 use App\Support\Enum\UserStatus;
+use Illuminate\Http\Request;
 use Auth;
 use Session;
 use Socialite;
@@ -56,7 +57,7 @@ class SocialAuthController extends Controller
      * @param $provider
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function handleProviderCallback($provider)
+    public function handleProviderCallback($provider, Request $request)
     {
         $socialUser = $this->getUserFromProvider($provider);
 
@@ -66,7 +67,10 @@ class SocialAuthController extends Controller
             $user = $this->createOrAssociateAccountForUser($socialUser, $provider);
         }
 
-        return $this->loginAndRedirect($user);
+         //Redirect URL that can be passed as hidden field.
+        $to = $request->has('to') ? "?to=" . $request->get('to') : false;
+
+        return $this->loginAndRedirect($user, $to);
     }
 
     /**
@@ -192,12 +196,18 @@ class SocialAuthController extends Controller
      * @param $user
      * @return \Illuminate\Http\RedirectResponse
      */
-    private function loginAndRedirect($user)
+    private function loginAndRedirect($user, $to = false)
     {
         Auth::login($user);
 
         if(! $user->email) {
             return redirect()->route('profile')->withProfile(true);
+        }
+
+        $to_reservation = session()->get('to_reservation');
+        if ($to_reservation) {
+            Session::forget('to_reservation');
+            return redirect($to_reservation);
         }
 
         return redirect()->route('dashboard');

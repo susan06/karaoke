@@ -273,7 +273,7 @@ class AuthController extends Controller
 
         event(new LoggedIn($user));
 
-        if ($request->has('to')) {
+        if ($request->has('to') && !Auth::user()->hasRole('dj')) {
             return redirect()->to($request->get('to'));
         }
 
@@ -358,6 +358,7 @@ class AuthController extends Controller
 
         Session::forget('branch_office');
         Session::forget('branch_offices');
+        Session::forget('to_reservation');
 
         Auth::logout();
 

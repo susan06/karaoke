@@ -46,7 +46,8 @@ Route::get('auth/{provider}/login', [
     'middleware' => 'social.login'
 ]);
 
-Route::get('auth/{provider}/callback', 'Auth\SocialAuthController@handleProviderCallback');
+Route::get('auth/{provider}/callback', 
+    'Auth\SocialAuthController@handleProviderCallback');
 
 /**
  * Other
@@ -382,7 +383,7 @@ Route::get('reservations/branchs',
     'ReservationsController@index')
     ->name('reservation.client.index')->middleware('sucursal');
 
-Route::get('reservations/store',
+Route::get('reservations-store',
     'ReservationsController@clientStore')
     ->name('reservation.clientStore')->middleware('sucursal');
 

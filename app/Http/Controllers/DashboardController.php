@@ -6,6 +6,7 @@ use App\Repositories\Activity\ActivityRepository;
 use App\Repositories\User\UserRepository;
 use App\Support\Enum\UserStatus;
 use Auth;
+use Session;
 use Carbon\Carbon;
 use App\Repositories\BranchOffice\BranchOfficeRepository;
 
@@ -56,9 +57,16 @@ class DashboardController extends Controller
             return $this->adminDashboard();
         }
 
+        $to_reservation = session()->get('to_reservation');
+        if($to_reservation && Auth::user()->hasRole('user')) {
+            Session::forget('to_reservation');
+            return redirect($to_reservation);
+        }
+
         if (Auth::user()->hasRole('user')) {
             return redirect()->route('song.search');
         }
+
 
         if (Auth::user()->hasRole('admin')) {
 

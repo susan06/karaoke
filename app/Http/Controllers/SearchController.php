@@ -50,6 +50,7 @@ class SearchController extends Controller
     public function index(Request $request)
     {
         $this->getLogout();
+        session()->put('to_reservation', 'reservations-store');
         $branch_offices = $this->branch_offices->all();
         $branch_office = $branch_offices->first();
 
@@ -106,7 +107,11 @@ class SearchController extends Controller
     public function applySong(Request $request)
     {
         try {
-            $this->playlists->create(['song_id' => $request->id, 'user_id' => $request->user_id, 'branch_office_id' => session('branch_office')->id ]);
+            $this->playlists->create([
+                'song_id' => $request->id, 
+                'nick' => $request->nick, 
+                'branch_office_id' => session('branch_office')->id 
+            ]);
             $song = $this->songs->find($request->id); 
             $response = [
                 'success' => true,

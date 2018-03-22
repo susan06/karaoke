@@ -145,44 +145,18 @@ $(document).on('click', '.pagination a', function (e) {
 
 $(document).on('click', '.btn-pin-login-nick', function (e) {
    showLoading();
-   var username = $('#nick').val();
-    $.ajax({
-        type: 'POST',
-        url: '{{route("search-songs.login-nick")}}',
-        dataType: 'json',
-        data: { 'username': username },
-        success: function (response) { 
-            hideLoading();
-            if(response.success) {
-                storeSong(response.user_id);
-            } else {
-                swal({   
-                    title: response.message,     
-                    type: response.status,   
-                    showCancelButton: false,    
-                    confirmButtonText: 'OK'
-                }); 
-            }
-        },
-        error: function (request, status, error) {
-            hideLoading(); 
-            swal({   
-                title: 'Verifique sus crendeciales si son correctas',     
-                type: 'error',   
-                showCancelButton: false,    
-                confirmButtonText: 'OK'
-            }); 
-        } 
-    }) 
+   var nick = $('#nick').val();
+   storeSong(nick);
 });
 
-function storeSong(user_id) {
+function storeSong(nick) {
+    console.log(nick);
     showLoading();
     $.ajax({
         type: 'GET',
         url: '{{route("song.apply.for.simple")}}',
         dataType: 'json',
-        data: { 'id': id_song, 'user_id': user_id },
+        data: { 'id': id_song, 'nick': nick },
         success: function (request) { 
             row.addClass(request.status); 
             $this.attr('disabled', request.disabled);

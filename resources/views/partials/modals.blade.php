@@ -53,9 +53,9 @@
             <p class="login-img"><i class="icon_lock_alt blue"></i></p>
             <div class="input-group">
               <span class="input-group-addon"><i class="icon_profile"></i></span>
-              <input type="text" name="username" id="nick" class="form-control" placeholder="@lang('app.username')" value="" autofocus>
+              <input type="text" name="nick" id="nick" class="form-control" placeholder="@lang('app.name')" value="" autofocus>
             </div>
-            <buttom class="btn btn-primary btn-lg btn-block btn-pin-login-nick">Validar mi usuario</buttom>
+            <buttom class="btn btn-primary btn-lg btn-block btn-pin-login-nick">Guardar canción a mi nombre</buttom>
         </div>
       </div>
     </div>

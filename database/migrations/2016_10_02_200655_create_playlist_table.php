@@ -16,7 +16,8 @@ class CreatePlaylistTable extends Migration
         {
             $table->increments('id');
             $table->integer('song_id')->unsigned();
-            $table->integer('user_id')->unsigned();
+            $table->integer('user_id')->unsigned()->nullable(); 
+            $table->string('nick')->nullable(); 
             $table->boolean('play_status')->default(false);
             $table->integer('branch_office_id')->unsigned()->nullable();  
             $table->timestamps();

@@ -17,7 +17,7 @@ class Playlist extends Model
     
     public $timestamps = true;
 
-    protected $fillable = ['song_id', 'user_id', 'branch_office_id', 'play_status'];
+    protected $fillable = ['song_id', 'user_id', 'branch_office_id', 'play_status', 'nick'];
 
     protected $casts = [
         'play_status' => 'boolean'

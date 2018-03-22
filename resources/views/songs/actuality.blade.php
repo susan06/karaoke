@@ -65,7 +65,13 @@
                                                 <td>{{$playlist->song->artist}}</td>
                                                 @if (Auth::user()->hasRole('dj')) 
                                                 <td>{{ date_format(date_create($playlist->created_at), 'h:m A') }}</td>
-                                                <td>{{$playlist->user->present()->name}}</td>
+                                                <td>
+                                                    @if($playlist->user_id)
+                                                    {{$playlist->user->present()->name}}
+                                                    @else
+                                                    {{$playlist->nick}}
+                                                    @endif
+                                                </td>
                                                 <td id="status_{{$playlist->id}}">
                                                 @if($playlist->play_status)
                                                   <strong>@lang('app.placed')</strong>

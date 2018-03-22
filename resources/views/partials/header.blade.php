@@ -106,7 +106,7 @@
                               </a>
                               @endif
                             @endif
-                            <a href="{{route('reservation.index')}}" class="">
+                            <a href="{{route('reservation.clientStore')}}" class="">
                                 <span>Reservas</span>
                             </a>
                         </li>

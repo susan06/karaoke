@@ -39,7 +39,7 @@ class Authenticate
             if(Session::get('login') == 'pin') {
                 return redirect()->guest('login-pin');
             }
-            
+
             return redirect()->guest('login');
             
         }
