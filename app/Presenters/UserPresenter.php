@@ -15,7 +15,11 @@ class UserPresenter extends Presenter
 
     public function nameOrEmail()
     {
-        return trim($this->entity->first_name) ?: $this->entity->email;
+        $name =  $this->entity->first_name.' '.$this->entity->last_name;
+        if($this->entity->first_name) {
+            return $name;
+        } 
+        return $this->entity->email;
     }
 
     public function avatar()

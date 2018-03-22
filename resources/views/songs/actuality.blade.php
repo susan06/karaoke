@@ -67,7 +67,7 @@
                                                 <td>{{ date_format(date_create($playlist->created_at), 'h:m A') }}</td>
                                                 <td>
                                                     @if($playlist->user_id)
-                                                    {{$playlist->user->present()->name}}
+                                                    {{$playlist->user->present()->nameOrEmail}}
                                                     @else
                                                     {{$playlist->nick}}
                                                     @endif
