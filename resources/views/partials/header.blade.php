@@ -106,8 +106,8 @@
                               </a>
                               @endif
                             @endif
-                            <a href="{{ url('login') }}" class="">
-                                <span>Login</span>
+                            <a href="{{route('reservation.index')}}" class="">
+                                <span>Reservas</span>
                             </a>
                         </li>
                     @endif
