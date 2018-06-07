@@ -52,7 +52,7 @@ class ReservationsController extends Controller
         RoleRepository $roles,
         CouponRepository $coupons
     ){
-        $this->middleware('auth');
+        $this->middleware('auth', ['except' => ['clientStore', 'reserveByClient']]);
         $this->reservations = $reservations;
         $this->branch_offices = $branch_offices;
         $this->users = $users;
@@ -120,8 +120,11 @@ class ReservationsController extends Controller
         } 
 
         if ($request->branch_office_id) {
-            $branch_office = $this->branch_offices->find($request->branch_office_id);
-            session()->put('branch_office', $branch_office); 
+          $branch_office = $this->branch_offices->find($request->branch_office_id);
+          session()->put('branch_office', $branch_office); 
+        } else {
+          $branch_office = $this->branch_offices->first();
+          session()->put('branch_office', $branch_office); 
         }
 
         return view('reservations.store');
@@ -137,14 +140,33 @@ class ReservationsController extends Controller
         $data = ['status' => $request->status];
         $reservation = $this->reservations->update($request->id, $data);
         if ( $reservation ) {
+            $message_alert = null;
             if(Auth::user()->hasRole('admin') && $request->status == 1 || $request->status == 2) {
-              $mailer->sendStatusReservation($reservation);
+              try {
+               $mailer->sendStatusReservation($reservation);
+              } 
+              catch(\Swift_TransportException $e){
+                $message_alert = 'Se ha cambiado el estado, pero falló la conexión para el envio de la notificación a la administración.';
+              }
+              catch (\Exception $e) {
+                $message_alert = $e->getMessage();
+              }
             }
             if(Auth::user()->hasRole('user') && $request->status == 3 && $reservation->notification_email_reservation == 1) {
-              $mailer->sendStatusReservationAdmin($reservation, Auth::user());
+              $message_alert = null;
+              try {
+               $mailer->sendStatusReservationAdmin($reservation, Auth::user());
+              } 
+              catch(\Swift_TransportException $e){
+                $message_alert = 'Se ha cambiado el estado, pero falló la conexión para el envio de la notificación a la administración.';
+              }
+              catch (\Exception $e) {
+                $message_alert = $e->getMessage();
+              }
             }
             $response = [
-                'success' => true
+                'success' => true,
+                'message_alert' => $message_alert
             ];
         } else {
             $response = [
@@ -165,11 +187,21 @@ class ReservationsController extends Controller
         $data = ['arrival' => true];
         $reservation = $this->reservations->update($request->id, $data);
         if ( $reservation ) {
+            $message_alert = null;
             if(Auth::user()->hasRole('user') && $reservation->notification_email_reservation == 1) {
+              try {
                 $mailer->sendStatusReservationAdmin($reservation, Auth::user());
+              } 
+              catch(\Swift_TransportException $e){
+                $message_alert = 'Se ha cambiado el estado, pero falló la conexión para el envio de la notificación a la administración.';
+              }
+              catch (\Exception $e) {
+                $message_alert = $e->getMessage();
+              }
             }
             $response = [
-                'success' => true
+                'success' => true,
+                'message_alert' => $message_alert
             ];
         } else {
             $response = [
@@ -187,42 +219,56 @@ class ReservationsController extends Controller
      */
     public function reserveByClient(Request $request, NotificationMailer $mailer)
     {
+      if($request->name_user) {
+         $user_id = null;
+         $data_user = [
+          'name' => $request->name_user,
+          'phone' => $request->phone_user,
+          'email' => $request->email_user
+         ];
+         $data_user = json_encode($data_user);
+      } else {
         $user_id = ($request->user_id) ? $request->user_id : Auth::id();
-        $data = [
-          'num_table' => $request->num_table, 
-          'user_id' => $user_id,
-          'branch_office_id' => session('branch_office')->id,
-          'date' => date_format(date_create($request->date), 'Y-m-d'),
-          'time' => $request->time
-        ];
-        $canCreate = $this->reservations->canAdd($data);
-        if ( $canCreate['success'] ) {
-            $reservation = $this->reservations->create($data); 
-            $message_alert = false;
-            if(session('branch_office')->notification_email_reservation == 1) {
-              try {
+        $data_user = null;
+      }
+      $data = [
+        'num_table' => $request->num_table, 
+        'user_id' => $user_id,
+        'branch_office_id' => session('branch_office')->id,
+        'date' => date_format(date_create($request->date), 'Y-m-d'),
+        'time' => $request->time,
+        'data_user' => $data_user
+      ];
+      $canCreate = $this->reservations->canAdd($data);
+      if ( $canCreate['success'] ) {
+          $reservation = $this->reservations->create($data); 
+          $message_alert = false;
+          if(session('branch_office')->notification_email_reservation == 1) {
+            try {
+              if($user_id) {
                 $user = $this->users->find($user_id);
                 $mailer->sendReservation($reservation, $user);
               } 
-              catch(\Swift_TransportException $e){
-              $message_alert = 'Se ha guardado su reserva, pero falló la conexión para el envio de la notificación a la administración.';
-              }
-              catch (\Exception $e) {
-                $message_alert = 'Se ha guardado su reserva, pero falló el envio de la notificación a la administración.';
-              }
+            } 
+            catch(\Swift_TransportException $e){
+            $message_alert = 'Se ha guardado su reserva, pero falló la conexión para el envio de la notificación a la administración.';
             }
-            $response = [
-                'success' => true,
-                'message_alert' => $message_alert
-            ];
-        } else {
-            $response = [
-                'success' => false,
-                'message' => $canCreate['message']
-            ];  
-        }
+            catch (\Exception $e) {
+              $message_alert = 'Se ha guardado su reserva, pero falló el envio de la notificación a la administración.';
+            }
+          }
+          $response = [
+              'success' => true,
+              'message_alert' => $message_alert
+          ];
+      } else {
+          $response = [
+              'success' => false,
+              'message' => $canCreate['message']
+          ];  
+      }
             
-        return response()->json($response);
+      return response()->json($response);
     }
 
     /**

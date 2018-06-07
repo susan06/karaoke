@@ -92,7 +92,7 @@ class EloquentReservation extends Repository implements ReservationRepository
                 'message' => 'La mesa ya ha sido reservada, modifique la fecha o la hora'
             ];
         }
-        if($reservation) {
+        if($reservation && $attributes['user_id'] != null) {
             return [
                 'success' => false, 
                 'message' => 'Ya tiene una reserva con la mesa: '.$attributes['num_table'].' para el día '.date_format(date_create($attributes['date']), 'd-m-Y'). ' a las '.$attributes['time'] 

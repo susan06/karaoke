@@ -34,12 +34,8 @@
                                    data-placement="top"
                                    data-toggle="popover"
                                    title="Datos del cliente"
-                                   data-content="
-                                   nombre: {{ $reservation->user->first_name . ' ' . $reservation->user->last_name }} <br>
-                                   email: {{ $reservation->user->email }} <br>
-                                   Télefono: {{ $reservation->user->phone }}
-                                    ">
-                                    {{ $reservation->user->first_name . ' ' . $reservation->user->last_name }}
+                                   data-content="{!! $reservation->data_user() !!}">
+                                   {{ $reservation->name_user() }}
                                 </a>
                           </td>
                           @endif

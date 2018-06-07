@@ -2,12 +2,22 @@
 
 @section('page-title', trans('app.reservation_table'))
 
+@if(!Auth::user())
+  @section('styles')
+  <style type="text/css">
+      #main-content {
+          margin-left: 0px;
+      }
+  </style>
+  @endsection
+@endif
+
 @section('content')
 
     <div class="row">
         <div class="col-lg-12">
             <h3 class="page-header"><i class="icon_refresh"></i> @lang('app.reservation_table') 
-            @if(session('branch_office') && Auth::user()->hasRole('user')) / Sucursal: {{ session('branch_office')->name }} @endif</h3>
+            @if(session('branch_office')) / Sucursal: {{ session('branch_office')->name }} @endif</h3>
         </div>
     </div>
 
@@ -99,6 +109,26 @@
                         Desde las {{ session('branch_office')->reservation_time_min }} Hasta las {{ session('branch_office')->reservation_time_max }}
                       @endif
                 </div>
+                @if(!Auth::user())
+                <div class="row form-group">
+                    <label class="control-label col-lg-2 col-xs-3">Nombre y Apellido</label>
+                    <div class="col-lg-6 col-sm-6 col-xs-12">
+                        <input type="text" name="name_user" id="name_user" class="form-control" required="required"/>
+                    </div>
+                </div>
+                 <div class="row form-group">
+                    <label class="control-label col-lg-2 col-xs-3">Email</label>
+                    <div class="col-lg-6 col-sm-6 col-xs-12">
+                        <input type="text" name="email_user" id="email_user" class="form-control" required="required"/>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <label class="control-label col-lg-2 col-xs-3">Télefono</label>
+                    <div class="col-lg-4 col-sm-4 col-xs-12">
+                        <input type="text" name="phone_user" id="phone_user" class="form-control" required="required"/>
+                    </div>
+                </div>
+                @endif
             </div>
           </div>
           <div class="modal-footer">

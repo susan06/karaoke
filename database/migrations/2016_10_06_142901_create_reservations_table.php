@@ -17,6 +17,7 @@ class CreateReservationsTable extends Migration
             $table->increments('id');
             $table->integer('num_table')->unsigned();
             $table->integer('user_id')->unsigned();
+            $table->string('data_user')->nullable();
             $table->integer('branch_office_id')->unsigned()->nullable();
             $table->integer('coupon_id')->unsigned()->nullable();
             $table->date('date');

@@ -106,9 +106,15 @@
                               </a>
                               @endif
                             @endif
-                            <a href="{{route('reservation.clientStore')}}" class="">
-                                <span>Reservas</span>
-                            </a>
+                            @if(Request::is('reservations/store')) 
+                                <a href="{{route('search')}}" class="">
+                                    <span>Buscar Canciones</span>
+                                </a>
+                            @else
+                                <a href="{{route('reservation.clientStore')}}" class="">
+                                    <span>Reservas</span>
+                                </a>
+                            @endif
                         </li>
                     @endif
                     <!-- user login dropdown end -->

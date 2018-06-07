@@ -46,7 +46,22 @@ abstract class Repository implements RepositoryInterface
     {
         return $this->model->create($attributes);
     }
-    
+
+    /**
+     * first
+     *
+     * first model.
+     *
+     * @param array $attributes
+     *
+     * @return Model
+     *
+     */
+    public function first()
+    {
+        return $this->model->first();
+    }
+
     /**
      * First or create.
      *

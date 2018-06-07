@@ -298,7 +298,11 @@ $(document).on('click', '.btn-status', function() {
                     $this.text('Aprobar Reserva');
                 }
             }
-            swal.close();
+            if(request.message_alert) {
+              swal("@lang('app.info')", request.message_alert, "success");
+            } else {
+              swal.close();
+            }
         }
     }) 
 })
@@ -336,7 +340,11 @@ $(document).on('click', '.btn-status-cancel', function() {
                           $('#input_status_'+id).val(status);
                           document.getElementById('status_'+id).innerHTML = status_text;
                           $this.hide();
-                          swal.close();
+                          if(request.message_alert) {
+                            swal("@lang('app.info')", request.message_alert, "success");
+                          } else {
+                            swal.close();
+                          }
                       }
                   }
               })                              

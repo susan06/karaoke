@@ -50,6 +50,7 @@ class Kernel extends HttpKernel
         'ability' => \Zizaco\Entrust\Middleware\EntrustAbility::class,
         'session.database' => \App\Http\Middleware\DatabaseSession::class,
         'sucursal' => \App\Http\Middleware\isSucursal::class,
+        'SucursalDefault' => \App\Http\Middleware\SucursalDefault::class,
 
     ];
 }

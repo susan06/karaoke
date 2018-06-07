@@ -21,6 +21,7 @@ class Reservation extends Model
     protected $fillable = [
         'num_table', 
         'user_id', 
+        'data_user',
         'date', 
         'time', 
         'status', 
@@ -99,6 +100,43 @@ class Reservation extends Model
         }
 
         return $class;
+    }
+
+    public function data_user() {
+        $data = null;
+        if($this->user_id) {
+            $data = null;
+            $data = 'nombre: '.$this->user->first_name . ' ' . $this->user->last_name .'<br>';
+            $data = $data.'email: '.$this->user->email.'<br>';
+            $data = $data.'Télefono: '.$this->user->phone;
+        }
+
+        if($this->data_user) {
+            $data = null;
+            $user = json_decode($this->data_user);
+            $data = 'nombre: '.$user->name.'<br>';
+            $data = $data.'email: '.$user->email.'<br>';
+            $data = $data.'Télefono: '.$user->phone.'<br>';
+            $data = $data.'Usuario no registrado';
+        }
+
+        return $data;
+    }
+
+    public function name_user() {
+        $data = null;
+        if($this->user_id) {
+            $data = null;
+            $data = $this->user->first_name . ' ' . $this->user->last_name;
+        }
+
+        if($this->data_user) {
+            $data = null;
+            $user = json_decode($this->data_user);
+            $data = $user->name;
+        }
+
+        return $data;
     }
 
     public function user()

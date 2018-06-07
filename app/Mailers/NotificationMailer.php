@@ -54,8 +54,14 @@ class NotificationMailer extends AbstractMailer
         $view = 'emails.notifications.status_reservation_client';
         $data = ['reservation' => $reservation];
         $subject = 'Estatus de su reservación - '.Settings::get('app_name').' - Sucursal: '.$reservation->branchoffice->name;
-
-        $this->sendTo($reservation->user->email, $subject, $view, $data);
+        if($reservation->user_id){
+            $email = $reservation->user->email;
+        }
+        if($reservation->data_user){
+            $user = json_decode($reservation->data_user);
+            $email = $user->email;
+        }
+        $this->sendTo($email, $subject, $view, $data);
     }
 
     public function sendGroupfieReservation(Reservation $reservation)

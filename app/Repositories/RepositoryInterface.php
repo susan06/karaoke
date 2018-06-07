@@ -28,6 +28,18 @@ interface RepositoryInterface
     public function create(array $attributes);
 
     /**
+     * first
+     *
+     * first model.
+     *
+     * @param array $attributes
+     *
+     * @return Model
+     *
+     */
+    public function first();
+
+    /**
      * First or create.
      *
      * First and returns the first record if
