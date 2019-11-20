@@ -47,7 +47,9 @@ width: 100%;
             <input class="btn btn-primary btn-lg btn-block btn-pin-login disabled" type="submit" value="@lang('app.log_in')">
             <label class="checkbox" style="padding-left: 0px;">
                 <span class="pull-left"> <a href="{{url('register')}}" onclick="showLoading();"> @lang('app.register')</a></span>
+                <!--
                 <span class="pull-right"> <a href="{{url('login')}}" onclick="showLoading();"> Entrar por Facebook</a></span>
+                -->
             </label>
         </div>
 	{!! Form::close() !!}

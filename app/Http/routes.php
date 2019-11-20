@@ -4,9 +4,13 @@
  * Authentication
  */
 
-Route::get('login', 'Auth\AuthController@getLoginFacebook');
+//Route::get('login', 'Auth\AuthController@getLoginFacebook');
 
-Route::get('login-pin', 'Auth\AuthController@getLoginPin');
+Route::get('login', function () {
+    return redirect()->route('login-pin');
+});
+
+Route::get('login-pin', 'Auth\AuthController@getLoginPin')->name('login-pin');
 Route::post('login-pin', 'Auth\AuthController@postLoginPin');
 
 Route::get('/panel', [
