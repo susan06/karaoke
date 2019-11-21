@@ -17,7 +17,7 @@
     <div class="row">
         <div class="col-lg-12">
             <h3 class="page-header"><i class="icon_refresh"></i> @lang('app.reservation_table') 
-            @if(session('branch_office')) / Sucursal: {{ session('branch_office')->name }} @endif</h3>
+            @if(session('branch_office')) / <b>Sucursal: {{ session('branch_office')->name }} </b> @endif</h3>
         </div>
     </div>
 
@@ -182,13 +182,17 @@
      });
    
     $(document).on('click', '.reserv', function () {
-      $this = $(this); 
-      var table = $this.data("id");
-      document.getElementById("datetimepicker1").value = "";
-      document.getElementById("datetimepicker2").value = time_min_text;
-      document.getElementById("table").value = table;
-      $("#num_table").text(table);
-      $('#myModal').modal("show");
+        @if(!session('branch_office') or is_null(session('branch_office')))
+            $('#modal_branch_offices').modal('show');
+        @else
+          $this = $(this);
+          var table = $this.data("id");
+          document.getElementById("datetimepicker1").value = "";
+          document.getElementById("datetimepicker2").value = time_min_text;
+          document.getElementById("table").value = table;
+          $("#num_table").text(table);
+          $('#myModal').modal("show");
+        @endif
     });
 
 $(document).on('click', '#btn-reserved', function (e) {

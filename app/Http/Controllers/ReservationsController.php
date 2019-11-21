@@ -117,14 +117,18 @@ class ReservationsController extends Controller
 
         if ( count($branch_offices) > 1 && !session('branch_offices')) {
             session()->put('branch_offices', $this->branch_offices->lists_actives()); 
-        } 
+        }
 
-        if ($request->branch_office_id) {
-          $branch_office = $this->branch_offices->find($request->branch_office_id);
-          session()->put('branch_office', $branch_office); 
+        if ($request->branch_office_id && $request->branch_office_id !== '') {
+            $branch_office = $this->branch_offices->find($request->branch_office_id);
+            if ($branch_office) {
+                session()->put('branch_office', $branch_office);
+            }
         } else {
-          $branch_office = $this->branch_offices->first();
-          session()->put('branch_office', $branch_office); 
+            if (count($branch_offices) === 1) {
+                session()->put('branch_office',$branch_offices->first());
+            }
+            session()->put('branch_office', null);
         }
 
         return view('reservations.store');

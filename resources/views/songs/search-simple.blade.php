@@ -14,7 +14,10 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa-play-circle"></i> @lang('app.ask_song') @if(session('branch_office')) / Sucursal: {{ session('branch_office')->name }} @endif
+            <h3 class="page-header">
+                <i class="fa fa-play-circle"></i>
+                @lang('app.ask_song') @if(session('branch_office')) / <b> Sucursal: {{ session('branch_office')->name }}</b> @endif
+            </h3>
         </div>
     </div>
 
@@ -39,7 +42,8 @@
                     <div class="row">    
                         <div class="col-lg-7 col-sm-8 col-xs-12 margin_search">
                             <div class="input-group">         
-                                <input type="text" class="form-control" name="q" id="search" placeholder="@lang('app.search_song_artist')">
+                                <input type="text" class="form-control" name="q" id="search" value="{{isset($textSongToSearch) ? $textSongToSearch : null}}"
+                                       placeholder="@lang('app.search_song_artist')">
                                 <span class="input-group-btn">
                                     <button class="btn btn-primary btn-search" type="button"><span class="fa fa-search"></span></button>
                                     <button class="btn btn-danger" type="button" id="reset_search"><span class="icon_close_alt2"></span></button>
@@ -94,11 +98,11 @@ $(document).ready(function(e){
             autocomplete();
             start_search();
         }    
-    })
+    });
 
     $('.btn-search').click(function() {
         start_search();
-    })
+    });
 
     $('#reset_search').click(function() {
         if ($('#search').val()) { 
@@ -107,7 +111,7 @@ $(document).ready(function(e){
             autocomplete();
             reset_search();
         }
-    })
+    });
 
 });
 
@@ -116,11 +120,15 @@ var row = null;
 var $this = null;
 
 $(document).on('click', '.btn-apply-for', function () {
+
+        @if(!session('branch_office') or is_null(session('branch_office')))
+            $('#modal_branch_offices').modal('show');
+        @else
         $this = $(this);
         row = $this.closest('tr');
         id_song = $this.data('id');
         swal({   
-            title: $this.data('confirm-title'),   
+            title: "Sucursal {{session('branch_office')->name}}",
             text: $this.data('confirm-text'),   
             type: "warning",   
             showCancelButton: true,   
@@ -135,7 +143,8 @@ $(document).on('click', '.btn-apply-for', function () {
                     $('#modal_login_nick').modal('show');
                 }           
             }
-        ) 
+        )
+        @endif
 });
 
 $(document).on('click', '.pagination a', function (e) {
@@ -148,6 +157,17 @@ $(document).on('click', '.btn-pin-login-nick', function (e) {
    var nick = $('#nick').val();
    storeSong(nick);
 });
+
+$(document).on('submit', '#form_modal_branch_offices', function (e) {
+    e.preventDefault();
+    if ($('#select_branch_office_id').val()) {
+        window.location.href = '?branch_office_id=' + $('#select_branch_office_id').val() + '&textSongToSearch=' + $('#search').val();
+    }
+});
+
+@if(isset($textSongToSearch) && !is_null($textSongToSearch))
+    start_search();
+@endif
 
 function storeSong(nick) {
     console.log(nick);
@@ -272,7 +292,7 @@ function showPosition(position) {
     var lng_site = position.coords.longitude.toFixed(6);
     var radio = 50;
 
-    @if(session('branch_office'))
+    @if(session('branch_office') && !is_null(session('branch_office')))
         var lat_site = {!! session('branch_office')->lat !!};
         var lng_site = {!! session('branch_office')->lng !!};
         var radio = {!! session('branch_office')->radio !!};
@@ -330,7 +350,7 @@ function showError(error) {
 }
 
 
-@if(session('branch_office'))
+@if(session('branch_office') && !is_null(session('branch_office')))
     @if(session('branch_office')->geolocation == 1)
         $('.alert-location').show();
         $('.btn-search').prop('disabled',true);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use Exception;
 use App\User;
 use App\Song;
 use App\Playlist;
@@ -42,32 +43,37 @@ class SearchController extends Controller
         $this->branch_offices = $branch_offices;
     }
 
-     /**
+    /**
      * Index search simple songs
-     *
-     * @return \Illuminate\View\View
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request)
     {
         $this->getLogout();
         session()->put('to_reservation', 'reservations-store');
         $branch_offices = $this->branch_offices->all();
-        $branch_office = $branch_offices->first();
+        $textSongToSearch = $request->textSongToSearch ? $request->textSongToSearch : null;
 
-        if ($request->branch_office_id) {
-            $branch_office = $this->branch_offices->find($request->branch_office_id);
-            session()->put('branch_office', $branch_office); 
+        if (count($branch_offices) > 1) {
+            session()->put('branch_offices', $this->branch_offices->lists_actives());
         }
 
-        if ( count($branch_offices) > 1) {
-            session()->put('branch_offices', $this->branch_offices->lists_actives()); 
-        } 
+        if ($request->branch_office_id && $request->branch_office_id !== '') {
+            $branch_office = $this->branch_offices->find($request->branch_office_id);
+            if ($branch_office) {
+                session()->put('branch_office', $branch_office);
+            }
+        } else {
+            if (count($branch_offices) === 1) {
+                session()->put('branch_office',$branch_offices->first());
+            }
+            session()->put('branch_office', null);
+        }
 
-        if(!session('branch_office') && !$request->branch_office_id) {
-            session()->put('branch_office', $branch_office); 
-        } 
+        //dd(session()->get('branch_office'));
 
-        return view('songs.search-simple', compact('branch_offices'));
+        return view('songs.search-simple', compact('branch_offices', 'textSongToSearch'));
     }
 
      /**
@@ -85,8 +91,9 @@ class SearchController extends Controller
 
     /**
      * Search songs by clients
-     *
-     * @return \Illuminate\View\View
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
      */
     public function searchByClient(Request $request)
     {
@@ -99,10 +106,10 @@ class SearchController extends Controller
         ]);
     }
 
-     /**
+    /**
      * Apply for song
-     *
-     * @param Song $song
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function applySong(Request $request)
     {
@@ -133,8 +140,6 @@ class SearchController extends Controller
 
     /**
      * Log the user out of the application.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function getLogout()
     {

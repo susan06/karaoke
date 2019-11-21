@@ -45,7 +45,10 @@
                                     @if(session('branch_offices'))
                                         @if(session('branch_office'))
                                             <li class="eborder-top">
-                                                <a href="#" onclick="change_branch_office()"><i class="icon_genius"></i> Sucursal: {{ session('branch_office')->name }}</a>
+                                                <a href="#" onclick="change_branch_office()">
+                                                    <i class="icon_genius"></i>
+                                                    Sucursal: {{ session('branch_office') ? session('branch_office')->name : 'Seleccionar Sucursal' }}
+                                                </a>
                                             </li>
                                         @endif
                                     @else
@@ -96,24 +99,36 @@
                             @if(session('branch_offices'))
                               <a href="javascript::void(0)" class="dropdown-toggle" onclick="change_branch_office()">
                                   <i class="icon_genius"></i>
-                                  <span>{{ session('branch_office')->name }}</span>
+                                  <span>{{ session('branch_office') ? session('branch_office')->name : 'Seleccionar Sucursal' }}</span>
                               </a>
                             @else
-                              @if(session('branch_office'))
+                              @if(session('branch_office') && !is_null(session('branch_office')))
                               <a href="javascript::void(0)" class="">
                                   <i class="icon_genius"></i>
                                   <span>{{ session('branch_office')->name }}</span>
                               </a>
                               @endif
                             @endif
-                            @if(Request::is('reservations/store')) 
-                                <a href="{{route('search')}}" class="">
-                                    <span>Buscar Canciones</span>
-                                </a>
+                            @if(Request::is('reservations/store'))
+                                    @if(session('branch_office') && !is_null(session('branch_office')))
+                                        <a href="{{route('search').'?branch_office_id='.session('branch_office')->id}}" class="">
+                                            <span>Buscar Canciones</span>
+                                        </a>
+                                    @else
+                                        <a href="{{route('search')}}" class="">
+                                            <span>Buscar Canciones</span>
+                                        </a>
+                                    @endif
                             @else
-                                <a href="{{route('reservation.clientStore')}}" class="">
-                                    <span>Reservas</span>
-                                </a>
+                                @if(session('branch_office') && !is_null(session('branch_office')))
+                                        <a href="{{route('reservation.clientStore').'?branch_office_id='.session('branch_office')->id}}" class="">
+                                            <span>Reservas</span>
+                                        </a>
+                                @else
+                                    <a href="{{route('reservation.clientStore')}}" class="">
+                                        <span>Reservas</span>
+                                    </a>
+                                @endif
                             @endif
                         </li>
                     @endif

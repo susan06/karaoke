@@ -37,7 +37,7 @@
                 <input type="tel" name="pin-3" id="pin-3" maxlength="1" pattern="[0-9]" disabled="disabled" data-order="3" class="input-pin" autocomplete="off">
                 <input type="tel" name="pin-4" id="pin-4" maxlength="1" pattern="[0-9]" disabled="disabled" data-order="4" class="input-pin input-last" autocomplete="off">
             </div>
-            <buttom class="btn btn-primary btn-lg btn-block btn-pin-login disabled">Validar mis credenciales</buttom>
+            <button class="btn btn-primary btn-lg btn-block btn-pin-login disabled">Validar mis credenciales</button>
         </div>
       </div>
     </div>
@@ -55,7 +55,7 @@
               <span class="input-group-addon"><i class="icon_profile"></i></span>
               <input type="text" name="nick" id="nick" class="form-control" placeholder="@lang('app.name')" value="" autofocus>
             </div>
-            <buttom class="btn btn-primary btn-lg btn-block btn-pin-login-nick">Guardar canción a mi nombre</buttom>
+            <button class="btn btn-primary btn-lg btn-block btn-pin-login-nick">Guardar canción a mi nombre</button>
         </div>
       </div>
     </div>
